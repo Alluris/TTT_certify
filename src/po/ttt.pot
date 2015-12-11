@@ -1,0 +1,485 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: TTT\n"
+"Report-Msgid-Bugs-To: software@alluris.de\n"
+"POT-Creation-Date: 2015-12-11 12:49+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../step.cpp:134
+msgid "Messgerät vorbelasten"
+msgstr ""
+
+#: ../step.cpp:137
+msgid "Messgerät entlasten"
+msgstr ""
+
+#: ../step.cpp:149
+msgid "Vorbereitung des Messgeräts"
+msgstr ""
+
+#: ../step.cpp:191
+msgid "Drehmoment-Schraubwerkzeug vorbelasten"
+msgstr ""
+
+#: ../step.cpp:194 ../step.cpp:558
+msgid "Drehmoment-Schraubwerkzeug entlasten"
+msgstr ""
+
+#: ../step.cpp:206
+msgid "Vorbereitung des Drehmoment-Schraubwerkzeug"
+msgstr ""
+
+#: ../step.cpp:251
+msgid ""
+"Drehmoment-Schraubwerkzeug entfernen und Messgerät für Tara nicht bewegen"
+msgstr ""
+
+#: ../step.cpp:254
+msgid "Messgerät nicht bewegen, Tara läuft"
+msgstr ""
+
+#: ../step.cpp:266
+msgid "Nullstellung des Messgeräts"
+msgstr ""
+
+#: ../step.cpp:305
+msgid "Drehmoment-Schraubwerkzeug aus dem Messgerät entnehmen und 5s warten"
+msgstr ""
+
+#: ../step.cpp:308
+msgid "Drehmoment-Schraubwerkzeug tarieren"
+msgstr ""
+
+#: ../step.cpp:320
+msgid "Nullstellung des Drehmoment-Schraubwerkzeug"
+msgstr ""
+
+#: ../step.cpp:383
+msgid "Drehmoment-Schraubwerkzeug mit Nominalwert belasten"
+msgstr ""
+
+#: ../step.cpp:386
+msgid ""
+"Drehmoment-Schraubwerkzeug mit Nominalwert belasten und anschließend "
+"entlasten"
+msgstr ""
+
+#: ../step.cpp:396
+msgid "Peakmessung Typ I"
+msgstr ""
+
+#: ../step.cpp:555
+msgid "Drehmoment-Schraubwerkzeug belasten bis es auslöst"
+msgstr ""
+
+#: ../step.cpp:563
+#, c-format
+msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
+msgstr ""
+
+#: ../step.cpp:567
+#, c-format
+msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
+msgstr ""
+
+#: ../step.cpp:578
+msgid "Peakmessung Typ II"
+msgstr ""
+
+#: ../ttt.cpp:176
+msgid "Kalibrierung innerhalb Toleranz"
+msgstr ""
+
+#: ../ttt.cpp:178
+msgid "#Kalibrierung innerhalb Toleranz jedoch Mindestzeit nicht eingehalten"
+msgstr ""
+
+#: ../ttt.cpp:180
+msgid "*Kalibrierung außerhalb Toleranz"
+msgstr ""
+
+#: ../ttt.cpp:182 ../ttt.cpp:193
+msgid "Kalibrierschein:"
+msgstr ""
+
+#: ../ttt.cpp:190
+msgid "Schnellkalibrierung innerhalb Toleranz"
+msgstr ""
+
+#: ../ttt.cpp:192
+msgid "*Schnellkalibrierung außerhalb Toleranz"
+msgstr ""
+
+#: ../ttt_gui.cpp:263
+msgid "Nominalwert muss <> 0 Nm sein"
+msgstr ""
+
+#: ../ttt_gui.cpp:268
+msgid ""
+"Das Intervall der maximalen relativen erweiterten Messunsicherheit\n"
+"aus Messgerät und Anwender muss kleiner als ein Viertel der\n"
+"höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs sein."
+msgstr ""
+
+#: ../ttt_gui.cpp:272
+msgid ""
+"Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 "
+"Kapitel 6.3"
+msgstr ""
+
+#: ../ttt_gui.cpp:276
+msgid ""
+"relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 "
+"Kapitel 6.3"
+msgstr ""
+
+#: ../ttt_gui.cpp:311
+msgid "Kalibrierung durch Benutzer abgebrochen"
+msgstr ""
+
+#: ../ttt_gui.cpp:343
+msgid "TTT certify v0.1.3 09.12.2015"
+msgstr ""
+
+#: ../ttt_gui.cpp:345
+msgid "Bearbeiter"
+msgstr ""
+
+#: ../ttt_gui.cpp:348
+msgid "Name"
+msgstr ""
+
+#. Fl_Input* inp_test_person_name
+#: ../ttt_gui.cpp:351
+msgid "Verantwortlicher"
+msgstr ""
+
+#. Fl_Input* inp_test_person_supervisor
+#. Fl_Input* mi_test_object_attachments
+#: ../ttt_gui.cpp:354 ../ttt_gui.cpp:451
+msgid "@filenew neu"
+msgstr ""
+
+#. Fl_Button* btn_test_person_new
+#. Fl_Button* btn_test_object_new
+#: ../ttt_gui.cpp:357 ../ttt_gui.cpp:454
+msgid "@filesave speichern"
+msgstr ""
+
+#. Fl_Button* btn_test_person_save
+#: ../ttt_gui.cpp:360 ../ttt_gui.cpp:375 ../ttt_gui.cpp:516
+msgid "id"
+msgstr ""
+
+#. Fl_Value_Input* vi_test_person_id
+#: ../ttt_gui.cpp:365
+msgid "Messunsicherheit [%]"
+msgstr ""
+
+#. Fl_Group* o
+#: ../ttt_gui.cpp:372
+msgid "Drehmoment-Schraubwerkzeug"
+msgstr ""
+
+#. Fl_Value_Input* vi_test_object_id
+#. Fl_Value_Output* vo_torque_tester_id
+#: ../ttt_gui.cpp:380 ../ttt_gui.cpp:518
+msgid "Seriennummer"
+msgstr ""
+
+#. Fl_Input* inp_test_object_serial
+#. Fl_Output* out_torque_tester_serial
+#: ../ttt_gui.cpp:383 ../ttt_gui.cpp:521
+msgid "Hersteller"
+msgstr ""
+
+#. Fl_Input* inp_test_object_manufacturer
+#: ../ttt_gui.cpp:386
+msgid "Modell"
+msgstr ""
+
+#. Fl_Input* inp_test_object_model
+#: ../ttt_gui.cpp:389
+msgid "DIN 6789 Typ"
+msgstr ""
+
+#. Fl_Choice* choice_test_object_type
+#: ../ttt_gui.cpp:403
+msgid "Funktionsrichtung"
+msgstr ""
+
+#. Fl_Choice* choice_test_object_dir_of_rotation
+#: ../ttt_gui.cpp:416
+msgid "Hebellänge [cm]"
+msgstr ""
+
+#: ../ttt_gui.cpp:417
+msgid ""
+"Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder "
+"des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist "
+"markiert;"
+msgstr ""
+
+#. Fl_Value_Input* vi_test_object_lever_length
+#: ../ttt_gui.cpp:424
+msgid "Unterer Grenzwert [Nm]"
+msgstr ""
+
+#: ../ttt_gui.cpp:425
+msgid "Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA"
+msgstr ""
+
+#. Fl_Value_Input* vi_test_object_min_torque
+#: ../ttt_gui.cpp:431
+msgid "Oberer Grenzwert [Nm]"
+msgstr ""
+
+#: ../ttt_gui.cpp:432
+msgid "Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE"
+msgstr ""
+
+#. Fl_Value_Input* vi_test_object_max_torque
+#. Fl_Value_Output* vo_torque_tester_max_torque
+#: ../ttt_gui.cpp:438 ../ttt_gui.cpp:540
+msgid "Auflösung [Nm]"
+msgstr ""
+
+#: ../ttt_gui.cpp:439
+msgid "Auflösung von der Anzeige r"
+msgstr ""
+
+#. Fl_Value_Input* vi_test_object_resolution
+#: ../ttt_gui.cpp:444
+msgid "Anbauteile"
+msgstr ""
+
+#: ../ttt_gui.cpp:445
+msgid ""
+"Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich "
+"Passstücke und austauschbarer Aufsätze"
+msgstr ""
+
+#. Fl_Button* btn_test_object_save
+#: ../ttt_gui.cpp:457
+msgid "Höchstzulässige Abweichung"
+msgstr ""
+
+#. Fl_Button* btn_result
+#: ../ttt_gui.cpp:460 ../ttt_gui.cpp:609
+msgid "%"
+msgstr ""
+
+#. Fl_Value_Input* vi_test_object_accuracy
+#: ../ttt_gui.cpp:466
+msgid "aus der DIN EN ISO 6789"
+msgstr ""
+
+#: ../ttt_gui.cpp:467
+msgid "Use DIN EN ISO 6789-1:2015 chapter 5.1.5"
+msgstr ""
+
+#. Fl_Round_Button* rb_accuracy_from_din6789
+#: ../ttt_gui.cpp:473
+msgid "Herstellerangabe"
+msgstr ""
+
+#. Fl_Group* o
+#: ../ttt_gui.cpp:481
+msgid "Klassifizierung"
+msgstr ""
+
+#. Fl_Group* o
+#: ../ttt_gui.cpp:494
+msgid "Umgebungsbedingungen"
+msgstr ""
+
+#: ../ttt_gui.cpp:495
+msgid "DIN EN ISO 6789-1:2015 6.3"
+msgstr ""
+
+#: ../ttt_gui.cpp:498
+msgid "Kalibriertemperatur [°C]"
+msgstr ""
+
+#: ../ttt_gui.cpp:499
+msgid "Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 18°C bis 28°C"
+msgstr ""
+
+#. Fl_Value_Input* vi_temperature
+#: ../ttt_gui.cpp:505
+msgid "relative Luftfeuchte [%rH]"
+msgstr ""
+
+#: ../ttt_gui.cpp:506
+msgid "Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 max. 90%"
+msgstr ""
+
+#. Fl_Group* o
+#: ../ttt_gui.cpp:513
+msgid "Messgerät"
+msgstr ""
+
+#. Fl_Output* out_torque_tester_manufacturer
+#: ../ttt_gui.cpp:524
+msgid "Model"
+msgstr ""
+
+#. Fl_Output* out_torque_tester_model
+#: ../ttt_gui.cpp:527
+msgid "Kalibrierdatum"
+msgstr ""
+
+#. Fl_Output* out_torque_tester_cal_date
+#: ../ttt_gui.cpp:530
+msgid "Kalibrierfälligkeit"
+msgstr ""
+
+#. Fl_Output* out_torque_tester_next_cal_date
+#: ../ttt_gui.cpp:534
+msgid "Kalibrierschein Nr."
+msgstr ""
+
+#. Fl_Output* out_torque_tester_cal_number
+#. Fl_Button* btn_start
+#. Fl_Round_Button* rb_ASME
+#: ../ttt_gui.cpp:537 ../ttt_gui.cpp:556 ../ttt_gui.cpp:595
+msgid "Nominalwert [Nm]"
+msgstr ""
+
+#. Fl_Value_Output* vo_torque_tester_resolution
+#: ../ttt_gui.cpp:543
+msgid "erweiterte Messunsicherheit [%]"
+msgstr ""
+
+#. Fl_Group* o
+#: ../ttt_gui.cpp:549
+msgid "Prüfung"
+msgstr ""
+
+#: ../ttt_gui.cpp:552
+msgid "Start"
+msgstr ""
+
+#. Fl_Value_Output* vo_nominal_value
+#: ../ttt_gui.cpp:563
+msgid "aktueller Schritt"
+msgstr ""
+
+#. Fl_Dial* dial_torque
+#: ../ttt_gui.cpp:571
+msgid "Stopp"
+msgstr ""
+
+#. Fl_Button* btn_stop
+#: ../ttt_gui.cpp:575
+msgid "Bestätigung"
+msgstr ""
+
+#. Fl_Button* btn_confirm
+#: ../ttt_gui.cpp:579
+msgid "Prüfverfahren"
+msgstr ""
+
+#: ../ttt_gui.cpp:582
+msgid "Schnellprüfung"
+msgstr ""
+
+#. Fl_Round_Button* rb_quick_peak
+#: ../ttt_gui.cpp:587
+msgid "DIN EN ISO 6789-1"
+msgstr ""
+
+#. Fl_Round_Button* rb_din_6789
+#: ../ttt_gui.cpp:591
+msgid "ASME"
+msgstr ""
+
+#. Fl_Group* o
+#: ../ttt_gui.cpp:600
+msgid "Messwert [Nm]"
+msgstr ""
+
+#. Fl_Value_Output* vo_step_progress
+#: ../ttt_gui.cpp:613
+msgid "Anweisung"
+msgstr ""
+
+#. Fl_Text_Display* td_instruction
+#: ../ttt_gui.cpp:618
+msgid "Zeitüberwachung"
+msgstr ""
+
+#: ../ttt_gui.cpp:619
+msgid "Mindestzeitraum nach DIN EN ISO 6789-1:2015 Kapitel 6.2.4"
+msgstr ""
+
+#: ../ttt_gui.cpp:622
+msgid "Wiederholung bis normgerecht"
+msgstr ""
+
+#. Fl_Round_Button* rb_repeat_until_okay
+#: ../ttt_gui.cpp:627
+msgid "keine Wiederholung"
+msgstr ""
+
+#: ../cairo_print_devices.c:5481
+msgid "Schlüssel mit Drehstab oder Biegestab"
+msgstr ""
+
+#: ../cairo_print_devices.c:5486
+msgid ""
+"Schlüssel mit festem Gehäuse, mit Skale oder Messuhr oder elektronischer "
+"Anzeige"
+msgstr ""
+
+#: ../cairo_print_devices.c:5491
+msgid "Schlüssel mit festem Gehäuse und elektronischer Messung"
+msgstr ""
+
+#: ../cairo_print_devices.c:5496
+msgid "Schraubendreher, mit Skale oder Messuhr oder elektronischer Anzeige"
+msgstr ""
+
+#: ../cairo_print_devices.c:5501
+msgid "Schraubendreher mit elektronischer Messung"
+msgstr ""
+
+#: ../cairo_print_devices.c:5506
+msgid "Schlüssel, verstellbar, mit Skale oder elektronischer Anzeige"
+msgstr ""
+
+#: ../cairo_print_devices.c:5511
+msgid "Schlüssel, fest eingestellt"
+msgstr ""
+
+#: ../cairo_print_devices.c:5516
+msgid "Schlüssel, verstellbar, ohne Skale"
+msgstr ""
+
+#: ../cairo_print_devices.c:5521
+msgid "Schraubendreher, verstellbar, mit Skale oder elektronischer Anzeige"
+msgstr ""
+
+#: ../cairo_print_devices.c:5526
+msgid "Schraubendreher, fest eingestellt"
+msgstr ""
+
+#: ../cairo_print_devices.c:5531
+msgid "Schraubendreher, verstellbar, ohne Skale"
+msgstr ""
+
+#: ../cairo_print_devices.c:5536
+msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
+msgstr ""

@@ -1,0 +1,20 @@
+Vorbelastung preload
+Vorbelastungszyklen Preloading cycles
+Prüfling test object
+
+
+//oss << "Bitte belasten bis Gerät auslöst";
+oss << gettext ("Please torque device until trigger");
+
+      //oss << "Bitte belasten bis Gerät auslöst und anschließend entlasten";
+oss << gettext ("Please torque device until trigger and release afterwards");
+
+      //oss << "Bitte mit Drehmoment von " << peak_torque << " Nm belasten";
+oss << gettext ("Please torque test object with ") << peak_torque << " " << gettext ("Nm");
+
+//oss << "Bitte mit Drehmoment von " << peak_torque << " Nm belasten und anschließend entlasten";
+oss << gettext ("Please torque test object with ") << peak_torque << " " << gettext ("Nm") << " "\
+    << gettext ("and release afterwards");
+
+    return "Peakmessung Typ I";
+    return "measurement type I";

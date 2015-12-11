@@ -1,0 +1,58 @@
+.PHONY:clean
+.PHONY:style
+.PHONY:TTT_certify_mingw64_i686_build
+
+TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db TTT_certify_mingw64_i686_build
+CPPFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -D FLTK_HAVE_CAIRO
+LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lintl
+
+all: $(TARGETS) test cairo_print_devices.c
+
+logfiles/inp.log:
+	cd logfiles && $(MAKE)
+
+ttt_gui.cpp ttt_gui.h: ttt_gui.f
+	fluid -o .cpp -c $<
+
+%.o:%.cpp %.h
+	g++ $(CPPFLAGS) -c $<
+
+%.o:%.c %.h
+	g++ $(CPPFLAGS) -c $<
+
+ttt_gui: ttt_gui.o ttt_gui_main.o ttt.o ttt_device.o step.o cairo_box.o sqlite_interface.o cairo_drawing_functions.o cairo_print_devices.o liballuris++.o liballuris.o
+	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+
+ttt_certify.db: create_database.sql fill_database.sql
+	sqlite3 ttt_certify.db < create_database.sql
+	sqlite3 ttt_certify.db < fill_database.sql
+
+style:
+	find . \( -name "*.m" -or -name "*.c*" -or -name "*.h" -or -name "Makefile" \) -exec sed -i 's/[[:space:]]*$$//' {} \;
+	find . \( -name "*.c*" -or -name "*.h" \) -exec astyle --style=gnu -s2 -n {} \;
+
+TTT_certify_mingw64_i686_build:
+	mkdir -p $@
+	cp ttt_certify.db ttt_gui.exe  $@
+	cp /mingw32/bin/libbz2-1.dll $@
+	cp /mingw32/bin/libcairo-2.dll $@
+	cp /mingw32/bin/libexpat-1.dll $@
+	cp /mingw32/bin/libfontconfig-1.dll $@
+	cp /mingw32/bin/libfreetype-6.dll $@
+	cp /mingw32/bin/libgcc_s_dw2-1.dll $@
+	cp /mingw32/bin/libglib-2.0-0.dll $@
+	cp /mingw32/bin/libharfbuzz-0.dll $@
+	cp /mingw32/bin/libiconv-2.dll $@
+	cp /mingw32/bin/libintl-8.dll $@
+	cp /mingw32/bin/libpixman-1-0.dll $@
+	cp /mingw32/bin/libpng16-16.dll $@
+	cp /mingw32/bin/libsqlite3-0.dll $@
+	cp /mingw32/bin/libstdc++-6.dll $@
+	cp /mingw32/bin/libusb-1.0.dll $@
+	cp /mingw32/bin/libwinpthread-1.dll $@
+	cp /mingw32/bin/zlib1.dll $@
+
+clean:
+	find . -name "octave-workspace" -exec rm {} \;
+	rm -f $(TARGETS)
+	rm -f *.log *.o
