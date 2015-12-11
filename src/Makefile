@@ -6,7 +6,7 @@ TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db
 CPPFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -D USE_X11 -D FLTK_HAVE_CAIRO
 LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo
 
-all: $(TARGETS) cairo_print_devices.c
+all: $(TARGETS)
 
 ttt_gui.cpp ttt_gui.h: ttt_gui.f
 	fluid -o .cpp -c $<
