@@ -14,6 +14,9 @@ decl {\#include <FL/fl_ask.H>} {public global
 decl {\#include <FL/Fl_Text_Display.H>} {public global
 } 
 
+decl {\#include <FL/Fl_Tooltip.H>} {public global
+} 
+
 decl {\#include "ttt.h"} {public global
 } 
 
@@ -36,7 +39,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.1.4 11.12.2015} open
-    xywh {291 104 1280 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2478 301 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -67,8 +70,18 @@ btn_test_person_abort->show ();}
       }
       Fl_Button btn_test_person_save {
         label {@filesave speichern}
-        callback {// insert into database
-int id = myTTT->new_test_person (inp_test_person_name->value(), inp_test_person_supervisor->value(), vi_test_person_uncertainty->value() / 100.0);
+        callback {string name = inp_test_person_name->value();
+string supervisor =  inp_test_person_supervisor->value();
+double uncertainty = vi_test_person_uncertainty->value() / 100.0;
+
+if (name.empty () || supervisor.empty () || uncertainty == 0.0)
+  {
+    fl_alert (gettext ("Name, Verantwortlicher und Messunsicherheit sind Pflichtfelder"));
+    return;
+  }
+
+// insert into database
+int id = myTTT->new_test_person (name, supervisor, uncertainty);
 vi_test_person_id->value (id);
 
 btn_test_person_abort->do_callback ();}
@@ -81,7 +94,7 @@ btn_test_person_abort->do_callback ();}
       }
       Fl_Value_Input vi_test_person_uncertainty {
         label {Messunsicherheit [%]}
-        xywh {686 281 60 25} maximum 100 step 0.1 deactivate
+        tooltip {Messunsicherheit durch den Bediener} xywh {686 281 60 25} maximum 100 step 0.1 deactivate
       }
       Fl_Button btn_test_person_abort {
         label {@undo abbrechen}
@@ -122,7 +135,7 @@ btn_test_person_abort->hide ();}
       Fl_Choice choice_test_object_type {
         label {DIN 6789 Typ}
         callback {update_test_object_type_class();
-update_test_object_accuracy();} open
+update_test_object_accuracy();} open selected
         xywh {174 172 210 28} down_box BORDER_BOX when 1 deactivate
       } {
         MenuItem {} {
@@ -264,16 +277,28 @@ double accuracy = 0;
 if (rb_manufacturer_accuracy->value())
   accuracy = vi_test_object_accuracy->value () / 100.0;
 
+// Pflichtfelder
+string serial = inp_test_object_serial->value ();
+string manufacturer = inp_test_object_manufacturer->value ();
+string model =  inp_test_object_model->value ();
+double max_torque = vi_test_object_max_torque->value ();
+
+if (serial.empty () || manufacturer.empty () || model.empty () || max_torque == 0)
+  {
+    fl_alert (gettext ("Seriennummer, Hersteller, Modell und oberer Grenzwert sind Pflichtfelder"));
+    return;
+  }
+
 // insert into database
 int id = myTTT->new_test_object
-  (inp_test_object_serial->value (),
-   inp_test_object_manufacturer->value (),
-   inp_test_object_model->value (),
+  (serial,
+   manufacturer,
+   model,
    type_class,
    choice_test_object_dir_of_rotation->value (),
    vi_test_object_lever_length->value ()/100.0,
    vi_test_object_min_torque->value (),
-   vi_test_object_max_torque->value (),
+   max_torque,
    vi_test_object_resolution->value (),
    mi_test_object_attachments->value (),
    accuracy);
@@ -392,7 +417,7 @@ btn_test_object_abort->hide ();}
     }
     Fl_Group {} {
       label {Prüfung} open
-      xywh {761 6 515 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      tooltip Drehrichtung xywh {761 6 515 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
         label Start
@@ -503,7 +528,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   {
    grp_rise_time->hide ();
    vi_single_peak->hide ();
-  }} selected
+  }}
         xywh {785 77 145 24} type Radio down_box ROUND_DOWN_BOX
       }
       Fl_Round_Button rb_din_6789 {
@@ -521,7 +546,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
       }
       Fl_Group grp_rise_time {
         label {Zeitüberwachung} open
-        xywh {915 125 270 65} align 4
+        tooltip {Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge} xywh {915 125 270 65} align 4
       } {
         Fl_Round_Button rb_repeat_until_okay {
           label {Wiederholung bis normgerecht}
@@ -534,7 +559,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
       }
       Fl_Button btn_direction {
         label {@+42redo}
-        xywh {980 260 75 70} deactivate
+        tooltip Drehrichtung xywh {980 260 70 70} box NO_BOX hide deactivate
       }
     }
   }
