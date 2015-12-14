@@ -169,6 +169,8 @@ int main(int argc, char **argv)
   td_instruction->buffer (instruction_buff);
   td_instruction->wrap_mode (Fl_Text_Display::WRAP_AT_BOUNDS, 0);
 
+  Fl_Tooltip::delay (0.5);
+
   mainwin->show(argc, argv);
 
 
