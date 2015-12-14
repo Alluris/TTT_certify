@@ -30,16 +30,20 @@ void update_nominal_torque(double v)
 
   if (v == 0)
     v = 10;
+  else if (v < 0)
+    v = -v;
+
   dial_torque->minimum (-v * 135/180);
   dial_torque->maximum (v * 135/180);
 }
 
 void update_indicated_torque(double v)
 {
+  double abs_nominal = abs (vo_nominal_value->value ());
   dial_torque->value (v);
-  if (abs(v) > vo_nominal_value->value ())
+  if (abs(v) > abs_nominal)
     dial_torque->color (FL_RED);
-  else if (abs(v) > 0.7 * vo_nominal_value->value ())
+  else if (abs(v) > 0.7 * abs_nominal)
     dial_torque->color (FL_YELLOW);
   else
     dial_torque->color (FL_GREEN);
@@ -52,13 +56,38 @@ void update_peak_torque(double v)
 
 void update_instruction(string s)
 {
-  if (s.size() && s.at(0) == '*')
+  char sp = 0;
+  if (s.size() > 0)
+    sp = s.at (0);
+
+  if (sp == '*')
     {
       td_instruction->textcolor (FL_RED);
       s = s.substr (1);
     }
   else
     td_instruction->textcolor (FL_BLACK);
+
+
+  // update direction button
+  int dir = 0;
+  if (sp == '+')
+    dir = 1;
+  else if (sp == '-')
+    dir = -1;
+
+  if (dir)
+    s = s.substr (1);
+
+  if (vo_nominal_value->value () < 0)
+    dir = -dir;
+
+  if (dir == 1)
+    btn_direction->copy_label ("@+42redo");
+  else if (dir == -1)
+    btn_direction->copy_label ("@+42undo");
+  else
+    btn_direction->copy_label ("");
 
   instruction_buff->text (s.c_str ());
 }
@@ -153,6 +182,7 @@ int main(int argc, char **argv)
       btn_test_object_save->hide ();
       btn_test_object_abort->hide ();
       btn_test_person_abort->hide ();
+      btn_direction->hide ();
 
       btn_result->hide ();
       vi_single_peak->hide ();

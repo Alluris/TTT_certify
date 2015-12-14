@@ -485,7 +485,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
         xywh {780 654 35 25} align 8 step 1
       }
       Fl_Text_Display td_instruction {
-        label Anweisung selected
+        label Anweisung
         xywh {780 340 480 114} labelsize 18 align 5 textsize 20
       }
       Fl_Round_Button rb_quick_peak {
@@ -503,7 +503,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   {
    grp_rise_time->hide ();
    vi_single_peak->hide ();
-  }}
+  }} selected
         xywh {785 77 145 24} type Radio down_box ROUND_DOWN_BOX
       }
       Fl_Round_Button rb_din_6789 {
@@ -531,6 +531,10 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
           label {keine Wiederholung}
           xywh {925 160 195 25} type Radio down_box ROUND_DOWN_BOX
         }
+      }
+      Fl_Button btn_direction {
+        label {@+42redo}
+        xywh {980 260 75 70} deactivate
       }
     }
   }
@@ -577,7 +581,12 @@ if (id > 0)
   choice_test_object_type->value (ind);
 
         rb_din_6789->setonly ();
-	grp_rise_time->show ();
+
+	//only Typ II devices are rise_time monitored
+	if (myTTT->test_object_is_type (2))
+	  grp_rise_time->show ();
+	else
+	  grp_rise_time->hide ();
 
         int dir =  myTTT->get_test_object_dir_of_rotation ();
   choice_test_object_dir_of_rotation->value (dir);
@@ -699,23 +708,31 @@ Function {update_run_activation()} {open
   btn_start->deactivate ();
   btn_stop->activate ();
   btn_confirm->activate ();
+  btn_direction->show ();
   vi_test_object_id->deactivate ();
   btn_test_object_new->deactivate ();
   vi_test_person_id->deactivate ();
   btn_test_person_new->deactivate ();
   vi_temperature->deactivate ();
   vi_humidity->deactivate ();
+  to_step->show ();
+  step_progress->show ();
+  vo_step_progress->show ();
 }
 else
 {
   btn_start->activate ();
   btn_stop->deactivate ();
   btn_confirm->deactivate ();
+  btn_direction->hide ();
   vi_test_object_id->activate ();
   btn_test_object_new->activate ();
   vi_test_person_id->activate ();
   btn_test_person_new->activate ();
   vi_temperature->activate ();
   vi_humidity->activate ();
+  to_step->hide ();
+  step_progress->hide ();
+  vo_step_progress->hide ();
 }} {}
 } 

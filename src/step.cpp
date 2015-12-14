@@ -133,10 +133,10 @@ string preload_torque_tester_step::instruction ()
   switch (int_step)
     {
     case 0:
-      oss << gettext ("Messgerät mit Nominalwert vorbelasten");
+      oss << gettext ("+Messgerät mit Nominalwert vorbelasten");
       break;
     case 1:
-      oss << gettext ("Messgerät entlasten");
+      oss << gettext ("-Messgerät entlasten");
       break;
     case 2:
       break;
@@ -190,10 +190,10 @@ string preload_test_object_step::instruction ()
   switch (int_step)
     {
     case 0:
-      oss << gettext ("Drehmoment-Schraubwerkzeug mit Nominalwert vorbelasten");
+      oss << gettext ("+Drehmoment-Schraubwerkzeug mit Nominalwert vorbelasten");
       break;
     case 1:
-      oss << gettext ("Drehmoment-Schraubwerkzeug entlasten");
+      oss << gettext ("-Drehmoment-Schraubwerkzeug entlasten");
       break;
     case 2:
       break;
@@ -382,7 +382,7 @@ string peak_meas_step::instruction ()
   switch (int_step)
     {
     case 0:
-      oss << gettext ("Drehmoment-Schraubwerkzeug mit Nominalwert belasten");
+      oss << gettext ("+Drehmoment-Schraubwerkzeug mit Nominalwert belasten");
       break;
     case 1:
       oss << gettext ("Drehmoment-Schraubwerkzeug mit Nominalwert belasten und anschließend entlasten");
@@ -554,10 +554,10 @@ string peak_click_step::instruction ()
     {
     case 0:
     case 1:
-      oss << gettext ("Drehmoment-Schraubwerkzeug belasten bis es auslöst");
+      oss << gettext ("+Drehmoment-Schraubwerkzeug belasten bis es auslöst");
       break;
     case 2:
-      oss << gettext ("Drehmoment-Schraubwerkzeug entlasten");
+      oss << gettext ("-Drehmoment-Schraubwerkzeug entlasten");
       break;
     case 3:
       break;
