@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2015-12-11 12:49+0100\n"
+"POT-Creation-Date: 2015-12-14 13:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,421 +17,395 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../step.cpp:134
-msgid "Messgerät vorbelasten"
+#: ../step.cpp:136
+msgid "+Messgerät mit Nominalwert vorbelasten"
 msgstr ""
 
-#: ../step.cpp:137
-msgid "Messgerät entlasten"
+#: ../step.cpp:139
+msgid "-Messgerät entlasten"
 msgstr ""
 
-#: ../step.cpp:149
+#: ../step.cpp:151
 msgid "Vorbereitung des Messgeräts"
 msgstr ""
 
-#: ../step.cpp:191
-msgid "Drehmoment-Schraubwerkzeug vorbelasten"
+#: ../step.cpp:193
+msgid "+Drehmoment-Schraubwerkzeug mit Nominalwert vorbelasten"
 msgstr ""
 
-#: ../step.cpp:194 ../step.cpp:558
-msgid "Drehmoment-Schraubwerkzeug entlasten"
+#: ../step.cpp:196 ../step.cpp:560
+msgid "-Drehmoment-Schraubwerkzeug entlasten"
 msgstr ""
 
-#: ../step.cpp:206
+#: ../step.cpp:208
 msgid "Vorbereitung des Drehmoment-Schraubwerkzeug"
 msgstr ""
 
-#: ../step.cpp:251
+#: ../step.cpp:253
 msgid ""
 "Drehmoment-Schraubwerkzeug entfernen und Messgerät für Tara nicht bewegen"
 msgstr ""
 
-#: ../step.cpp:254
+#: ../step.cpp:256
 msgid "Messgerät nicht bewegen, Tara läuft"
 msgstr ""
 
-#: ../step.cpp:266
+#: ../step.cpp:268
 msgid "Nullstellung des Messgeräts"
 msgstr ""
 
-#: ../step.cpp:305
+#: ../step.cpp:307
 msgid "Drehmoment-Schraubwerkzeug aus dem Messgerät entnehmen und 5s warten"
 msgstr ""
 
-#: ../step.cpp:308
+#: ../step.cpp:310
 msgid "Drehmoment-Schraubwerkzeug tarieren"
 msgstr ""
 
-#: ../step.cpp:320
+#: ../step.cpp:322
 msgid "Nullstellung des Drehmoment-Schraubwerkzeug"
 msgstr ""
 
-#: ../step.cpp:383
-msgid "Drehmoment-Schraubwerkzeug mit Nominalwert belasten"
+#: ../step.cpp:385
+msgid "+Drehmoment-Schraubwerkzeug mit Nominalwert belasten"
 msgstr ""
 
-#: ../step.cpp:386
+#: ../step.cpp:388
 msgid ""
 "Drehmoment-Schraubwerkzeug mit Nominalwert belasten und anschließend "
 "entlasten"
 msgstr ""
 
-#: ../step.cpp:396
+#: ../step.cpp:398
 msgid "Peakmessung Typ I"
 msgstr ""
 
-#: ../step.cpp:555
-msgid "Drehmoment-Schraubwerkzeug belasten bis es auslöst"
+#: ../step.cpp:557
+msgid "+Drehmoment-Schraubwerkzeug belasten bis es auslöst"
 msgstr ""
 
-#: ../step.cpp:563
+#: ../step.cpp:565
 #, c-format
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
 msgstr ""
 
-#: ../step.cpp:567
+#: ../step.cpp:569
 #, c-format
 msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
 msgstr ""
 
-#: ../step.cpp:578
+#: ../step.cpp:580
 msgid "Peakmessung Typ II"
 msgstr ""
 
-#: ../ttt.cpp:176
+#: ../ttt.cpp:178
 msgid "Kalibrierung innerhalb Toleranz"
 msgstr ""
 
-#: ../ttt.cpp:178
+#: ../ttt.cpp:180
 msgid "#Kalibrierung innerhalb Toleranz jedoch Mindestzeit nicht eingehalten"
 msgstr ""
 
-#: ../ttt.cpp:180
+#: ../ttt.cpp:182
 msgid "*Kalibrierung außerhalb Toleranz"
 msgstr ""
 
-#: ../ttt.cpp:182 ../ttt.cpp:193
+#: ../ttt.cpp:184 ../ttt.cpp:195
 msgid "Kalibrierschein:"
 msgstr ""
 
-#: ../ttt.cpp:190
+#: ../ttt.cpp:192
 msgid "Schnellkalibrierung innerhalb Toleranz"
 msgstr ""
 
-#: ../ttt.cpp:192
+#: ../ttt.cpp:194
 msgid "*Schnellkalibrierung außerhalb Toleranz"
 msgstr ""
 
-#: ../ttt_gui.cpp:263
+#: ../ttt_gui.cpp:41
+msgid "Name, Verantwortlicher und Messunsicherheit sind Pflichtfelder"
+msgstr ""
+
+#: ../ttt_gui.cpp:210
+msgid ""
+"Seriennummer, Hersteller, Modell und oberer Grenzwert sind Pflichtfelder"
+msgstr ""
+
+#: ../ttt_gui.cpp:330
 msgid "Nominalwert muss <> 0 Nm sein"
 msgstr ""
 
-#: ../ttt_gui.cpp:268
+#: ../ttt_gui.cpp:335
 msgid ""
 "Das Intervall der maximalen relativen erweiterten Messunsicherheit\n"
 "aus Messgerät und Anwender muss kleiner als ein Viertel der\n"
 "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs sein."
 msgstr ""
 
-#: ../ttt_gui.cpp:272
+#: ../ttt_gui.cpp:339
 msgid ""
 "Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 "
 "Kapitel 6.3"
 msgstr ""
 
-#: ../ttt_gui.cpp:276
+#: ../ttt_gui.cpp:343
 msgid ""
 "relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 "
 "Kapitel 6.3"
 msgstr ""
 
-#: ../ttt_gui.cpp:311
+#: ../ttt_gui.cpp:368
 msgid "Kalibrierung durch Benutzer abgebrochen"
 msgstr ""
 
-#: ../ttt_gui.cpp:343
-msgid "TTT certify v0.1.3 09.12.2015"
+#: ../ttt_gui.cpp:434
+msgid "TTT certify v0.1.4 11.12.2015"
 msgstr ""
 
-#: ../ttt_gui.cpp:345
+#: ../ttt_gui.cpp:439
 msgid "Bearbeiter"
 msgstr ""
 
-#: ../ttt_gui.cpp:348
+#: ../ttt_gui.cpp:445
 msgid "Name"
 msgstr ""
 
-#. Fl_Input* inp_test_person_name
-#: ../ttt_gui.cpp:351
+#: ../ttt_gui.cpp:449
 msgid "Verantwortlicher"
 msgstr ""
 
-#. Fl_Input* inp_test_person_supervisor
-#. Fl_Input* mi_test_object_attachments
-#: ../ttt_gui.cpp:354 ../ttt_gui.cpp:451
+#: ../ttt_gui.cpp:453 ../ttt_gui.cpp:580
 msgid "@filenew neu"
 msgstr ""
 
-#. Fl_Button* btn_test_person_new
-#. Fl_Button* btn_test_object_new
-#: ../ttt_gui.cpp:357 ../ttt_gui.cpp:454
+#: ../ttt_gui.cpp:458 ../ttt_gui.cpp:585
 msgid "@filesave speichern"
 msgstr ""
 
-#. Fl_Button* btn_test_person_save
-#: ../ttt_gui.cpp:360 ../ttt_gui.cpp:375 ../ttt_gui.cpp:516
+#: ../ttt_gui.cpp:463 ../ttt_gui.cpp:490 ../ttt_gui.cpp:667
 msgid "id"
 msgstr ""
 
-#. Fl_Value_Input* vi_test_person_id
-#: ../ttt_gui.cpp:365
+#: ../ttt_gui.cpp:470
 msgid "Messunsicherheit [%]"
 msgstr ""
 
-#. Fl_Group* o
-#: ../ttt_gui.cpp:372
+#: ../ttt_gui.cpp:471
+msgid "Messunsicherheit durch den Bediener"
+msgstr ""
+
+#: ../ttt_gui.cpp:477 ../ttt_gui.cpp:630
+msgid "@undo abbrechen"
+msgstr ""
+
+#: ../ttt_gui.cpp:484
 msgid "Drehmoment-Schraubwerkzeug"
 msgstr ""
 
-#. Fl_Value_Input* vi_test_object_id
-#. Fl_Value_Output* vo_torque_tester_id
-#: ../ttt_gui.cpp:380 ../ttt_gui.cpp:518
+#: ../ttt_gui.cpp:497 ../ttt_gui.cpp:671
 msgid "Seriennummer"
 msgstr ""
 
-#. Fl_Input* inp_test_object_serial
-#. Fl_Output* out_torque_tester_serial
-#: ../ttt_gui.cpp:383 ../ttt_gui.cpp:521
+#: ../ttt_gui.cpp:501 ../ttt_gui.cpp:675
 msgid "Hersteller"
 msgstr ""
 
-#. Fl_Input* inp_test_object_manufacturer
-#: ../ttt_gui.cpp:386
+#: ../ttt_gui.cpp:505
 msgid "Modell"
 msgstr ""
 
-#. Fl_Input* inp_test_object_model
-#: ../ttt_gui.cpp:389
+#: ../ttt_gui.cpp:509
 msgid "DIN 6789 Typ"
 msgstr ""
 
-#. Fl_Choice* choice_test_object_type
-#: ../ttt_gui.cpp:403
+#: ../ttt_gui.cpp:525
 msgid "Funktionsrichtung"
 msgstr ""
 
-#. Fl_Choice* choice_test_object_dir_of_rotation
-#: ../ttt_gui.cpp:416
+#: ../ttt_gui.cpp:540
 msgid "Hebellänge [cm]"
 msgstr ""
 
-#: ../ttt_gui.cpp:417
+#: ../ttt_gui.cpp:541
 msgid ""
 "Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder "
 "des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist "
 "markiert;"
 msgstr ""
 
-#. Fl_Value_Input* vi_test_object_lever_length
-#: ../ttt_gui.cpp:424
+#: ../ttt_gui.cpp:549
 msgid "Unterer Grenzwert [Nm]"
 msgstr ""
 
-#: ../ttt_gui.cpp:425
+#: ../ttt_gui.cpp:550
 msgid "Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA"
 msgstr ""
 
-#. Fl_Value_Input* vi_test_object_min_torque
-#: ../ttt_gui.cpp:431
+#: ../ttt_gui.cpp:557
 msgid "Oberer Grenzwert [Nm]"
 msgstr ""
 
-#: ../ttt_gui.cpp:432
+#: ../ttt_gui.cpp:558
 msgid "Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE"
 msgstr ""
 
-#. Fl_Value_Input* vi_test_object_max_torque
-#. Fl_Value_Output* vo_torque_tester_max_torque
-#: ../ttt_gui.cpp:438 ../ttt_gui.cpp:540
+#: ../ttt_gui.cpp:565 ../ttt_gui.cpp:701
 msgid "Auflösung [Nm]"
 msgstr ""
 
-#: ../ttt_gui.cpp:439
+#: ../ttt_gui.cpp:566
 msgid "Auflösung von der Anzeige r"
 msgstr ""
 
-#. Fl_Value_Input* vi_test_object_resolution
-#: ../ttt_gui.cpp:444
+#: ../ttt_gui.cpp:572
 msgid "Anbauteile"
 msgstr ""
 
-#: ../ttt_gui.cpp:445
+#: ../ttt_gui.cpp:573
 msgid ""
 "Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich "
 "Passstücke und austauschbarer Aufsätze"
 msgstr ""
 
-#. Fl_Button* btn_test_object_save
-#: ../ttt_gui.cpp:457
+#: ../ttt_gui.cpp:590
 msgid "Höchstzulässige Abweichung"
 msgstr ""
 
-#. Fl_Button* btn_result
-#: ../ttt_gui.cpp:460 ../ttt_gui.cpp:609
+#: ../ttt_gui.cpp:594 ../ttt_gui.cpp:768
 msgid "%"
 msgstr ""
 
-#. Fl_Value_Input* vi_test_object_accuracy
-#: ../ttt_gui.cpp:466
+#: ../ttt_gui.cpp:601
 msgid "aus der DIN EN ISO 6789"
 msgstr ""
 
-#: ../ttt_gui.cpp:467
+#: ../ttt_gui.cpp:602
 msgid "Use DIN EN ISO 6789-1:2015 chapter 5.1.5"
 msgstr ""
 
-#. Fl_Round_Button* rb_accuracy_from_din6789
-#: ../ttt_gui.cpp:473
+#: ../ttt_gui.cpp:609
 msgid "Herstellerangabe"
 msgstr ""
 
-#. Fl_Group* o
-#: ../ttt_gui.cpp:481
+#: ../ttt_gui.cpp:618
 msgid "Klassifizierung"
 msgstr ""
 
-#. Fl_Group* o
-#: ../ttt_gui.cpp:494
+#: ../ttt_gui.cpp:637
 msgid "Umgebungsbedingungen"
 msgstr ""
 
-#: ../ttt_gui.cpp:495
+#: ../ttt_gui.cpp:638
 msgid "DIN EN ISO 6789-1:2015 6.3"
 msgstr ""
 
-#: ../ttt_gui.cpp:498
+#: ../ttt_gui.cpp:644
 msgid "Kalibriertemperatur [°C]"
 msgstr ""
 
-#: ../ttt_gui.cpp:499
+#: ../ttt_gui.cpp:645
 msgid "Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 18°C bis 28°C"
 msgstr ""
 
-#. Fl_Value_Input* vi_temperature
-#: ../ttt_gui.cpp:505
+#: ../ttt_gui.cpp:652
 msgid "relative Luftfeuchte [%rH]"
 msgstr ""
 
-#: ../ttt_gui.cpp:506
+#: ../ttt_gui.cpp:653
 msgid "Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 max. 90%"
 msgstr ""
 
-#. Fl_Group* o
-#: ../ttt_gui.cpp:513
+#: ../ttt_gui.cpp:661
 msgid "Messgerät"
 msgstr ""
 
-#. Fl_Output* out_torque_tester_manufacturer
-#: ../ttt_gui.cpp:524
+#: ../ttt_gui.cpp:679
 msgid "Model"
 msgstr ""
 
-#. Fl_Output* out_torque_tester_model
-#: ../ttt_gui.cpp:527
+#: ../ttt_gui.cpp:683
 msgid "Kalibrierdatum"
 msgstr ""
 
-#. Fl_Output* out_torque_tester_cal_date
-#: ../ttt_gui.cpp:530
+#: ../ttt_gui.cpp:687
 msgid "Kalibrierfälligkeit"
 msgstr ""
 
-#. Fl_Output* out_torque_tester_next_cal_date
-#: ../ttt_gui.cpp:534
+#: ../ttt_gui.cpp:692
 msgid "Kalibrierschein Nr."
 msgstr ""
 
-#. Fl_Output* out_torque_tester_cal_number
-#. Fl_Button* btn_start
-#. Fl_Round_Button* rb_ASME
-#: ../ttt_gui.cpp:537 ../ttt_gui.cpp:556 ../ttt_gui.cpp:595
+#: ../ttt_gui.cpp:696 ../ttt_gui.cpp:725 ../ttt_gui.cpp:798
 msgid "Nominalwert [Nm]"
 msgstr ""
 
-#. Fl_Value_Output* vo_torque_tester_resolution
-#: ../ttt_gui.cpp:543
+#: ../ttt_gui.cpp:706
 msgid "erweiterte Messunsicherheit [%]"
 msgstr ""
 
-#. Fl_Group* o
-#: ../ttt_gui.cpp:549
+#: ../ttt_gui.cpp:713
 msgid "Prüfung"
 msgstr ""
 
-#: ../ttt_gui.cpp:552
+#: ../ttt_gui.cpp:714 ../ttt_gui.cpp:821
+msgid "Drehrichtung"
+msgstr ""
+
+#: ../ttt_gui.cpp:720
 msgid "Start"
 msgstr ""
 
-#. Fl_Value_Output* vo_nominal_value
-#: ../ttt_gui.cpp:563
+#: ../ttt_gui.cpp:733
 msgid "aktueller Schritt"
 msgstr ""
 
-#. Fl_Dial* dial_torque
-#: ../ttt_gui.cpp:571
+#: ../ttt_gui.cpp:743
 msgid "Stopp"
 msgstr ""
 
-#. Fl_Button* btn_stop
-#: ../ttt_gui.cpp:575
+#: ../ttt_gui.cpp:749
 msgid "Bestätigung"
 msgstr ""
 
-#. Fl_Button* btn_confirm
-#: ../ttt_gui.cpp:579
-msgid "Prüfverfahren"
-msgstr ""
-
-#: ../ttt_gui.cpp:582
-msgid "Schnellprüfung"
-msgstr ""
-
-#. Fl_Round_Button* rb_quick_peak
-#: ../ttt_gui.cpp:587
-msgid "DIN EN ISO 6789-1"
-msgstr ""
-
-#. Fl_Round_Button* rb_din_6789
-#: ../ttt_gui.cpp:591
-msgid "ASME"
-msgstr ""
-
-#. Fl_Group* o
-#: ../ttt_gui.cpp:600
+#: ../ttt_gui.cpp:755
 msgid "Messwert [Nm]"
 msgstr ""
 
-#. Fl_Value_Output* vo_step_progress
-#: ../ttt_gui.cpp:613
+#: ../ttt_gui.cpp:773
 msgid "Anweisung"
 msgstr ""
 
-#. Fl_Text_Display* td_instruction
-#: ../ttt_gui.cpp:618
+#: ../ttt_gui.cpp:779
+msgid "Schnellprüfung"
+msgstr ""
+
+#: ../ttt_gui.cpp:786
+msgid "ASME"
+msgstr ""
+
+#: ../ttt_gui.cpp:792
+msgid "DIN EN ISO 6789-1"
+msgstr ""
+
+#: ../ttt_gui.cpp:802
 msgid "Zeitüberwachung"
 msgstr ""
 
-#: ../ttt_gui.cpp:619
-msgid "Mindestzeitraum nach DIN EN ISO 6789-1:2015 Kapitel 6.2.4"
+#: ../ttt_gui.cpp:803
+msgid ""
+"Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge"
 msgstr ""
 
-#: ../ttt_gui.cpp:622
+#: ../ttt_gui.cpp:807
 msgid "Wiederholung bis normgerecht"
 msgstr ""
 
-#. Fl_Round_Button* rb_repeat_until_okay
-#: ../ttt_gui.cpp:627
+#: ../ttt_gui.cpp:813
 msgid "keine Wiederholung"
+msgstr ""
+
+#: ../ttt_gui.cpp:820
+msgid "@+42redo"
 msgstr ""
 
 #: ../cairo_print_devices.c:5481

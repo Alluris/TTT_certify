@@ -6,9 +6,6 @@ all: ttt.pot en.mo fr.mo
 ../ttt_gui.cpp:
 	make -C ../ ttt_gui.cpp
 
-../cairo_print_devices.c:
-	make -C ../vectorize_drawings
-
 ## update sources with grep -lR gettext
 ttt.pot: ../step.cpp ../ttt.cpp ../ttt_gui.cpp ../ttt_gui_main.cpp ../cairo_print_devices.c
 	$(MAKE) -C ../ ttt_gui.cpp
