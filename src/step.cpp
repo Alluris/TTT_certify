@@ -133,7 +133,7 @@ string preload_torque_tester_step::instruction ()
   switch (int_step)
     {
     case 0:
-      oss << gettext ("Messgerät vorbelasten");
+      oss << gettext ("Messgerät mit Nominalwert vorbelasten");
       break;
     case 1:
       oss << gettext ("Messgerät entlasten");
@@ -190,7 +190,7 @@ string preload_test_object_step::instruction ()
   switch (int_step)
     {
     case 0:
-      oss << gettext ("Drehmoment-Schraubwerkzeug vorbelasten");
+      oss << gettext ("Drehmoment-Schraubwerkzeug mit Nominalwert vorbelasten");
       break;
     case 1:
       oss << gettext ("Drehmoment-Schraubwerkzeug entlasten");
