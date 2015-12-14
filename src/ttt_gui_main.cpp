@@ -62,6 +62,7 @@ void update_indicated_torque(double v)
     dial_torque->color (FL_YELLOW);
   else
     dial_torque->color (FL_GREEN);
+  dial_torque->redraw ();
 }
 
 void update_peak_torque(double v)
@@ -98,11 +99,20 @@ void update_instruction(string s)
     dir = -dir;
 
   if (dir == 1)
-    btn_direction->copy_label ("@+42redo");
+    {
+      btn_direction_cw->show ();
+      btn_direction_ccw->hide ();
+    }
   else if (dir == -1)
-    btn_direction->copy_label ("@+42undo");
+    {
+      btn_direction_cw->hide ();
+      btn_direction_ccw->show ();
+    }
   else
-    btn_direction->copy_label ("");
+    {
+      btn_direction_cw->hide ();
+      btn_direction_ccw->hide ();
+    }
 
   instruction_buff->text (s.c_str ());
 }
@@ -204,7 +214,8 @@ int main(int argc, char **argv)
       btn_test_object_save->hide ();
       btn_test_object_abort->hide ();
       btn_test_person_abort->hide ();
-      btn_direction->hide ();
+      btn_direction_cw->hide ();
+      btn_direction_ccw->hide ();
 
       btn_result->hide ();
       vi_single_peak->hide ();

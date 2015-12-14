@@ -367,7 +367,7 @@ void ttt::add_DIN6789_steps (bool repeat_on_timing_violation)
       double max_torque = sign * meas.to.max_torque;
 
       // check for same sign
-      if ((min_torque * max_torque) <= 0)
+      if ((min_torque * max_torque) < 0)
         throw out_of_range("ttt::add_DIN6789_steps: min_torque and max_torque must have the same sign");
 
       // three torque tester preload cycles

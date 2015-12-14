@@ -38,8 +38,8 @@ decl {Fl_Text_Buffer *instruction_buff;} {public local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT certify v0.1.4 11.12.2015} open
-    xywh {2478 301 1280 765} type Double color 40 labelfont 1 align 20 visible
+    label {TTT certify v0.1.5 14.12.2015 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    xywh {2183 164 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -135,7 +135,7 @@ btn_test_person_abort->hide ();}
       Fl_Choice choice_test_object_type {
         label {DIN 6789 Typ}
         callback {update_test_object_type_class();
-update_test_object_accuracy();} open selected
+update_test_object_accuracy();} open
         xywh {174 172 210 28} down_box BORDER_BOX when 1 deactivate
       } {
         MenuItem {} {
@@ -309,11 +309,11 @@ btn_test_object_abort->do_callback ();}
       }
       Fl_Group {} {
         label {Höchstzulässige Abweichung} open
-        xywh {37 694 340 59} box GTK_DOWN_BOX align 5
+        xywh {37 694 338 59} box GTK_DOWN_BOX align 5
       } {
         Fl_Value_Input vi_test_object_accuracy {
           label {%}
-          xywh {292 714 55 25} align 8 maximum 20 step 0.01 deactivate
+          xywh {285 714 55 25} maximum 20 step 0.01 deactivate
         }
         Fl_Round_Button rb_accuracy_from_din6789 {
           label {aus der DIN EN ISO 6789}
@@ -363,11 +363,11 @@ btn_test_object_abort->hide ();}
     } {
       Fl_Value_Input vi_temperature {
         label {Kalibriertemperatur [°C]}
-        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 18°C bis 28°C} xywh {666 44 60 25} maximum 40 step 0.1 value 18
+        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 18°C bis 28°C} xywh {685 44 60 25} maximum 40 step 0.1 value 18
       }
       Fl_Value_Input vi_humidity {
         label {relative Luftfeuchte [%rH]}
-        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 max. 90%} xywh {666 79 60 25} maximum 100 step 0.1 value 90
+        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 max. 90%} xywh {685 79 60 25} maximum 100 step 0.1 value 90
       }
     }
     Fl_Group {} {
@@ -417,7 +417,7 @@ btn_test_object_abort->hide ();}
     }
     Fl_Group {} {
       label {Prüfung} open
-      tooltip Drehrichtung xywh {761 6 515 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      xywh {761 6 515 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
         label Start
@@ -471,6 +471,27 @@ update_run_activation ();
 Fl::add_timeout(0.01, run_cb);}
         xywh {785 215 110 30} box GLEAM_THIN_UP_BOX
       }
+      Fl_Button btn_stop {
+        label Stopp
+        callback {myTTT->stop_sequencer();
+btn_result->show ();
+btn_result->color (FL_RED);
+btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
+        xywh {962 215 110 30} box GLEAM_THIN_UP_BOX deactivate
+      }
+      Fl_Button btn_direction_cw {
+        label {@+82redo}
+        tooltip Drehrichtung xywh {1051 495 70 70} box NO_BOX deactivate
+      }
+      Fl_Button btn_direction_ccw {
+        label {@+88undo}
+        tooltip Drehrichtung xywh {920 495 70 70} box NO_BOX deactivate
+      }
+      Fl_Button btn_confirm {
+        label {Bestätigung}
+        callback {myTTT->set_confirmation ();}
+        xywh {1140 215 110 30} box GLEAM_THIN_UP_BOX deactivate
+      }
       Fl_Value_Output vo_nominal_value {
         label {Nominalwert [Nm]}
         xywh {785 503 145 60} align 5 minimum -100 maximum 100 step 0.01 textsize 30
@@ -480,20 +501,7 @@ Fl::add_timeout(0.01, run_cb);}
         xywh {776 613 484 30} align 5
       }
       Fl_Dial dial_torque {
-        xywh {955 470 130 130} type Line minimum -20 maximum 20
-      }
-      Fl_Button btn_stop {
-        label Stopp
-        callback {myTTT->stop_sequencer();
-btn_result->show ();
-btn_result->color (FL_RED);
-btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
-        xywh {962 215 110 30} box GLEAM_THIN_UP_BOX deactivate
-      }
-      Fl_Button btn_confirm {
-        label {Bestätigung}
-        callback {myTTT->set_confirmation ();}
-        xywh {1140 215 110 30} box GLEAM_THIN_UP_BOX deactivate
+        xywh {970 480 101 101} type Line minimum -20 maximum 20
       }
       Fl_Value_Output vo_peak_torque {
         label {Messwert [Nm]}
@@ -553,13 +561,9 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
           xywh {925 131 245 26} type Radio down_box ROUND_DOWN_BOX value 1
         }
         Fl_Round_Button rb_ignore_timing {
-          label {keine Wiederholung}
+          label {keine Wiederholung} selected
           xywh {925 160 195 25} type Radio down_box ROUND_DOWN_BOX
         }
-      }
-      Fl_Button btn_direction {
-        label {@+42redo}
-        tooltip Drehrichtung xywh {980 260 70 70} box NO_BOX hide deactivate
       }
     }
   }
@@ -733,7 +737,8 @@ Function {update_run_activation()} {open
   btn_start->deactivate ();
   btn_stop->activate ();
   btn_confirm->activate ();
-  btn_direction->show ();
+  //btn_direction_cw->show ();
+  //btn_direction_ccw->show ();
   vi_test_object_id->deactivate ();
   btn_test_object_new->deactivate ();
   vi_test_person_id->deactivate ();
@@ -749,7 +754,8 @@ else
   btn_start->activate ();
   btn_stop->deactivate ();
   btn_confirm->deactivate ();
-  btn_direction->hide ();
+  btn_direction_cw->hide ();
+  btn_direction_ccw->hide ();
   vi_test_object_id->activate ();
   btn_test_object_new->activate ();
   vi_test_person_id->activate ();
