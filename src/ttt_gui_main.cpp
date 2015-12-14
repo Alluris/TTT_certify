@@ -24,17 +24,32 @@ If not, see <http://www.gnu.org/licenses/>.
 #include "ttt_gui.h"
 #include "ttt.h"
 
+void reset_nominal_torque_color(void*)
+{
+  vo_nominal_value->color (FL_GRAY);
+  vo_nominal_value->redraw ();
+}
+
 void update_nominal_torque(double v)
 {
+  static double old_v = v;
   vo_nominal_value->value (v);
+
+  // highlight vo_nominal_value if value changes
+  if (v != old_v)
+    {
+      vo_nominal_value->color (FL_YELLOW);
+      vo_nominal_value->redraw ();
+      Fl::add_timeout(3.00, reset_nominal_torque_color);
+    }
+
+  old_v = v;
 
   if (v == 0)
     v = 10;
-  else if (v < 0)
-    v = -v;
 
-  dial_torque->minimum (-v * 135/180);
-  dial_torque->maximum (v * 135/180);
+  dial_torque->minimum (-abs (v) * 135/180);
+  dial_torque->maximum (abs (v) * 135/180);
 }
 
 void update_indicated_torque(double v)
@@ -94,7 +109,7 @@ void update_instruction(string s)
 
 void update_step(string s, double v)
 {
-  // IDEA, send beep if step makes progress
+  // Idea, send beep if step makes progress
   //fl_beep (FL_BEEP_DEFAULT);
 
   to_step->value (s.c_str ());
@@ -158,6 +173,12 @@ int main(int argc, char **argv)
   bindtextdomain("ttt","./po");
   textdomain ("ttt");
 
+#ifdef _WIN32
+  std::ofstream out("logfiles/ttt_gui.log");
+  std::streambuf *coutbuf = std::cout.rdbuf();
+  std::cout.rdbuf(out.rdbuf()); //redirect std::cout
+#endif
+
   // FIXME: compare plastic, gtk+, gleam
   // http://www.fltk.org/doc-1.3/classFl.html#a9d070bb1d5a24c28beab53a70af095a4
   //Fl::scheme ("plastic");
@@ -172,7 +193,6 @@ int main(int argc, char **argv)
   Fl_Tooltip::delay (0.5);
 
   mainwin->show(argc, argv);
-
 
   try
     {
@@ -213,5 +233,10 @@ int main(int argc, char **argv)
 
   delete myTTT;
 
+#ifdef _WIN32
+  std::cout.rdbuf(coutbuf); //restore old std::cout
+#endif
+
+  cout << "ttt_gui has finished" << endl;
   return ret;
 }
