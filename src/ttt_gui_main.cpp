@@ -105,11 +105,7 @@ void run_cb(void*)
   if (myTTT->run ())
     Fl::repeat_timeout(0.01, run_cb);
   else
-    {
-      myTTT->print_result ();
-      btn_start->activate ();
-      btn_stop->deactivate ();
-    }
+    update_run_activation ();
 }
 
 void cairo_box::graphic(cairo_t* cr, double x, double y, double w, double h)
@@ -155,8 +151,14 @@ int main(int argc, char **argv)
       // die save buttons deaktivieren
       btn_test_person_save->hide ();
       btn_test_object_save->hide ();
+      btn_test_object_abort->hide ();
+      btn_test_person_abort->hide ();
+
       btn_result->hide ();
       vi_single_peak->hide ();
+      to_step->hide ();
+      step_progress->hide ();
+      vo_step_progress->hide ();
 
       // Anzeigen füllen
       // später hier über libconfuse letzte id für test_person und test_object laden
