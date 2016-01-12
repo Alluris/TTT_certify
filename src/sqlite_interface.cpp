@@ -1338,3 +1338,44 @@ ostream& operator<< (ostream& os, const measurement_item &mi)
   os << "    rise_time       = " << mi.rise_time << endl;
   return os;
 }
+
+// find test_objects with LIKE using serial
+void search_test_objects (sqlite3 *db, enum test_object_search_field field, string search_str, vector<test_object> &vto)
+{
+  sqlite3_stmt *pStmt;
+  int rc = -1;
+
+  if (field == SERIAL)
+    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE serial_number LIKE ?1", -1, &pStmt, NULL);
+  else if (field == MANUFACTURER)
+    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE manufacturer LIKE ?1", -1, &pStmt, NULL);
+  else if (field == MODEL)
+    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE MODEL LIKE ?1", -1, &pStmt, NULL);
+
+  if (rc == SQLITE_OK)
+    {
+      rc = sqlite3_bind_text (pStmt, 1, search_str.c_str (), -1, SQLITE_STATIC);
+      if (rc == SQLITE_OK)
+        {
+          do
+            {
+              rc = sqlite3_step (pStmt);
+              if (rc == SQLITE_ROW)
+                {
+                  int id = sqlite3_column_int (pStmt, 0);
+                  //cout << "search_test_object_serial id=" << id << endl;
+                  test_object tmp;
+                  tmp.load_with_id (db, id);
+                  vto.push_back (tmp);
+                }
+            }
+          while (rc != SQLITE_DONE);
+          sqlite3_finalize(pStmt);
+        }
+      else
+        fprintf(stderr, "SQL error from sqlite3_bind_text: %i = %s\n", rc, sqlite3_errmsg(db));
+    }
+  else
+    fprintf(stderr, "SQL error from sqlite3_prepare_v2: %i = %s\n", rc, sqlite3_errmsg(db));
+
+}

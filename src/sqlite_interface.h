@@ -273,6 +273,14 @@ public:
   friend ostream& operator<<(ostream& os, const measurement&);
 };
 
+enum test_object_search_field
+{
+  SERIAL,
+  MANUFACTURER,
+  MODEL
+};
+
+void search_test_objects (sqlite3 *db, enum test_object_search_field field, string search_str, vector<test_object> &vto);
 
 
 #endif

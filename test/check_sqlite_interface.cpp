@@ -274,6 +274,23 @@ int main ()
 
   mm.save (db);
 
+  /********** CHECK search_test_objects ******************/
+  vector<test_object> vto;
+  search_test_objects (db, SERIAL, "FAKE%", vto);
+  assert (vto.size () == 17);
+
+  vto.clear ();
+  search_test_objects (db, MODEL, "7%", vto);
+  assert (vto.size () == 1);
+
+  vto.clear ();
+  search_test_objects (db, MANUFACTURER, "PROX%", vto);
+  assert (vto.size () == 2);
+
+  unsigned int k;
+  for (k=0; k<vto.size(); ++k)
+    cout << vto.at (k) << endl;
+
   sqlite3_close(db);
 
   return 0;

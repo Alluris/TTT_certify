@@ -26,6 +26,9 @@ decl {\#include "cairo_box.h"} {public global
 decl {\#include "cairo_print_devices.h"} {public global
 } 
 
+decl {\#include "test_object_table.h"} {public global
+} 
+
 decl {void run_cb(void *)} {public global
 } 
 
@@ -38,8 +41,8 @@ decl {Fl_Text_Buffer *instruction_buff;} {public local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT certify v0.1.5 14.12.2015 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2183 164 1280 765} type Double color 40 labelfont 1 align 20 visible
+    label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    xywh {2527 318 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -113,7 +116,7 @@ btn_test_person_abort->hide ();}
     }
     Fl_Group {} {
       label {Drehmoment-Schraubwerkzeug} open
-      xywh {4 6 396 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      xywh {0 6 400 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_test_object_id {
         label id
@@ -356,6 +359,11 @@ btn_test_object_save->hide ();
 btn_test_object_abort->hide ();}
         xywh {109 40 110 30} box GLEAM_THIN_UP_BOX
       }
+      Fl_Button btn_test_object_search {
+        label {@search suchen}
+        callback {test_object_win->show ();}
+        xywh {10 40 80 30} box GLEAM_THIN_UP_BOX
+      }
     }
     Fl_Group {} {
       label Umgebungsbedingungen open
@@ -561,10 +569,46 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
           xywh {925 131 245 26} type Radio down_box ROUND_DOWN_BOX value 1
         }
         Fl_Round_Button rb_ignore_timing {
-          label {keine Wiederholung} selected
+          label {keine Wiederholung}
           xywh {925 160 195 25} type Radio down_box ROUND_DOWN_BOX
         }
       }
+    }
+  }
+  Fl_Window test_object_win {
+    label {test_object search} open
+    xywh {2573 340 950 595} type Double modal visible
+  } {
+    Fl_Table to {open
+      xywh {20 125 920 465}
+      class test_object_table
+    } {}
+    Fl_Input search_test_object_serial {
+      label Seriennummer
+      xywh {130 18 210 25}
+    }
+    Fl_Input search_test_object_manufacturer {
+      label Hersteller
+      xywh {130 54 210 25}
+    }
+    Fl_Input search_test_object_model {
+      label Modell
+      xywh {130 90 210 25}
+    }
+    Fl_Button btn_search_serial_number {
+      label {@search}
+      callback {to->search_serial (search_test_object_serial->value());}
+      xywh {350 15 35 30} box GLEAM_THIN_UP_BOX
+    }
+    Fl_Button btn_search_manufacturer {
+      label {@search}
+      callback {to->search_manufacturer (search_test_object_manufacturer->value());}
+      xywh {350 51 35 30} box GLEAM_THIN_UP_BOX
+    }
+    Fl_Button btn_search_model {
+      label {@search}
+      callback {to->search_model (search_test_object_model->value());}
+      xywh {350 88 35 30} box GLEAM_THIN_UP_BOX
     }
   }
 } 
