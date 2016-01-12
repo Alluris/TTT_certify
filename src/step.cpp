@@ -368,7 +368,13 @@ enum out_cmd peak_meas_step::inout (double torque, bool confirmation)
     }
   else if ((int_step == 1) &&
            ( (stop_peak_torque > 0 && torque < stop_peak_torque)
-             || (stop_peak_torque < 0 && torque >stop_peak_torque) ))
+             || (stop_peak_torque < 0 && torque > stop_peak_torque) ))
+    {
+      int_step++;
+      delay_start = v_time.back ();
+    }
+  else if ((int_step == 2) &&
+           (v_time.back () - delay_start) > 0.5)
     {
       int_step++;
       finished = true;

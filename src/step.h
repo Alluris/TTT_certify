@@ -161,6 +161,7 @@ class peak_meas_step: public meas_step
 {
 private:
   double stop_peak_torque;   // torque has to fall bellow this threshold to detect the end of the step
+  double delay_start;
 
 public:
   peak_meas_step (double nominal, double start_peak_torque_factor = 0.6, double stop_peak_torque_factor = 0.1);
