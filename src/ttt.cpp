@@ -294,6 +294,9 @@ bool ttt::run ()
               meas.add_measurement_item (get_localtime (), pmeas->get_nominal_value (), pmeas->get_peak_torque (), rise_time);
             }
         }
+      // FIXME: should the old measurement be visible until next measurement or not?
+      //else
+      //  print_peak_torque (0.0);
 
       preload_step *ppreload = dynamic_cast<preload_step*>(pstep);
       if (ppreload)
