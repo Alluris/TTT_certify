@@ -67,9 +67,14 @@ void update_indicated_torque(double v)
 
 void update_peak_torque(double v)
 {
+  //cout << "update_peak_torque " << v << endl;
   vo_peak_torque->value (v);
 }
 
+/*
+ * The first char in s controls the color of the instruction text
+ * and the direction buttons "turn right", "turn left"
+ */
 void update_instruction(string s)
 {
   char sp = 0;
@@ -83,7 +88,6 @@ void update_instruction(string s)
     }
   else
     td_instruction->textcolor (FL_BLACK);
-
 
   // update direction button
   int dir = 0;
@@ -177,6 +181,12 @@ void cairo_box::graphic(cairo_t* cr, double x, double y, double w, double h)
 
 int main(int argc, char **argv)
 {
+  if (argc > 3)
+    {
+      cerr << "Usage: ttt_gui [TEST_OBJECT_RECORD_ID] [SIM_FN]" << endl;
+      return -1;
+    }
+
   int ret;
   setlocale (LC_ALL, "");
   //bindtextdomain("ttt","/usr/share/locale");
@@ -202,12 +212,16 @@ int main(int argc, char **argv)
 
   Fl_Tooltip::delay (0.5);
 
-  mainwin->show(argc, argv);
+  mainwin->show ();
 
   try
     {
       myTTT = new ttt(update_indicated_torque, update_nominal_torque, update_peak_torque, update_instruction, update_step, update_result, "ttt_certify.db");
-      myTTT->connect_TTT ();
+
+      if (argc == 3)
+        myTTT->connect_measurement_input (argv[2]);
+      else
+        myTTT->connect_TTT ();
 
       // die save buttons deaktivieren
       btn_test_person_save->hide ();
@@ -230,7 +244,11 @@ int main(int argc, char **argv)
       vi_test_person_id->value (1);
       vi_test_person_id->do_callback ();
 
-      vi_test_object_id->value (1);
+      if (argc > 1)
+        vi_test_object_id->value (atoi (argv[1]));
+      else
+        vi_test_object_id->value (1);
+
       vi_test_object_id->do_callback ();
 
       load_torque_tester ();
