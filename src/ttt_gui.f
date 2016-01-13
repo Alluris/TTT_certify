@@ -300,22 +300,29 @@ if (equipment_nr.empty () || serial.empty () || manufacturer.empty () || model.e
   }
 
 // insert into database
-int id = myTTT->new_test_object
-  (equipment_nr,
-   serial,
-   manufacturer,
-   model,
-   type_class,
-   choice_test_object_dir_of_rotation->value (),
-   vi_test_object_lever_length->value ()/100.0,
-   vi_test_object_min_torque->value (),
-   max_torque,
-   vi_test_object_resolution->value (),
-   mi_test_object_attachments->value (),
-   accuracy);
-
-vi_test_object_id->value (id);
-btn_test_object_abort->do_callback ();}
+try
+  {
+    int id = myTTT->new_test_object
+        (equipment_nr,
+         serial,
+         manufacturer,
+         model,
+         type_class,
+         choice_test_object_dir_of_rotation->value (),
+         vi_test_object_lever_length->value ()/100.0,
+         vi_test_object_min_torque->value (),
+         max_torque,
+         vi_test_object_resolution->value (),
+         mi_test_object_attachments->value (),
+         accuracy);
+    vi_test_object_id->value (id);
+    btn_test_object_abort->do_callback ();
+  }
+catch (std::runtime_error &e)
+    {
+      fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
+    }
+    }
         xywh {289 40 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
