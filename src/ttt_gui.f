@@ -41,7 +41,7 @@ decl {Fl_Text_Buffer *instruction_buff;} {public local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2527 318 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
@@ -123,23 +123,27 @@ btn_test_person_abort->hide ();}
         callback {load_test_object(o->value ());}
         xywh {174 40 40 30} minimum 1 maximum 500 step 1
       }
+      Fl_Input inp_test_object_equipment_nr {
+        label {Prüfmittelnummer} selected
+        xywh {175 85 210 25} deactivate
+      }
       Fl_Input inp_test_object_serial {
         label Seriennummer
-        xywh {174 75 210 25} deactivate
+        xywh {175 115 210 25} deactivate
       }
       Fl_Input inp_test_object_manufacturer {
         label Hersteller
-        xywh {174 105 210 25} deactivate
+        xywh {175 145 210 25} deactivate
       }
       Fl_Input inp_test_object_model {
         label Modell
-        xywh {174 137 210 25} deactivate
+        xywh {175 177 210 25} deactivate
       }
       Fl_Choice choice_test_object_type {
         label {DIN 6789 Typ}
         callback {update_test_object_type_class();
 update_test_object_accuracy();} open
-        xywh {174 172 210 28} down_box BORDER_BOX when 1 deactivate
+        xywh {175 212 210 28} down_box BORDER_BOX when 1 deactivate
       } {
         MenuItem {} {
           label IA
@@ -193,7 +197,7 @@ update_test_object_accuracy();} open
       Fl_Choice choice_test_object_dir_of_rotation {
         label Funktionsrichtung
         callback {cout << o->value() << endl;} open
-        xywh {285 405 90 25} down_box BORDER_BOX deactivate
+        xywh {285 425 90 25} down_box BORDER_BOX deactivate
       } {
         MenuItem {} {
           label beide
@@ -210,29 +214,30 @@ update_test_object_accuracy();} open
       }
       Fl_Value_Input vi_test_object_lever_length {
         label {Hebellänge [cm]}
-        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {285 435 90 25} maximum 150 step 0.01 deactivate
+        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {285 455 90 25} maximum 150 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_min_torque {
         label {Unterer Grenzwert [Nm]}
-        tooltip {Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA} xywh {285 470 90 25} align 132 maximum 100 step 0.01 deactivate
+        tooltip {Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA} xywh {285 490 90 25} align 132 maximum 100 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_max_torque {
         label {Oberer Grenzwert [Nm]}
         callback {update_test_object_accuracy();}
-        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {285 505 90 25} maximum 100 step 0.01 deactivate
+        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {285 525 90 25} maximum 100 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_resolution {
         label {Auflösung [Nm]}
-        tooltip {Auflösung von der Anzeige r} xywh {285 540 90 25} maximum 10 step 0.01 deactivate
+        tooltip {Auflösung von der Anzeige r} xywh {285 560 90 25} maximum 10 step 0.01 deactivate
       }
       Fl_Input mi_test_object_attachments {
         label Anbauteile
-        tooltip {Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich Passstücke und austauschbarer Aufsätze} xywh {40 579 335 95} type Multiline align 5 deactivate
+        tooltip {Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich Passstücke und austauschbarer Aufsätze} xywh {40 600 335 74} type Multiline align 5 deactivate
       }
       Fl_Button btn_test_object_new {
         label {@filenew neu}
         callback {vi_test_object_id->hide ();
 
+inp_test_object_equipment_nr->activate ();
 inp_test_object_serial->activate ();
 inp_test_object_manufacturer->activate ();
 inp_test_object_model->activate ();
@@ -246,6 +251,7 @@ mi_test_object_attachments->activate ();
 rb_accuracy_from_din6789->activate ();
 rb_manufacturer_accuracy->activate ();
 
+inp_test_object_equipment_nr->value ("");
 inp_test_object_serial->value ("");
 inp_test_object_manufacturer->value ("");
 inp_test_object_model->value ("");
@@ -281,20 +287,22 @@ if (rb_manufacturer_accuracy->value())
   accuracy = vi_test_object_accuracy->value () / 100.0;
 
 // Pflichtfelder
+string equipment_nr = inp_test_object_equipment_nr->value ();
 string serial = inp_test_object_serial->value ();
 string manufacturer = inp_test_object_manufacturer->value ();
 string model =  inp_test_object_model->value ();
 double max_torque = vi_test_object_max_torque->value ();
 
-if (serial.empty () || manufacturer.empty () || model.empty () || max_torque == 0)
+if (equipment_nr.empty () || serial.empty () || manufacturer.empty () || model.empty () || max_torque == 0)
   {
-    fl_alert (gettext ("Seriennummer, Hersteller, Modell und oberer Grenzwert sind Pflichtfelder"));
+    fl_alert (gettext ("Prüfmittelnummer, Seriennummer, Hersteller, Modell und oberer Grenzwert sind Pflichtfelder"));
     return;
   }
 
 // insert into database
 int id = myTTT->new_test_object
-  (serial,
+  (equipment_nr,
+   serial,
    manufacturer,
    model,
    type_class,
@@ -332,7 +340,7 @@ update_test_object_accuracy();}
       }
       Fl_Box cbox {
         label Klassifizierung
-        xywh {19 246 365 135} box GTK_DOWN_BOX align 137
+        xywh {19 275 365 135} box GTK_DOWN_BOX align 137
         class cairo_box
       }
       Fl_Button btn_test_object_abort {
@@ -340,6 +348,7 @@ update_test_object_accuracy();}
         callback {load_test_object (vi_test_object_id->value ());
 vi_test_object_id->show ();
 
+inp_test_object_equipment_nr->deactivate ();
 inp_test_object_serial->deactivate ();
 inp_test_object_manufacturer->deactivate ();
 inp_test_object_model->deactivate ();
@@ -577,38 +586,47 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_object_win {
     label {test_object search} open
-    xywh {2573 340 950 595} type Double modal visible
+    xywh {2429 409 950 595} type Double modal visible
   } {
     Fl_Table to {open
-      xywh {20 125 920 465}
+      xywh {20 185 920 405}
       class test_object_table
     } {}
     Fl_Input search_test_object_serial {
       label Seriennummer
-      xywh {130 18 210 25}
+      xywh {170 65 210 25}
     }
     Fl_Input search_test_object_manufacturer {
       label Hersteller
-      xywh {130 54 210 25}
+      xywh {170 101 210 25}
     }
     Fl_Input search_test_object_model {
       label Modell
-      xywh {130 90 210 25}
+      xywh {170 137 210 25}
     }
     Fl_Button btn_search_serial_number {
       label {@search}
       callback {to->search_serial (search_test_object_serial->value());}
-      xywh {350 15 35 30} box GLEAM_THIN_UP_BOX
+      xywh {390 62 35 30} box GLEAM_THIN_UP_BOX
     }
     Fl_Button btn_search_manufacturer {
       label {@search}
       callback {to->search_manufacturer (search_test_object_manufacturer->value());}
-      xywh {350 51 35 30} box GLEAM_THIN_UP_BOX
+      xywh {390 98 35 30} box GLEAM_THIN_UP_BOX
     }
     Fl_Button btn_search_model {
       label {@search}
       callback {to->search_model (search_test_object_model->value());}
-      xywh {350 88 35 30} box GLEAM_THIN_UP_BOX
+      xywh {390 135 35 30} box GLEAM_THIN_UP_BOX
+    }
+    Fl_Input search_test_object_equipment_nr {
+      label {Prüfmittelnummer}
+      xywh {170 28 210 25}
+    }
+    Fl_Button btn_search_equipment_nr_number {
+      label {@search}
+      callback {to->search_equipment_nr (search_test_object_equipment_nr->value());}
+      xywh {390 25 35 30} box GLEAM_THIN_UP_BOX
     }
   }
 } 
@@ -644,6 +662,7 @@ if (id > 0)
     try
      {
         myTTT->load_test_object (id);
+        inp_test_object_equipment_nr->value(myTTT->get_test_object_equipment_nr ().c_str ());
         inp_test_object_serial->value(myTTT->get_test_object_serial ().c_str ());
         inp_test_object_manufacturer->value(myTTT->get_test_object_manufacturer ().c_str ());
         inp_test_object_model->value(myTTT->get_test_object_model ().c_str ());

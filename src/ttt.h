@@ -183,7 +183,8 @@ public:
     return meas.tp.id;
   }
 
-  int new_test_object  (string serial_number,
+  int new_test_object  (string equipment_number,
+                        string serial_number,
                         string manufacturer,
                         string model,
                         string type,
@@ -196,9 +197,10 @@ public:
                         double accuracy)
   {
     meas.to.id = -1;
-    meas.to.serial_number   = serial_number;
-    meas.to.manufacturer    = manufacturer;
-    meas.to.model           = model;
+    meas.to.equipment_number = equipment_number;
+    meas.to.serial_number    = serial_number;
+    meas.to.manufacturer     = manufacturer;
+    meas.to.model            = model;
 
     if (! type.compare (0, 2, "II"))
       {
@@ -259,6 +261,11 @@ public:
   }
 
   //******* test object **************/
+  string get_test_object_equipment_nr ()
+  {
+    return meas.to.equipment_number;
+  }
+
   string get_test_object_serial ()
   {
     return meas.to.serial_number;

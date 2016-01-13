@@ -79,6 +79,7 @@ class test_object
 {
 public:
   int id;
+  string equipment_number;
   string serial_number;
   string manufacturer;
   string model;
@@ -276,6 +277,7 @@ public:
 enum test_object_search_field
 {
   SERIAL,
+  EQUIPMENTNR,
   MANUFACTURER,
   MODEL
 };

@@ -24,6 +24,7 @@ CREATE TABLE test_person (id INTEGER PRIMARY KEY,
 ---------------------------------------------------------------------------
 
 CREATE TABLE test_object (id INTEGER PRIMARY KEY,
+                          equipment_number TEXT NOT NULL UNIQUE, -- Prüfmittelnummer
                           serial_number TEXT,
                           manufacturer TEXT,
                           model TEXT,
@@ -36,8 +37,9 @@ CREATE TABLE test_object (id INTEGER PRIMARY KEY,
                           min_torque REAL,
                           max_torque REAL,
                           resolution REAL,           -- r siehe 6789-2 6.2.1
-                          attachments TEXT,
-                          accuracy REAL);            -- relativ. 0 = aus der DIN6789, sonst Herstellerangabe
+                          attachments TEXT,          -- Anbauteile
+                          accuracy REAL              -- relativ. 0 = aus der DIN6789, sonst Herstellerangabe
+                          );
 
 ---------------------------------------------------------------------------
 -- the TTT (tool torque tester)

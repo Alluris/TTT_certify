@@ -203,6 +203,7 @@ int main ()
 
   /*********** CHECK test_object save/load cycle **********/
 
+  to.equipment_number = "ZX4";
   to.serial_number   = "XYZ 12345";
   to.manufacturer    = "ACME";
   to.model           = "super special tool";

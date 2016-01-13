@@ -9,7 +9,8 @@ INSERT INTO test_person(name, supervisor, uncertainty) VALUES ("Daniel Betz", "m
 INSERT INTO test_person(name, supervisor, uncertainty) VALUES ("Andreas Weber", "foo", 0.001);
 INSERT INTO test_person(name, supervisor, uncertainty) VALUES ("Axel Fischer", "bar", 0.01);
 
-INSERT INTO test_object (serial_number,
+INSERT INTO test_object (equipment_number,
+                         serial_number,
                          manufacturer,
                          model,
                          DIN_type,
@@ -21,28 +22,28 @@ INSERT INTO test_object (serial_number,
                          resolution,
                          attachments,
                          accuracy)
-       VALUES ("12345", "Stahlwille", "730N/2", "II", "A", 1, 0.226, 2, 10, 0.2, "6/8 auf 1/4''", 0.0),  -- max stimmt nicht, ist 20Nm
-              ("S44780", "PROXXON", "MicroClick MC 320", "II", "A", 1, 0.6, 60, 320, 1, "Nuss123", 0.03), --http://www.proxxon.com/de/industrial/23354.php?list
-              ("XZK44", "PROXXON", "MicroClick MC 5", "II", "D", 1, 0, 1, 5, 0.1, "", 0.06),              --http://www.proxxon.com/de/industrial/23347.php?list
-              ("9982", "ZEMO", "M-34 Nm R855285", "I", "A", 1, 0.3429, 7, 34, 1, "Aufsatz B", 0.02),      --http://www.zemo-tools.de/files/pdf/drehmomentschluessel_m.pdf
-              ("2345", "GEDORE", "Typ83", "I", "B", 1, 0.2, 0.8, 4, 0.1, "ein Adapter", 0.03),            --http://www.zorotools.de/i/product/Z00047453/?gclid=CIfI8_T9y8kCFRcYGwodRfIKFg
-              ("FAKE1", "ACME", "dummy6", "I",   "A", 0, 0.32, 2, 10, 0.1, "", 0.00), --rechts/links, zulässige Abweichung aus der DIN
-              ("FAKE2", "ACME", "dummy7", "I",   "A", 0, 0.32, 2, 10, 0.1, "", 0.02), --rechts/links, zulässige Abweichung vom Hersteller
-              ("FAKE3", "ACME", "dummy8", "I",   "A", 1, 0.32, 2, 10, 0.1, "", 0.00), --nur rechts
-              ("FAKE4", "ACME", "dummy9", "I",   "A", 2, 0.32, 2, 10, 0.1, "", 0.00), --nur links
-              ("FAKE5", "ACME", "dummy10", "I",   "B", 1, 0.32, 2, 10, 0.1, "", 0.00),
-              ("FAKE6", "ACME", "dummy11", "I",   "C", 1, 0.32, 2, 10, 0.1, "", 0.00),
-              ("FAKE7", "ACME", "dummy12", "I",   "D", 1, 0,    2, 10, 0.1, "", 0.00),
-              ("FAKE8", "ACME", "dummy13", "I",   "E", 1, 0,    2, 10, 0.1, "", 0.00),
-              ("FAKE9", "ACME", "dummy14", "II",  "A", 1, 0.32, 2, 10, 0.1, "", 0.00),
-              ("FAKE10", "ACME", "dummy15", "II",  "B", 1, 0.32, 2, 10, 0.1, "", 0.00),
-              ("FAKE11", "ACME", "dummy16", "II",  "C", 1, 0.32, 2, 10, 0.1, "", 0.00),
-              ("FAKE12", "ACME", "dummy17", "II",  "D", 1, 0,    2, 10, 0.1, "", 0.00),
-              ("FAKE13", "ACME", "dummy18", "II", "E", 1, 0,    2, 10, 0.1, "", 0.00),
-              ("FAKE14", "ACME", "dummy19", "II", "F", 1, 0,    2, 10, 0.1, "", 0.00),
-              ("FAKE15", "ACME", "dummy20", "II", "G", 1, 0.32, 2, 10, 0.1, "", 0.00),
-              ("FAKE16", "ACME", "dummy21", "II", "A", 2, 0.32, 2, 10, 0.1, "", 0.00),  --nur links
-              ("FAKE17", "ACME", "dummy22", "II", "A", 0, 0.32, 2, 10, 0.1, "", 0.00);  --rechts/links
+       VALUES ("X1",    "12345", "Stahlwille", "730N/2", "II", "A", 1, 0.226, 2, 10, 0.2, "6/8 auf 1/4''", 0.0),  -- max stimmt nicht, ist 20Nm
+              ("B1",    "S44780", "PROXXON", "MicroClick MC 320", "II", "A", 1, 0.6, 60, 320, 1, "Nuss123", 0.03), --http://www.proxxon.com/de/industrial/23354.php?list
+              ("C1",    "XZK44", "PROXXON", "MicroClick MC 5", "II", "D", 1, 0, 1, 5, 0.1, "", 0.06),              --http://www.proxxon.com/de/industrial/23347.php?list
+              ("12x k", "9982", "ZEMO", "M-34 Nm R855285", "I", "A", 1, 0.3429, 7, 34, 1, "Aufsatz B", 0.02),      --http://www.zemo-tools.de/files/pdf/drehmomentschluessel_m.pdf
+              ("9-34",  "2345", "GEDORE", "Typ83", "I", "B", 1, 0.2, 0.8, 4, 0.1, "ein Adapter", 0.03),            --http://www.zorotools.de/i/product/Z00047453/?gclid=CIfI8_T9y8kCFRcYGwodRfIKFg
+              ("A1",  "FAKE1", "ACME", "dummy6", "I",   "A", 0, 0.32, 2, 10, 0.1, "", 0.00), --rechts/links, zulässige Abweichung aus der DIN
+              ("A2",  "FAKE2", "ACME", "dummy7", "I",   "A", 0, 0.32, 2, 10, 0.1, "", 0.02), --rechts/links, zulässige Abweichung vom Hersteller
+              ("A3",  "FAKE3", "ACME", "dummy8", "I",   "A", 1, 0.32, 2, 10, 0.1, "", 0.00), --nur rechts
+              ("A4",  "FAKE4", "ACME", "dummy9", "I",   "A", 2, 0.32, 2, 10, 0.1, "", 0.00), --nur links
+              ("A5",  "FAKE5", "ACME", "dummy10", "I",   "B", 1, 0.32, 2, 10, 0.1, "", 0.00),
+              ("A6",  "FAKE6", "ACME", "dummy11", "I",   "C", 1, 0.32, 2, 10, 0.1, "", 0.00),
+              ("A7",  "FAKE7", "ACME", "dummy12", "I",   "D", 1, 0,    2, 10, 0.1, "", 0.00),
+              ("A8",  "FAKE8", "ACME", "dummy13", "I",   "E", 1, 0,    2, 10, 0.1, "", 0.00),
+              ("A9",  "FAKE9", "ACME", "dummy14", "II",  "A", 1, 0.32, 2, 10, 0.1, "", 0.00),
+              ("A10", "FAKE10", "ACME", "dummy15", "II",  "B", 1, 0.32, 2, 10, 0.1, "", 0.00),
+              ("A11", "FAKE11", "ACME", "dummy16", "II",  "C", 1, 0.32, 2, 10, 0.1, "", 0.00),
+              ("A12", "FAKE12", "ACME", "dummy17", "II",  "D", 1, 0,    2, 10, 0.1, "", 0.00),
+              ("A13", "FAKE13", "ACME", "dummy18", "II", "E", 1, 0,    2, 10, 0.1, "", 0.00),
+              ("A14", "FAKE14", "ACME", "dummy19", "II", "F", 1, 0,    2, 10, 0.1, "", 0.00),
+              ("A15", "FAKE15", "ACME", "dummy20", "II", "G", 1, 0.32, 2, 10, 0.1, "", 0.00),
+              ("A16", "FAKE16", "ACME", "dummy21", "II", "A", 2, 0.32, 2, 10, 0.1, "", 0.00),  --nur links
+              ("A17", "FAKE17", "ACME", "dummy22", "II", "A", 0, 0.32, 2, 10, 0.1, "", 0.00);  --rechts/links
 
 INSERT INTO torque_tester (serial_number,
                          manufacturer,

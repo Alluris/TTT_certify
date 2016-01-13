@@ -51,19 +51,19 @@ class test_object_table : public Fl_Table
         switch (COL)
           {
           case 0:
-            snprintf (s, 40, "%s", gettext ("Seriennummer"));
+            snprintf (s, 40, "%s", gettext ("Prüfmittelnr."));
             break;
           case 1:
-            snprintf (s, 40, "%s", gettext ("Hersteller"));
+            snprintf (s, 40, "%s", gettext ("Seriennummer"));
             break;
           case 2:
-            snprintf (s, 40, "%s", gettext ("Modell"));
+            snprintf (s, 40, "%s", gettext ("Hersteller"));
             break;
           case 3:
-            snprintf (s, 40, "%s", gettext ("Typ"));
+            snprintf (s, 40, "%s", gettext ("Modell"));
             break;
           case 4:
-            snprintf (s, 40, "%s", gettext ("Funktionsrichtung"));
+            snprintf (s, 40, "%s", gettext ("Typ"));
             break;
           }
         DrawHeader(s,X,Y,W,H);
@@ -76,19 +76,19 @@ class test_object_table : public Fl_Table
         switch (COL)
           {
           case 0:
-            snprintf (s, 40, "%s", vto[ROW].serial_number.c_str ());
+            snprintf (s, 40, "%s", vto[ROW].equipment_number.c_str ());
             break;
           case 1:
-            snprintf (s, 40, "%s", vto[ROW].manufacturer.c_str ());
+            snprintf (s, 40, "%s", vto[ROW].serial_number.c_str ());
             break;
           case 2:
-            snprintf (s, 40, "%s", vto[ROW].model.c_str ());
+            snprintf (s, 40, "%s", vto[ROW].manufacturer.c_str ());
             break;
           case 3:
-            snprintf (s, 40, "%s", vto[ROW].get_type_class ().c_str ());
+            snprintf (s, 40, "%s", vto[ROW].model.c_str ());
             break;
           case 4:
-            snprintf (s, 40, "%i", vto[ROW].dir_of_rotation);
+            snprintf (s, 40, "%s", vto[ROW].get_type_class ().c_str ());
             break;
           }
         DrawData(s,X,Y,W,H);
@@ -124,12 +124,17 @@ public:
     // Cols
     cols(5);              // how many columns
     col_header(1);        // enable column headers (along top)
-    col_width (0, 170);
-    col_width (1, 150);
-    col_width (2, 150);
-    col_width (3, 120);
-    col_width (4, 180);
-    col_resize(1);              // enable column resizing
+    col_width (0, 170);   // Prüfmittelnummer
+    col_width (1, 170);   // Seriennummer
+    col_width (2, 170);   // Hersteller
+    col_width (3, 170);   // Modell
+    col_width (4, 70);    // Typ
+    col_resize(1);        // enable column resizing
+  }
+
+  void search_equipment_nr (string str)
+  {
+    search (EQUIPMENTNR, str);
   }
 
   void search_serial (string serial)

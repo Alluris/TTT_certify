@@ -243,18 +243,19 @@ void test_object::load_with_id (sqlite3 *db, int search_id)
           if (rc == SQLITE_ROW)
             {
               id = sqlite3_column_int (pStmt, 0);
-              serial_number = (const char*) sqlite3_column_text (pStmt, 1);
-              manufacturer = (const char*) sqlite3_column_text (pStmt, 2);
-              model = (const char*) sqlite3_column_text (pStmt, 3);
-              DIN_type = (const char*) sqlite3_column_text (pStmt, 4);
-              DIN_class = (const char*) sqlite3_column_text (pStmt, 5);
-              dir_of_rotation = sqlite3_column_int (pStmt, 6);
-              lever_length = sqlite3_column_double (pStmt, 7);
-              min_torque = sqlite3_column_double (pStmt, 8);
-              max_torque = sqlite3_column_double (pStmt, 9);
-              resolution = sqlite3_column_double (pStmt, 10);
-              attachments = (const char*) sqlite3_column_text (pStmt, 11);
-              accuracy = sqlite3_column_double (pStmt, 12);
+              equipment_number = (const char*) sqlite3_column_text (pStmt, 1);
+              serial_number = (const char*) sqlite3_column_text (pStmt, 2);
+              manufacturer = (const char*) sqlite3_column_text (pStmt, 3);
+              model = (const char*) sqlite3_column_text (pStmt, 4);
+              DIN_type = (const char*) sqlite3_column_text (pStmt, 5);
+              DIN_class = (const char*) sqlite3_column_text (pStmt, 6);
+              dir_of_rotation = sqlite3_column_int (pStmt, 7);
+              lever_length = sqlite3_column_double (pStmt, 8);
+              min_torque = sqlite3_column_double (pStmt, 9);
+              max_torque = sqlite3_column_double (pStmt, 10);
+              resolution = sqlite3_column_double (pStmt, 11);
+              attachments = (const char*) sqlite3_column_text (pStmt, 12);
+              accuracy = sqlite3_column_double (pStmt, 13);
             }
           sqlite3_finalize(pStmt);
           if (rc == SQLITE_DONE)
@@ -275,23 +276,24 @@ void test_object::save (sqlite3 *db)
   cout << *this;
 
   sqlite3_stmt *pStmt;
-  int rc = sqlite3_prepare_v2 (db, "INSERT INTO test_object (serial_number, manufacturer, model, DIN_type, "
+  int rc = sqlite3_prepare_v2 (db, "INSERT INTO test_object (serial_number, equipment_number, manufacturer, model, DIN_type, "
                                "DIN_class, dir_of_rotation, lever_length, min_torque, max_torque, resolution, attachments, accuracy)"
-                               "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12);", -1, &pStmt, NULL);
+                               "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13);", -1, &pStmt, NULL);
   if (rc == SQLITE_OK)
     {
       sqlite3_bind_text (pStmt, 1, serial_number.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 2, manufacturer.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 3, model.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 4, DIN_type.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 5, DIN_class.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_int (pStmt, 6, dir_of_rotation);
-      sqlite3_bind_double (pStmt, 7, lever_length);
-      sqlite3_bind_double (pStmt, 8, min_torque);
-      sqlite3_bind_double (pStmt, 9, max_torque);
-      sqlite3_bind_double (pStmt, 10, resolution);
-      sqlite3_bind_text (pStmt, 11, attachments.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_double (pStmt, 12, accuracy);
+      sqlite3_bind_text (pStmt, 2, equipment_number.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 3, manufacturer.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 4, model.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 5, DIN_type.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 6, DIN_class.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_int (pStmt, 7, dir_of_rotation);
+      sqlite3_bind_double (pStmt, 8, lever_length);
+      sqlite3_bind_double (pStmt, 9, min_torque);
+      sqlite3_bind_double (pStmt, 10, max_torque);
+      sqlite3_bind_double (pStmt, 11, resolution);
+      sqlite3_bind_text (pStmt, 12, attachments.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_double (pStmt, 13, accuracy);
       rc = sqlite3_step (pStmt);
       sqlite3_finalize(pStmt);
       if (rc != SQLITE_DONE)
@@ -315,6 +317,7 @@ double test_object::cairo_print (cairo_t *cr, double c1, double c2, double top)
   top = cairo_print_two_columns (cr, c1, c2, top, "Gegenstand", "Object", model);
   top = cairo_print_two_columns (cr, c1, c2, top, "Hersteller", "Manufacturer", manufacturer);
   top = cairo_print_two_columns (cr, c1, c2, top, "Seriennummer", "Serial number", serial_number);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Prüfmittelnummer", "Test equipment number", equipment_number);
 
   double scale = 14;
   cairo_save (cr);
@@ -1263,19 +1266,20 @@ ostream& operator<< (ostream& os, const test_person &tp)
 ostream& operator<< (ostream& os, const test_object &to)
 {
   os << "test_object:" << endl;
-  os << "  id              = " << to.id << endl;
-  os << "  serial_number   = " << to.serial_number << endl;
-  os << "  manufacturer    = " << to.manufacturer << endl;
-  os << "  model           = " << to.model << endl;
-  os << "  DIN_type        = " << to.DIN_type << endl;
-  os << "  DIN_class       = " << to.DIN_class << endl;
-  os << "  dir_of_rotation = " << to.dir_of_rotation << endl;
-  os << "  lever_length    = " << to.lever_length << endl;
-  os << "  min_torque      = " << to.min_torque << endl;
-  os << "  max_torque      = " << to.max_torque << endl;
-  os << "  resolution      = " << to.resolution << endl;
-  os << "  attachments     = " << to.attachments << endl;
-  os << "  accuracy        = " << to.accuracy << endl;
+  os << "  id                = " << to.id << endl;
+  os << "  test_equipment_nr = " << to.equipment_number << endl;
+  os << "  serial_number     = " << to.serial_number << endl;
+  os << "  manufacturer      = " << to.manufacturer << endl;
+  os << "  model             = " << to.model << endl;
+  os << "  DIN_type          = " << to.DIN_type << endl;
+  os << "  DIN_class         = " << to.DIN_class << endl;
+  os << "  dir_of_rotation   = " << to.dir_of_rotation << endl;
+  os << "  lever_length      = " << to.lever_length << endl;
+  os << "  min_torque        = " << to.min_torque << endl;
+  os << "  max_torque        = " << to.max_torque << endl;
+  os << "  resolution        = " << to.resolution << endl;
+  os << "  attachments       = " << to.attachments << endl;
+  os << "  accuracy          = " << to.accuracy << endl;
   return os;
 }
 
@@ -1283,6 +1287,7 @@ bool test_object::equal (const test_object &to)
 {
   return     id == to.id
              &&  ! serial_number.compare (to.serial_number)
+             &&  ! equipment_number.compare (to.equipment_number)
              &&  ! manufacturer.compare (to.manufacturer)
              &&  ! model.compare (to.model)
              &&  ! DIN_type.compare (to.DIN_type)
@@ -1347,6 +1352,8 @@ void search_test_objects (sqlite3 *db, enum test_object_search_field field, stri
 
   if (field == SERIAL)
     rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE serial_number LIKE ?1", -1, &pStmt, NULL);
+  else if (field == EQUIPMENTNR)
+    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE equipment_number LIKE ?1", -1, &pStmt, NULL);
   else if (field == MANUFACTURER)
     rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE manufacturer LIKE ?1", -1, &pStmt, NULL);
   else if (field == MODEL)
