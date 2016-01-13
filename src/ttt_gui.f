@@ -29,6 +29,9 @@ decl {\#include "cairo_print_devices.h"} {public global
 decl {\#include "test_object_table.h"} {public global
 } 
 
+decl {\#include "measurement_table.h"} {public global
+} 
+
 decl {void run_cb(void *)} {public global
 } 
 
@@ -42,7 +45,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2585 266 1280 765} type Double color 40 labelfont 1 align 20 hide
+    xywh {2063 275 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -440,7 +443,7 @@ btn_test_object_abort->hide ();}
     }
     Fl_Group {} {
       label {Prüfung} open
-      xywh {761 6 515 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      xywh {761 6 515 774} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
         label Start
@@ -492,57 +495,57 @@ else if (rb_ASME->value ())
 
 update_run_activation ();
 Fl::add_timeout(0.01, run_cb);}
-        xywh {785 215 110 30} box GLEAM_THIN_UP_BOX
+        xywh {785 195 110 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_stop {
         label Stopp
         callback {myTTT->stop_sequencer();
 btn_result->show ();
+mtable->show ();
 btn_result->color (FL_RED);
 btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
-        xywh {962 215 110 30} box GLEAM_THIN_UP_BOX deactivate
+        xywh {962 195 110 30} box GLEAM_THIN_UP_BOX deactivate
       }
       Fl_Button btn_direction_cw {
         label {@+82redo}
-        tooltip Drehrichtung xywh {1051 495 70 70} box NO_BOX deactivate
+        tooltip Drehrichtung xywh {1051 374 70 70} box NO_BOX deactivate
       }
       Fl_Button btn_direction_ccw {
         label {@+88undo}
-        tooltip Drehrichtung xywh {920 495 70 70} box NO_BOX deactivate
+        tooltip Drehrichtung xywh {920 374 70 70} box NO_BOX deactivate
       }
       Fl_Button btn_confirm {
         label {Bestätigung}
         callback {myTTT->set_confirmation ();}
-        xywh {1140 215 110 30} box GLEAM_THIN_UP_BOX deactivate
+        xywh {1140 195 110 30} box GLEAM_THIN_UP_BOX deactivate
       }
       Fl_Value_Output vo_nominal_value {
         label {Nominalwert [Nm]}
-        xywh {785 503 145 60} align 5 minimum -100 maximum 100 step 0.01 textsize 30
+        xywh {785 382 145 60} align 5 minimum -100 maximum 100 step 0.01 textsize 30
       }
       Fl_Output to_step {
         label {aktueller Schritt}
-        xywh {776 613 484 30} align 5
+        xywh {780 665 479 30} align 5
       }
       Fl_Dial dial_torque {
-        xywh {970 480 101 101} type Line minimum -20 maximum 20
+        xywh {970 359 101 101} type Line minimum -20 maximum 20
       }
       Fl_Value_Output vo_peak_torque {
         label {Messwert [Nm]}
-        xywh {1110 503 145 60} align 5 step 0.01 textsize 30
+        xywh {1110 382 145 60} align 5 step 0.01 textsize 30
       }
       Fl_Progress step_progress {
-        xywh {840 654 420 25} selection_color 178
+        xywh {850 715 410 25} selection_color 178
       }
       Fl_Button btn_result {
-        xywh {775 690 486 50}
+        xywh {780 700 481 50}
       }
       Fl_Value_Output vo_step_progress {
         label {%}
-        xywh {780 654 35 25} align 8 step 1
+        xywh {790 715 35 25} align 8 step 1
       }
       Fl_Text_Display td_instruction {
-        label Anweisung
-        xywh {780 340 480 114} labelsize 18 align 5 textsize 20
+        xywh {780 236 480 114} labelsize 18 align 5 textsize 20
       }
       Fl_Round_Button rb_quick_peak {
         label {Schnellprüfung}
@@ -588,6 +591,10 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
           xywh {925 160 195 25} type Radio down_box ROUND_DOWN_BOX
         }
       }
+      Fl_Table mtable {open selected
+        xywh {785 465 470 175} hide
+        class measurement_table
+      } {}
     }
   }
   Fl_Window test_object_win {
@@ -639,7 +646,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
       callback {test_object_win->hide ();}
       xywh {740 605 90 30} box GLEAM_THIN_UP_BOX
     }
-    Fl_Button {} {
+    Fl_Button btn_test_object_select {
       label {wählen}
       callback {int id = to->get_selected_id ();
 
@@ -820,6 +827,7 @@ Function {update_run_activation()} {open
   code {if (myTTT->run ())
 {
   btn_result->hide ();
+  mtable->show ();
   btn_start->deactivate ();
   btn_stop->activate ();
   btn_confirm->activate ();

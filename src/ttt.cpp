@@ -25,9 +25,10 @@ If not, see <http://www.gnu.org/licenses/>.
 #include "ttt.h"
 
 //C'Tor
-ttt::ttt (cb_display_double *cb_ind, cb_display_double *cb_nom, cb_display_double *cb_pt, cb_display_string *cb_i, cb_display_string_double *cb_s, cb_display_string *cb_r, string database_fn)
+ttt::ttt (cb_display_double *cb_ind, cb_display_double *cb_nom, cb_display_double *cb_pt, cb_display_string *cb_i, cb_display_string_double *cb_s, cb_display_string *cb_r, string database_fn, measurement_table *mt)
   :pttt(0),
    db(0),
+   m_table(mt),
    cb_indicated_torque(cb_ind),
    cb_nominal_torque(cb_nom),
    cb_peak_torque(cb_pt),
@@ -183,7 +184,7 @@ bool ttt::run ()
 
           print_step ( string (gettext ("Kalibrierschein:")) + " " + report_filename, 1);
         }
-      else if (measurement_method == 0)
+      else if (measurement_method == 0) //single peak
         {
           report_filename = get_time_for_filename () + "_quick_check.pdf";
           bool res = create_quick_test_report (db, meas.id, report_filename.c_str ());
@@ -292,6 +293,11 @@ bool ttt::run ()
 
               // add result to database
               meas.add_measurement_item (get_localtime (), pmeas->get_nominal_value (), pmeas->get_peak_torque (), rise_time);
+
+              // add result to table
+              if (m_table)
+                m_table->add_measurement (pmeas->get_peak_torque ());
+
             }
         }
       // FIXME: should the old measurement be visible until next measurement or not?
@@ -480,6 +486,55 @@ void ttt::start_sequencer (double temperature, double humidity)
   meas.temperature = temperature;
   meas.humidity = humidity;
   meas.start_time = get_localtime();
+
+  // configure measurement_table
+  if (m_table)
+    {
+      m_table->clear ();
+      unsigned int k;
+      int cols = 0, col_cnt = 0, rows = 0;
+      double old_nom = 0;
+
+      // loop over all steps and find measurement_steps
+      // (ignore tara, preload and so on)
+
+      // new row for every new nominal_value
+      // new col if same nominal_value
+
+      for (k=0; k < steps.size (); ++k)
+        {
+          meas_step *pmeas = dynamic_cast<meas_step*>(steps[k]);
+          if (pmeas)
+            {
+              double nom = pmeas->get_nominal_value ();
+              cout << "configure measurement_table nom=" << nom << " old_nom=" << old_nom << endl;
+              if (nom != old_nom)
+                {
+                  m_table->add_nominal_value (nom);
+                  rows++;
+                  col_cnt = 1;
+                }
+              else
+                {
+                  col_cnt++;
+                }
+
+              if (col_cnt > cols)
+                cols = col_cnt;
+              old_nom = nom;
+              // is it a peak_click_step?
+              //peak_click_step *pclick = dynamic_cast<peak_click_step*>(pmeas);
+              //if (pclick)
+              //rise_time = pclick->get_rise_time ();
+
+            }
+        }
+
+      cout << "cfg m_table rows=" << rows << " cols=" << cols << endl;
+      m_table->rows (rows);
+      m_table->cols (cols);
+    }
+
 
   if (pttt)
     pttt->start ();

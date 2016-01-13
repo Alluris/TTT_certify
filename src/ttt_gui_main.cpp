@@ -225,7 +225,7 @@ int main(int argc, char **argv)
 
   try
     {
-      myTTT = new ttt(update_indicated_torque, update_nominal_torque, update_peak_torque, update_instruction, update_step, update_result, "ttt_certify.db");
+      myTTT = new ttt(update_indicated_torque, update_nominal_torque, update_peak_torque, update_instruction, update_step, update_result, "ttt_certify.db", mtable);
 
       if (argc == 3)
         myTTT->connect_measurement_input (argv[2]);

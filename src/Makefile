@@ -17,7 +17,7 @@ ttt_gui.cpp ttt_gui.h: ttt_gui.f
 %.o:%.c %.h
 	g++ $(CPPFLAGS) -c $<
 
-ttt_gui: ttt_gui.o ttt_gui_main.o ttt.o ttt_device.o step.o sqlite_interface.o cairo_box.o cairo_drawing_functions.o cairo_print_devices.o liballuris++.o liballuris.o
+ttt_gui: ttt_gui.o ttt_gui_main.o measurement_table.o ttt.o ttt_device.o step.o sqlite_interface.o cairo_box.o cairo_drawing_functions.o cairo_print_devices.o liballuris++.o liballuris.o
 	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_certify.db: create_database.sql fill_database.sql

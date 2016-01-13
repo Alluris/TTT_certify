@@ -35,6 +35,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include "step.h"
 #include "sqlite_interface.h"
 #include "cairo_drawing_functions.h"
+#include "measurement_table.h"
 
 using namespace std;
 
@@ -54,6 +55,8 @@ private:
 
   ifstream measurement_input;
   ofstream measurement_output;
+
+  measurement_table *m_table;
 
   //! display for measured torque
   cb_display_double *cb_indicated_torque;
@@ -120,7 +123,7 @@ private:
 public:
 
 
-  ttt (cb_display_double *cb_ind, cb_display_double *cb_nom, cb_display_double *cb_pt, cb_display_string *cb_i, cb_display_string_double *cb_s, cb_display_string *cb_r, string database_fn);
+  ttt (cb_display_double *cb_ind, cb_display_double *cb_nom, cb_display_double *cb_pt, cb_display_string *cb_i, cb_display_string_double *cb_s, cb_display_string *cb_r, string database_fn, measurement_table *mt=0);
   ~ttt ();
 
   //************* datasource *************
