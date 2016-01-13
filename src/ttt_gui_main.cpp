@@ -166,6 +166,14 @@ void run_cb(void*)
     update_run_activation ();
 }
 
+void test_object_table_selected(int id)
+{
+  printf ("test_object_table_selected id=%i\n", id);
+  vi_test_object_id->value(id);
+  load_test_object(id);
+  test_object_win->hide ();
+}
+
 void cairo_box::graphic(cairo_t* cr, double x, double y, double w, double h)
 {
   (void) h; //we don't need h here
@@ -205,6 +213,7 @@ int main(int argc, char **argv)
   //Fl::scheme ("gleam");
 
   create_widgets ();
+  to->set_select_cb (test_object_table_selected);
 
   instruction_buff = new Fl_Text_Buffer ();
   td_instruction->buffer (instruction_buff);

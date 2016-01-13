@@ -1,14 +1,19 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Table.H>
+#include <FL/Fl_Table_Row.H>
 #include <FL/fl_draw.H>
 #include "sqlite_interface.h"
 
 #ifndef _TEST_OBJECT_TABLE_
 #define _TEST_OBJECT_TABLE_
 
-class test_object_table : public Fl_Table
+typedef void(select_cb)(int id);
+
+class test_object_table : public Fl_Table_Row
 {
+private:
+
+  select_cb* cb;
 
   void DrawHeader(const char *s, int X, int Y, int W, int H)
   {
@@ -19,11 +24,11 @@ class test_object_table : public Fl_Table
     fl_pop_clip();
   }
 
-  void DrawData(const char *s, int X, int Y, int W, int H)
+  void DrawData(const char *s, int X, int Y, int W, int H, Fl_Color bgcolor)
   {
     fl_push_clip(X,Y,W,H);
     // Draw cell bg
-    fl_color(FL_WHITE);
+    fl_color(bgcolor);
     fl_rectf(X,Y,W,H);
     // Draw cell data
     fl_color(FL_GRAY0);
@@ -91,7 +96,7 @@ class test_object_table : public Fl_Table
             snprintf (s, 40, "%s", vto[ROW].get_type_class ().c_str ());
             break;
           }
-        DrawData(s,X,Y,W,H);
+        DrawData(s,X,Y,W,H,row_selected (ROW) ? FL_YELLOW : FL_WHITE);
         return;
       default:
         return;
@@ -102,7 +107,7 @@ public:
   sqlite3 *db;
   vector<test_object> vto;
 
-  test_object_table(int X, int Y, int W, int H, const char *L=0) : Fl_Table(X,Y,W,H,L)
+  test_object_table(int X, int Y, int W, int H, const char *L=0) : Fl_Table_Row(X,Y,W,H,L), cb(0)
   {
     // FIXME, retrieve db name from main
     string database_fn = "ttt_certify.db";
@@ -130,6 +135,14 @@ public:
     col_width (3, 170);   // Modell
     col_width (4, 70);    // Typ
     col_resize(1);        // enable column resizing
+
+    type (SELECT_SINGLE); // Only single rows can be selected
+    Fl_Table::when (FL_WHEN_NEVER);
+  }
+
+  ~test_object_table()
+  {
+    sqlite3_close (db);
   }
 
   void search_equipment_nr (string str)
@@ -159,10 +172,36 @@ public:
     rows (vto.size());
   }
 
-  ~test_object_table()
+  void set_select_cb (select_cb *c)
   {
-    sqlite3_close (db);
+    cb = c;
   }
+
+  int get_selected_id ()
+  {
+    int k;
+    for (k = 0; k < rows (); ++k)
+      if (row_selected (k))
+        return vto[k].id;
+
+    return 0;
+  }
+
+  int handle(int event)
+  {
+    int ret = Fl_Table_Row::handle(event);
+    if (Fl::event_clicks () && cb)
+      {
+        int id = get_selected_id ();
+        if (id > 0)
+          {
+            cb (id);
+            return 1;
+          }
+      }
+    return ret;
+  }
+
 };
 
 #endif
