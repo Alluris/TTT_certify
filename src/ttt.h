@@ -200,6 +200,7 @@ public:
                         double accuracy)
   {
     meas.to.id = -1;
+    meas.to.active = true;
     meas.to.equipment_number = equipment_number;
     meas.to.serial_number    = serial_number;
     meas.to.manufacturer     = manufacturer;
@@ -242,6 +243,17 @@ public:
   void load_test_object (int id)
   {
     meas.to.load_with_id (db, id);
+  }
+
+  // set id inactive and return next adjacent test_object or 0 if there is none
+  int delete_test_object (int id)
+  {
+    set_test_object_active (db, id, false);
+    set_test_object_equipment_number (db, id, meas.to.equipment_number + "(deleted on " + get_localtime () +")");
+    int adj_id = search_active_adjacent_test_object (db, id);
+    if (! adj_id)
+      meas.to.id = 0;
+    return adj_id;
   }
 
   void load_torque_tester ();
@@ -298,6 +310,11 @@ public:
   bool test_object_is_type_class (string tc)
   {
     return meas.to.is_type_class (tc);
+  }
+
+  bool test_object_is_editable ()
+  {
+    return (! test_object_has_measurement (db, meas.to.id));
   }
 
   bool test_object_is_is_screwdriver ()

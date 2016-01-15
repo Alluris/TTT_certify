@@ -166,10 +166,11 @@ void run_cb(void*)
     update_run_activation ();
 }
 
-void test_object_table_selected(int id)
+void test_object_table_selected (int id)
 {
   printf ("test_object_table_selected id=%i\n", id);
   vi_test_object_id->value(id);
+  vi_test_object_id->show ();
   load_test_object(id);
   test_object_win->hide ();
 }

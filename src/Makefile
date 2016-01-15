@@ -1,5 +1,4 @@
 .PHONY:clean
-.PHONY:style
 
 TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db
 
@@ -23,10 +22,6 @@ ttt_gui: ttt_gui.o ttt_gui_main.o measurement_table.o ttt.o ttt_device.o step.o 
 ttt_certify.db: create_database.sql fill_database.sql
 	sqlite3 ttt_certify.db < create_database.sql
 	sqlite3 ttt_certify.db < fill_database.sql
-
-style:
-	find . \( -name "*.m" -or -name "*.c*" -or -name "*.h" -or -name "Makefile" \) -exec sed -i 's/[[:space:]]*$$//' {} \;
-	find . \( -name "*.c*" -or -name "*.h" \) -exec astyle --style=gnu -s2 -n {} \;
 
 clean:
 	find . -name "octave-workspace" -exec rm {} \;

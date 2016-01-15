@@ -79,6 +79,7 @@ class test_object
 {
 public:
   int id;
+  bool active;
   string equipment_number;
   string serial_number;
   string manufacturer;
@@ -283,6 +284,10 @@ enum test_object_search_field
 };
 
 void search_test_objects (sqlite3 *db, enum test_object_search_field field, string search_str, vector<test_object> &vto);
-
+void set_test_object_active (sqlite3 *db, int id, bool active);
+bool get_test_object_active (sqlite3 *db, int id);
+void set_test_object_equipment_number (sqlite3 *db, int id, string equipment_number);
+int search_active_adjacent_test_object (sqlite3 *db, int id);
+bool test_object_has_measurement (sqlite3 *db, int id);
 
 #endif

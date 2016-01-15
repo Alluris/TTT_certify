@@ -455,6 +455,9 @@ void ttt::start_sequencer (double temperature, double humidity)
   if (sequencer_is_running)
     throw runtime_error ("Sequencer is already running. Please stop it first");
 
+  if (! meas.to.id)
+    throw runtime_error ("ttt::start_sequencer: No valid test object selected");
+
   if (! measurement_output.is_open ())
     {
       ostringstream os;

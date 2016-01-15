@@ -24,7 +24,8 @@ CREATE TABLE test_person (id INTEGER PRIMARY KEY,
 ---------------------------------------------------------------------------
 
 CREATE TABLE test_object (id INTEGER PRIMARY KEY,
-                          equipment_number TEXT NOT NULL UNIQUE, -- Prüfmittelnummer
+                          active BOOLEAN,
+                          equipment_number TEXT UNIQUE NOT NULL, -- Prüfmittelnummer
                           serial_number TEXT,
                           manufacturer TEXT,
                           model TEXT,

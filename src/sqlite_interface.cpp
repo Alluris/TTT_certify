@@ -28,6 +28,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include <time.h>
 #include <cstdlib>
 #include <unistd.h>
+#include <climits>
 #include "sqlite_interface.h"
 #include "cairo_print_devices.h"
 
@@ -243,19 +244,20 @@ void test_object::load_with_id (sqlite3 *db, int search_id)
           if (rc == SQLITE_ROW)
             {
               id = sqlite3_column_int (pStmt, 0);
-              equipment_number = (const char*) sqlite3_column_text (pStmt, 1);
-              serial_number = (const char*) sqlite3_column_text (pStmt, 2);
-              manufacturer = (const char*) sqlite3_column_text (pStmt, 3);
-              model = (const char*) sqlite3_column_text (pStmt, 4);
-              DIN_type = (const char*) sqlite3_column_text (pStmt, 5);
-              DIN_class = (const char*) sqlite3_column_text (pStmt, 6);
-              dir_of_rotation = sqlite3_column_int (pStmt, 7);
-              lever_length = sqlite3_column_double (pStmt, 8);
-              min_torque = sqlite3_column_double (pStmt, 9);
-              max_torque = sqlite3_column_double (pStmt, 10);
-              resolution = sqlite3_column_double (pStmt, 11);
-              attachments = (const char*) sqlite3_column_text (pStmt, 12);
-              accuracy = sqlite3_column_double (pStmt, 13);
+              active = sqlite3_column_int (pStmt, 1);
+              equipment_number = (const char*) sqlite3_column_text (pStmt, 2);
+              serial_number = (const char*) sqlite3_column_text (pStmt, 3);
+              manufacturer = (const char*) sqlite3_column_text (pStmt, 4);
+              model = (const char*) sqlite3_column_text (pStmt, 5);
+              DIN_type = (const char*) sqlite3_column_text (pStmt, 6);
+              DIN_class = (const char*) sqlite3_column_text (pStmt, 7);
+              dir_of_rotation = sqlite3_column_int (pStmt, 8);
+              lever_length = sqlite3_column_double (pStmt, 9);
+              min_torque = sqlite3_column_double (pStmt, 10);
+              max_torque = sqlite3_column_double (pStmt, 11);
+              resolution = sqlite3_column_double (pStmt, 12);
+              attachments = (const char*) sqlite3_column_text (pStmt, 13);
+              accuracy = sqlite3_column_double (pStmt, 14);
             }
           sqlite3_finalize(pStmt);
           if (rc == SQLITE_DONE)
@@ -276,24 +278,25 @@ void test_object::save (sqlite3 *db)
   cout << *this;
 
   sqlite3_stmt *pStmt;
-  int rc = sqlite3_prepare_v2 (db, "INSERT INTO test_object (serial_number, equipment_number, manufacturer, model, DIN_type, "
+  int rc = sqlite3_prepare_v2 (db, "INSERT INTO test_object (active, serial_number, equipment_number, manufacturer, model, DIN_type, "
                                "DIN_class, dir_of_rotation, lever_length, min_torque, max_torque, resolution, attachments, accuracy)"
-                               "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13);", -1, &pStmt, NULL);
+                               "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14);", -1, &pStmt, NULL);
   if (rc == SQLITE_OK)
     {
-      sqlite3_bind_text (pStmt, 1, serial_number.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 2, equipment_number.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 3, manufacturer.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 4, model.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 5, DIN_type.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 6, DIN_class.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_int (pStmt, 7, dir_of_rotation);
-      sqlite3_bind_double (pStmt, 8, lever_length);
-      sqlite3_bind_double (pStmt, 9, min_torque);
-      sqlite3_bind_double (pStmt, 10, max_torque);
-      sqlite3_bind_double (pStmt, 11, resolution);
-      sqlite3_bind_text (pStmt, 12, attachments.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_double (pStmt, 13, accuracy);
+      sqlite3_bind_int (pStmt, 1, active);
+      sqlite3_bind_text (pStmt, 2, serial_number.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 3, equipment_number.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 4, manufacturer.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 5, model.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 6, DIN_type.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 7, DIN_class.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_int (pStmt, 8, dir_of_rotation);
+      sqlite3_bind_double (pStmt, 9, lever_length);
+      sqlite3_bind_double (pStmt, 10, min_torque);
+      sqlite3_bind_double (pStmt, 11, max_torque);
+      sqlite3_bind_double (pStmt, 12, resolution);
+      sqlite3_bind_text (pStmt, 13, attachments.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_double (pStmt, 14, accuracy);
       rc = sqlite3_step (pStmt);
       sqlite3_finalize(pStmt);
       if (rc != SQLITE_DONE)
@@ -1267,6 +1270,7 @@ ostream& operator<< (ostream& os, const test_object &to)
 {
   os << "test_object:" << endl;
   os << "  id                = " << to.id << endl;
+  os << "  active            = " << to.active << endl;
   os << "  test_equipment_nr = " << to.equipment_number << endl;
   os << "  serial_number     = " << to.serial_number << endl;
   os << "  manufacturer      = " << to.manufacturer << endl;
@@ -1286,8 +1290,9 @@ ostream& operator<< (ostream& os, const test_object &to)
 bool test_object::equal (const test_object &to)
 {
   return     id == to.id
-             &&  ! serial_number.compare (to.serial_number)
+             && active == to.active
              &&  ! equipment_number.compare (to.equipment_number)
+             &&  ! serial_number.compare (to.serial_number)
              &&  ! manufacturer.compare (to.manufacturer)
              &&  ! model.compare (to.model)
              &&  ! DIN_type.compare (to.DIN_type)
@@ -1351,13 +1356,13 @@ void search_test_objects (sqlite3 *db, enum test_object_search_field field, stri
   int rc = -1;
 
   if (field == SERIAL)
-    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE serial_number LIKE ?1", -1, &pStmt, NULL);
+    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE serial_number LIKE ?1 AND active == 1", -1, &pStmt, NULL);
   else if (field == EQUIPMENTNR)
-    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE equipment_number LIKE ?1", -1, &pStmt, NULL);
+    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE equipment_number LIKE ?1 AND active == 1", -1, &pStmt, NULL);
   else if (field == MANUFACTURER)
-    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE manufacturer LIKE ?1", -1, &pStmt, NULL);
+    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE manufacturer LIKE ?1 AND active == 1", -1, &pStmt, NULL);
   else if (field == MODEL)
-    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE MODEL LIKE ?1", -1, &pStmt, NULL);
+    rc = sqlite3_prepare_v2 (db, "SELECT ID FROM test_object WHERE MODEL LIKE ?1 AND active == 1", -1, &pStmt, NULL);
 
   if (rc == SQLITE_OK)
     {
@@ -1385,4 +1390,126 @@ void search_test_objects (sqlite3 *db, enum test_object_search_field field, stri
   else
     fprintf(stderr, "SQL error from sqlite3_prepare_v2: %i = %s\n", rc, sqlite3_errmsg(db));
 
+}
+
+void set_test_object_active (sqlite3 *db, int id, bool active)
+{
+  cout << "set_test_object_active id=" << id << " active=" << active << endl;
+
+  sqlite3_stmt *pStmt;
+  int rc = sqlite3_prepare_v2 (db, "UPDATE test_object SET active = ?1 WHERE ID=?2;", -1, &pStmt, NULL);
+  if (rc == SQLITE_OK)
+    {
+      sqlite3_bind_int (pStmt, 1, active);
+      sqlite3_bind_int (pStmt, 2, id);
+      rc = sqlite3_step (pStmt);
+      sqlite3_finalize(pStmt);
+      if (rc != SQLITE_DONE)
+        {
+          fprintf(stderr, "set_test_object_active sqlite3_step failed %i = %s\n", rc, sqlite3_errmsg(db));
+          throw runtime_error ("set_test_object_active sqlite3_step failed");
+        }
+    }
+  else
+    {
+      fprintf(stderr, "set_test_object_active sqlite3_prepare_v2 failed %i = %s\n", rc, sqlite3_errmsg(db));
+      throw runtime_error ("set_test_object_active sqlite3_prepare_v2 failed");
+    }
+}
+
+void set_test_object_equipment_number (sqlite3 *db, int id, string equipment_number)
+{
+  cout << "set_test_object_equipment_number id=" << id << " equipment_number=" << equipment_number << endl;
+
+  sqlite3_stmt *pStmt;
+  int rc = sqlite3_prepare_v2 (db, "UPDATE test_object SET equipment_number = ?1 WHERE ID=?2;", -1, &pStmt, NULL);
+  if (rc == SQLITE_OK)
+    {
+      sqlite3_bind_text (pStmt, 1, equipment_number.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_int (pStmt, 2, id);
+      rc = sqlite3_step (pStmt);
+      sqlite3_finalize(pStmt);
+      if (rc != SQLITE_DONE)
+        {
+          fprintf(stderr, "set_test_object_equipment_number sqlite3_step failed %i = %s\n", rc, sqlite3_errmsg(db));
+          throw runtime_error ("set_test_object_equipment_number sqlite3_step failed");
+        }
+    }
+  else
+    {
+      fprintf(stderr, "set_test_object_equipment_number sqlite3_prepare_v2 failed %i = %s\n", rc, sqlite3_errmsg(db));
+      throw runtime_error ("set_test_object_equipment_number sqlite3_prepare_v2 failed");
+    }
+}
+
+bool get_test_object_active (sqlite3 *db, int id)
+{
+  cout << "get_test_object_active id=" << id << endl;
+  bool ret;
+  sqlite3_stmt *pStmt;
+  int rc = sqlite3_prepare_v2 (db, "SELECT active from test_object WHERE ID=?1;", -1, &pStmt, NULL);
+  if (rc == SQLITE_OK)
+    {
+      sqlite3_bind_int (pStmt, 1, id);
+      rc = sqlite3_step (pStmt);
+      if (rc == SQLITE_ROW)
+        ret = sqlite3_column_int (pStmt, 0);
+      sqlite3_finalize(pStmt);
+      if (rc == SQLITE_DONE)
+        throw runtime_error ("No test_object with given id");
+    }
+  else
+    {
+      fprintf(stderr, "get_test_object_active sqlite3_prepare_v2 failed %i = %s\n", rc, sqlite3_errmsg(db));
+      throw runtime_error ("get_test_object_active sqlite3_prepare_v2 failed");
+    }
+  cout << "get_test_object_active returns " << ret << endl;
+  return ret;
+}
+
+// return 0 if none found
+int search_active_adjacent_test_object (sqlite3 *db, int id)
+{
+  vector<test_object> vto;
+  search_test_objects (db, SERIAL, "%", vto);
+  cout << "search_active_adjacent_test_object vto.size()=" << vto.size () << endl;
+
+  int min_dist = INT_MAX;
+  int adj_id = 0;
+  for (int k=0; k < vto.size (); ++k)
+    {
+      int dist = abs (id - vto[k].id);
+      cout << "id=" << vto[k].id << " active=" << vto[k].active << " dist=" << dist << endl;
+      if (dist < min_dist)
+        {
+          min_dist = dist;
+          adj_id = vto[k].id;
+        }
+    }
+  cout << "search_active_adjacent_test_object returns " << adj_id << endl;;
+  return adj_id;
+}
+
+// check if there are measurements which references this test_object
+bool test_object_has_measurement (sqlite3 *db, int id)
+{
+  cout << "test_object_has_measurement id=" << id << endl;
+  bool ret=false;
+  sqlite3_stmt *pStmt;
+  int rc = sqlite3_prepare_v2 (db, "SELECT id from measurement where test_object_id == ?1;", -1, &pStmt, NULL);
+  if (rc == SQLITE_OK)
+    {
+      sqlite3_bind_int (pStmt, 1, id);
+      rc = sqlite3_step (pStmt);
+      if (rc == SQLITE_ROW)
+        ret = true;
+      sqlite3_finalize(pStmt);
+    }
+  else
+    {
+      fprintf(stderr, "test_object_has_measurement sqlite3_prepare_v2 failed %i = %s\n", rc, sqlite3_errmsg(db));
+      throw runtime_error ("test_object_has_measurement sqlite3_prepare_v2 failed");
+    }
+  cout << "test_object_has_measurement returns " << ret << endl;
+  return ret;
 }

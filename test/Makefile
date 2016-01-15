@@ -4,8 +4,8 @@ CPPFLAGS = -Wall -Wextra -ggdb -I ../src/
 GCC = g++
 
 TARGETS = test_ttt_device ttt_certify.db ttt_cli ttt_sim check_sqlite_interface check_create_cairo_report lsusb-libusb check_ttt_step check_liballuris
-OBJ     = ../src/ttt_device.o ../src/ttt.o ../src/step.o ../src/sqlite_interface.o ../src/cairo_drawing_functions.o ../src/cairo_print_devices.o ../src/liballuris++.o ../src/liballuris.o
-LIBS    = -lsqlite3 -lcairo -lusb-1.0
+OBJ     = ../src/ttt_device.o ../src/ttt.o ../src/measurement_table.o ../src/step.o ../src/sqlite_interface.o ../src/cairo_drawing_functions.o ../src/cairo_print_devices.o ../src/liballuris++.o ../src/liballuris.o
+LIBS    = -lsqlite3 -lcairo -lusb-1.0 -lfltk
 
 all: $(TARGETS)
 	$(MAKE) -C create_test_signal
@@ -57,7 +57,6 @@ check: $(TEST_FILES)
 
 %.log: ttt_sim
 	./ttt_sim $(subst .log,,$(subst test_object_id,,$@)) ./create_test_signal/$@ 2>&1 | tee $@
-
 
 clean:
 	rm -f $(TARGETS) *.o *.pdf *.log

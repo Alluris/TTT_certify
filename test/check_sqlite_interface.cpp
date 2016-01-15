@@ -203,6 +203,7 @@ int main ()
 
   /*********** CHECK test_object save/load cycle **********/
 
+  to.active = true;
   to.equipment_number = "ZX4";
   to.serial_number   = "XYZ 12345";
   to.manufacturer    = "ACME";
@@ -224,6 +225,33 @@ int main ()
   test_object to2;
   to2.load_with_id (db, to.id);
   assert (to.equal (to2));
+
+  // check set/get active
+  int del_id = 14;
+  set_test_object_active (db, del_id, false);
+  assert (get_test_object_active (db, del_id) == false);
+
+  // 14 is disabled so 13 should be adjacent
+  int adj_id = search_active_adjacent_test_object (db, del_id);
+  assert (adj_id == 13);
+
+  // also disable 13
+  set_test_object_active (db, 13, false);
+  assert (get_test_object_active (db, 13) == false);
+
+  // 13 and 14 are disabled so 15 should be the next adjacent
+  adj_id = search_active_adjacent_test_object (db, del_id);
+  assert (adj_id == 15);
+
+  set_test_object_active (db, del_id, true);
+  assert (get_test_object_active (db, del_id) == true);
+
+  // check test_object_has_measurement
+  assert (test_object_has_measurement (db, 1) == true);
+  assert (test_object_has_measurement (db, 16) == true);
+  assert (test_object_has_measurement (db, 2) == false);
+  assert (test_object_has_measurement (db, 15) == false);
+  assert (test_object_has_measurement (db, 17) == false);
 
   /*********** CHECK test_person save/load cycle **********/
   test_person tp;
@@ -278,7 +306,7 @@ int main ()
   /********** CHECK search_test_objects ******************/
   vector<test_object> vto;
   search_test_objects (db, SERIAL, "FAKE%", vto);
-  assert (vto.size () == 17);
+  assert (vto.size () == 16); //id 13 is still diabled
 
   vto.clear ();
   search_test_objects (db, MODEL, "7%", vto);

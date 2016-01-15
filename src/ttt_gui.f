@@ -41,11 +41,14 @@ decl {ttt *myTTT;} {public local
 decl {Fl_Text_Buffer *instruction_buff;} {public local
 } 
 
+decl {bool test_object_edit_flag;} {private local
+} 
+
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2063 275 1280 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2605 277 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -118,35 +121,35 @@ btn_test_person_abort->hide ();}
       }
     }
     Fl_Group {} {
-      label {Drehmoment-Schraubwerkzeug} open
+      label {Drehmoment-Schraubwerkzeug} open selected
       xywh {0 4 400 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_test_object_id {
         label id
         callback {load_test_object(o->value ());}
-        xywh {174 38 40 30} minimum 1 maximum 500 step 1
+        xywh {174 38 40 30} minimum 1 maximum 500 step 1 deactivate
       }
       Fl_Input inp_test_object_equipment_nr {
         label {Prüfmittelnummer}
-        xywh {175 83 210 25} deactivate
+        xywh {175 110 210 25} deactivate
       }
       Fl_Input inp_test_object_serial {
         label Seriennummer
-        xywh {175 113 210 25} deactivate
+        xywh {175 142 210 25} deactivate
       }
       Fl_Input inp_test_object_manufacturer {
         label Hersteller
-        xywh {175 143 210 25} deactivate
+        xywh {175 174 210 25} deactivate
       }
       Fl_Input inp_test_object_model {
         label Modell
-        xywh {175 175 210 25} deactivate
+        xywh {175 206 210 25} deactivate
       }
       Fl_Choice choice_test_object_type {
         label {DIN 6789 Typ}
         callback {update_test_object_type_class();
 update_test_object_accuracy();} open
-        xywh {175 210 210 28} down_box BORDER_BOX when 1 deactivate
+        xywh {175 238 210 28} down_box BORDER_BOX when 1 deactivate
       } {
         MenuItem {} {
           label IA
@@ -200,7 +203,7 @@ update_test_object_accuracy();} open
       Fl_Choice choice_test_object_dir_of_rotation {
         label Funktionsrichtung
         callback {cout << o->value() << endl;} open
-        xywh {285 423 90 25} down_box BORDER_BOX deactivate
+        xywh {285 440 90 25} down_box BORDER_BOX deactivate
       } {
         MenuItem {} {
           label beide
@@ -217,16 +220,16 @@ update_test_object_accuracy();} open
       }
       Fl_Value_Input vi_test_object_lever_length {
         label {Hebellänge [cm]}
-        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {285 453 90 25} maximum 150 step 0.01 deactivate
+        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {285 469 90 25} maximum 150 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_min_torque {
         label {Unterer Grenzwert [Nm]}
-        tooltip {Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA} xywh {285 488 90 25} align 132 maximum 100 step 0.01 deactivate
+        tooltip {Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA} xywh {285 499 90 25} align 132 maximum 100 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_max_torque {
         label {Oberer Grenzwert [Nm]}
         callback {update_test_object_accuracy();}
-        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {285 523 90 25} maximum 100 step 0.01 deactivate
+        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {285 528 90 25} maximum 100 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_resolution {
         label {Auflösung [Nm]}
@@ -238,44 +241,13 @@ update_test_object_accuracy();} open
       }
       Fl_Button btn_test_object_new {
         label {@filenew neu}
-        callback {vi_test_object_id->hide ();
-
-inp_test_object_equipment_nr->activate ();
-inp_test_object_serial->activate ();
-inp_test_object_manufacturer->activate ();
-inp_test_object_model->activate ();
-choice_test_object_type->activate ();
-choice_test_object_dir_of_rotation->activate ();
-vi_test_object_lever_length->activate ();
-vi_test_object_min_torque->activate ();
-vi_test_object_max_torque->activate ();
-vi_test_object_resolution->activate ();
-mi_test_object_attachments->activate ();
-rb_accuracy_from_din6789->activate ();
-rb_manufacturer_accuracy->activate ();
-
-inp_test_object_equipment_nr->value ("");
-inp_test_object_serial->value ("");
-inp_test_object_manufacturer->value ("");
-inp_test_object_model->value ("");
-choice_test_object_type->value(0);
-choice_test_object_dir_of_rotation->value(0);
-vi_test_object_lever_length->value(0);
-vi_test_object_min_torque->value(0);
-vi_test_object_max_torque->value(0);
-vi_test_object_resolution->value(0);
-mi_test_object_attachments->value("");
-
-rb_accuracy_from_din6789->set ();
-rb_manufacturer_accuracy->clear ();
-
-btn_test_object_new->hide ();
-btn_test_object_save->show ();
-btn_test_object_abort->show ();
+        callback {test_object_edit_flag = false;
+set_test_object_fields_editable (true);
+clear_test_object_fields ();
 
 update_test_object_type_class();
 update_test_object_accuracy ();}
-        xywh {219 38 70 30} box GLEAM_THIN_UP_BOX
+        xywh {219 38 56 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_save {
         label {@filesave speichern}
@@ -305,6 +277,12 @@ if (equipment_nr.empty () || serial.empty () || manufacturer.empty () || model.e
 // insert into database
 try
   {
+    // check if we should delete the old test_object (copy)
+    int old_id = vi_test_object_id->value ();
+    cout << "old_id=" << old_id << " test_object_edit_flag=" << test_object_edit_flag << endl;
+    if (test_object_edit_flag)
+      myTTT->delete_test_object (old_id);
+
     int id = myTTT->new_test_object
         (equipment_nr,
          serial,
@@ -318,6 +296,7 @@ try
          vi_test_object_resolution->value (),
          mi_test_object_attachments->value (),
          accuracy);
+
     vi_test_object_id->value (id);
     btn_test_object_abort->do_callback ();
   }
@@ -325,7 +304,7 @@ catch (std::runtime_error &e)
     {
       fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
     }}
-        xywh {289 38 95 30} box GLEAM_THIN_UP_BOX
+        xywh {290 75 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
         label {Höchstzulässige Abweichung} open
@@ -349,38 +328,59 @@ update_test_object_accuracy();}
       }
       Fl_Box cbox {
         label Klassifizierung
-        xywh {19 273 365 135} box GTK_DOWN_BOX align 137
+        xywh {19 300 365 135} box GTK_DOWN_BOX align 137
         class cairo_box
       }
       Fl_Button btn_test_object_abort {
         label {@undo abbrechen}
-        callback {load_test_object (vi_test_object_id->value ());
+        callback {set_test_object_fields_editable (false);
 vi_test_object_id->show ();
-
-inp_test_object_equipment_nr->deactivate ();
-inp_test_object_serial->deactivate ();
-inp_test_object_manufacturer->deactivate ();
-inp_test_object_model->deactivate ();
-choice_test_object_type->deactivate ();
-choice_test_object_dir_of_rotation->deactivate ();
-vi_test_object_lever_length->deactivate ();
-vi_test_object_min_torque->deactivate ();
-vi_test_object_max_torque->deactivate ();
-vi_test_object_resolution->deactivate ();
-mi_test_object_attachments->deactivate ();
-vi_test_object_accuracy->deactivate ();
-rb_accuracy_from_din6789->deactivate ();
-rb_manufacturer_accuracy->deactivate ();
-
-btn_test_object_new->show ();
-btn_test_object_save->hide ();
-btn_test_object_abort->hide ();}
-        xywh {109 38 110 30} box GLEAM_THIN_UP_BOX
+load_test_object (vi_test_object_id->value ());}
+        xywh {175 75 110 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_search {
-        label {@search suchen}
+        label {@search}
         callback {test_object_win->show ();}
-        xywh {10 38 80 30} box GLEAM_THIN_UP_BOX
+        xywh {349 38 35 30} box GLEAM_THIN_UP_BOX
+      }
+      Fl_Button btn_test_object_delete {
+        label {löschen}
+        callback {//selected test_object which should be deleted
+int id = vi_test_object_id->value ();
+int r = fl_ask (gettext ("Wirklich löschen?"));
+if (r == 1)
+{
+  // find adjacent test_object
+  int adj_id = myTTT->delete_test_object (id);
+
+  vi_test_object_id->value (adj_id);
+  if (adj_id)
+    load_test_object (adj_id);
+  else
+  {
+    vi_test_object_id->hide ();
+    clear_test_object_fields ();
+  }
+}}
+        xywh {5 38 70 30} box GLEAM_THIN_UP_BOX
+      }
+      Fl_Button btn_test_object_copy {
+        label kopieren
+        callback {test_object_edit_flag = false;
+set_test_object_fields_editable (true);
+
+inp_test_object_equipment_nr->value ("");
+inp_test_object_serial->value ("");}
+        xywh {275 38 70 30} box GLEAM_THIN_UP_BOX
+      }
+      Fl_Button btn_test_object_edit {
+        label editieren
+        callback {//vorerst ignorieren, immer kopieren
+//if (myTTT->test_object_is_editable ())
+
+test_object_edit_flag = true;
+set_test_object_fields_editable (true);}
+        xywh {75 38 70 30} box GLEAM_THIN_UP_BOX
       }
     }
     Fl_Group {} {
@@ -591,7 +591,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
           xywh {925 160 195 25} type Radio down_box ROUND_DOWN_BOX
         }
       }
-      Fl_Table mtable {open selected
+      Fl_Table mtable {open
         xywh {785 465 470 175} hide
         class measurement_table
       } {}
@@ -599,7 +599,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_object_win {
     label {test_object search} open
-    xywh {2615 436 930 645} type Double modal visible
+    xywh {2760 452 930 645} type Double modal visible
   } {
     Fl_Table to {open
       xywh {5 185 920 405}
@@ -860,4 +860,77 @@ else
   step_progress->hide ();
   vo_step_progress->hide ();
 }} {}
+} 
+
+Function {set_test_object_fields_editable(bool editable)} {open return_type void
+} {
+  code {if (editable)
+{
+vi_test_object_id->hide ();
+inp_test_object_equipment_nr->activate ();
+inp_test_object_serial->activate ();
+inp_test_object_manufacturer->activate ();
+inp_test_object_model->activate ();
+choice_test_object_type->activate ();
+choice_test_object_dir_of_rotation->activate ();
+vi_test_object_lever_length->activate ();
+vi_test_object_min_torque->activate ();
+vi_test_object_max_torque->activate ();
+vi_test_object_resolution->activate ();
+mi_test_object_attachments->activate ();
+rb_accuracy_from_din6789->activate ();
+rb_manufacturer_accuracy->activate ();
+
+btn_test_object_search->hide ();
+btn_test_object_new->hide ();
+btn_test_object_copy->hide ();
+btn_test_object_edit->hide ();
+btn_test_object_delete->hide ();
+btn_test_object_save->show ();
+btn_test_object_abort->show ();
+
+}
+else
+{
+inp_test_object_equipment_nr->deactivate ();
+inp_test_object_serial->deactivate ();
+inp_test_object_manufacturer->deactivate ();
+inp_test_object_model->deactivate ();
+choice_test_object_type->deactivate ();
+choice_test_object_dir_of_rotation->deactivate ();
+vi_test_object_lever_length->deactivate ();
+vi_test_object_min_torque->deactivate ();
+vi_test_object_max_torque->deactivate ();
+vi_test_object_resolution->deactivate ();
+mi_test_object_attachments->deactivate ();
+vi_test_object_accuracy->deactivate ();
+rb_accuracy_from_din6789->deactivate ();
+rb_manufacturer_accuracy->deactivate ();
+
+btn_test_object_search->show ();
+btn_test_object_new->show ();
+btn_test_object_copy->show ();
+btn_test_object_edit->show ();
+btn_test_object_delete->show ();
+btn_test_object_save->hide ();
+btn_test_object_abort->hide ();
+}} {}
+} 
+
+Function {clear_test_object_fields()} {open return_type void
+} {
+  code {inp_test_object_equipment_nr->value ("");
+inp_test_object_serial->value ("");
+inp_test_object_manufacturer->value ("");
+inp_test_object_model->value ("");
+choice_test_object_type->value(0);
+choice_test_object_dir_of_rotation->value(0);
+vi_test_object_lever_length->value(0);
+vi_test_object_min_torque->value(0);
+vi_test_object_max_torque->value(0);
+vi_test_object_resolution->value(0);
+mi_test_object_attachments->value("");
+
+rb_accuracy_from_din6789->set ();
+rb_manufacturer_accuracy->clear ();} {}
 } 
