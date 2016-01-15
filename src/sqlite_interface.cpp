@@ -154,6 +154,13 @@ string get_localtime ()
   return buffer;
 }
 
+string subst_wildcards (string in)
+{
+  std::replace( in.begin(), in.end(), '*', '%');
+  std::replace( in.begin(), in.end(), '?', '_');
+  return in;
+}
+
 void test_person::load_with_id (sqlite3 *db, int search_id)
 {
   sqlite3_stmt *pStmt;
@@ -1512,4 +1519,43 @@ bool test_object_has_measurement (sqlite3 *db, int id)
     }
   cout << "test_object_has_measurement returns " << ret << endl;
   return ret;
+}
+
+void search_test_persons (sqlite3 *db, enum test_person_search_field field, string s, vector<test_person> &vtp)
+{
+  cout << "search_test_persons field=" << field << " search_string=" << s << endl;
+  sqlite3_stmt *pStmt;
+  int rc = -1;
+
+  if (field == NAME)
+    rc = sqlite3_prepare_v2 (db, "SELECT id FROM test_person WHERE name LIKE ?1", -1, &pStmt, NULL);
+  else if (field == SUPERVISOR)
+    rc = sqlite3_prepare_v2 (db, "SELECT id FROM test_person WHERE supervisor LIKE ?1", -1, &pStmt, NULL);
+
+  if (rc == SQLITE_OK)
+    {
+      rc = sqlite3_bind_text (pStmt, 1, s.c_str (), -1, SQLITE_STATIC);
+      if (rc == SQLITE_OK)
+        {
+          do
+            {
+              rc = sqlite3_step (pStmt);
+              if (rc == SQLITE_ROW)
+                {
+                  int id = sqlite3_column_int (pStmt, 0);
+                  test_person tmp;
+                  tmp.load_with_id (db, id);
+                  vtp.push_back (tmp);
+                }
+            }
+          while (rc != SQLITE_DONE);
+          sqlite3_finalize(pStmt);
+        }
+      else
+        fprintf(stderr, "SQL error from sqlite3_bind_text: %i = %s\n", rc, sqlite3_errmsg(db));
+    }
+  else
+    fprintf(stderr, "SQL error from sqlite3_prepare_v2: %i = %s\n", rc, sqlite3_errmsg(db));
+
+  cout << "search_test_persons returns " << vtp.size () << " records" << endl;
 }

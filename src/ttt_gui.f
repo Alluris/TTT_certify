@@ -56,11 +56,16 @@ Function {create_widgets()} {open return_type void
     } {
       Fl_Input inp_test_person_name {
         label Name
-        xywh {536 211 210 25} deactivate
+        callback {vector<test_person> vtp;
+myTTT->search_test_person_name (inp_test_person_name->value (), vtp);
+
+for (int k=0; k<vtp.size(); ++k)
+  cout << vtp[k];} selected
+        xywh {536 211 210 25} when 8 deactivate
       }
       Fl_Input inp_test_person_supervisor {
         label Verantwortlicher
-        xywh {536 246 210 25} deactivate
+        xywh {536 246 210 25} when 8 deactivate
       }
       Fl_Button btn_test_person_new {
         label {@filenew neu}
@@ -118,6 +123,26 @@ btn_test_person_new->show ();
 btn_test_person_save->hide ();
 btn_test_person_abort->hide ();}
         xywh {471 171 110 30} box GLEAM_THIN_UP_BOX
+      }
+      Fl_Button btn_test_person_search {
+        label {@search}
+        callback {// check if we are already in search mode
+
+if (! test_person_search_active())
+{
+  vi_test_person_id->hide ();
+  btn_test_person_new->hide ();
+  btn_test_person_save->hide ();
+  btn_test_person_abort->hide ();
+
+  inp_test_person_name->activate ();
+  inp_test_person_supervisor->activate ();
+}
+else
+{
+  btn_test_person_abort->do_callback ();
+}}
+        xywh {711 171 35 30} box GLEAM_THIN_UP_BOX
       }
     }
     Fl_Group {} {
@@ -459,6 +484,12 @@ if (btn_test_person_save->visible ())
     return;
   }
 
+if (test_person_search_active())
+  {
+    fl_alert ("Bitte zuerst ein Bearbeiter auswählen");
+    return;
+  }
+
 double temp = vi_temperature->value ();
 double humidity = vi_humidity->value ();
 
@@ -598,7 +629,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     }
   }
   Fl_Window test_object_win {
-    label {test_object search} open selected
+    label {test_object search} open
     xywh {2626 363 935 645} type Double modal visible
   } {
     Fl_Table to {open
@@ -937,4 +968,13 @@ mi_test_object_attachments->value("");
 
 rb_accuracy_from_din6789->set ();
 rb_manufacturer_accuracy->clear ();} {}
+} 
+
+Function {test_person_search_active()} {open return_type bool
+} {
+  code {bool ret = (! vi_test_person_id->visible ())
+  && (! btn_test_person_new->visible ())
+  && (! btn_test_person_save->visible ())
+  && (! btn_test_person_abort->visible ());
+return ret;} {}
 } 

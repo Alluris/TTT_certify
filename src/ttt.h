@@ -240,6 +240,16 @@ public:
     meas.tp.load_with_id (db, id);
   }
 
+  void search_test_person_name (string s, vector<test_person> &vtp)
+  {
+    search_test_persons (db, NAME, subst_wildcards (s), vtp);
+  }
+
+  void search_test_person_supervisor (string s, vector<test_person> &vtp)
+  {
+    search_test_persons (db, SUPERVISOR, subst_wildcards (s), vtp);
+  }
+
   void load_test_object (int id)
   {
     meas.to.load_with_id (db, id);

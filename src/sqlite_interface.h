@@ -31,6 +31,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 #include <sqlite3.h>
 #include <stdexcept>
 #include <cairo/cairo.h>
@@ -56,6 +57,8 @@ void cairo_centered_text (cairo_t *cr, double x, double y, const char *str);
 
 // get localtime for now in %Y-%m-%d %H:%M:%S format for sqlite
 string get_localtime ();
+
+string subst_wildcards (string in);
 
 class test_person
 {
@@ -289,5 +292,13 @@ bool get_test_object_active (sqlite3 *db, int id);
 void set_test_object_equipment_number (sqlite3 *db, int id, string equipment_number);
 int search_active_adjacent_test_object (sqlite3 *db, int id);
 bool test_object_has_measurement (sqlite3 *db, int id);
+
+enum test_person_search_field
+{
+  NAME,
+  SUPERVISOR
+};
+
+void search_test_persons (sqlite3 *db, enum test_person_search_field field, string s, vector<test_person> &vtp);
 
 #endif

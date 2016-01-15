@@ -2,7 +2,6 @@
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Table_Row.H>
 #include <FL/fl_draw.H>
-#include <algorithm>
 #include "sqlite_interface.h"
 
 #ifndef _TEST_OBJECT_TABLE_
@@ -104,12 +103,6 @@ private:
       }
   }
 
-  string subst_wildcards (string in)
-  {
-    std::replace( in.begin(), in.end(), '*', '%');
-    std::replace( in.begin(), in.end(), '?', '_');
-    return in;
-  }
 public:
 
   sqlite3 *db;
