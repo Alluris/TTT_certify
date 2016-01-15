@@ -2,6 +2,7 @@
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Table_Row.H>
 #include <FL/fl_draw.H>
+#include <algorithm>
 #include "sqlite_interface.h"
 
 #ifndef _TEST_OBJECT_TABLE_
@@ -102,6 +103,13 @@ private:
         return;
       }
   }
+
+  string subst_wildcards (string in)
+  {
+    std::replace( in.begin(), in.end(), '*', '%');
+    std::replace( in.begin(), in.end(), '?', '_');
+    return in;
+  }
 public:
 
   sqlite3 *db;
@@ -168,7 +176,7 @@ public:
   void search (enum test_object_search_field field, string str)
   {
     vto.clear ();
-    search_test_objects (db, field, str, vto);
+    search_test_objects (db, field, subst_wildcards (str), vto);
     rows (vto.size());
   }
 

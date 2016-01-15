@@ -48,7 +48,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2605 277 1280 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2559 277 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -121,13 +121,13 @@ btn_test_person_abort->hide ();}
       }
     }
     Fl_Group {} {
-      label {Drehmoment-Schraubwerkzeug} open selected
+      label {Drehmoment-Schraubwerkzeug} open
       xywh {0 4 400 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_test_object_id {
         label id
         callback {load_test_object(o->value ());}
-        xywh {174 38 40 30} minimum 1 maximum 500 step 1 deactivate
+        xywh {174 38 40 30} minimum 1 maximum 500 step 1
       }
       Fl_Input inp_test_object_equipment_nr {
         label {Prüfmittelnummer}
@@ -598,24 +598,37 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     }
   }
   Fl_Window test_object_win {
-    label {test_object search} open
-    xywh {2760 452 930 645} type Double modal visible
+    label {test_object search} open selected
+    xywh {2626 363 935 645} type Double modal visible
   } {
     Fl_Table to {open
-      xywh {5 185 920 405}
+      xywh {9 110 920 480}
       class test_object_table
     } {}
+    Fl_Input search_test_object_equipment_nr {
+      label {Prüfmittelnummer}
+      callback {btn_search_equipment_nr_number->do_callback ();}
+      xywh {170 28 210 25} when 8
+    }
     Fl_Input search_test_object_serial {
       label Seriennummer
-      xywh {170 65 210 25}
+      callback {btn_search_serial_number->do_callback ();}
+      xywh {170 65 210 25} when 8
     }
     Fl_Input search_test_object_manufacturer {
       label Hersteller
-      xywh {170 101 210 25}
+      callback {btn_search_manufacturer->do_callback ();}
+      xywh {660 28 210 25} when 8
     }
     Fl_Input search_test_object_model {
       label Modell
-      xywh {170 137 210 25}
+      callback {btn_search_model->do_callback ();}
+      xywh {660 65 210 25} when 8
+    }
+    Fl_Button btn_search_equipment_nr_number {
+      label {@search}
+      callback {to->search_equipment_nr (search_test_object_equipment_nr->value());}
+      xywh {390 25 35 30} box GLEAM_THIN_UP_BOX
     }
     Fl_Button btn_search_serial_number {
       label {@search}
@@ -625,21 +638,12 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     Fl_Button btn_search_manufacturer {
       label {@search}
       callback {to->search_manufacturer (search_test_object_manufacturer->value());}
-      xywh {390 98 35 30} box GLEAM_THIN_UP_BOX
+      xywh {880 25 35 30} box GLEAM_THIN_UP_BOX
     }
     Fl_Button btn_search_model {
       label {@search}
       callback {to->search_model (search_test_object_model->value());}
-      xywh {390 135 35 30} box GLEAM_THIN_UP_BOX
-    }
-    Fl_Input search_test_object_equipment_nr {
-      label {Prüfmittelnummer}
-      xywh {170 28 210 25}
-    }
-    Fl_Button btn_search_equipment_nr_number {
-      label {@search}
-      callback {to->search_equipment_nr (search_test_object_equipment_nr->value());}
-      xywh {390 25 35 30} box GLEAM_THIN_UP_BOX
+      xywh {880 62 35 30} box GLEAM_THIN_UP_BOX
     }
     Fl_Button {} {
       label abbrechen
