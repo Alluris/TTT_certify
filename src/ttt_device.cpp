@@ -56,6 +56,7 @@ void ttt_device::init ()
   // disable autostop
   al.set_autostop (0);
 
+  al.set_memory_mode (LIBALLURIS_MEM_MODE_DISABLED);
   al.set_mode (LIBALLURIS_MODE_PEAK);
   al.set_unit (LIBALLURIS_UNIT_N);
   al.set_upper_limit (0);
