@@ -66,7 +66,7 @@ string liballuris::get_serial_number ()
 {
   char tmp_buf[SERIAL_LEN];
   int r = liballuris_get_serial_number (usb_h, tmp_buf, SERIAL_LEN);
-  RUNTIME_ERROR(r,"");
+  RUNTIME_ERROR(r,"get_serial_number");
   return tmp_buf;
 }
 
@@ -272,3 +272,31 @@ void liballuris::set_key_lock (bool active)
   RUNTIME_ERROR(r,"");
 }
 
+void liballuris::set_memory_mode (liballuris_memory_mode mode)
+{
+  int r = liballuris_set_mem_mode (usb_h, mode);
+  RUNTIME_ERROR(r,"");
+}
+
+vector<int> liballuris::read_memory ()
+{
+  vector<int> ret;
+  int num = 0;
+  int r = liballuris_get_mem_count (usb_h, &num);
+  RUNTIME_ERROR(r,"liballuris::read_memory get_mem_count");
+
+  for (int k=0; k < num; ++k)
+    {
+      int value = 0;
+      r = liballuris_read_memory (usb_h, k, &value);
+      RUNTIME_ERROR(r,"liballuris::read_memory");
+      ret.push_back (value);
+    }
+  return ret;
+}
+
+void liballuris::clear_memory ()
+{
+  int r = liballuris_delete_memory (usb_h);
+  RUNTIME_ERROR(r,"");
+}

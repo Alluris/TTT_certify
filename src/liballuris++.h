@@ -78,6 +78,10 @@ public:
   int get_autostop ();
   void set_key_lock (bool active);
 
+  void set_memory_mode (liballuris_memory_mode mode);
+  vector<int> read_memory ();
+  void clear_memory ();
+
 };
 
 #endif
