@@ -60,7 +60,7 @@ Function {create_widgets()} {open return_type void
 myTTT->search_test_person_name (inp_test_person_name->value (), vtp);
 
 for (int k=0; k<vtp.size(); ++k)
-  cout << vtp[k];} selected
+  cout << vtp[k];}
         xywh {536 211 210 25} when 8 deactivate
       }
       Fl_Input inp_test_person_supervisor {
@@ -231,7 +231,7 @@ update_test_object_accuracy();} open
         xywh {285 440 90 25} down_box BORDER_BOX deactivate
       } {
         MenuItem {} {
-          label beide
+          label beide selected
           xywh {30 30 100 20}
         }
         MenuItem {} {
@@ -372,8 +372,8 @@ load_test_object (vi_test_object_id->value ());}
         label {löschen}
         callback {//selected test_object which should be deleted
 int id = vi_test_object_id->value ();
-int r = fl_ask (gettext ("Wirklich löschen?"));
-if (r == 1)
+int r = fl_choice (gettext ("Wirklich löschen?"), gettext ("Ja"), gettext ("Nein"), 0);
+if (r == 0)
 {
   // find adjacent test_object
   int adj_id = myTTT->delete_test_object (id);
