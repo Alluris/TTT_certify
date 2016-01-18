@@ -1,5 +1,8 @@
 # data file for the Fltk User Interface Designer (fluid)
 version 1.0303 
+i18n_type 1 
+i18n_include <libintl.h> 
+i18n_function gettext 
 header_name {.h} 
 code_name {.cxx}
 decl {\#include <FL/fl_ask.H>} {public global
@@ -13,6 +16,11 @@ decl {\#include "quick_check_table.h"} {public global
 
 Function {} {open
 } {
+  code {setlocale (LC_ALL, "");
+//bindtextdomain("ttt","/usr/share/locale");
+bindtextdomain("ttt","./po");
+textdomain ("ttt");} {selected
+  }
   Fl_Window {} {
     label {TTT quick check config} open
     xywh {2464 349 530 645} type Double visible

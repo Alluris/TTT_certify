@@ -7,8 +7,9 @@ all: ttt.pot en.mo fr.mo
 	make -C ../ ttt_gui.cpp
 
 ## update sources with grep -lR gettext
-ttt.pot: ../step.cpp ../ttt.cpp ../ttt_gui.cpp ../ttt_gui_main.cpp ../cairo_print_devices.c
+ttt.pot: ../step.cpp ../ttt.cpp ../ttt_gui.cpp ../ttt_gui_main.cpp ../cairo_print_devices.c ../ttt_quick_check_config.cpp
 	$(MAKE) -C ../ ttt_gui.cpp
+	$(MAKE) -C ../ ttt_quick_check_config.cpp
 	xgettext -C -c --from-code=UTF-8 --package-name=TTT --msgid-bugs-address=software@alluris.de $^ -o $@
 
 ## call it pot so the translator has to rename it to .po
