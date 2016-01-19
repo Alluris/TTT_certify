@@ -1,15 +1,14 @@
 #include <FL/Fl.H>
-#include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Table_Row.H>
 #include <FL/fl_draw.H>
 #include "sqlite_interface.h"
 
-#ifndef _TEST_OBJECT_TABLE_
-#define _TEST_OBJECT_TABLE_
+#ifndef _TEST_PERSON_TABLE_
+#define _TEST_PERSON_TABLE_
 
 typedef void(select_cb)(int id);
 
-class test_object_table : public Fl_Table_Row
+class test_person_table : public Fl_Table_Row
 {
 private:
 
@@ -56,44 +55,32 @@ private:
         switch (COL)
           {
           case 0:
-            snprintf (s, 40, "%s", gettext ("Prüfmittelnr."));
+            snprintf (s, 40, "%s", gettext ("Name"));
             break;
           case 1:
-            snprintf (s, 40, "%s", gettext ("Seriennummer"));
+            snprintf (s, 40, "%s", gettext ("Verantwortlicher"));
             break;
           case 2:
-            snprintf (s, 40, "%s", gettext ("Hersteller"));
-            break;
-          case 3:
-            snprintf (s, 40, "%s", gettext ("Modell"));
-            break;
-          case 4:
-            snprintf (s, 40, "%s", gettext ("Typ"));
+            snprintf (s, 40, "%s", gettext ("Messunsicherheit"));
             break;
           }
         DrawHeader(s,X,Y,W,H);
         return;
       case CONTEXT_ROW_HEADER:                  // Draw row headers
-        sprintf(s,"%03d:", vto[ROW].id);
+        sprintf(s,"%03d:", vtp[ROW].id);
         DrawHeader(s,X,Y,W,H);
         return;
       case CONTEXT_CELL:                        // Draw data in cells
         switch (COL)
           {
           case 0:
-            snprintf (s, 40, "%s", vto[ROW].equipment_number.c_str ());
+            snprintf (s, 40, "%s", vtp[ROW].name.c_str ());
             break;
           case 1:
-            snprintf (s, 40, "%s", vto[ROW].serial_number.c_str ());
+            snprintf (s, 40, "%s", vtp[ROW].supervisor.c_str ());
             break;
           case 2:
-            snprintf (s, 40, "%s", vto[ROW].manufacturer.c_str ());
-            break;
-          case 3:
-            snprintf (s, 40, "%s", vto[ROW].model.c_str ());
-            break;
-          case 4:
-            snprintf (s, 40, "%s", vto[ROW].get_type_class ().c_str ());
+            snprintf (s, 40, "%.1f%%", vtp[ROW].uncertainty * 100);
             break;
           }
         DrawData(s,X,Y,W,H,row_selected (ROW) ? FL_YELLOW : FL_WHITE);
@@ -106,9 +93,9 @@ private:
 public:
 
   sqlite3 *db;
-  vector<test_object> vto;
+  vector<test_person> vtp;
 
-  test_object_table(int X, int Y, int W, int H, const char *L=0) : Fl_Table_Row(X,Y,W,H,L), cb(0)
+  test_person_table(int X, int Y, int W, int H, const char *L=0) : Fl_Table_Row(X,Y,W,H,L), cb(0)
   {
     // FIXME, retrieve db name from main
     string database_fn = "ttt_certify.db";
@@ -128,49 +115,32 @@ public:
     row_resize(0);              // disable row resizing
 
     // Cols
-    cols(5);              // how many columns
+    cols(3);              // how many columns
     col_header(1);        // enable column headers (along top)
-    col_width (0, 170);   // Prüfmittelnummer
-    col_width (1, 170);   // Seriennummer
-    col_width (2, 170);   // Hersteller
-    col_width (3, 170);   // Modell
-    col_width (4, 70);    // Typ
+    col_width (0, 200);   // Name
+    col_width (1, 200);   // Verantwortlicher
+    col_width (2, 170);   // Messunsicherheit
     col_resize(1);        // enable column resizing
 
     type (SELECT_SINGLE); // Only single rows can be selected
     Fl_Table::when (FL_WHEN_NEVER);
   }
 
-  ~test_object_table()
+  ~test_person_table()
   {
     sqlite3_close (db);
   }
 
-  void search_equipment_nr (string str)
+  void search_name (string str)
   {
-    search (EQUIPMENTNR, str);
+    search (NAME, str);
   }
 
-  void search_serial (string serial)
+  void search (enum test_person_search_field field, string str)
   {
-    search (SERIAL, serial);
-  }
-
-  void search_manufacturer (string manufacturer)
-  {
-    search (MANUFACTURER, manufacturer);
-  }
-
-  void search_model (string model)
-  {
-    search (MODEL, model);
-  }
-
-  void search (enum test_object_search_field field, string str)
-  {
-    vto.clear ();
-    search_test_objects (db, field, subst_wildcards (str), vto);
-    rows (vto.size());
+    vtp.clear ();
+    search_test_persons (db, field, subst_wildcards (str), vtp);
+    rows (vtp.size());
   }
 
   void set_select_cb (select_cb *c)
@@ -190,7 +160,7 @@ public:
     int k;
     for (k = 0; k < rows (); ++k)
       if (row_selected (k))
-        return vto[k].id;
+        return vtp[k].id;
 
     return 0;
   }

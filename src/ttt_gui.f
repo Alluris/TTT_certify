@@ -29,6 +29,9 @@ decl {\#include "cairo_print_devices.h"} {public global
 decl {\#include "test_object_table.h"} {public global
 } 
 
+decl {\#include "test_person_table.h"} {public global
+} 
+
 decl {\#include "measurement_table.h"} {public global
 } 
 
@@ -48,7 +51,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2559 277 1280 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2589 371 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -78,6 +81,7 @@ inp_test_person_name->activate ();
 inp_test_person_supervisor->activate ();
 vi_test_person_uncertainty->activate ();
 btn_test_person_new->hide ();
+btn_test_person_search->hide ();
 btn_test_person_save->show ();
 btn_test_person_abort->show ();}
         xywh {581 171 70 30} box GLEAM_THIN_UP_BOX
@@ -120,28 +124,14 @@ inp_test_person_supervisor->deactivate ();
 vi_test_person_uncertainty->deactivate ();
 
 btn_test_person_new->show ();
+btn_test_person_search->show ();
 btn_test_person_save->hide ();
 btn_test_person_abort->hide ();}
         xywh {471 171 110 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_person_search {
         label {@search}
-        callback {// check if we are already in search mode
-
-if (! test_person_search_active())
-{
-  vi_test_person_id->hide ();
-  btn_test_person_new->hide ();
-  btn_test_person_save->hide ();
-  btn_test_person_abort->hide ();
-
-  inp_test_person_name->activate ();
-  inp_test_person_supervisor->activate ();
-}
-else
-{
-  btn_test_person_abort->do_callback ();
-}}
+        callback {test_person_win->show ();} selected
         xywh {711 171 35 30} box GLEAM_THIN_UP_BOX
       }
     }
@@ -231,7 +221,7 @@ update_test_object_accuracy();} open
         xywh {285 440 90 25} down_box BORDER_BOX deactivate
       } {
         MenuItem {} {
-          label beide selected
+          label beide
           xywh {30 30 100 20}
         }
         MenuItem {} {
@@ -630,7 +620,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_object_win {
     label {test_object search} open
-    xywh {2626 363 935 645} type Double modal visible
+    xywh {2853 354 935 645} type Double modal visible
   } {
     Fl_Table to {open
       xywh {9 110 920 480}
@@ -683,15 +673,37 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     }
     Fl_Button btn_test_object_select {
       label {wählen}
-      callback {int id = to->get_selected_id ();
-
-if (id > 0)
-{
-  vi_test_object_id->value(id);
-  load_test_object(id);
-}
-test_object_win->hide ();}
+      callback {tp->do_select_cb ();}
       xywh {850 605 65 30} box GLEAM_THIN_UP_BOX
+    }
+  }
+  Fl_Window test_person_win {
+    label {test_person search} open
+    xywh {2991 130 670 540} type Double modal visible
+  } {
+    Fl_Table tp {open
+      xywh {20 70 640 410}
+      class test_person_table
+    } {}
+    Fl_Input search_test_person_name {
+      label Name
+      callback {btn_search_person_name->do_callback ();}
+      xywh {205 23 210 25} when 8
+    }
+    Fl_Button btn_search_person_name {
+      label {@search}
+      callback {tp->search_name (search_test_person_name->value());}
+      xywh {425 20 35 30} box GLEAM_THIN_UP_BOX
+    }
+    Fl_Button btn_test_object_cancel {
+      label abbrechen
+      callback {test_person_win->hide ();}
+      xywh {495 500 90 30} box GLEAM_THIN_UP_BOX
+    }
+    Fl_Button btn_test_person_select {
+      label {wählen}
+      callback {tp->do_select_cb ();}
+      xywh {595 500 65 30} box GLEAM_THIN_UP_BOX
     }
   }
 } 

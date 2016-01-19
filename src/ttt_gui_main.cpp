@@ -175,6 +175,15 @@ void test_object_table_selected (int id)
   test_object_win->hide ();
 }
 
+void test_person_table_selected (int id)
+{
+  printf ("test_person_table_selected id=%i\n", id);
+  vi_test_person_id->value(id);
+  vi_test_person_id->show ();
+  load_test_person(id);
+  test_person_win->hide ();
+}
+
 void cairo_box::graphic(cairo_t* cr, double x, double y, double w, double h)
 {
   (void) h; //we don't need h here
@@ -214,7 +223,10 @@ int main(int argc, char **argv)
   //Fl::scheme ("gleam");
 
   create_widgets ();
+
+  // search table callbacks
   to->set_select_cb (test_object_table_selected);
+  tp->set_select_cb (test_person_table_selected);
 
   instruction_buff = new Fl_Text_Buffer ();
   td_instruction->buffer (instruction_buff);
@@ -253,6 +265,10 @@ int main(int argc, char **argv)
       // FIXME: vi_test_person_id maximum auf datenbank setzen
       vi_test_person_id->value (1);
       vi_test_person_id->do_callback ();
+
+      search_test_object_equipment_nr->value ("*");
+      search_test_person_name->value ("*");
+      tp->search_name ("*");
 
       if (argc > 1)
         vi_test_object_id->value (atoi (argv[1]));
