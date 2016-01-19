@@ -1483,7 +1483,7 @@ int search_active_adjacent_test_object (sqlite3 *db, int id)
 
   int min_dist = INT_MAX;
   int adj_id = 0;
-  for (int k=0; k < vto.size (); ++k)
+  for (unsigned int k=0; k < vto.size (); ++k)
     {
       int dist = abs (id - vto[k].id);
       cout << "id=" << vto[k].id << " active=" << vto[k].active << " dist=" << dist << endl;

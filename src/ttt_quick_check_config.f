@@ -100,7 +100,7 @@ vi_lower_limit->value (vi_nominal->value () * 0.94);}
   else
     {
       double sum = 0;
-      for (int k=0; k<mem.size (); ++k)
+      for (unsigned int k=0; k<mem.size (); ++k)
        {
          cout << "mem k=" << k << " =" << mem[k] << endl;
          quick_tbl->add_measurement (mem[k] * scale);

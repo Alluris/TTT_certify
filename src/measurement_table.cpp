@@ -31,7 +31,7 @@ void measurement_table::DrawData(const char *s, int X, int Y, int W, int H, Fl_C
 void measurement_table::draw_cell(TableContext context, int ROW, int COL, int X, int Y, int W, int H)
 {
   static char s[40];
-  int j;
+  unsigned int j;
   switch ( context )
     {
     case CONTEXT_STARTPAGE:                   // before page is drawn..
