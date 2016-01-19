@@ -118,7 +118,13 @@ private:
   string get_time_for_filename (); //returns localtime for usage in output filename
 
   measurement meas;
-  int measurement_method;   //0=single peak, 1=DIN6789, 2=ASME
+
+  enum e_report_style
+  {
+    QUICK_CHECK_REPORT,
+    DIN6789_REPORT,
+    DIN6789_LIKE_REPORT_WITH_REPEATS
+  } report_style;
 
 public:
 
@@ -155,7 +161,7 @@ public:
   void clear_steps ();
 
   // komplette Sequenzen hinzufügen
-  void add_DIN6789_steps (bool repeat_on_timing_violation);
+  void add_DIN6789_steps (bool repeat_on_timing_violation, bool repeat_on_tolerance_violation);
 
   bool run ();
 
@@ -164,8 +170,7 @@ public:
 
   void start_sequencer (double temperature, double humidity);
   void start_sequencer_single_peak (double temperature, double humidity, double nominal_value);
-  void start_sequencer_DIN6789 (double temperature, double humidity, bool repeat_on_timing_violation);
-  void start_sequencer_ASME (double temperature, double humidity);
+  void start_sequencer_DIN6789 (double temperature, double humidity, bool repeat_on_timing_violation, bool repeat_on_tolerance_violation);
 
   void stop_sequencer ();
   enum out_cmd sequencer_inout (double torque, bool confirmation);

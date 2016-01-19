@@ -51,7 +51,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2559 371 1280 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2473 267 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -469,12 +469,6 @@ if (btn_test_person_save->visible ())
     return;
   }
 
-if (test_person_search_active())
-  {
-    fl_alert ("Bitte zuerst ein Bearbeiter auswählen");
-    return;
-  }
-
 double temp = vi_temperature->value ();
 double humidity = vi_humidity->value ();
 
@@ -490,7 +484,7 @@ if (rb_quick_peak->value ())
     else
       fl_alert ( gettext ("Nominalwert muss <> 0 Nm sein"));
   }
-else if (rb_din_6789->value ())
+else if (rb_din_6789->value () || rb_like_6789_repeat->value ())
   {
     if (! (total_extended_uncertainty < vi_test_object_accuracy->value ()/400.0))
        fl_alert ( gettext ("Das Intervall der maximalen relativen erweiterten Messunsicherheit\\n"
@@ -503,11 +497,9 @@ else if (rb_din_6789->value ())
             if (humidity > 90)
              fl_alert ( gettext ("relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 Kapitel 6.3"));
             else
-             myTTT->start_sequencer_DIN6789 (temp, humidity, rb_repeat_until_okay->value ());
+             myTTT->start_sequencer_DIN6789 (temp, humidity, rb_repeat_until_okay->value (), rb_like_6789_repeat->value ());
           }
   }
-else if (rb_ASME->value ())
-  fl_alert ("FIXME: Noch nicht implementiert");
 
 update_run_activation ();
 Fl::add_timeout(0.01, run_cb);}
@@ -567,44 +559,41 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
         label {Schnellprüfung}
         callback {if (o->value ())
   {
-   grp_rise_time->hide ();
    vi_single_peak->show ();
   }}
-        xywh {785 50 145 25} type Radio down_box ROUND_DOWN_BOX value 1
+        xywh {785 40 145 25} type Radio down_box ROUND_DOWN_BOX value 1
       }
-      Fl_Round_Button rb_ASME {
-        label ASME
+      Fl_Round_Button rb_like_6789_repeat {
+        label {Ablauf nach DIN 6789-1 aber mit Wiederholungen bei Überschreitung der zulässigen Abweichung}
         callback {if (o->value ())
   {
-   grp_rise_time->hide ();
    vi_single_peak->hide ();
   }}
-        xywh {785 77 145 24} type Radio down_box ROUND_DOWN_BOX
+        xywh {785 75 260 65} type Radio down_box ROUND_DOWN_BOX align 148
       }
       Fl_Round_Button rb_din_6789 {
         label {DIN EN ISO 6789-1}
         callback {if (o->value ())
   {
-   grp_rise_time->show ();
    vi_single_peak->hide ();
   }}
-        xywh {785 104 170 25} type Radio down_box ROUND_DOWN_BOX
+        xywh {785 155 170 25} type Radio down_box ROUND_DOWN_BOX
       }
       Fl_Value_Input vi_single_peak {
         label {Nominalwert [Nm]}
-        xywh {1085 50 50 25} step 0.1
+        xywh {1085 40 50 25} step 0.1
       }
       Fl_Group grp_rise_time {
         label {Zeitüberwachung} open
-        tooltip {Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge} xywh {915 125 270 65} align 4
+        tooltip {Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge} xywh {1080 93 180 62} box GTK_THIN_UP_BOX align 5
       } {
         Fl_Round_Button rb_repeat_until_okay {
           label {Wiederholung bis normgerecht}
-          xywh {925 131 245 26} type Radio down_box ROUND_DOWN_BOX value 1
+          xywh {1090 97 170 28} type Radio down_box ROUND_DOWN_BOX value 1 align 148
         }
         Fl_Round_Button rb_ignore_timing {
           label {keine Wiederholung}
-          xywh {925 160 195 25} type Radio down_box ROUND_DOWN_BOX
+          xywh {1090 130 170 25} type Radio down_box ROUND_DOWN_BOX
         }
       }
       Fl_Table mtable {open
@@ -615,7 +604,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_object_win {
     label {test_object search} open
-    xywh {2853 354 935 645} type Double modal visible
+    xywh {2602 148 935 645} type Double modal visible
   } {
     Fl_Table to {open
       xywh {9 110 920 480}
@@ -989,13 +978,4 @@ mi_test_object_attachments->value("");
 
 rb_accuracy_from_din6789->set ();
 rb_manufacturer_accuracy->clear ();} {}
-} 
-
-Function {test_person_search_active()} {open return_type bool
-} {
-  code {bool ret = (! vi_test_person_id->visible ())
-  && (! btn_test_person_new->visible ())
-  && (! btn_test_person_save->visible ())
-  && (! btn_test_person_abort->visible ());
-return ret;} {}
 } 

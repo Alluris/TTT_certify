@@ -38,7 +38,7 @@ ttt::ttt (cb_display_double *cb_ind, cb_display_double *cb_nom, cb_display_doubl
    confirmation(0),
    current_step(-1),
    sequencer_is_running(0),
-   measurement_method(-1)
+   report_style (QUICK_CHECK_REPORT)
 {
   print_indicated_torque(0.0);
   print_nominal_torque(0.0);
@@ -157,7 +157,7 @@ bool ttt::run ()
       meas.save (db);
 
       // create report for DIN 6789 TypI and Typ II
-      if (measurement_method == 1)
+      if (report_style == DIN6789_REPORT)
         {
           ostringstream os;
 
@@ -184,7 +184,7 @@ bool ttt::run ()
 
           print_step ( string (gettext ("Kalibrierschein:")) + " " + report_filename, 1);
         }
-      else if (measurement_method == 0) //single peak
+      else if (report_style == QUICK_CHECK_REPORT) //single peak
         {
           report_filename = get_time_for_filename () + "_quick_check.pdf";
           bool res = create_quick_test_report (db, meas.id, report_filename.c_str ());
@@ -342,7 +342,7 @@ void ttt::clear_steps()
 }
 
 // add complete DIN ISO 6789 sequences
-void ttt::add_DIN6789_steps (bool repeat_on_timing_violation)
+void ttt::add_DIN6789_steps (bool repeat_on_timing_violation, bool repeat_on_tolerance_violation)
 {
   int runs;
   int sign;
@@ -557,11 +557,11 @@ void ttt::start_sequencer_single_peak (double temperature, double humidity, doub
   clear_steps ();
   // add_step (new tare_step());
   add_step (new peak_meas_step(nominal_value));
-  measurement_method = 0;
+  report_style = QUICK_CHECK_REPORT;
   start_sequencer (temperature, humidity);
 }
 
-void ttt::start_sequencer_DIN6789 (double temperature, double humidity, bool repeat_on_timing_violation)
+void ttt::start_sequencer_DIN6789 (double temperature, double humidity, bool repeat_on_timing_violation, bool repeat_on_tolerance_violation)
 {
   if (sequencer_is_running)
     throw runtime_error ("Sequencer is already running. Please stop it first");
@@ -570,22 +570,14 @@ void ttt::start_sequencer_DIN6789 (double temperature, double humidity, bool rep
   // min_torque and max_torque_resolution from database
   // resolution from DIN678
 
-  add_DIN6789_steps (repeat_on_timing_violation);
+  add_DIN6789_steps (repeat_on_timing_violation, repeat_on_tolerance_violation);
 
-  measurement_method = 1;
+  if (! repeat_on_tolerance_violation)
+    report_style = DIN6789_REPORT;
+  else
+    report_style = DIN6789_LIKE_REPORT_WITH_REPEATS;
+
   start_sequencer (temperature, humidity);
-}
-
-void ttt::start_sequencer_ASME (double temperature, double humidity)
-{
-  if (sequencer_is_running)
-    throw runtime_error ("Sequencer is already running. Please stop it first");
-
-  clear_steps ();
-  measurement_method = 2;
-
-  cout << "ttt::start_sequencer_ASME" << " temperature=" << temperature << " humidity=" << humidity << endl;
-  throw runtime_error ("FIXME: ASME not yet implemented");
 }
 
 void ttt::stop_sequencer ()
