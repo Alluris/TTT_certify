@@ -294,26 +294,27 @@ try
       myTTT->delete_test_object (old_id);
 
     int id = myTTT->new_test_object
-        (equipment_nr,
-         serial,
-         manufacturer,
-         model,
-         type_class,
-         choice_test_object_dir_of_rotation->value (),
-         vi_test_object_lever_length->value ()/100.0,
-         vi_test_object_min_torque->value (),
-         max_torque,
-         vi_test_object_resolution->value (),
-         mi_test_object_attachments->value (),
-         accuracy);
+             (equipment_nr,
+              serial,
+              manufacturer,
+              model,
+              type_class,
+              choice_test_object_dir_of_rotation->value (),
+              vi_test_object_lever_length->value ()/100.0,
+              vi_test_object_min_torque->value (),
+              max_torque,
+              vi_test_object_resolution->value (),
+              mi_test_object_attachments->value (),
+              accuracy);
 
     vi_test_object_id->value (id);
     btn_test_object_abort->do_callback ();
   }
 catch (std::runtime_error &e)
-    {
-      fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
-    }}
+  {
+    fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
+  }
+}
         xywh {290 75 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
@@ -359,19 +360,20 @@ load_test_object (vi_test_object_id->value ());}
 int id = vi_test_object_id->value ();
 int r = fl_choice (gettext ("Wirklich löschen?"), gettext ("Ja"), gettext ("Nein"), 0);
 if (r == 0)
-{
-  // find adjacent test_object
-  int adj_id = myTTT->delete_test_object (id);
-
-  vi_test_object_id->value (adj_id);
-  if (adj_id)
-    load_test_object (adj_id);
-  else
   {
-    vi_test_object_id->hide ();
-    clear_test_object_fields ();
+    // find adjacent test_object
+    int adj_id = myTTT->delete_test_object (id);
+
+    vi_test_object_id->value (adj_id);
+    if (adj_id)
+      load_test_object (adj_id);
+    else
+      {
+        vi_test_object_id->hide ();
+        clear_test_object_fields ();
+      }
   }
-}}
+}
         xywh {5 38 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_copy {
@@ -487,18 +489,18 @@ if (rb_quick_peak->value ())
 else if (rb_din_6789->value () || rb_like_6789_repeat->value ())
   {
     if (! (total_extended_uncertainty < vi_test_object_accuracy->value ()/400.0))
-       fl_alert ( gettext ("Das Intervall der maximalen relativen erweiterten Messunsicherheit\\n"
-                           "aus Messgerät und Anwender muss kleiner als ein Viertel der\\n"	
-  			   "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs sein."));
-      else if (temp > 28.0 || temp < 18.0)
-        fl_alert ( gettext ("Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 Kapitel 6.3"));
+      fl_alert ( gettext ("Das Intervall der maximalen relativen erweiterten Messunsicherheit\\n"
+                          "aus Messgerät und Anwender muss kleiner als ein Viertel der\\n"
+                          "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs sein."));
+    else if (temp > 28.0 || temp < 18.0)
+      fl_alert ( gettext ("Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 Kapitel 6.3"));
+    else
+      {
+        if (humidity > 90)
+          fl_alert ( gettext ("relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 Kapitel 6.3"));
         else
-          {
-            if (humidity > 90)
-             fl_alert ( gettext ("relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 Kapitel 6.3"));
-            else
-             myTTT->start_sequencer_DIN6789 (temp, humidity, rb_repeat_until_okay->value (), rb_like_6789_repeat->value ());
-          }
+          myTTT->start_sequencer_DIN6789 (temp, humidity, rb_repeat_until_okay->value (), rb_like_6789_repeat->value ());
+      }
   }
 
 update_run_activation ();
@@ -559,24 +561,27 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
         label {Schnellprüfung}
         callback {if (o->value ())
   {
-   vi_single_peak->show ();
-  }}
+    vi_single_peak->show ();
+  }
+}
         xywh {785 40 145 25} type Radio down_box ROUND_DOWN_BOX value 1
       }
       Fl_Round_Button rb_like_6789_repeat {
         label {Ablauf nach DIN 6789-1 aber mit Wiederholungen bei Überschreitung der zulässigen Abweichung}
         callback {if (o->value ())
   {
-   vi_single_peak->hide ();
-  }}
+    vi_single_peak->hide ();
+  }
+}
         xywh {785 75 260 65} type Radio down_box ROUND_DOWN_BOX align 148
       }
       Fl_Round_Button rb_din_6789 {
         label {DIN EN ISO 6789-1}
         callback {if (o->value ())
   {
-   vi_single_peak->hide ();
-  }}
+    vi_single_peak->hide ();
+  }
+}
         xywh {785 155 170 25} type Radio down_box ROUND_DOWN_BOX
       }
       Fl_Value_Input vi_single_peak {
@@ -698,21 +703,22 @@ Function {load_test_person(int id)} {open return_type void
 if (id > 0)
   {
     try
-     {
+      {
         myTTT->load_test_person (id);
         inp_test_person_name->value(myTTT->get_test_person_name ().c_str ());
         inp_test_person_supervisor->value(myTTT->get_test_person_supervisor ().c_str ());
         vi_test_person_uncertainty->value(myTTT->get_test_person_uncertainty () * 100);
-  last_id = id;
+        last_id = id;
       }
-     catch (std::runtime_error &e)
+    catch (std::runtime_error &e)
       {
         vi_test_person_id->value (last_id);
 
         //don't show error message
         //fl_alert (e.what ());
       }
-  }} {}
+  }
+} {}
 } 
 
 Function {load_test_object(int id)} {open return_type void
@@ -721,38 +727,38 @@ Function {load_test_object(int id)} {open return_type void
 if (id > 0)
   {
     try
-     {
+      {
         myTTT->load_test_object (id);
         inp_test_object_equipment_nr->value(myTTT->get_test_object_equipment_nr ().c_str ());
         inp_test_object_serial->value(myTTT->get_test_object_serial ().c_str ());
         inp_test_object_manufacturer->value(myTTT->get_test_object_manufacturer ().c_str ());
         inp_test_object_model->value(myTTT->get_test_object_model ().c_str ());
 
-  string type_class = myTTT->get_test_object_type ();
-  int ind = choice_test_object_type->find_index (type_class.c_str ());
-  //cout << "type_class = " << type_class << " ind = " << ind << endl;
-  choice_test_object_type->value (ind);
+        string type_class = myTTT->get_test_object_type ();
+        int ind = choice_test_object_type->find_index (type_class.c_str ());
+        //cout << "type_class = " << type_class << " ind = " << ind << endl;
+        choice_test_object_type->value (ind);
 
         rb_din_6789->setonly ();
 
-	//only Typ II devices are rise_time monitored
-	if (myTTT->test_object_is_type (2))
-	  grp_rise_time->show ();
-	else
-	  grp_rise_time->hide ();
+        //only Typ II devices are rise_time monitored
+        if (myTTT->test_object_is_type (2))
+          grp_rise_time->show ();
+        else
+          grp_rise_time->hide ();
 
         int dir =  myTTT->get_test_object_dir_of_rotation ();
-  choice_test_object_dir_of_rotation->value (dir);
+        choice_test_object_dir_of_rotation->value (dir);
 
-  vi_test_object_lever_length->value (100 * myTTT->get_test_object_lever_length ());
+        vi_test_object_lever_length->value (100 * myTTT->get_test_object_lever_length ());
         vi_test_object_min_torque->value (myTTT->get_test_object_min_torque ());
         vi_test_object_max_torque->value (myTTT->get_test_object_max_torque ());
 
-  //minimum und maximum festlegen
-  vi_single_peak->maximum (vi_test_object_max_torque->value());
+        //minimum und maximum festlegen
+        vi_single_peak->maximum (vi_test_object_max_torque->value());
 
         vi_test_object_resolution->value(myTTT->get_test_object_resolution ());
-        
+
         double accuracy =  myTTT->get_test_object_accuracy ();
         if (accuracy == 0)
           {
@@ -765,7 +771,7 @@ if (id > 0)
             rb_accuracy_from_din6789->clear ();
             rb_manufacturer_accuracy->set ();
           }
-        
+
         vi_test_object_accuracy->value(100 * accuracy);
         mi_test_object_attachments->value(myTTT->get_test_object_attachments ().c_str ());
 
@@ -774,13 +780,14 @@ if (id > 0)
 
         last_id = id;
       }
-     catch (std::runtime_error &e)
+    catch (std::runtime_error &e)
       {
         vi_test_object_id->value (last_id);
         //vorerst keine Fehlermeldung
         //fl_alert (e.what ());
       }
-  }} {}
+  }
+} {}
 } 
 
 Function {load_torque_tester()} {open return_type void
@@ -788,25 +795,26 @@ Function {load_torque_tester()} {open return_type void
   code {// Seriennummer und next_cal_date des angeschlossenen TTTs wird ausgelesen
 // und anhand dieser in der Datenbank gesucht
 
-    try
-     {
-        myTTT->load_torque_tester ();
-        vo_torque_tester_id->value (myTTT->get_torque_tester_id ());
-        out_torque_tester_serial->value(myTTT->get_torque_tester_serial ().c_str ());
-        out_torque_tester_manufacturer->value(myTTT->get_torque_tester_manufacturer ().c_str ());
-        out_torque_tester_model->value(myTTT->get_torque_tester_model ().c_str ());
-        out_torque_tester_next_cal_date->value(myTTT->get_torque_tester_next_cal_date ().c_str());
-        out_torque_tester_cal_date->value(myTTT->get_torque_tester_cal_date ().c_str());
-        out_torque_tester_cal_number->value(myTTT->get_torque_tester_cal_number ().c_str());
-        vo_torque_tester_max_torque->value(myTTT->get_torque_tester_max_torque ());
-        vo_torque_tester_resolution->value(myTTT->get_torque_tester_resolution ());
-        vo_torque_tester_uncertainty->value(100 * myTTT->get_torque_tester_uncertainty_of_measurement ());
-	vi_single_peak->maximum (myTTT->get_torque_tester_max_torque ());	
-      }
-     catch (std::runtime_error &e)
-      {
-        fl_alert (e.what ());
-      }} {}
+try
+  {
+    myTTT->load_torque_tester ();
+    vo_torque_tester_id->value (myTTT->get_torque_tester_id ());
+    out_torque_tester_serial->value(myTTT->get_torque_tester_serial ().c_str ());
+    out_torque_tester_manufacturer->value(myTTT->get_torque_tester_manufacturer ().c_str ());
+    out_torque_tester_model->value(myTTT->get_torque_tester_model ().c_str ());
+    out_torque_tester_next_cal_date->value(myTTT->get_torque_tester_next_cal_date ().c_str());
+    out_torque_tester_cal_date->value(myTTT->get_torque_tester_cal_date ().c_str());
+    out_torque_tester_cal_number->value(myTTT->get_torque_tester_cal_number ().c_str());
+    vo_torque_tester_max_torque->value(myTTT->get_torque_tester_max_torque ());
+    vo_torque_tester_resolution->value(myTTT->get_torque_tester_resolution ());
+    vo_torque_tester_uncertainty->value(100 * myTTT->get_torque_tester_uncertainty_of_measurement ());
+    vi_single_peak->maximum (myTTT->get_torque_tester_max_torque ());
+  }
+catch (std::runtime_error &e)
+  {
+    fl_alert (e.what ());
+  }
+} {}
 } 
 
 Function {update_test_object_type_class()} {open
@@ -826,7 +834,7 @@ if (test_object::has_fixed_trigger (selected_tc))
   vi_test_object_min_torque->hide ();
 else
   vi_test_object_min_torque->show ();
-  
+
 // hide resolution for devices without scale
 if (test_object::has_no_scale (selected_tc))
   vi_test_object_resolution->hide ();
@@ -843,123 +851,126 @@ else
 Function {update_test_object_accuracy()} {open
 } {
   code {if (rb_accuracy_from_din6789->value ())
-{
-  int id = choice_test_object_type->value ();
-  string selected_tc = choice_test_object_type->menu ()[id].label ();
+  {
+    int id = choice_test_object_type->value ();
+    string selected_tc = choice_test_object_type->menu ()[id].label ();
 
-  double max_t = vi_test_object_max_torque->value ();
-  double acc = test_object::get_accuracy_from_DIN (selected_tc, max_t);
-  vi_test_object_accuracy->value (acc * 100);
-}} {}
+    double max_t = vi_test_object_max_torque->value ();
+    double acc = test_object::get_accuracy_from_DIN (selected_tc, max_t);
+    vi_test_object_accuracy->value (acc * 100);
+  }
+} {}
 } 
 
 Function {update_run_activation()} {open
 } {
   code {if (myTTT->run ())
-{
-  btn_result->hide ();
-  mtable->show ();
-  btn_start->deactivate ();
-  btn_stop->activate ();
-  btn_confirm->activate ();
-  //btn_direction_cw->show ();
-  //btn_direction_ccw->show ();
-  vi_test_object_id->deactivate ();
-  btn_test_object_new->deactivate ();
-  btn_test_object_search->deactivate ();
-  btn_test_object_copy->deactivate ();
-  btn_test_object_edit->deactivate ();
-  btn_test_object_delete->deactivate ();
-  
-  vi_test_person_id->deactivate ();
-  btn_test_person_new->deactivate ();
-  btn_test_person_search->deactivate ();
+  {
+    btn_result->hide ();
+    mtable->show ();
+    btn_start->deactivate ();
+    btn_stop->activate ();
+    btn_confirm->activate ();
+    //btn_direction_cw->show ();
+    //btn_direction_ccw->show ();
+    vi_test_object_id->deactivate ();
+    btn_test_object_new->deactivate ();
+    btn_test_object_search->deactivate ();
+    btn_test_object_copy->deactivate ();
+    btn_test_object_edit->deactivate ();
+    btn_test_object_delete->deactivate ();
 
-  vi_temperature->deactivate ();
-  vi_humidity->deactivate ();
-  to_step->show ();
-  step_progress->show ();
-  vo_step_progress->show ();
-}
+    vi_test_person_id->deactivate ();
+    btn_test_person_new->deactivate ();
+    btn_test_person_search->deactivate ();
+
+    vi_temperature->deactivate ();
+    vi_humidity->deactivate ();
+    to_step->show ();
+    step_progress->show ();
+    vo_step_progress->show ();
+  }
 else
-{
-  btn_start->activate ();
-  btn_stop->deactivate ();
-  btn_confirm->deactivate ();
-  btn_direction_cw->hide ();
-  btn_direction_ccw->hide ();
-  vi_test_object_id->activate ();
-  btn_test_object_new->activate ();
-  btn_test_object_search->activate ();
-  btn_test_object_copy->activate ();
-  btn_test_object_edit->activate ();
-  btn_test_object_delete->activate ();
+  {
+    btn_start->activate ();
+    btn_stop->deactivate ();
+    btn_confirm->deactivate ();
+    btn_direction_cw->hide ();
+    btn_direction_ccw->hide ();
+    vi_test_object_id->activate ();
+    btn_test_object_new->activate ();
+    btn_test_object_search->activate ();
+    btn_test_object_copy->activate ();
+    btn_test_object_edit->activate ();
+    btn_test_object_delete->activate ();
 
-  vi_test_person_id->activate ();
-  btn_test_person_new->activate ();
-  btn_test_person_search->activate ();
-  
-  vi_temperature->activate ();
-  vi_humidity->activate ();
-  to_step->hide ();
-  step_progress->hide ();
-  vo_step_progress->hide ();
-}} {}
+    vi_test_person_id->activate ();
+    btn_test_person_new->activate ();
+    btn_test_person_search->activate ();
+
+    vi_temperature->activate ();
+    vi_humidity->activate ();
+    to_step->hide ();
+    step_progress->hide ();
+    vo_step_progress->hide ();
+  }
+} {}
 } 
 
 Function {set_test_object_fields_editable(bool editable)} {open return_type void
 } {
   code {if (editable)
-{
-vi_test_object_id->hide ();
-inp_test_object_equipment_nr->activate ();
-inp_test_object_serial->activate ();
-inp_test_object_manufacturer->activate ();
-inp_test_object_model->activate ();
-choice_test_object_type->activate ();
-choice_test_object_dir_of_rotation->activate ();
-vi_test_object_lever_length->activate ();
-vi_test_object_min_torque->activate ();
-vi_test_object_max_torque->activate ();
-vi_test_object_resolution->activate ();
-mi_test_object_attachments->activate ();
-rb_accuracy_from_din6789->activate ();
-rb_manufacturer_accuracy->activate ();
+  {
+    vi_test_object_id->hide ();
+    inp_test_object_equipment_nr->activate ();
+    inp_test_object_serial->activate ();
+    inp_test_object_manufacturer->activate ();
+    inp_test_object_model->activate ();
+    choice_test_object_type->activate ();
+    choice_test_object_dir_of_rotation->activate ();
+    vi_test_object_lever_length->activate ();
+    vi_test_object_min_torque->activate ();
+    vi_test_object_max_torque->activate ();
+    vi_test_object_resolution->activate ();
+    mi_test_object_attachments->activate ();
+    rb_accuracy_from_din6789->activate ();
+    rb_manufacturer_accuracy->activate ();
 
-btn_test_object_search->hide ();
-btn_test_object_new->hide ();
-btn_test_object_copy->hide ();
-btn_test_object_edit->hide ();
-btn_test_object_delete->hide ();
-btn_test_object_save->show ();
-btn_test_object_abort->show ();
+    btn_test_object_search->hide ();
+    btn_test_object_new->hide ();
+    btn_test_object_copy->hide ();
+    btn_test_object_edit->hide ();
+    btn_test_object_delete->hide ();
+    btn_test_object_save->show ();
+    btn_test_object_abort->show ();
 
-}
+  }
 else
-{
-inp_test_object_equipment_nr->deactivate ();
-inp_test_object_serial->deactivate ();
-inp_test_object_manufacturer->deactivate ();
-inp_test_object_model->deactivate ();
-choice_test_object_type->deactivate ();
-choice_test_object_dir_of_rotation->deactivate ();
-vi_test_object_lever_length->deactivate ();
-vi_test_object_min_torque->deactivate ();
-vi_test_object_max_torque->deactivate ();
-vi_test_object_resolution->deactivate ();
-mi_test_object_attachments->deactivate ();
-vi_test_object_accuracy->deactivate ();
-rb_accuracy_from_din6789->deactivate ();
-rb_manufacturer_accuracy->deactivate ();
+  {
+    inp_test_object_equipment_nr->deactivate ();
+    inp_test_object_serial->deactivate ();
+    inp_test_object_manufacturer->deactivate ();
+    inp_test_object_model->deactivate ();
+    choice_test_object_type->deactivate ();
+    choice_test_object_dir_of_rotation->deactivate ();
+    vi_test_object_lever_length->deactivate ();
+    vi_test_object_min_torque->deactivate ();
+    vi_test_object_max_torque->deactivate ();
+    vi_test_object_resolution->deactivate ();
+    mi_test_object_attachments->deactivate ();
+    vi_test_object_accuracy->deactivate ();
+    rb_accuracy_from_din6789->deactivate ();
+    rb_manufacturer_accuracy->deactivate ();
 
-btn_test_object_search->show ();
-btn_test_object_new->show ();
-btn_test_object_copy->show ();
-btn_test_object_edit->show ();
-btn_test_object_delete->show ();
-btn_test_object_save->hide ();
-btn_test_object_abort->hide ();
-}} {}
+    btn_test_object_search->show ();
+    btn_test_object_new->show ();
+    btn_test_object_copy->show ();
+    btn_test_object_edit->show ();
+    btn_test_object_delete->show ();
+    btn_test_object_save->hide ();
+    btn_test_object_abort->hide ();
+  }
+} {}
 } 
 
 Function {clear_test_object_fields()} {open return_type void

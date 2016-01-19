@@ -40,29 +40,30 @@ textdomain ("ttt");} {selected
     Fl_Button {} {
       label {ins Messgerät schreiben}
       callback {try
- {
-  liballuris al;
+  {
+    liballuris al;
 
-  cout << "ttt_device::init clear_RX" << endl;
-  al.clear_RX (500);
-  cout << "ttt_device::init stop streaming and measurement" << endl;
-  al.set_cyclic_measurement (0, 19);
-  al.stop_measurement ();
+    cout << "ttt_device::init clear_RX" << endl;
+    al.clear_RX (500);
+    cout << "ttt_device::init stop streaming and measurement" << endl;
+    al.set_cyclic_measurement (0, 19);
+    al.stop_measurement ();
 
-  double scale = 1.0 / pow(10, al.get_digits ());
-  al.set_mode (LIBALLURIS_MODE_PEAK);
-  al.set_memory_mode (LIBALLURIS_MEM_MODE_SINGLE);
-  al.set_unit (LIBALLURIS_UNIT_N);
+    double scale = 1.0 / pow(10, al.get_digits ());
+    al.set_mode (LIBALLURIS_MODE_PEAK);
+    al.set_memory_mode (LIBALLURIS_MEM_MODE_SINGLE);
+    al.set_unit (LIBALLURIS_UNIT_N);
 
-  al.set_peak_level (vi_peak_level->value() / 100.0);
-  al.set_upper_limit (round (vi_upper_limit->value () / scale));
-  al.set_lower_limit (round (vi_lower_limit->value () / scale));
+    al.set_peak_level (vi_peak_level->value() / 100.0);
+    al.set_upper_limit (round (vi_upper_limit->value () / scale));
+    al.set_lower_limit (round (vi_lower_limit->value () / scale));
 
   }
-  catch (std::runtime_error &e)
+catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
-  }}
+  }
+}
       xywh {150 190 205 35}
     }
     Fl_Button {} {
@@ -84,50 +85,52 @@ vi_lower_limit->value (vi_nominal->value () * 0.94);}
     Fl_Button {} {
       label {Gerätespeicher auslesen}
       callback {try
-{
-  liballuris al;
+  {
+    liballuris al;
 
-  al.stop_measurement ();
-  double scale = 1.0 / pow(10, al.get_digits ());
+    al.stop_measurement ();
+    double scale = 1.0 / pow(10, al.get_digits ());
 
-  vector<int> mem;
-  mem = al.read_memory ();
+    vector<int> mem;
+    mem = al.read_memory ();
 
-  cout << "mem.size ()=" << mem.size () << endl;
+    cout << "mem.size ()=" << mem.size () << endl;
 
-  if (mem.size () == 0)
-    fl_message ("Keine Werte im Gerätespeicher");
-  else
-    {
-      double sum = 0;
-      for (unsigned int k=0; k<mem.size (); ++k)
-       {
-         cout << "mem k=" << k << " =" << mem[k] << endl;
-         quick_tbl->add_measurement (mem[k] * scale);
-         sum += mem[k] * scale;
-        }
-     vo_mean->value (sum / mem.size ());
-     quick_tbl->show ();
-     }
+    if (mem.size () == 0)
+      fl_message ("Keine Werte im Gerätespeicher");
+    else
+      {
+        double sum = 0;
+        for (unsigned int k=0; k<mem.size (); ++k)
+          {
+            cout << "mem k=" << k << " =" << mem[k] << endl;
+            quick_tbl->add_measurement (mem[k] * scale);
+            sum += mem[k] * scale;
+          }
+        vo_mean->value (sum / mem.size ());
+        quick_tbl->show ();
+      }
   }
-  catch (std::runtime_error &e)
+catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
-  }}
+  }
+}
       xywh {310 285 205 35}
     }
     Fl_Button {} {
       label {Gerätespeicher löschen}
       callback {try
-{
-  liballuris al;
-  al.clear_memory ();
-  quick_tbl->hide ();
+  {
+    liballuris al;
+    al.clear_memory ();
+    quick_tbl->hide ();
   }
-  catch (std::runtime_error &e)
+catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
-  }}
+  }
+}
       xywh {310 335 205 35}
     }
     Fl_Table quick_tbl {open
