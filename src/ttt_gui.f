@@ -51,7 +51,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2589 371 1280 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2559 371 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -59,11 +59,6 @@ Function {create_widgets()} {open return_type void
     } {
       Fl_Input inp_test_person_name {
         label Name
-        callback {vector<test_person> vtp;
-myTTT->search_test_person_name (inp_test_person_name->value (), vtp);
-
-for (int k=0; k<vtp.size(); ++k)
-  cout << vtp[k];}
         xywh {536 211 210 25} when 8 deactivate
       }
       Fl_Input inp_test_person_supervisor {
@@ -131,7 +126,7 @@ btn_test_person_abort->hide ();}
       }
       Fl_Button btn_test_person_search {
         label {@search}
-        callback {test_person_win->show ();} selected
+        callback {test_person_win->show ();}
         xywh {711 171 35 30} box GLEAM_THIN_UP_BOX
       }
     }
@@ -457,7 +452,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Prüfung} open
+      label {Prüfung} open selected
       xywh {761 6 515 774} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
@@ -882,8 +877,15 @@ Function {update_run_activation()} {open
   //btn_direction_ccw->show ();
   vi_test_object_id->deactivate ();
   btn_test_object_new->deactivate ();
+  btn_test_object_search->deactivate ();
+  btn_test_object_copy->deactivate ();
+  btn_test_object_edit->deactivate ();
+  btn_test_object_delete->deactivate ();
+  
   vi_test_person_id->deactivate ();
   btn_test_person_new->deactivate ();
+  btn_test_person_search->deactivate ();
+
   vi_temperature->deactivate ();
   vi_humidity->deactivate ();
   to_step->show ();
@@ -899,8 +901,15 @@ else
   btn_direction_ccw->hide ();
   vi_test_object_id->activate ();
   btn_test_object_new->activate ();
+  btn_test_object_search->activate ();
+  btn_test_object_copy->activate ();
+  btn_test_object_edit->activate ();
+  btn_test_object_delete->activate ();
+
   vi_test_person_id->activate ();
   btn_test_person_new->activate ();
+  btn_test_person_search->activate ();
+  
   vi_temperature->activate ();
   vi_humidity->activate ();
   to_step->hide ();
