@@ -313,7 +313,8 @@ try
 catch (std::runtime_error &e)
   {
     fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
-  }}
+  }
+}
         xywh {290 75 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
@@ -371,7 +372,8 @@ if (r == 0)
         vi_test_object_id->hide ();
         clear_test_object_fields ();
       }
-  }}
+  }
+}
         xywh {5 38 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_copy {
@@ -482,7 +484,7 @@ if (btn_test_person_save->visible ())
 
 if (rb_like_6789_repeat->value () && use_mean_as_nominal_value)
   {
-    
+
     fl_alert (gettext ("Bei Drehmoment-Schraubwerkzeugen des Typs IIC und IIF ist keine automatische Wiederholung möglich\\n"
                        "da der arithmetische Mittel erst am Ende der Messreihe berechnet werden kann und somit eine\\n"
                        "Bewertung erst dann möglich wird."));
@@ -715,7 +717,8 @@ if (id > 0)
         //don't show error message
         //fl_alert (e.what ());
       }
-  }} {selected
+  }
+} {selected
   }
 } 
 
@@ -784,7 +787,8 @@ if (id > 0)
         //vorerst keine Fehlermeldung
         //fl_alert (e.what ());
       }
-  }} {}
+  }
+} {}
 } 
 
 Function {load_torque_tester()} {open return_type void
@@ -810,7 +814,8 @@ try
 catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
-  }} {}
+  }
+} {}
 } 
 
 Function {update_test_object_type_class()} {open
@@ -854,7 +859,8 @@ Function {update_test_object_accuracy()} {open
     double max_t = vi_test_object_max_torque->value ();
     double acc = test_object::get_accuracy_from_DIN (selected_tc, max_t);
     vi_test_object_accuracy->value (acc * 100);
-  }} {}
+  }
+} {}
 } 
 
 Function {update_run_activation()} {open
@@ -920,7 +926,8 @@ else
     to_step->hide ();
     step_progress->hide ();
     vo_step_progress->hide ();
-  }} {}
+  }
+} {}
 } 
 
 Function {set_test_object_fields_editable(bool editable)} {open return_type void
@@ -975,7 +982,8 @@ else
     btn_test_object_delete->show ();
     btn_test_object_save->hide ();
     btn_test_object_abort->hide ();
-  }} {}
+  }
+} {}
 } 
 
 Function {clear_test_object_fields()} {open return_type void
