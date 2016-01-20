@@ -176,7 +176,7 @@ bool ttt::run ()
             os << "_like_DIN6789.pdf";
 
           report_filename = os.str ();
-          report_result res = DIN6789_report (report_filename, meas.id, report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
+          report_result res = create_DIN6789_report (db, meas.id, report_filename.c_str (), report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
 
           if (res.values_below_max_deviation && !res.timing_violation)
             print_result (gettext ("Kalibrierung innerhalb Toleranz"));
@@ -189,14 +189,16 @@ bool ttt::run ()
         }
       else if (report_style == QUICK_CHECK_REPORT) //single peak
         {
-          report_filename = get_time_for_filename () + "_quick_check.pdf";
-          bool res = create_quick_test_report (db, meas.id, report_filename.c_str ());
+          // Meeting from 14.01.2016: No Report for Quick Check
+          //report_filename = get_time_for_filename () + "_quick_check.pdf";
+          //bool res = create_quick_test_report (db, meas.id, report_filename.c_str ());
+
+          bool res = meas.quick_check_okay ();
 
           if (res)
             print_result (gettext ("Schnellkalibrierung innerhalb Toleranz"));
           else
             print_result (gettext ("*Schnellkalibrierung außerhalb Toleranz"));
-          print_step ( string (gettext ("Kalibrierschein:")) + " " + report_filename, 1);
         }
       else
         print_step ("finished", 1);
@@ -309,8 +311,17 @@ bool ttt::run ()
               cout << "ttt::run:" << __LINE__ << " accuracy=" << accuracy
                    << " peak_torque=" << pmeas->get_peak_torque () << " is_in=" << p->is_in (accuracy) << endl;
 
-              Fl_Color cell_color = (p->is_in (accuracy))? FL_WHITE: FL_RED;
-              bool overwrite_measurement = (! p->is_in (accuracy)) && (report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
+              // color of measurement_table cell background
+              Fl_Color cell_color = FL_WHITE;
+
+              // Typ IIC and IIF use mean as nominal value
+              // so it's impossible to have a live "good/bad" information
+              bool use_mean_as_nominal_value = meas.to.has_no_scale () && ! meas.to.has_fixed_trigger ();
+              if (! use_mean_as_nominal_value && ! p->is_in (accuracy))
+                cell_color = FL_RED;
+
+              bool overwrite_measurement =   (! p->is_in (accuracy))
+                                             && (report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
               // add result to measurement table
               if (m_table)
                 m_table->add_measurement (pmeas->get_peak_torque (), overwrite_measurement, cell_color);
@@ -514,7 +525,7 @@ void ttt::start_sequencer (double temperature, double humidity)
     }
 
   // init measurement
-  meas.clear_measurement_item ();
+  meas.clear_measurement_items ();
   meas.temperature = temperature;
   meas.humidity = humidity;
   meas.start_time = get_localtime();
@@ -578,14 +589,31 @@ void ttt::start_sequencer (double temperature, double humidity)
   sequencer_is_running = true;
 }
 
-void ttt::start_sequencer_single_peak (double temperature, double humidity, double nominal_value)
+void ttt::start_sequencer_quick_check (double temperature, double humidity, double nominal_value)
 {
   if (sequencer_is_running)
     throw runtime_error ("Sequencer is already running. Please stop it first");
 
   clear_steps ();
+
+  // 5 Messungen ohne Tara und ohne rise_time Überwachung
   // add_step (new tare_step());
-  add_step (new peak_meas_step(nominal_value, 0.6, 0.1));
+
+  if (test_object_is_type (2))
+    {
+      double peak_level = 0.5;
+      if (pttt)
+        peak_level = pttt->get_peak_level ();
+
+      for (int k = 0; k < 5; ++k)
+        add_step (new peak_click_step(nominal_value, 0, 10, false, 0.6, peak_level));
+    }
+  else // Typ 1
+    {
+      for (int k = 0; k < 5; ++k)
+        add_step (new peak_meas_step(nominal_value, 0.6, 0.1));
+    }
+
   report_style = QUICK_CHECK_REPORT;
   start_sequencer (temperature, humidity);
 }
@@ -650,11 +678,6 @@ void ttt::print_result ()
         }
       cout << endl;
     }
-}
-
-report_result ttt::DIN6789_report (string fn, int id, bool repeat_on_tolerance_violation)
-{
-  return create_DIN6789_report (db, id, fn.c_str (), repeat_on_tolerance_violation);
 }
 
 void ttt::load_torque_tester ()

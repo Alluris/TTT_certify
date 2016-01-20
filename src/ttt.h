@@ -169,7 +169,7 @@ public:
   void set_confirmation();
 
   void start_sequencer (double temperature, double humidity);
-  void start_sequencer_single_peak (double temperature, double humidity, double nominal_value);
+  void start_sequencer_quick_check (double temperature, double humidity, double nominal_value);
   void start_sequencer_DIN6789 (double temperature, double humidity, bool repeat_on_timing_violation, bool repeat_on_tolerance_violation);
 
   void stop_sequencer ();

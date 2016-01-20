@@ -51,7 +51,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2473 267 1280 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2490 281 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -313,8 +313,7 @@ try
 catch (std::runtime_error &e)
   {
     fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
-  }
-}
+  }}
         xywh {290 75 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
@@ -372,8 +371,7 @@ if (r == 0)
         vi_test_object_id->hide ();
         clear_test_object_fields ();
       }
-  }
-}
+  }}
         xywh {5 38 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_copy {
@@ -454,24 +452,12 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Prüfung} open selected
+      label {Prüfung} open
       xywh {761 6 515 774} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
         label Start
-        callback {if (btn_test_object_save->visible ())
-  {
-    fl_alert ("Bitte zuerst das Anlegen eines neuen Drehmoment-Schraubwerkzeugs beenden oder abbrechen.");
-    return;
-  }
-
-if (btn_test_person_save->visible ())
-  {
-    fl_alert ("Bitte zuerst das Anlegen eines neuen Bearbeiters beenden oder abbrechen.");
-    return;
-  }
-
-double temp = vi_temperature->value ();
+        callback {double temp = vi_temperature->value ();
 double humidity = vi_humidity->value ();
 
 // extended uncertainty, thus 1/2
@@ -479,10 +465,34 @@ double torque_tester_uncertainty = vo_torque_tester_uncertainty->value () / 200.
 double test_person_uncertainty =  vi_test_person_uncertainty->value ()/100.0;
 double total_extended_uncertainty = 2 * sqrt (torque_tester_uncertainty*torque_tester_uncertainty + test_person_uncertainty*test_person_uncertainty);
 
+string t = myTTT->get_test_object_type ();
+bool use_mean_as_nominal_value = test_object::has_no_scale (t) && ! test_object::has_fixed_trigger (t);
+
+if (btn_test_object_save->visible ())
+  {
+    fl_alert (gettext ("Bitte zuerst das Anlegen eines neuen Drehmoment-Schraubwerkzeugs beenden oder abbrechen."));
+    return;
+  }
+
+if (btn_test_person_save->visible ())
+  {
+    fl_alert (gettext ("Bitte zuerst das Anlegen eines neuen Bearbeiters beenden oder abbrechen."));
+    return;
+  }
+
+if (rb_like_6789_repeat->value () && use_mean_as_nominal_value)
+  {
+    
+    fl_alert (gettext ("Bei Drehmoment-Schraubwerkzeugen des Typs IIC und IIF ist keine automatische Wiederholung möglich\\n"
+                       "da der arithmetische Mittel erst am Ende der Messreihe berechnet werden kann und somit eine\\n"
+                       "Bewertung erst dann möglich wird."));
+    return;
+  }
+
 if (rb_quick_peak->value ())
   {
-    if ( vi_single_peak->value () != 0)
-      myTTT->start_sequencer_single_peak (temp, humidity, vi_single_peak->value ());
+    if ( vi_single_peak->value () != 0 || use_mean_as_nominal_value)
+      myTTT->start_sequencer_quick_check (temp, humidity, vi_single_peak->value ());
     else
       fl_alert ( gettext ("Nominalwert muss <> 0 Nm sein"));
   }
@@ -559,29 +569,17 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
       }
       Fl_Round_Button rb_quick_peak {
         label {Schnellprüfung}
-        callback {if (o->value ())
-  {
-    vi_single_peak->show ();
-  }
-}
+        callback {update_quick_check_nominal_visibility();}
         xywh {785 40 145 25} type Radio down_box ROUND_DOWN_BOX value 1
       }
       Fl_Round_Button rb_like_6789_repeat {
         label {Ablauf nach DIN 6789-1 aber mit Wiederholungen bei Überschreitung der zulässigen Abweichung}
-        callback {if (o->value ())
-  {
-    vi_single_peak->hide ();
-  }
-}
+        callback {update_quick_check_nominal_visibility();}
         xywh {785 75 260 65} type Radio down_box ROUND_DOWN_BOX align 148
       }
       Fl_Round_Button rb_din_6789 {
         label {DIN EN ISO 6789-1}
-        callback {if (o->value ())
-  {
-    vi_single_peak->hide ();
-  }
-}
+        callback {update_quick_check_nominal_visibility();}
         xywh {785 155 170 25} type Radio down_box ROUND_DOWN_BOX
       }
       Fl_Value_Input vi_single_peak {
@@ -609,7 +607,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_object_win {
     label {test_object search} open
-    xywh {2602 148 935 645} type Double modal visible
+    xywh {2602 148 935 645} type Double hide modal
   } {
     Fl_Table to {open
       xywh {9 110 920 480}
@@ -668,7 +666,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_person_win {
     label {test_person search} open
-    xywh {2991 130 670 540} type Double modal visible
+    xywh {2319 150 670 540} type Double hide modal
   } {
     Fl_Table tp {open
       xywh {20 70 640 410}
@@ -717,8 +715,8 @@ if (id > 0)
         //don't show error message
         //fl_alert (e.what ());
       }
+  }} {selected
   }
-} {}
 } 
 
 Function {load_test_object(int id)} {open return_type void
@@ -786,8 +784,7 @@ if (id > 0)
         //vorerst keine Fehlermeldung
         //fl_alert (e.what ());
       }
-  }
-} {}
+  }} {}
 } 
 
 Function {load_torque_tester()} {open return_type void
@@ -813,8 +810,7 @@ try
 catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
-  }
-} {}
+  }} {}
 } 
 
 Function {update_test_object_type_class()} {open
@@ -858,8 +854,7 @@ Function {update_test_object_accuracy()} {open
     double max_t = vi_test_object_max_torque->value ();
     double acc = test_object::get_accuracy_from_DIN (selected_tc, max_t);
     vi_test_object_accuracy->value (acc * 100);
-  }
-} {}
+  }} {}
 } 
 
 Function {update_run_activation()} {open
@@ -884,6 +879,12 @@ Function {update_run_activation()} {open
     btn_test_person_new->deactivate ();
     btn_test_person_search->deactivate ();
 
+    rb_quick_peak->deactivate ();
+    rb_like_6789_repeat->deactivate ();
+    rb_din_6789->deactivate ();
+    vi_single_peak->deactivate ();
+    grp_rise_time->deactivate ();
+
     vi_temperature->deactivate ();
     vi_humidity->deactivate ();
     to_step->show ();
@@ -907,14 +908,19 @@ else
     vi_test_person_id->activate ();
     btn_test_person_new->activate ();
     btn_test_person_search->activate ();
+    grp_rise_time->activate ();
+
+    rb_quick_peak->activate ();
+    rb_like_6789_repeat->activate ();
+    rb_din_6789->activate ();
+    vi_single_peak->activate ();
 
     vi_temperature->activate ();
     vi_humidity->activate ();
     to_step->hide ();
     step_progress->hide ();
     vo_step_progress->hide ();
-  }
-} {}
+  }} {}
 } 
 
 Function {set_test_object_fields_editable(bool editable)} {open return_type void
@@ -969,8 +975,7 @@ else
     btn_test_object_delete->show ();
     btn_test_object_save->hide ();
     btn_test_object_abort->hide ();
-  }
-} {}
+  }} {}
 } 
 
 Function {clear_test_object_fields()} {open return_type void
@@ -989,4 +994,12 @@ mi_test_object_attachments->value("");
 
 rb_accuracy_from_din6789->set ();
 rb_manufacturer_accuracy->clear ();} {}
+} 
+
+Function {update_quick_check_nominal_visibility()} {open return_type void
+} {
+  code {if (rb_quick_peak->value ())
+  vi_single_peak->show ();
+else
+  vi_single_peak->hide ();} {}
 } 

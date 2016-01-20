@@ -95,7 +95,7 @@ public:
   double max_torque;
   double resolution;      // Auflösung
   string attachments;     // Anbauteile
-  double accuracy;        // Genauigkeit (besser zulässige Messabweichung), 0 = aus der DIN6789, sonst Herstellerangabe
+  double accuracy;        // Genauigkeit (besser "zulässige Messabweichung"), 0 = aus der DIN6789 bestimmen, sonst Herstellerangabe
 
   test_object(): id(-1), dir_of_rotation(-1), lever_length(-1), min_torque(-1), max_torque(-1), resolution(-1), accuracy(-1) {}
   void load_with_id (sqlite3 *db, int search_id);
@@ -167,6 +167,13 @@ public:
 
   static double get_accuracy_from_DIN (string tc, double max_torque);
   double get_accuracy_from_DIN ();
+  double get_accuracy ()
+  {
+    double ret = accuracy;
+    if (ret == 0)
+      ret = get_accuracy_from_DIN ();
+    return ret;
+  }
 
   // return timing specification from DIN EN ISO 6789 chapter 6.24
   // for torque increase from 80% to 100%
@@ -212,10 +219,10 @@ public:
   // loading and saving of measurement_item
   // is done in measurement::load/save
 
-  double rel_deviation ()
-  {
-    return rel_deviation (nominal_value);
-  }
+//  double rel_deviation ()
+//  {
+//    return rel_deviation (nominal_value);
+//  }
 
   double rel_deviation (double Xa)
   {
@@ -223,9 +230,10 @@ public:
     return (indicated_value - Xa) / Xa;
   }
 
+
   bool is_in (double tolerance)
   {
-    return abs (rel_deviation ()) <= tolerance;
+    return abs (rel_deviation (nominal_value)) <= tolerance;
   }
 
   bool is_in (double tolerance, double Xa)
@@ -259,7 +267,7 @@ public:
 
   void add_measurement_item (string ts, double nominal_value, double indicated_value, double rise_time);
   void add_measurement_item (measurement_item *p);
-  void clear_measurement_item ();
+  void clear_measurement_items ();
 
   void load_with_id (sqlite3 *db, int search_id);
   void save (sqlite3 *db);
@@ -277,6 +285,8 @@ public:
   double cairo_print_conformity (cairo_t *cr, double c1, double top, bool &values_below_max_deviation);
 
   friend ostream& operator<<(ostream& os, const measurement&);
+
+  bool quick_check_okay ();
 };
 
 enum test_object_search_field

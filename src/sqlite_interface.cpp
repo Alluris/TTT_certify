@@ -600,7 +600,7 @@ measurement::measurement ()
 
 measurement::~measurement ()
 {
-  clear_measurement_item ();
+  clear_measurement_items ();
   //cout << "measurement d'tor" << endl;
 }
 
@@ -620,7 +620,7 @@ void measurement::add_measurement_item (measurement_item *p)
   measurement_items.push_back (p);
 }
 
-void measurement::clear_measurement_item ()
+void measurement::clear_measurement_items ()
 {
   for (unsigned int k=0; k<measurement_items.size (); ++k)
     delete measurement_items[k];
@@ -632,6 +632,7 @@ void measurement::clear_measurement_item ()
  */
 void measurement::load_with_id (sqlite3 *db, int search_id)
 {
+  clear_measurement_items ();
   sqlite3_stmt *pStmt;
 
   int test_person_id = -1;
@@ -897,9 +898,7 @@ double measurement::cairo_print_5_meas_table (cairo_t *cr, double c1, double top
         }
 
       // Bewertung generieren
-      double accuracy = to.accuracy;
-      if (accuracy == 0)
-        accuracy = to.get_accuracy_from_DIN ();
+      double accuracy = to.get_accuracy ();
 
       if (! measurement_items[k]->is_in (accuracy, nominal_value))
         {
@@ -1090,9 +1089,8 @@ double measurement::cairo_print_1_meas_table (cairo_t *cr, double c1, double top
       cairo_centered_text (cr, c1 + 3.5 * col_width, y - col_height / 2, str);
 
       // Bewertung generieren
-      double accuracy = to.accuracy;
-      if (accuracy == 0)
-        accuracy = to.get_accuracy_from_DIN ();
+      double accuracy = to.get_accuracy ();
+
       bool okay = measurement_items[k]->is_in (accuracy, nominal_value);
 
       if (! okay)
@@ -1266,6 +1264,34 @@ double measurement::cairo_print_conformity (cairo_t *cr, double c1, double top, 
     }
 
   return top;
+}
+
+bool measurement::quick_check_okay ()
+{
+  int num = measurement_items.size ();
+  double mean = 0;
+  for (int k = 0; k < num ; ++k)
+    mean += measurement_items[k]->indicated_value;
+  mean = mean / measurement_items.size ();
+
+  cout << "measurement::quick_check_okay num=" << num << " mean=" << mean << endl;
+  bool ret = true;
+  for (int k = 0; k < num ; ++k)
+    {
+      double nominal_value = measurement_items[k]->nominal_value;
+      // Bewertung generieren
+      double accuracy = to.get_accuracy ();
+      bool okay = measurement_items[k]->is_in (accuracy, nominal_value);
+
+      cout << "  nominal_value=" << nominal_value
+           << " indicated_value=" << measurement_items[k]->indicated_value
+           << " accuracy=" << accuracy
+           << " okay=" << okay << endl;
+
+      if (! okay)
+        ret = false;
+    }
+  return ret;
 }
 
 ostream& operator<< (ostream& os, const test_person &tp)

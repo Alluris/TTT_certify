@@ -316,9 +316,15 @@ int main ()
   search_test_objects (db, MANUFACTURER, "PROX%", vto);
   assert (vto.size () == 2);
 
-  unsigned int k;
-  for (k=0; k<vto.size(); ++k)
-    cout << vto.at (k) << endl;
+
+  /******** CHECK measurement statistics ******************/
+  mm.load_with_id (db, 1);
+
+
+  // display found test_objects with "PROX%"
+  //unsigned int k;
+  //for (k=0; k<vto.size(); ++k)
+  //  cout << vto.at (k) << endl;
 
   sqlite3_close(db);
 
