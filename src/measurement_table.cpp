@@ -32,6 +32,7 @@ void measurement_table::draw_cell(TableContext context, int ROW, int COL, int X,
 {
   static char s[40];
   unsigned int j;
+  Fl_Color c = FL_WHITE;
   switch ( context )
     {
     case CONTEXT_STARTPAGE:                   // before page is drawn..
@@ -56,8 +57,9 @@ void measurement_table::draw_cell(TableContext context, int ROW, int COL, int X,
       else
         snprintf (s, 40, "---");
 
-      //DrawData(s,X,Y,W,H,row_selected (ROW) ? FL_YELLOW : FL_WHITE);
-      DrawData(s,X,Y,W,H,FL_WHITE);
+      if (j < colors.size ())
+        c = colors[j];
+      DrawData(s,X,Y,W,H, c);
       return;
     default:
       return;
@@ -65,7 +67,7 @@ void measurement_table::draw_cell(TableContext context, int ROW, int COL, int X,
 }
 
 measurement_table::measurement_table(int X, int Y, int W, int H, const char *L)
-  : Fl_Table(X,Y,W,H,L)
+  : Fl_Table(X,Y,W,H,L), next_measurement_replaces_last (false)
 {
   // Rows
   rows(1);             // how many rows

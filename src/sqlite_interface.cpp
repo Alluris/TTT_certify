@@ -615,6 +615,11 @@ void measurement::add_measurement_item (string ts, double nominal_value, double 
   measurement_items.push_back (p);
 }
 
+void measurement::add_measurement_item (measurement_item *p)
+{
+  measurement_items.push_back (p);
+}
+
 void measurement::clear_measurement_item ()
 {
   for (unsigned int k=0; k<measurement_items.size (); ++k)

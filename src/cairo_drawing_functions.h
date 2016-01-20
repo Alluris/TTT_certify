@@ -40,7 +40,8 @@ struct report_result
 
 report_result create_DIN6789_report ( sqlite3 *db,
                                       int measurement_id,
-                                      const char *report_fn);
+                                      const char *report_fn,
+                                      bool repeat_on_tolerance_violation);
 
 bool create_quick_test_report ( sqlite3 *db,
                                 int measurement_id,

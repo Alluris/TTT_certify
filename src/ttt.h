@@ -161,7 +161,7 @@ public:
   void clear_steps ();
 
   // komplette Sequenzen hinzufügen
-  void add_DIN6789_steps (bool repeat_on_timing_violation, bool repeat_on_tolerance_violation);
+  void add_DIN6789_steps (bool repeat_on_timing_violation);
 
   bool run ();
 
@@ -176,7 +176,7 @@ public:
   enum out_cmd sequencer_inout (double torque, bool confirmation);
 
   void print_result ();
-  report_result DIN6789_report (string fn, int id);
+  report_result DIN6789_report (string fn, int id, bool repeat_on_tolerance_violation);
 
   friend ostream& operator<<(ostream& os, const ttt& d);
 

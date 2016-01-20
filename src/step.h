@@ -80,7 +80,7 @@ protected:
   double stop_thres;  // torque has to fall bellow this threshold to detect the end of the step
 
 public:
-  preload_step (double nominal, double stop_threshold_factor = 0.1);
+  preload_step (double nominal, double stop_threshold_factor);
   virtual out_cmd inout (double torque, bool confirmation);
 
   double get_nominal_value ()
@@ -96,7 +96,7 @@ class preload_torque_tester_step: public preload_step
 private:
 
 public:
-  preload_torque_tester_step (double nominal, double stop_threshold_factor = 0.1);
+  preload_torque_tester_step (double nominal, double stop_threshold_factor);
   string instruction ();
   string description ();
 };
@@ -106,7 +106,7 @@ class preload_test_object_step: public preload_step
 private:
 
 public:
-  preload_test_object_step (double nominal, double stop_threshold_factor = 0.1);
+  preload_test_object_step (double nominal, double stop_threshold_factor);
   enum out_cmd inout (double torque, bool confirmation);
   string instruction ();
   string description ();
@@ -147,7 +147,7 @@ protected:
   double start_peak_torque;  // threshold which has to be exceeded to start the peak detection
   // typically 60% from nominal value
 public:
-  meas_step (double nominal, double start_peak_torque_factor = 0.6);
+  meas_step (double nominal, double start_peak_torque_factor);
   double get_nominal_value ()
   {
     return nominal;
@@ -155,6 +155,13 @@ public:
 
   virtual out_cmd inout (double torque, bool confirmation);
   virtual double get_peak_torque () = 0;
+  virtual void reset ()
+  {
+    int_step = 0;
+    finished = 0;
+    v_torque.clear ();
+    v_time.clear ();
+  }
 };
 
 class peak_meas_step: public meas_step
@@ -164,7 +171,8 @@ private:
   double delay_start;
 
 public:
-  peak_meas_step (double nominal, double start_peak_torque_factor = 0.6, double stop_peak_torque_factor = 0.1);
+  peak_meas_step (double nominal, double start_peak_torque_factor,
+                  double stop_peak_torque_factor);
   virtual out_cmd inout (double torque, bool confirmation);
   string instruction ();
   string description ();
@@ -187,7 +195,8 @@ private:
   double rise_time;
 
 public:
-  peak_click_step (double nominal, double min_t, double max_t, bool repeat_on_timing_violation, double start_peak_torque_factor = 0.6, double _peak_trigger2_factor = 0.5);
+  peak_click_step (double nominal, double min_t, double max_t, bool repeat_on_timing_violation,
+                   double start_peak_torque_factor, double _peak_trigger2_factor);
   virtual out_cmd inout (double torque, bool confirmation);
   string instruction ();
   string description ();

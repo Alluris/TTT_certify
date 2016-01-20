@@ -230,7 +230,7 @@ public:
 
   bool is_in (double tolerance, double Xa)
   {
-    return abs (rel_deviation (Xa)) < tolerance;
+    return abs (rel_deviation (Xa)) <= tolerance;
   }
 
   friend ostream& operator<<(ostream& os, const measurement_item&);
@@ -258,6 +258,7 @@ public:
   ~measurement ();
 
   void add_measurement_item (string ts, double nominal_value, double indicated_value, double rise_time);
+  void add_measurement_item (measurement_item *p);
   void clear_measurement_item ();
 
   void load_with_id (sqlite3 *db, int search_id);

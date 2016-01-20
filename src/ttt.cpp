@@ -157,7 +157,7 @@ bool ttt::run ()
       meas.save (db);
 
       // create report for DIN 6789 TypI and Typ II
-      if (report_style == DIN6789_REPORT)
+      if (report_style == DIN6789_REPORT || report_style == DIN6789_LIKE_REPORT_WITH_REPEATS)
         {
           ostringstream os;
 
@@ -170,10 +170,13 @@ bool ttt::run ()
           //os << "_" << meas.to.serial_number;
           //os << "_" << meas.to.manufacturer;
           //os << "_" << meas.to.model;
-          os << "_DIN6789.pdf";
+          if (report_style == DIN6789_REPORT)
+            os << "_DIN6789.pdf";
+          else
+            os << "_like_DIN6789.pdf";
 
           report_filename = os.str ();
-          report_result res = DIN6789_report (report_filename, meas.id);
+          report_result res = DIN6789_report (report_filename, meas.id, report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
 
           if (res.values_below_max_deviation && !res.timing_violation)
             print_result (gettext ("Kalibrierung innerhalb Toleranz"));
@@ -282,6 +285,7 @@ bool ttt::run ()
         {
           print_nominal_torque (pmeas->get_nominal_value ());
           print_peak_torque (pmeas->get_peak_torque());
+
           if (pmeas->is_finished ())
             {
               //cout << "max_torque = " << pmeas->peak_torque() << endl;
@@ -291,13 +295,36 @@ bool ttt::run ()
               if (pclick)
                 rise_time = pclick->get_rise_time ();
 
-              // add result to database
-              meas.add_measurement_item (get_localtime (), pmeas->get_nominal_value (), pmeas->get_peak_torque (), rise_time);
+              // create measurement_item
+              measurement_item *p = new measurement_item;
+              p->ts = get_localtime ();
+              p->nominal_value = pmeas->get_nominal_value ();
+              p->indicated_value = pmeas->get_peak_torque ();
+              p->rise_time = rise_time;
 
-              // add result to table
+              double accuracy = meas.to.accuracy;
+              if (accuracy == 0)
+                accuracy = meas.to.get_accuracy_from_DIN ();
+
+              cout << "ttt::run:" << __LINE__ << " accuracy=" << accuracy
+                   << " peak_torque=" << pmeas->get_peak_torque () << " is_in=" << p->is_in (accuracy) << endl;
+
+              Fl_Color cell_color = (p->is_in (accuracy))? FL_WHITE: FL_RED;
+              bool overwrite_measurement = (! p->is_in (accuracy)) && (report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
+              // add result to measurement table
               if (m_table)
-                m_table->add_measurement (pmeas->get_peak_torque ());
+                m_table->add_measurement (pmeas->get_peak_torque (), overwrite_measurement, cell_color);
 
+              if (overwrite_measurement)
+                {
+                  //aktueller Schritt zurücksetzen (interner Counter und Messwerte löschen usw.)
+                  pmeas->reset ();
+                }
+              else
+                {
+                  // add result to database
+                  meas.add_measurement_item (p);
+                }
             }
         }
       // FIXME: should the old measurement be visible until next measurement or not?
@@ -342,7 +369,7 @@ void ttt::clear_steps()
 }
 
 // add complete DIN ISO 6789 sequences
-void ttt::add_DIN6789_steps (bool repeat_on_timing_violation, bool repeat_on_tolerance_violation)
+void ttt::add_DIN6789_steps (bool repeat_on_timing_violation)
 {
   int runs;
   int sign;
@@ -368,7 +395,9 @@ void ttt::add_DIN6789_steps (bool repeat_on_timing_violation, bool repeat_on_tol
       throw runtime_error ("Unknown dir_of_rotation");
     }
 
-  cout << "ttt::add_DIN6789_steps " << meas.to.get_type_class () << " runs=" << runs << " sign=" << sign << endl;
+  cout << "ttt::add_DIN6789_steps " << meas.to.get_type_class ()
+       << " runs=" << runs
+       << " sign=" << sign << endl;
 
   for (int k=0; k<runs; ++k)
     {
@@ -381,7 +410,7 @@ void ttt::add_DIN6789_steps (bool repeat_on_timing_violation, bool repeat_on_tol
 
       // three torque tester preload cycles
       for (int k = 0; k < 3; ++k)
-        add_step (new preload_torque_tester_step(max_torque));
+        add_step (new preload_torque_tester_step(max_torque, 0.1));
 
       add_step (new tare_torque_tester_step());
 
@@ -411,9 +440,9 @@ void ttt::add_DIN6789_steps (bool repeat_on_timing_violation, bool repeat_on_tol
             {
               // 80% muss überschritten werden, damit der Schritt weitergeschaltet wird
               if (meas.to.has_no_scale ())
-                add_step (new preload_test_object_step(max_torque));
+                add_step (new preload_test_object_step(max_torque, 0.1));
               else
-                add_step (new preload_test_object_step(torque_list[i]));
+                add_step (new preload_test_object_step(torque_list[i], 0.1));
             }
 
           if (test_object_is_type (2))
@@ -443,7 +472,7 @@ void ttt::add_DIN6789_steps (bool repeat_on_timing_violation, bool repeat_on_tol
               add_step (new tare_test_object_step());
 
               for (int k = 0; k < 5; ++k)
-                add_step (new peak_meas_step(torque_list[i]));
+                add_step (new peak_meas_step(torque_list[i], 0.6, 0.1));
             }
         }
       sign = -sign;
@@ -556,7 +585,7 @@ void ttt::start_sequencer_single_peak (double temperature, double humidity, doub
 
   clear_steps ();
   // add_step (new tare_step());
-  add_step (new peak_meas_step(nominal_value));
+  add_step (new peak_meas_step(nominal_value, 0.6, 0.1));
   report_style = QUICK_CHECK_REPORT;
   start_sequencer (temperature, humidity);
 }
@@ -570,7 +599,7 @@ void ttt::start_sequencer_DIN6789 (double temperature, double humidity, bool rep
   // min_torque and max_torque_resolution from database
   // resolution from DIN678
 
-  add_DIN6789_steps (repeat_on_timing_violation, repeat_on_tolerance_violation);
+  add_DIN6789_steps (repeat_on_timing_violation);
 
   if (! repeat_on_tolerance_violation)
     report_style = DIN6789_REPORT;
@@ -623,9 +652,9 @@ void ttt::print_result ()
     }
 }
 
-report_result ttt::DIN6789_report (string fn, int id)
+report_result ttt::DIN6789_report (string fn, int id, bool repeat_on_tolerance_violation)
 {
-  return create_DIN6789_report (db, id, fn.c_str ());
+  return create_DIN6789_report (db, id, fn.c_str (), repeat_on_tolerance_violation);
 }
 
 void ttt::load_torque_tester ()

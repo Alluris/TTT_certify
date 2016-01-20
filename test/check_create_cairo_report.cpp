@@ -40,11 +40,11 @@ int main()
     }
 
   report_result ret;
-  ret = create_DIN6789_report (db, 1, "cairo_report_1.pdf");
+  ret = create_DIN6789_report (db, 1, "cairo_report_1.pdf", false);
   printf ("values_below_max_deviation = %i\n", ret.values_below_max_deviation);
   printf ("timing_violation           = %i\n", ret.timing_violation);
 
-  ret = create_DIN6789_report (db, 2, "cairo_report_2.pdf");
+  ret = create_DIN6789_report (db, 2, "cairo_report_2.pdf", false);
   printf ("values_below_max_deviation = %i\n", ret.values_below_max_deviation);
   printf ("timing_violation           = %i\n", ret.timing_violation);
 

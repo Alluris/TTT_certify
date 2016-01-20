@@ -12,6 +12,8 @@ class measurement_table : public Fl_Table
 private:
   vector <double> nominal_values;
   vector <double> peak_values;
+  vector <Fl_Color> colors;
+  bool next_measurement_replaces_last;
 
   void DrawHeader(const char *s, int X, int Y, int W, int H);
   void DrawData(const char *s, int X, int Y, int W, int H, Fl_Color bgcolor);
@@ -26,6 +28,7 @@ public:
   {
     nominal_values.clear ();
     peak_values.clear ();
+    colors.clear ();
   }
 
   void add_nominal_value (double nom)
@@ -33,9 +36,18 @@ public:
     nominal_values.push_back (nom);
   }
 
-  void add_measurement (double v)
+  void add_measurement (double v, bool overwrite = false, Fl_Color c = FL_WHITE)
   {
+    //cout << "add_measurement v=" << v << " overwrite=" << overwrite << " c=" << c << endl;
+    if (next_measurement_replaces_last)
+      {
+        peak_values.pop_back ();
+        colors.pop_back ();
+      }
+
     peak_values.push_back (v);
+    colors.push_back (c);
+    next_measurement_replaces_last = overwrite;
     redraw ();
   }
 
