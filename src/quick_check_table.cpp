@@ -37,8 +37,9 @@ void quick_check_table::draw_cell(TableContext context, int ROW, int COL, int X,
       fl_font(FL_HELVETICA, 16);              // set the font for our drawing operations
       return;
     case CONTEXT_COL_HEADER:                  // Draw column headers
-      snprintf (s, 40, "%.2f", nominal_value);
-      DrawHeader(s,X,Y,W,H);
+      //snprintf (s, 40, "%.2f", nominal_value);
+      //DrawHeader(s,X,Y,W,H);
+      DrawHeader ("[Nm]", X, Y, W, H);
       return;
     case CONTEXT_ROW_HEADER:                  // Draw row headers
       sprintf(s,"%d:", ROW + 1);
@@ -46,10 +47,10 @@ void quick_check_table::draw_cell(TableContext context, int ROW, int COL, int X,
       return;
     case CONTEXT_CELL:                        // Draw data in cells
       if (ROW < peak_values.size ())
-        {
-          snprintf (s, 40, "%.2f", peak_values[ROW]);
-          DrawData(s,X,Y,W,H,FL_WHITE);
-        }
+        snprintf (s, 40, "%.2f", peak_values[ROW]);
+      else
+        snprintf (s, 40, "---");
+      DrawData(s,X,Y,W,H,FL_WHITE);
       return;
     default:
       return;
@@ -57,19 +58,23 @@ void quick_check_table::draw_cell(TableContext context, int ROW, int COL, int X,
 }
 
 quick_check_table::quick_check_table(int X, int Y, int W, int H, const char *L)
-  : Fl_Table(X,Y,W,H,L)
+  : Fl_Table(X, Y, 173, 178,L)
 {
+  // width = row_header_width + col_width_all + 3
+  // height = col_header_height + 5 * row_height_all + 3
+
   // Rows
-  rows(0);             // how many rows
+  rows(5);             // how many rows
   row_header(1);              // enable row headers (along left)
   row_height_all(30);         // default height of rows
-  row_header_width (70);
+  row_header_width (50);
   row_resize(0);              // disable row resizing
 
   // Cols
   cols(1);              // how many columns
   col_header(1);        // enable column headers (along top)
-  col_width_all (80);
+  col_header_height (25);
+  col_width_all (100);
   //col_resize(1);        // enable column resizing
 
 }
