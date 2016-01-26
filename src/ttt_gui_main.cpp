@@ -21,6 +21,7 @@ If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <libintl.h>
+#include "confuse.h"
 #include "ttt_gui.h"
 #include "ttt.h"
 
@@ -234,17 +235,40 @@ int main(int argc, char **argv)
 
   Fl_Tooltip::delay (0.5);
 
+  // read setting with libconfuse
+  static char *database = NULL;
+  static long int initial_test_person_id = 1;
+  static long int initial_test_object_id = 1;
+
+  cfg_opt_t opts[] =
+  {
+    CFG_SIMPLE_STR("database", &database),
+    CFG_SIMPLE_INT("selected_test_person", &initial_test_person_id),
+    CFG_SIMPLE_INT("selected_test_object", &initial_test_object_id),
+    CFG_END()
+  };
+  cfg_t *cfg;
+
+  /* set default value for the server option */
+  database = strdup ("ttt_certify.db");
+
+  cfg = cfg_init (opts, 0);
+  cfg_parse (cfg, "ttt_gui.conf");
+
+  printf("database: %s\n", database);
+  printf("initial_test_person_id: %li\n", initial_test_person_id);
+  printf("initial_test_object_id: %li\n", initial_test_object_id);
+
   mainwin->show ();
 
   try
     {
-      string database_fn = "ttt_certify.db";
-      myTTT = new ttt(update_indicated_torque, update_nominal_torque, update_peak_torque, update_instruction, update_step, update_result, database_fn, mtable);
+      myTTT = new ttt(update_indicated_torque, update_nominal_torque, update_peak_torque, update_instruction, update_step, update_result, database, mtable);
 
       // test_person_table
-      tp->connect_DB (database_fn);
+      tp->connect_DB (database);
       // test_object_table
-      to->connect_DB (database_fn);
+      to->connect_DB (database);
 
       if (argc == 3)
         myTTT->connect_measurement_input (argv[2]);
@@ -265,11 +289,8 @@ int main(int argc, char **argv)
       step_progress->hide ();
       vo_step_progress->hide ();
 
-      // Anzeigen füllen
-      // später hier über libconfuse letzte id für test_person und test_object laden
-
-      // FIXME: vi_test_person_id maximum auf datenbank setzen
-      vi_test_person_id->value (1);
+      // init test_person with setting in conf
+      vi_test_person_id->value (initial_test_person_id);
       vi_test_person_id->do_callback ();
 
       search_test_object_equipment_nr->value ("*");
@@ -279,7 +300,8 @@ int main(int argc, char **argv)
       if (argc > 1)
         vi_test_object_id->value (atoi (argv[1]));
       else
-        vi_test_object_id->value (1);
+        // select initial test_person from config
+        vi_test_object_id->value (initial_test_object_id);
 
       vi_test_object_id->do_callback ();
 
@@ -291,6 +313,19 @@ int main(int argc, char **argv)
     {
       fl_alert (e.what ());
     }
+
+  // save settings
+  if (! ret)
+    {
+      initial_test_person_id = vi_test_person_id->value ();
+      initial_test_object_id = vi_test_object_id->value ();
+      FILE *fp = fopen ("ttt_gui.conf", "w");
+      cfg_print (cfg, fp);
+      fclose (fp);
+    }
+
+  cfg_free (cfg);
+  free (database);
 
   delete myTTT;
 

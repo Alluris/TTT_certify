@@ -50,7 +50,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT certify v0.1.6 vom 12.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT certify v0.1.7 vom 26.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
     xywh {2490 281 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
@@ -103,7 +103,7 @@ btn_test_person_abort->do_callback ();}
       Fl_Value_Input vi_test_person_id {
         label id
         callback {load_test_person(o->value ());}
-        xywh {536 171 40 30} minimum 1 maximum 100 step 1
+        xywh {536 171 40 30} minimum 1 maximum 100 step 1 deactivate
       }
       Fl_Value_Input vi_test_person_uncertainty {
         label {Messunsicherheit [%]}
@@ -137,7 +137,7 @@ btn_test_person_abort->hide ();}
       Fl_Value_Input vi_test_object_id {
         label id
         callback {load_test_object(o->value ());}
-        xywh {174 38 40 30} minimum 1 maximum 500 step 1
+        xywh {174 38 40 30} minimum 1 maximum 500 step 1 deactivate
       }
       Fl_Input inp_test_object_equipment_nr {
         label {Prüfmittelnummer}
@@ -313,8 +313,7 @@ try
 catch (std::runtime_error &e)
   {
     fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
-  }
-}
+  }}
         xywh {290 75 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
@@ -372,8 +371,7 @@ if (r == 0)
         vi_test_object_id->hide ();
         clear_test_object_fields ();
       }
-  }
-}
+  }}
         xywh {5 38 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_copy {
@@ -401,11 +399,11 @@ set_test_object_fields_editable (true);}
     } {
       Fl_Value_Input vi_temperature {
         label {Kalibriertemperatur [°C]}
-        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 18°C bis 28°C} xywh {685 44 60 25} maximum 40 step 0.1 value 18
+        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 18°C bis 28°C} xywh {685 44 60 25} maximum 40 step 0.1
       }
       Fl_Value_Input vi_humidity {
         label {relative Luftfeuchte [%rH]}
-        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 max. 90%} xywh {685 79 60 25} maximum 100 step 0.1 value 90
+        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 max. 90%} xywh {685 79 60 25} maximum 100 step 0.1
       }
     }
     Fl_Group {} {
@@ -609,7 +607,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_object_win {
     label {test_object search} open
-    xywh {2602 148 935 645} type Double hide modal
+    xywh {2288 448 935 645} type Double modal visible
   } {
     Fl_Table to {open
       xywh {9 110 920 480}
@@ -662,13 +660,13 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     }
     Fl_Button btn_test_object_select {
       label {wählen}
-      callback {tp->do_select_cb ();}
+      callback {to->do_select_cb ();}
       xywh {850 605 65 30} box GLEAM_THIN_UP_BOX
     }
   }
   Fl_Window test_person_win {
     label {test_person search} open
-    xywh {2319 150 670 540} type Double hide modal
+    xywh {2319 150 670 540} type Double modal visible
   } {
     Fl_Table tp {open
       xywh {20 70 640 410}
@@ -717,9 +715,7 @@ if (id > 0)
         //don't show error message
         //fl_alert (e.what ());
       }
-  }
-} {selected
-  }
+  }} {}
 } 
 
 Function {load_test_object(int id)} {open return_type void
@@ -787,8 +783,7 @@ if (id > 0)
         //vorerst keine Fehlermeldung
         //fl_alert (e.what ());
       }
-  }
-} {}
+  }} {}
 } 
 
 Function {load_torque_tester()} {open return_type void
@@ -814,8 +809,7 @@ try
 catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
-  }
-} {}
+  }} {}
 } 
 
 Function {update_test_object_type_class()} {open
@@ -859,8 +853,7 @@ Function {update_test_object_accuracy()} {open
     double max_t = vi_test_object_max_torque->value ();
     double acc = test_object::get_accuracy_from_DIN (selected_tc, max_t);
     vi_test_object_accuracy->value (acc * 100);
-  }
-} {}
+  }} {}
 } 
 
 Function {update_run_activation()} {open
@@ -926,8 +919,7 @@ else
     to_step->hide ();
     step_progress->hide ();
     vo_step_progress->hide ();
-  }
-} {}
+  }} {}
 } 
 
 Function {set_test_object_fields_editable(bool editable)} {open return_type void
@@ -982,8 +974,7 @@ else
     btn_test_object_delete->show ();
     btn_test_object_save->hide ();
     btn_test_object_abort->hide ();
-  }
-} {}
+  }} {}
 } 
 
 Function {clear_test_object_fields()} {open return_type void

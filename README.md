@@ -3,7 +3,7 @@ Software for TTT (torque tool tester)
 
 ## Dependencies
 
-* FLTK, cairo, sqlite3, libusb 1.0 (http://www.libusb.org/)
+* FLTK, cairo, sqlite3, libusb 1.0 (http://www.libusb.org/), libconfuse
 * GNU Octave if you want to run the simulation tests
 
 ## Build

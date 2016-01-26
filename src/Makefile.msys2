@@ -3,7 +3,7 @@
 
 TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cpp ttt_quick_check_config.h ttt_quick_check_config TTT_certify_mingw64_i686_build
 CPPFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -D FLTK_HAVE_CAIRO
-LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lintl
+LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lconfuse -lintl
 
 all: $(TARGETS)
 
