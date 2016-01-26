@@ -238,7 +238,13 @@ int main(int argc, char **argv)
 
   try
     {
-      myTTT = new ttt(update_indicated_torque, update_nominal_torque, update_peak_torque, update_instruction, update_step, update_result, "ttt_certify.db", mtable);
+      string database_fn = "ttt_certify.db";
+      myTTT = new ttt(update_indicated_torque, update_nominal_torque, update_peak_torque, update_instruction, update_step, update_result, database_fn, mtable);
+
+      // test_person_table
+      tp->connect_DB (database_fn);
+      // test_object_table
+      to->connect_DB (database_fn);
 
       if (argc == 3)
         myTTT->connect_measurement_input (argv[2]);
