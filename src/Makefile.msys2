@@ -34,7 +34,7 @@ ttt_quick_check_config: ttt_quick_check_config.o quick_check_table.o liballuris+
 
 TTT_certify_mingw64_i686_build:
 	mkdir -p $@
-	cp ttt_certify.db ttt_gui.exe  $@
+	cp ttt_certify.db ttt_gui.exe ttt_quick_check_config.exe $@
 	cp /mingw32/bin/libbz2-1.dll $@
 	cp /mingw32/bin/libcairo-2.dll $@
 	cp /mingw32/bin/libexpat-1.dll $@
