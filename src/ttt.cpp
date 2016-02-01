@@ -175,13 +175,15 @@ bool ttt::run ()
           os << "_" << meas.to.serial_number;
           os << "_" << meas.to.manufacturer;
           os << "_" << meas.to.model;
-          if (report_style == DIN6789_REPORT)
-            os << "_DIN6789.pdf";
-          else
-            os << "_like_DIN6789.pdf";
 
           report_filename = os.str ();
           std::replace_if(report_filename.begin(), report_filename.end(), isnalnum, '_');
+
+          if (report_style == DIN6789_REPORT)
+            report_filename += "_DIN6789.pdf";
+          else
+            report_filename += "_like_DIN6789.pdf";
+
           report_result res = create_DIN6789_report (db, meas.id, report_filename.c_str (), report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
 
           if (res.values_below_max_deviation && !res.timing_violation)
