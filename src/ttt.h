@@ -30,6 +30,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include <vector>
 #include <ctime>
+#include <algorithm>
 #include <libintl.h>
 #include "ttt_device.h"
 #include "step.h"
@@ -38,6 +39,11 @@ If not, see <http://www.gnu.org/licenses/>.
 #include "measurement_table.h"
 
 using namespace std;
+
+bool isnalnum (char c)
+{
+  return ! std::isalnum (c);
+}
 
 typedef void(cb_display_double)(double value);
 typedef void(cb_display_string)(string s);

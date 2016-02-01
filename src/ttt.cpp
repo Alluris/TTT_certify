@@ -167,15 +167,16 @@ bool ttt::run ()
           // http://www.boost.org/doc/libs/1_43_0/libs/filesystem/doc/portability_guide.htm
 
           os << get_time_for_filename ();
-          //os << "_" << meas.to.serial_number;
-          //os << "_" << meas.to.manufacturer;
-          //os << "_" << meas.to.model;
+          os << "_" << meas.to.serial_number;
+          os << "_" << meas.to.manufacturer;
+          os << "_" << meas.to.model;
           if (report_style == DIN6789_REPORT)
             os << "_DIN6789.pdf";
           else
             os << "_like_DIN6789.pdf";
 
           report_filename = os.str ();
+          std::replace_if(report_filename.begin(), report_filename.end(), isnalnum, '_');
           report_result res = create_DIN6789_report (db, meas.id, report_filename.c_str (), report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
 
           if (res.values_below_max_deviation && !res.timing_violation)

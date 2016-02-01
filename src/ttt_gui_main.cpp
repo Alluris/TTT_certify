@@ -218,11 +218,6 @@ int main(int argc, char **argv)
   std::cout.rdbuf(out.rdbuf()); //redirect std::cout
 #endif
 
-  // FIXME: compare plastic, gtk+, gleam
-  // http://www.fltk.org/doc-1.3/classFl.html#a9d070bb1d5a24c28beab53a70af095a4
-  //Fl::scheme ("plastic");
-  //Fl::scheme ("gleam");
-
   create_widgets ();
 
   // search table callbacks
