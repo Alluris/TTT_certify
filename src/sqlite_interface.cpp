@@ -918,13 +918,13 @@ double measurement::cairo_print_5_meas_table (cairo_t *cr, double c1, double top
           double min_rise_time;
           double max_rise_time;
           to.get_timing_from_DIN (measurement_items[k]->nominal_value, min_rise_time, max_rise_time);
-          bool rise_time_okay = (rise_time >= min_rise_time && (rise_time<= max_rise_time || max_rise_time == 0));
+          rise_time_okay = (rise_time >= min_rise_time && (rise_time<= max_rise_time || max_rise_time == 0));
 
           if (! rise_time_okay)
             timing_violation = 1;
-        }
 
-      //cout << "min_rise_time=" << min_rise_time << " max_rise_time=" << max_rise_time << " rise_time=" << rise_time << endl;
+          //cout << "min_rise_time=" << min_rise_time << " max_rise_time=" << max_rise_time << " rise_time=" << rise_time << endl;
+        }
 
       // eigentliche Messwerte einfüllen
       char str[40];
