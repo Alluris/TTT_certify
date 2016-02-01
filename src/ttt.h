@@ -40,11 +40,6 @@ If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-bool isnalnum (char c)
-{
-  return ! std::isalnum (c);
-}
-
 typedef void(cb_display_double)(double value);
 typedef void(cb_display_string)(string s);
 typedef void(cb_display_string_double)(string s, double value);

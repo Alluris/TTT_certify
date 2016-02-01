@@ -24,6 +24,11 @@ If not, see <http://www.gnu.org/licenses/>.
 
 #include "ttt.h"
 
+bool isnalnum (char c)
+{
+  return ! std::isalnum (c);
+}
+
 //C'Tor
 ttt::ttt (cb_display_double *cb_ind, cb_display_double *cb_nom, cb_display_double *cb_pt, cb_display_string *cb_i, cb_display_string_double *cb_s, cb_display_string *cb_r, string database_fn, measurement_table *mt)
   :pttt(0),
