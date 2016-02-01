@@ -50,7 +50,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT certify v0.1.7 vom 26.01.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    label {TTT certify v0.1.8 vom 01.02.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2490 281 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
@@ -132,34 +132,34 @@ btn_test_person_abort->hide ();}
     }
     Fl_Group {} {
       label {Drehmoment-Schraubwerkzeug} open
-      xywh {0 4 400 756} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      xywh {3 6 400 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_test_object_id {
         label id
         callback {load_test_object(o->value ());}
-        xywh {174 38 40 30} minimum 1 maximum 500 step 1 deactivate
+        xywh {177 40 40 30} minimum 1 maximum 500 step 1 deactivate
       }
       Fl_Input inp_test_object_equipment_nr {
         label {Prüfmittelnummer}
-        xywh {175 110 210 25} deactivate
+        xywh {178 112 210 25} deactivate
       }
       Fl_Input inp_test_object_serial {
         label Seriennummer
-        xywh {175 142 210 25} deactivate
+        xywh {178 144 210 25} deactivate
       }
       Fl_Input inp_test_object_manufacturer {
         label Hersteller
-        xywh {175 174 210 25} deactivate
+        xywh {178 176 210 25} deactivate
       }
       Fl_Input inp_test_object_model {
         label Modell
-        xywh {175 206 210 25} deactivate
+        xywh {178 208 210 25} deactivate
       }
       Fl_Choice choice_test_object_type {
         label {DIN 6789 Typ}
         callback {update_test_object_type_class();
 update_test_object_accuracy();} open
-        xywh {175 238 210 28} down_box BORDER_BOX when 1 deactivate
+        xywh {178 240 210 28} down_box BORDER_BOX when 1 deactivate
       } {
         MenuItem {} {
           label IA
@@ -213,7 +213,7 @@ update_test_object_accuracy();} open
       Fl_Choice choice_test_object_dir_of_rotation {
         label Funktionsrichtung
         callback {cout << o->value() << endl;} open
-        xywh {285 440 90 25} down_box BORDER_BOX deactivate
+        xywh {288 442 90 25} down_box BORDER_BOX deactivate
       } {
         MenuItem {} {
           label beide
@@ -230,24 +230,24 @@ update_test_object_accuracy();} open
       }
       Fl_Value_Input vi_test_object_lever_length {
         label {Hebellänge [cm]}
-        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {285 469 90 25} maximum 150 step 0.01 deactivate
+        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {288 471 90 25} maximum 150 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_min_torque {
         label {Unterer Grenzwert [Nm]}
-        tooltip {Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA} xywh {285 499 90 25} align 132 maximum 100 step 0.01 deactivate
+        tooltip {Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA} xywh {288 501 90 25} align 132 maximum 100 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_max_torque {
         label {Oberer Grenzwert [Nm]}
         callback {update_test_object_accuracy();}
-        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {285 528 90 25} maximum 100 step 0.01 deactivate
+        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {288 530 90 25} maximum 100 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_resolution {
         label {Auflösung [Nm]}
-        tooltip {Auflösung von der Anzeige r} xywh {285 558 90 25} maximum 10 step 0.01 deactivate
+        tooltip {Auflösung von der Anzeige r} xywh {288 560 90 25} maximum 10 step 0.01 deactivate
       }
       Fl_Input mi_test_object_attachments {
         label Anbauteile
-        tooltip {Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich Passstücke und austauschbarer Aufsätze} xywh {40 598 335 74} type Multiline align 5 deactivate
+        tooltip {Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich Passstücke und austauschbarer Aufsätze} xywh {43 600 335 74} type Multiline align 5 deactivate
       }
       Fl_Button btn_test_object_new {
         label {@filenew neu}
@@ -257,7 +257,7 @@ clear_test_object_fields ();
 
 update_test_object_type_class();
 update_test_object_accuracy ();}
-        xywh {219 38 56 30} box GLEAM_THIN_UP_BOX
+        xywh {222 40 56 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_save {
         label {@filesave speichern}
@@ -314,31 +314,31 @@ catch (std::runtime_error &e)
   {
     fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
   }}
-        xywh {290 75 95 30} box GLEAM_THIN_UP_BOX
+        xywh {293 77 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
         label {Höchstzulässige Abweichung} open
-        xywh {37 692 338 59} box GTK_DOWN_BOX align 5
+        xywh {40 694 338 59} box GTK_DOWN_BOX align 5
       } {
         Fl_Value_Input vi_test_object_accuracy {
           label {%}
-          xywh {285 712 55 25} maximum 20 step 0.01 deactivate
+          xywh {288 714 55 25} maximum 20 step 0.01 deactivate
         }
         Fl_Round_Button rb_accuracy_from_din6789 {
           label {aus der DIN EN ISO 6789}
           callback {vi_test_object_accuracy->deactivate ();
 update_test_object_accuracy();}
-          tooltip {Use DIN EN ISO 6789-1:2015 chapter 5.1.5} xywh {47 697 190 25} type Radio down_box ROUND_DOWN_BOX deactivate
+          tooltip {Use DIN EN ISO 6789-1:2015 chapter 5.1.5} xywh {50 699 190 25} type Radio down_box ROUND_DOWN_BOX deactivate
         }
         Fl_Round_Button rb_manufacturer_accuracy {
           label Herstellerangabe
           callback {vi_test_object_accuracy->activate ();}
-          xywh {47 722 240 25} type Radio down_box ROUND_DOWN_BOX deactivate
+          xywh {50 724 240 25} type Radio down_box ROUND_DOWN_BOX deactivate
         }
       }
       Fl_Box cbox {
         label Klassifizierung
-        xywh {19 300 365 135} box GTK_DOWN_BOX align 137
+        xywh {22 302 365 135} box GTK_DOWN_BOX align 137
         class cairo_box
       }
       Fl_Button btn_test_object_abort {
@@ -346,12 +346,12 @@ update_test_object_accuracy();}
         callback {set_test_object_fields_editable (false);
 vi_test_object_id->show ();
 load_test_object (vi_test_object_id->value ());}
-        xywh {175 75 110 30} box GLEAM_THIN_UP_BOX
+        xywh {178 77 110 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_search {
         label {@search}
         callback {test_object_win->show ();}
-        xywh {349 38 35 30} box GLEAM_THIN_UP_BOX
+        xywh {352 40 35 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_delete {
         label {löschen}
@@ -372,7 +372,7 @@ if (r == 0)
         clear_test_object_fields ();
       }
   }}
-        xywh {5 38 70 30} box GLEAM_THIN_UP_BOX
+        xywh {8 40 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_copy {
         label kopieren
@@ -381,7 +381,7 @@ set_test_object_fields_editable (true);
 
 inp_test_object_equipment_nr->value ("");
 inp_test_object_serial->value ("");}
-        xywh {275 38 70 30} box GLEAM_THIN_UP_BOX
+        xywh {278 40 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_edit {
         label editieren
@@ -390,7 +390,7 @@ inp_test_object_serial->value ("");}
 
 test_object_edit_flag = true;
 set_test_object_fields_editable (true);}
-        xywh {75 38 70 30} box GLEAM_THIN_UP_BOX
+        xywh {78 40 70 30} box GLEAM_THIN_UP_BOX
       }
     }
     Fl_Group {} {
@@ -452,8 +452,8 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Prüfung} open
-      xywh {761 6 515 774} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      label {Prüfung} open selected
+      xywh {761 6 515 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
         label Start
