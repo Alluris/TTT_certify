@@ -174,6 +174,9 @@ to.uncertainty = 0.06;
 data = create_sim_input (tt, to, 0, 0);
 fn = sprintf ("test_object_id%i", to.id);
 save_sim_input (fn, data);
+data = create_sim_input (tt, to, 0, 1);
+fn = sprintf ("test_object_id%i_bad_risetime", to.id);
+save_sim_input (fn, data);
 clear all
 
 to.id = 20; ## ("FAKE", "ACME", "dummy15", "II", "G", 1, 0.32, 2, 10, 0.1, "", 0.00);

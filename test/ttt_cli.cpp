@@ -75,7 +75,9 @@ int main ()
   bindtextdomain("ttt","./po");
   textdomain ("ttt");
 
-  class ttt my (print_indicated_torque, print_nominal_torque, print_peak_torque, print_instruction, print_step, print_result, "ttt_certify.db");
+  static double start_peak_torque_factor = 0.6;
+  static double stop_peak_torque_factor = 0.1;
+  class ttt my (print_indicated_torque, print_nominal_torque, print_peak_torque, print_instruction, print_step, print_result, "ttt_certify.db", start_peak_torque_factor, stop_peak_torque_factor);
 
   my.load_test_person (1);
   my.load_test_object (1);

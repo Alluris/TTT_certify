@@ -206,6 +206,36 @@ int main(int argc, char **argv)
       return -1;
     }
 
+  // read setting with libconfuse
+  static char *database = NULL;
+  static double start_peak_torque_factor = 0.6;
+  static double stop_peak_torque_factor = 0.1;
+  static long int initial_test_person_id = 1;
+  static long int initial_test_object_id = 1;
+
+  cfg_opt_t opts[] =
+  {
+    CFG_SIMPLE_STR("database", &database),
+    CFG_SIMPLE_FLOAT("start_peak_torque_factor", &start_peak_torque_factor),
+    CFG_SIMPLE_FLOAT("stop_peak_torque_factor", &stop_peak_torque_factor),
+    CFG_SIMPLE_INT("selected_test_person", &initial_test_person_id),
+    CFG_SIMPLE_INT("selected_test_object", &initial_test_object_id),
+    CFG_END()
+  };
+  cfg_t *cfg;
+
+  /* set default value for the server option */
+  database = strdup ("ttt_certify.db");
+
+  cfg = cfg_init (opts, 0);
+  cfg_parse (cfg, "ttt_gui.conf");
+
+  printf("database: %s\n", database);
+  printf("start_peak_torque_factor: %f\n", start_peak_torque_factor);
+  printf("stop_peak_torque_factor: %f\n", stop_peak_torque_factor);
+  printf("initial_test_person_id: %li\n", initial_test_person_id);
+  printf("initial_test_object_id: %li\n", initial_test_object_id);
+
   int ret;
   setlocale (LC_ALL, "");
   //bindtextdomain("ttt","/usr/share/locale");
@@ -230,35 +260,19 @@ int main(int argc, char **argv)
 
   Fl_Tooltip::delay (0.5);
 
-  // read setting with libconfuse
-  static char *database = NULL;
-  static long int initial_test_person_id = 1;
-  static long int initial_test_object_id = 1;
-
-  cfg_opt_t opts[] =
-  {
-    CFG_SIMPLE_STR("database", &database),
-    CFG_SIMPLE_INT("selected_test_person", &initial_test_person_id),
-    CFG_SIMPLE_INT("selected_test_object", &initial_test_object_id),
-    CFG_END()
-  };
-  cfg_t *cfg;
-
-  /* set default value for the server option */
-  database = strdup ("ttt_certify.db");
-
-  cfg = cfg_init (opts, 0);
-  cfg_parse (cfg, "ttt_gui.conf");
-
-  printf("database: %s\n", database);
-  printf("initial_test_person_id: %li\n", initial_test_person_id);
-  printf("initial_test_object_id: %li\n", initial_test_object_id);
-
   mainwin->show ();
 
   try
     {
-      myTTT = new ttt(update_indicated_torque, update_nominal_torque, update_peak_torque, update_instruction, update_step, update_result, database, mtable);
+      myTTT = new ttt (update_indicated_torque,
+                       update_nominal_torque,
+                       update_peak_torque,
+                       update_instruction,
+                       update_step, update_result,
+                       database,
+                       start_peak_torque_factor,
+                       stop_peak_torque_factor,
+                       mtable);
 
       // test_person_table
       tp->connect_DB (database);
@@ -310,6 +324,7 @@ int main(int argc, char **argv)
     }
 
   // save settings
+  setlocale (LC_ALL, "C");
   if (! ret)
     {
       initial_test_person_id = vi_test_person_id->value ();

@@ -51,7 +51,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.1.8 vom 01.02.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2490 281 1280 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2392 223 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -407,7 +407,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Messgerät} open
+      label {Messgerät} open selected
       xywh {406 343 350 420} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vo_torque_tester_id {
@@ -444,15 +444,19 @@ set_test_object_fields_editable (true);}
       }
       Fl_Value_Input vo_torque_tester_resolution {
         label {Auflösung [Nm]}
-        xywh {676 658 70 25} step 0.01 deactivate
+        xywh {676 655 70 25} step 0.01 deactivate
       }
       Fl_Value_Input vo_torque_tester_uncertainty {
         label {erweiterte Messunsicherheit [%]}
-        xywh {676 694 70 25} step 0.01 deactivate
+        xywh {676 687 70 25} step 0.01 deactivate
+      }
+      Fl_Value_Input vo_torque_tester_peak_level {
+        label {Peak Level [%]}
+        xywh {676 720 70 25} step 1 deactivate
       }
     }
     Fl_Group {} {
-      label {Prüfung} open selected
+      label {Prüfung} open
       xywh {761 6 515 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
@@ -804,6 +808,7 @@ try
     vo_torque_tester_max_torque->value(myTTT->get_torque_tester_max_torque ());
     vo_torque_tester_resolution->value(myTTT->get_torque_tester_resolution ());
     vo_torque_tester_uncertainty->value(100 * myTTT->get_torque_tester_uncertainty_of_measurement ());
+    vo_torque_tester_peak_level->value (100 * myTTT->get_torque_tester_peak_level ());
     vi_single_peak->maximum (myTTT->get_torque_tester_max_torque ());
   }
 catch (std::runtime_error &e)

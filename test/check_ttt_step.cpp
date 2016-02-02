@@ -36,7 +36,9 @@ If not, see <http://www.gnu.org/licenses/>.
 
 int main (int argc, char **argv)
 {
-  class ttt my (NULL, NULL, NULL, NULL, NULL, NULL, "ttt_certify.db");
+  static double start_peak_torque_factor = 0.6;
+  static double stop_peak_torque_factor = 0.1;
+  class ttt my (NULL, NULL, NULL, NULL, NULL, NULL, "ttt_certify.db", start_peak_torque_factor, stop_peak_torque_factor);
 
   my.load_test_person (1);
   my.load_torque_tester ();

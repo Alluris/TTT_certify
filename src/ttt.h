@@ -57,6 +57,9 @@ private:
   ifstream measurement_input;
   ofstream measurement_output;
 
+  double start_peak_torque_factor;
+  double stop_peak_torque_factor;
+
   measurement_table *m_table;
 
   //! display for measured torque
@@ -130,7 +133,16 @@ private:
 public:
 
 
-  ttt (cb_display_double *cb_ind, cb_display_double *cb_nom, cb_display_double *cb_pt, cb_display_string *cb_i, cb_display_string_double *cb_s, cb_display_string *cb_r, string database_fn, measurement_table *mt=0);
+  ttt (cb_display_double *cb_ind,
+       cb_display_double *cb_nom,
+       cb_display_double *cb_pt,
+       cb_display_string *cb_i,
+       cb_display_string_double *cb_s,
+       cb_display_string *cb_r,
+       string database_fn,
+       double start_peak_torque_factor,
+       double stop_peak_torque_factor,
+       measurement_table *mt=0);
   ~ttt ();
 
   //************* datasource *************
@@ -434,6 +446,13 @@ public:
     return meas.tt.uncertainty_of_measurement;
   }
 
+  double get_torque_tester_peak_level ()
+  {
+    double peak_level = 0.5;
+    if (pttt)
+      peak_level = pttt->get_peak_level ();
+    return peak_level;
+  }
 };
 
 #endif

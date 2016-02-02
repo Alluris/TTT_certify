@@ -30,7 +30,16 @@ bool isnalnum (char c)
 }
 
 //C'Tor
-ttt::ttt (cb_display_double *cb_ind, cb_display_double *cb_nom, cb_display_double *cb_pt, cb_display_string *cb_i, cb_display_string_double *cb_s, cb_display_string *cb_r, string database_fn, measurement_table *mt)
+ttt::ttt (cb_display_double *cb_ind,
+          cb_display_double *cb_nom,
+          cb_display_double *cb_pt,
+          cb_display_string *cb_i,
+          cb_display_string_double *cb_s,
+          cb_display_string *cb_r,
+          string database_fn,
+          double start_peak,
+          double stop_peak,
+          measurement_table *mt)
   :pttt(0),
    db(0),
    m_table(mt),
@@ -40,6 +49,8 @@ ttt::ttt (cb_display_double *cb_ind, cb_display_double *cb_nom, cb_display_doubl
    cb_instruction(cb_i),
    cb_step(cb_s),
    cb_result(cb_r),
+   start_peak_torque_factor (start_peak),
+   stop_peak_torque_factor (stop_peak),
    confirmation(0),
    current_step(-1),
    sequencer_is_running(0),
@@ -478,12 +489,10 @@ void ttt::add_DIN6789_steps (bool repeat_on_timing_violation)
               if (meas.to.has_no_scale ())
                 count_click_measurements = 10;
 
-              double peak_level = 0.5;
-              if (pttt)
-                peak_level = pttt->get_peak_level ();
+              double peak_level = get_torque_tester_peak_level ();
 
               for (int k = 0; k < count_click_measurements; ++k)
-                add_step (new peak_click_step(torque_list[i], min_t, max_t, repeat_on_timing_violation, 0.6, peak_level));
+                add_step (new peak_click_step(torque_list[i], min_t, max_t, repeat_on_timing_violation, start_peak_torque_factor, peak_level));
             }
           else // typ 1
             {
@@ -491,7 +500,7 @@ void ttt::add_DIN6789_steps (bool repeat_on_timing_violation)
               add_step (new tare_test_object_step());
 
               for (int k = 0; k < 5; ++k)
-                add_step (new peak_meas_step(torque_list[i], 0.6, 0.1));
+                add_step (new peak_meas_step(torque_list[i], start_peak_torque_factor, stop_peak_torque_factor));
             }
         }
       sign = -sign;
@@ -508,16 +517,19 @@ void ttt::start_sequencer (double temperature, double humidity)
 
   if (! measurement_output.is_open ())
     {
+      string tmp = meas.to.serial_number + "_" + meas.to.manufacturer + "_" + meas.to.model;
+      std::replace_if(tmp.begin(), tmp.end(), isnalnum, '_');
+
       ostringstream os;
-      os << "./logfiles/";
-      os << get_time_for_filename ();
-      os << "_" << meas.to.serial_number;
-      os << "_" << meas.to.manufacturer;
-      os << "_" << meas.to.model;
+      os << "./logfiles/" << get_time_for_filename () << "_" << tmp;
 
       // are we connected to a real TTT?
       if (pttt)
-        os << "_" << pttt->get_serial ();
+        {
+          tmp = pttt->get_serial ();
+          std::replace_if(tmp.begin(), tmp.end(), isnalnum, '_');
+          os << "_" << tmp;
+        }
 
       os << ".log";
       meas.raw_data_filename = os.str ();
@@ -609,17 +621,15 @@ void ttt::start_sequencer_quick_check (double temperature, double humidity, doub
 
   if (test_object_is_type (2))
     {
-      double peak_level = 0.5;
-      if (pttt)
-        peak_level = pttt->get_peak_level ();
+      double peak_level = get_torque_tester_peak_level ();
 
       for (int k = 0; k < 5; ++k)
-        add_step (new peak_click_step(nominal_value, 0, 10, false, 0.6, peak_level));
+        add_step (new peak_click_step(nominal_value, 0, 10, false, start_peak_torque_factor, peak_level));
     }
   else // Typ 1
     {
       for (int k = 0; k < 5; ++k)
-        add_step (new peak_meas_step(nominal_value, 0.6, 0.1));
+        add_step (new peak_meas_step(nominal_value, start_peak_torque_factor, stop_peak_torque_factor));
     }
 
   report_style = QUICK_CHECK_REPORT;

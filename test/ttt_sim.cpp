@@ -21,6 +21,7 @@ If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdio.h>
+#include "confuse.h"
 #include <unistd.h>
 
 #ifndef WIN32
@@ -86,13 +87,36 @@ int main (int argc, char **argv)
 
   to_id = atoi (argv[1]);
 
+  // read setting with libconfuse
+  static char *database = NULL;
+  static double start_peak_torque_factor = 0.6;
+  static double stop_peak_torque_factor = 0.1;
+
+  cfg_opt_t opts[] =
+  {
+    CFG_SIMPLE_STR("database", &database),
+    CFG_SIMPLE_FLOAT("start_peak_torque_factor", &start_peak_torque_factor),
+    CFG_SIMPLE_FLOAT("stop_peak_torque_factor", &stop_peak_torque_factor),
+    CFG_END()
+  };
+  cfg_t *cfg;
+
+  /* set default value for the server option */
+  database = strdup ("ttt_certify.db");
+  cfg = cfg_init (opts, 0);
+  cfg_parse (cfg, "../src/ttt_gui.conf");
+
+  printf("database: %s\n", database);
+  printf("start_peak_torque_factor: %f\n", start_peak_torque_factor);
+  printf("stop_peak_torque_factor: %f\n", stop_peak_torque_factor);
+
   setlocale (LC_ALL, "");
   //bindtextdomain("ttt","/usr/share/locale");
   bindtextdomain("ttt","./po");
   textdomain ("ttt");
 
   //class ttt my (print_indicated_torque, print_nominal_torque, print_peak_torque, print_instruction, print_step, print_result, "ttt_certify.db");
-  class ttt my (NULL, NULL, NULL, NULL, print_step, print_result, "ttt_certify.db");
+  class ttt my (NULL, NULL, NULL, NULL, print_step, print_result, database, start_peak_torque_factor, stop_peak_torque_factor);
 
   my.load_test_person (1);
   my.load_test_object (to_id);

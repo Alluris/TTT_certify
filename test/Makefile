@@ -5,7 +5,7 @@ GCC = g++
 
 TARGETS = test_ttt_device ttt_certify.db ttt_cli ttt_sim check_sqlite_interface check_create_cairo_report lsusb-libusb check_ttt_step check_liballuris
 OBJ     = ../src/ttt_device.o ../src/ttt.o ../src/measurement_table.o ../src/step.o ../src/sqlite_interface.o ../src/cairo_drawing_functions.o ../src/cairo_print_devices.o ../src/liballuris++.o ../src/liballuris.o
-LIBS    = -lsqlite3 -lcairo -lusb-1.0 -lfltk
+LIBS    = -lsqlite3 -lcairo -lusb-1.0 -lfltk -lconfuse
 
 all: $(TARGETS)
 	$(MAKE) -C create_test_signal
