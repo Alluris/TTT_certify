@@ -35,17 +35,33 @@ function plot_peak (d, FS, xl, yl, ylim)
 
   [m, i2] = max (d(1:ind));
   i1 = find (d(1:ind) >= 0.8 * m, 1);
+  rise_time = (i2-i1)/FS;
 
   [gmax, gmax_ind] = max (d);
   peak_min = min (d(ind:gmax_ind));
-  printf ("first_peak=%5.2fN  max=%5.2fN peak_min=%5.2fN rise_time=%.3fs\n",
-          m,
-          gmax,
-          peak_min,
-          (i2-i1)/FS);
+
+  if (isempty (m))
+    m = NA;
+  endif
+
+  if (isempty (peak_min))
+    peak_min = NA;
+  endif
+
+  if (isempty (rise_time))
+    rise_time = NA;
+  endif
+
+  printf ("peak1=%5.2fN max=%5.2fN peak_min=%5.2fN risetime=%.2fs\n",
+            m,
+            gmax,
+            peak_min,
+            rise_time);
+
   p = findobj ("-property", "_plot_peak_");
   line1 = findobj ("-property", "_plot_peak_line1_");
   line2 = findobj ("-property", "_plot_peak_line2_");
+  #txt = findobj ("-property", "_plot_peak_text_");
 
   if (isempty (p))
     p = plot (t, d);
@@ -60,11 +76,15 @@ function plot_peak (d, FS, xl, yl, ylim)
     addproperty ("_plot_peak_line1_", line1, "any")
     line2 = line ([t(1) t(end)], [d(i2) d(i2)], "color", "red")
     addproperty ("_plot_peak_line2_", line2, "any")
+
+    #txt = text (-2.8, 12, msg);
+    #addproperty ("_plot_peak_text_", txt, "any")
+
   else
     #disp ("reusing old plot...");
     set (p, "ydata", d);
     set (line1, "ydata", [d(i1) d(i1)]);
     set (line2, "ydata", [d(i2) d(i2)]);
+    #set (txt, "string", msg);
   endif
-
 endfunction

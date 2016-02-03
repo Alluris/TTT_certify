@@ -17,7 +17,7 @@ v = zeros (live_plot_len, 1);
 t = linspace (-live_plot_len/FS, 0, live_plot_len);
 subplot (2, 1, 1);
 p = plot (t, v);
-set (gca, "ylim", [0 14])
+set (gca, "ylim", [0 11])
 grid on
 xlabel ("t [s]");
 ylabel ("M [Nm]");
@@ -33,12 +33,12 @@ do
   set (p, "ydata", v);
 
   ## Strategie:
-  ## Suche die späteste Stelle, an der der Wert unter 5%
+  ## Suche die späteste Stelle, an der der Wert unter 20%
   ## des Maximums fällt
   mv = max (v);
   ## Nur maximas, die über 1.5N liegen akzeptieren
   if (mv > 1.5)
-    ind_n = find( diff (v < (0.05 * mv)), 1, "last");
+    ind_n = find( diff (v < (0.2 * mv)), 1, "last");
   else
     ind_n = [];
   endif
@@ -49,7 +49,7 @@ do
     r = ind_n-pre_i+1:ind_n+steady_plot_len-pre_i;
     v_steady = lazy_index (v, r);
     subplot (2, 1, 2);
-    plot_peak (v_steady, FS, "t [s]", "M [Nm]", [0 14]);
+    plot_peak (v_steady, FS, "t [s]", "M [Nm]", [0 11]);
   endif
 
   drawnow ("expose");
