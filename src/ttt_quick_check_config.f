@@ -21,20 +21,20 @@ Function {} {open
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT quick check config} open
-    xywh {1363 77 485 530} type Double visible
+    label {TTT quick check config} open selected
+    xywh {1149 221 485 530} type Double visible
   } {
     Fl_Value_Input vi_nominal {
       label {Nominalwert [Nm]}
-      xywh {210 20 55 25} minimum -10 maximum 10 step 0.1
+      xywh {250 20 55 25} minimum -10 maximum 10 step 0.1
     }
     Fl_Value_Input vi_upper_limit {
       label {oberer Grenzwert [Nm]}
-      xywh {210 70 55 25} minimum -11 maximum 11 step 0.01
+      xywh {250 70 55 25} minimum -11 maximum 11 step 0.01
     }
     Fl_Value_Input vi_lower_limit {
       label {unterer Grenzwert [Nm]}
-      xywh {210 100 55 25} minimum -11 maximum 11 step 0.01
+      xywh {250 100 55 25} minimum -11 maximum 11 step 0.01
     }
     Fl_Button {} {
       label {Konfiguration ins Messgerät schreiben}
@@ -79,17 +79,22 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
       label {3%}
       callback {vi_upper_limit->value (vi_nominal->value () * 1.03);
 vi_lower_limit->value (vi_nominal->value () * 0.97);}
-      xywh {290 83 45 25}
+      xywh {335 83 45 25}
     }
     Fl_Button {} {
       label {6%}
       callback {vi_upper_limit->value (vi_nominal->value () * 1.06);
 vi_lower_limit->value (vi_nominal->value () * 0.94);}
-      xywh {340 83 45 25}
+      xywh {385 83 45 25}
     }
     Fl_Value_Input vi_peak_level {
       label {Detektionsschwelle [%]}
-      xywh {210 130 55 25} minimum 10 maximum 90 step 10 value 20
+      callback {if (o->value () < 50)
+  o->color (FL_RED);
+else
+  o->color (FL_WHITE);
+o->redraw ();}
+      tooltip {Detektionsschwelle < 50% ist nicht empfehlenswert} xywh {250 140 55 25} align 132 minimum 10 maximum 90 step 10 value 60
     }
     Fl_Button {} {
       label {Gerätespeicher auslesen}
@@ -161,17 +166,17 @@ catch (std::runtime_error &e)
 mainwin->cursor (FL_CURSOR_DEFAULT);}
       xywh {250 365 205 35}
     }
-    Fl_Table quick_tbl {open selected
+    Fl_Table quick_tbl {open
       xywh {70 272 153 178}
       class quick_check_table
     } {}
     Fl_Value_Output vo_mean {
       label {Mittelwert [Nm]}
-      xywh {70 480 110 30} align 5 step 0.001
+      xywh {70 480 110 30} type 0 color 49 selection_color 49 labeltype NORMAL_LABEL align 5 when 1 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
     }
     Fl_Value_Output vo_std {
       label {Standardabweichung [Nm]}
-      xywh {220 480 110 30} align 5 step 0.001
+      xywh {220 480 110 30} type 0 color 49 selection_color 49 labeltype NORMAL_LABEL align 5 when 1 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
     }
   }
   code {//quick_tbl->hide ();} {}
