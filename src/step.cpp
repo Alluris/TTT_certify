@@ -541,8 +541,11 @@ out_cmd peak_click_step::inout (double torque, bool confirmation)
       if (wait_t > 3.0)
         {
           wait_t = 0;
+          first_peak = 0;
+          peak_trigger2_threshold = 0;
           torque_80_time = 0;
           first_peak_time = 0;
+          rise_time = 0;
           int_step = 0;
           v_torque.clear ();
           v_time.clear ();
@@ -568,6 +571,7 @@ string peak_click_step::instruction ()
     case 3:
       break;
     case 4:
+      //cout << "rise_time=" << rise_time << endl;
       snprintf (buf, 100, gettext ("*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"), rise_time, min_time);
       oss << buf;
       break;
