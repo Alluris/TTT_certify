@@ -321,6 +321,7 @@ int main(int argc, char **argv)
   catch (std::runtime_error &e)
     {
       fl_alert (e.what ());
+      ret = -1;
     }
 
   // save settings
