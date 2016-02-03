@@ -22,21 +22,41 @@ If not, see <http://www.gnu.org/licenses/>.
 
 #include "liballuris++.h"
 
+string liballuris::err_msg (int err)
+{
+  string ret = "";
+  switch (err)
+    {
+    case LIBUSB_ERROR_NOT_FOUND:
+    case LIBUSB_ERROR_NO_DEVICE:
+      ret =  gettext (
+               "Keine Verbindung zum TTT.\n"
+               "Bitte überprüfen Sie die USB-Leitung zum PC und stellen Sie sicher, dass\n"
+               "das TTT eingeschaltet ist. Drücken Sie die Start/Stop Taste am TTT falls\n"
+               "die USB-Verbindung erst nach der Initialisierung eingesteckt wurde.");
+      break;
+    default:
+      break;
+    }
+
+  return ret;
+}
+
 #define ERR_PREFIX(e) liballuris_error_name (e) << " in " << __FILE__ << ":" << __LINE__ << "(" << __FUNCTION__ << "):"
-#define RUNTIME_ERROR(e,msg) if(e) { std::ostringstream tmp_err; tmp_err << ERR_PREFIX(r) << msg; throw runtime_error (tmp_err.str ());}
+#define RUNTIME_ERROR(e, msg) if(e) { std::ostringstream tmp_err; tmp_err << ERR_PREFIX(r) << msg << "\n\n" << err_msg(e); throw runtime_error (tmp_err.str ());}
 
 liballuris::liballuris ()
 {
   cout << "liballuris c'tor" << endl;
 
   int r = libusb_init (&usb_ctx);
-  RUNTIME_ERROR(r,"c'tor usb_init");
+  RUNTIME_ERROR(r, "libusb_init");
 
   r = liballuris_open_device (usb_ctx, NULL, &usb_h);
-  RUNTIME_ERROR(r,"c'tor open_device");
+  RUNTIME_ERROR(r, "liballuris_open_device");
 
   r = libusb_claim_interface (usb_h, 0);
-  RUNTIME_ERROR(r,"c'tor claim_interface");
+  RUNTIME_ERROR(r, "libusb_claim_interface");
 }
 
 liballuris::liballuris (string serial)
@@ -47,7 +67,7 @@ liballuris::liballuris (string serial)
   RUNTIME_ERROR(r,"c'tor usb_init");
 
   r = liballuris_open_device (usb_ctx, serial.c_str(), &usb_h);
-  RUNTIME_ERROR(r,"c'tor open_device");
+  RUNTIME_ERROR(r,"c'tor open_device. Couldn't connect to TTT device with given serial.");
 
   r = libusb_claim_interface (usb_h, 0);
   RUNTIME_ERROR(r,"c'tor claim_interface");

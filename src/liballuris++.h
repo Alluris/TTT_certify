@@ -25,6 +25,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 #include <stdexcept>
 #include <cmath>     //for round
+#include <libintl.h>
 
 //#define SILENT_LIBALLURIS
 #include "liballuris.h"
@@ -44,6 +45,8 @@ private:
   libusb_device_handle* usb_h;
 
 public:
+  string err_msg (int err);
+
   liballuris ();
   liballuris (string serial);
   ~liballuris ();
