@@ -31,9 +31,9 @@ static unsigned char out_buf[DEFAULT_SEND_BUF_LEN];
 static unsigned char in_buf[DEFAULT_RECV_BUF_LEN];
 
 // minimum length of "in" is 2 bytes
-static short char_to_uint16 (unsigned char* in)
+static unsigned short char_to_uint16 (unsigned char* in)
 {
-  short ret;
+  unsigned short ret;
   memcpy (&ret, in, 2);
   return ret;
 }
@@ -185,7 +185,17 @@ static int liballuris_interrupt_transfer (libusb_device_handle* dev_handle,
     {
       // check length in out_buf
       assert (out_buf[1] == send_len);
+#ifdef DEBUG_TIMING
+      struct timeval t1, t2;
+      gettimeofday (&t1, NULL);
+#endif
       r = libusb_interrupt_transfer (dev_handle, (0x1 | LIBUSB_ENDPOINT_OUT), out_buf, send_len, &actual, send_timeout);
+#ifdef DEBUG_TIMING
+      gettimeofday (&t2, NULL);
+      double diff = (t2.tv_sec - t1.tv_sec) + (t2.tv_usec - t1.tv_usec)/1.0e6;
+      fprintf (stderr, "%s send  took %f s\n", funcname, diff);
+#endif
+
 
 #ifdef PRINT_DEBUG_MSG
       if ( r == LIBUSB_SUCCESS)
@@ -204,7 +214,18 @@ static int liballuris_interrupt_transfer (libusb_device_handle* dev_handle,
 
   if (reply_len > 0)
     {
+
+#ifdef DEBUG_TIMING
+      struct timeval t1, t2;
+      gettimeofday (&t1, NULL);
+#endif
+      bzero (in_buf, sizeof (in_buf));
       r = libusb_interrupt_transfer (dev_handle, 0x81 | LIBUSB_ENDPOINT_IN, in_buf, reply_len, &actual, receive_timeout);
+#ifdef DEBUG_TIMING
+      gettimeofday (&t2, NULL);
+      double diff = (t2.tv_sec - t1.tv_sec) + (t2.tv_usec - t1.tv_usec)/1.0e6;
+      fprintf (stderr, "%s reply took %f s\n", funcname, diff);
+#endif
 
 #ifdef PRINT_DEBUG_MSG
       if (r == LIBUSB_SUCCESS)
@@ -473,7 +494,7 @@ int liballuris_get_serial_number (libusb_device_handle *dev_handle, char* buf, s
   int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 3, DEFAULT_SEND_TIMEOUT, 6, DEFAULT_RECEIVE_TIMEOUT);
   if (ret == LIBALLURIS_SUCCESS)
     {
-      short tmp = char_to_uint16 (in_buf + 3);
+      unsigned short tmp = char_to_uint16 (in_buf + 3);
       if (tmp == -1)
         return LIBALLURIS_DEVICE_BUSY;
       else
@@ -1530,7 +1551,7 @@ int liballuris_get_mem_count (libusb_device_handle *dev_handle, int* v)
  * - stats[2] = MAX_MINUS
  * - stats[3] = MIN_MINUS
  * - stats[4] = AVERAGE
- * - stats[5] = DEVIATION
+ * - stats[5] = VARIANCE
  * \param[in] length of stats buffer. Should be 6
  * \return 0 if successful else \ref liballuris_error
  */
@@ -1543,7 +1564,7 @@ int liballuris_get_mem_statistics (libusb_device_handle *dev_handle, int* stats,
     {
       unsigned int k;
       for (k=0; k<length; ++k)
-        stats[k] = char_to_int24 (in_buf + 2 + k*3);
+        stats[k] = char_to_int24 (in_buf + 2 + k * 3);
     }
   return ret;
 }
