@@ -1,10 +1,19 @@
 # TTT_certify
 Software for TTT (torque tool tester)
 
+This software is in an early alpha state, not yet ready for productive use.
+
 ## Dependencies
 
 * FLTK, cairo, sqlite3, libusb 1.0 (http://www.libusb.org/), libconfuse
 * GNU Octave if you want to run the simulation tests
+
+## Build FLTK from source
+
+Use "./configure --enable-cairo --enable-shared"
+
+fltk1.3.3 has a bug: http://www.fltk.org/str.php?L3156
+You might try the snapshot where it's fixed if you ran into this problem.
 
 ## Build
 
