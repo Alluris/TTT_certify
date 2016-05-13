@@ -50,10 +50,10 @@ If not, see <http://www.gnu.org/licenses/>.
 #define MAX_NUM_DEVICES 4
 
 //! Default timeout in milliseconds while writing to the device
-#define DEFAULT_SEND_TIMEOUT 500
+#define DEFAULT_SEND_TIMEOUT 50
 
 //! Default timeout in milliseconds while reading from the device
-#define DEFAULT_RECEIVE_TIMEOUT 1000
+#define DEFAULT_RECEIVE_TIMEOUT 100
 
 //! Default send buffer size. Should be multiple of wMaxPacketSize
 #define DEFAULT_SEND_BUF_LEN 64
@@ -202,7 +202,7 @@ int liballuris_get_pos_peak (libusb_device_handle *dev_handle, int* peak);
 int liballuris_get_neg_peak (libusb_device_handle *dev_handle, int* peak);
 
 /* read and print state */
-int liballuris_read_state (libusb_device_handle *dev_handle, struct liballuris_state* state, unsigned int timeout);
+int liballuris_read_state (libusb_device_handle *dev_handle, struct liballuris_state* state);
 void liballuris_print_state (struct liballuris_state state);
 
 int liballuris_cyclic_measurement (libusb_device_handle *dev_handle, char enable, size_t length);
@@ -233,6 +233,8 @@ int liballuris_get_unit (libusb_device_handle *dev_handle, enum liballuris_unit 
 
 int liballuris_set_digout (libusb_device_handle *dev_handle, int v);
 int liballuris_get_digout (libusb_device_handle *dev_handle, int *v);
+
+int liballuris_get_digin (libusb_device_handle *dev_handle, int *v);
 
 int liballuris_restore_factory_defaults (libusb_device_handle *dev_handle);
 int liballuris_power_off (libusb_device_handle *dev_handle);
