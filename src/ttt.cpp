@@ -478,6 +478,17 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
             torque_list.push_back (min_torque);
         }
 
+#ifdef ISO6789
+          // DIN EN ISO  6789  : 6.3 Kalibrierbedingungen
+          // c.) Typ I  ... eine Vorbelastung mit dem Höchstwert ...
+          // d.) Typ II ... 5 Auslösungen ohne Messung...
+          if (meas.to.is_type (1))
+            add_step (new preload_test_object_step(max_torque, 0.1));
+          else if (meas.to.is_type (2))
+            for (int k = 0; k < 5; ++k)
+              add_step (new preload_test_object_step(max_torque, 0.1));
+#endif
+
       for (unsigned int i=0; i < torque_list.size (); ++i)
         {
           //cout << "torque_list["<<i<<"]=" << torque_list[i] << endl;
@@ -491,17 +502,6 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
               else
                 add_step (new preload_test_object_step(torque_list[i], 0.1));
             }
-#elif defined (ISO6789)
-          // DIN EN ISO  6789  : 6.3 Kalibrierbedingungen
-          // c.) Typ I  ... eine Vorbelastung mit dem Höchstwert ...
-          // d.) Typ II ... 5 Auslösungen ohne Messung...
-          if (meas.to.is_type (1))
-            add_step (new preload_test_object_step(max_torque, 0.1));
-          else if (meas.to.is_type (2))
-            for (int k = 0; k < 5; ++k)
-              add_step (new preload_test_object_step(max_torque, 0.1));
-#else
-#error No ISO 6789 variant defined
 #endif
           if (test_object_is_type (2))
             {
