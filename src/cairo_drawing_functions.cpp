@@ -35,7 +35,6 @@ report_result create_ISO6789_report ( sqlite3 *db,
                                       int measurement_id,
                                       const char *report_fn,
                                       bool repeat_on_tolerance_violation)
-
 {
   struct report_result ret;
   ret.values_below_max_deviation = true;

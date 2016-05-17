@@ -25,6 +25,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #ifndef TTT_H
 #define TTT_H
 
+#include "config.h"
 #include <iostream>
 #include <fstream>
 #include <string>

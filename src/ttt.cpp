@@ -438,9 +438,17 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
       if ((min_torque * max_torque) < 0)
         throw out_of_range("ttt::add_ISO6789_steps: min_torque and max_torque must have the same sign");
 
+#ifdef ISO6789_1
+      // DIN EN ISO 6789-1: 6.4 b)
       // three torque tester preload cycles
       for (int k = 0; k < 3; ++k)
         add_step (new preload_torque_tester_step(max_torque, 0.1));
+#elif defined (ISO6789)
+      // DIN EN ISO 6789: chapter 6.1
+      // no explicit preload
+#else
+#error No ISO 6789 variant defined
+#endif
 
       add_step (new tare_torque_tester_step());
 
@@ -449,8 +457,16 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
       if (    meas.to.is_type (1)
               || (meas.to.is_type (2) && ! meas.to.has_no_scale()))
         {
-          // min, 60% * max, 100% * max
+#ifdef ISO6789_1
+          // min
           torque_list.push_back (min_torque);
+#elif defined (ISO6789)
+          // 20% * max
+          torque_list.push_back (0.2 * max_torque);
+#else
+#error No ISO 6789 variant defined
+#endif
+          // 60% * max, 100% * max
           torque_list.push_back (0.6 * max_torque);
           torque_list.push_back (max_torque);
         }
@@ -466,15 +482,27 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
         {
           //cout << "torque_list["<<i<<"]=" << torque_list[i] << endl;
 
+#ifdef ISO6789_1
+          // DIN EN ISO 6789-1: Anhang C
           for (int k = 0; k < 3; ++k)
             {
-              // 80% muss überschritten werden, damit der Schritt weitergeschaltet wird
               if (meas.to.has_no_scale ())
                 add_step (new preload_test_object_step(max_torque, 0.1));
               else
                 add_step (new preload_test_object_step(torque_list[i], 0.1));
             }
-
+#elif defined (ISO6789)
+          // DIN EN ISO  6789  : 6.3 Kalibrierbedingungen
+          // c.) Typ I  ... eine Vorbelastung mit dem Höchstwert ...
+          // d.) Typ II ... 5 Auslösungen ohne Messung...
+          if (meas.to.is_type (1))
+            add_step (new preload_test_object_step(max_torque, 0.1));
+          else if (meas.to.is_type (2))
+            for (int k = 0; k < 5; ++k)
+              add_step (new preload_test_object_step(max_torque, 0.1));
+#else
+#error No ISO 6789 variant defined
+#endif
           if (test_object_is_type (2))
             {
               double min_t, max_t;
@@ -484,10 +512,18 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
               if (max_t == 0)
                 max_t = 10;
 
-              // See DIN EN ISO 6789-1:2015 6.6.1 table 7
               int count_click_measurements = 5;
+#ifdef ISO6789_1
+              // See DIN EN ISO 6789-1:2015 6.6.1 table 7
               if (meas.to.has_no_scale ())
                 count_click_measurements = 10;
+#elif defined (ISO6789)
+              // DIN EN ISO 6789 6.4
+              if (meas.to.has_no_scale () && ! meas.to.has_fixed_trigger ())
+                count_click_measurements = 10;
+#else
+#error No ISO 6789 variant defined
+#endif
 
               double peak_level = get_torque_tester_peak_level ();
 
@@ -552,17 +588,17 @@ void ttt::start_sequencer (double temperature, double humidity)
 
   switch (report_style)
     {
-      case QUICK_CHECK_REPORT:
-        meas.norm = "quick-check";
-        break;
-      case ISO6789_REPORT:
-        meas.norm = "ISO6789";
-        break;
-      case ISO6789_LIKE_REPORT_WITH_REPEATS:
-        meas.norm = "ISO6789 with repeats";
-        break;
-      default:
-        meas.norm = "undefined";
+    case QUICK_CHECK_REPORT:
+      meas.norm = "quick-check";
+      break;
+    case ISO6789_REPORT:
+      meas.norm = "ISO6789";
+      break;
+    case ISO6789_LIKE_REPORT_WITH_REPEATS:
+      meas.norm = "ISO6789 with repeats";
+      break;
+    default:
+      meas.norm = "undefined";
     }
 
   // configure measurement_table

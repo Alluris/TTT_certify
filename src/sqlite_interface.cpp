@@ -24,6 +24,7 @@ If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+#include "config.h"
 #include <float.h>
 #include <time.h>
 #include <cstdlib>
@@ -431,12 +432,13 @@ double test_object::get_accuracy_from_DIN ()
   return test_object::get_accuracy_from_DIN (get_type_class (), max_torque);
 }
 
-// return timing specification from DIN EN ISO 6789 chapter 6.24
-// for torque increase from 80% to 100%
-// screwdriver have min, max, others return 0 for max_t
 
 void test_object::get_timing_from_DIN (string tc, double torque, double &min_t, double &max_t)
 {
+#ifdef ISO6789_1
+  // return timing specification from DIN EN ISO 6789-1 chapter 6.2.4
+  // for torque increase from 80% to 100%
+  // screwdriver have min, max, others return 0 for max_t
   if (test_object::is_screwdriver (tc))
     {
       min_t = 0.5;
@@ -457,6 +459,15 @@ void test_object::get_timing_from_DIN (string tc, double torque, double &min_t, 
       else
         min_t = 2.0;
     }
+#elif defined (ISO6789)
+  // 6789 6.3.2
+  // >= 80% between 0.5s and 4s
+  min_t = 0.5;
+  max_t = 4.0;
+#else
+#error No ISO 6789 variant defined
+#endif
+
 }
 
 void test_object::get_timing_from_DIN (double torque, double &min_t, double &max_t)

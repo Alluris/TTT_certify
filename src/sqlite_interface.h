@@ -24,6 +24,7 @@ If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+#include "config.h"
 #include <stdio.h>
 #include <string.h>
 #include <cmath>
@@ -226,8 +227,18 @@ public:
 
   double rel_deviation (double Xa)
   {
-    // DIN EN ISO 6789-1 6.7
+    // DIN EN ISO
+    // 6789   chapter 6.4: (X_a - X_r) / X_r * 100
+    // 6789-1 chapter 6.7: (X_a - X_r) / X_a * 100
+
+#ifdef ISO6789_1
     return (indicated_value - Xa) / Xa;
+#elif defined (ISO6789)
+    return (Xa - indicated_value) / indicated_value;
+#else
+#error No ISO 6789 variant defined
+#endif
+
   }
 
 
