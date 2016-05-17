@@ -44,7 +44,8 @@ INSERT INTO test_object (active,
               (1, "A14", "FAKE14", "ACME", "dummy19", "II", "F", 1, 0,    2, 10, 0.1, "", 0.00),
               (1, "A15", "FAKE15", "ACME", "dummy20", "II", "G", 1, 0.32, 2, 10, 0.1, "", 0.00),
               (1, "A16", "FAKE16", "ACME", "dummy21", "II", "A", 2, 0.32, 2, 10, 0.1, "", 0.00),  --nur links
-              (1, "A17", "FAKE17", "ACME", "dummy22", "II", "A", 0, 0.32, 2, 10, 0.1, "", 0.00);  --rechts/links
+              (1, "A17", "FAKE17", "ACME", "dummy22", "II", "A", 0, 0.32, 2, 10, 0.1, "", 0.00),  --rechts/links
+              (1, "123", "SN15-492265", "Garant", "65 6050_6", "II", "A", 0, 0.155, 1, 6, 0.1, "", 0.00);  --rechts/links
 
 INSERT INTO torque_tester (serial_number,
                          manufacturer,
@@ -55,7 +56,7 @@ INSERT INTO torque_tester (serial_number,
                          max_torque,
                          resolution,
                          uncertainty_of_measurement)
-       VALUES ("L.12345", "Alluris GmbH & Co. KG", "TTT", "2017-01", "2000-05-03", "calnumber fillme", 10, 0.01, 0.005);
+       VALUES ("L.23451", "Alluris GmbH & Co. KG", "TTT", "2017-01", "2000-05-03", "calnumber fillme", 10, 0.01, 0.005);
 
 INSERT INTO measurement (norm,
                          test_person_id,
