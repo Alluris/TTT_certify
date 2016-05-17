@@ -39,7 +39,7 @@ CREATE TABLE test_object (id INTEGER PRIMARY KEY,
                           max_torque REAL,
                           resolution REAL,           -- r siehe 6789-2 6.2.1
                           attachments TEXT,          -- Anbauteile
-                          accuracy REAL              -- relativ. 0 = aus der DIN6789, sonst Herstellerangabe
+                          accuracy REAL              -- relativ. 0 = aus der ISO 6789, sonst Herstellerangabe
                           );
 
 ---------------------------------------------------------------------------
@@ -61,6 +61,7 @@ CREATE TABLE torque_tester (id INTEGER PRIMARY KEY,
 ---------------------------------------------------------------------------
 
 CREATE TABLE measurement (id INTEGER PRIMARY KEY,
+                          norm TEXT,
                           test_person_id INTEGER,
                           test_object_id INTEGER,
                           torque_tester_id INTEGER,
@@ -81,6 +82,6 @@ CREATE TABLE measurement_item ( id INTEGER PRIMARY KEY,
                                 measurement INTEGER,
                                 nominal_value REAL,
                                 indicated_value REAL,
-                                rise_time REAL,         -- Only TypII. From 80% to 100%, see DIN 6789-1 chapter 6.2.4
+                                rise_time REAL,         -- Only TypII. From 80% to 100%, see ISO 6789-1 chapter 6.2.4
                                 FOREIGN KEY(measurement) REFERENCES measurement(id)
                                 );

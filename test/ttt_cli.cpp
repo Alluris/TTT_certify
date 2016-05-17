@@ -89,7 +89,7 @@ int main ()
   my.connect_TTT ();
   //my.connect_TTT ("L.12345");
 
-  my.add_DIN6789_steps (false);
+  my.add_ISO6789_steps (false);
 
   // für simple_click_min0.0_max10.0.log
   //my.connect_measurement_input ("./test/create_test_signal/simple_click_min0.0_max10.0.log");

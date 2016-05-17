@@ -54,7 +54,7 @@ int main (int argc, char **argv)
   my.load_test_object (id);
   my.print_test_object ();
 
-  my.add_DIN6789_steps (false);
+  my.add_ISO6789_steps (false);
 
   return 0;
 }

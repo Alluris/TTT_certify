@@ -392,7 +392,7 @@ double test_object::cairo_print (cairo_t *cr, double c1, double c2, double top)
   if (accuracy == 0)
     {
       accuracy = get_accuracy_from_DIN ();
-      os_accuracy << accuracy * 100 << " % (gemäß DIN 6789-1)";
+      os_accuracy << accuracy * 100 << " % (gemäß DIN EN ISO 6789-1)";
     }
   else
     os_accuracy << accuracy * 100 << " % (gemäß Herstellerangabe)";
@@ -650,14 +650,15 @@ void measurement::load_with_id (sqlite3 *db, int search_id)
           if (rc == SQLITE_ROW)
             {
               id = sqlite3_column_int (pStmt, 0);
-              test_person_id = sqlite3_column_int (pStmt, 1);
-              test_object_id = sqlite3_column_int (pStmt, 2);
-              torque_tester_id = sqlite3_column_int (pStmt, 3);
-              start_time = (const char*) sqlite3_column_text (pStmt, 4);
-              end_time = (const char*) sqlite3_column_text (pStmt, 5);
-              raw_data_filename = (const char*) sqlite3_column_text (pStmt, 6);
-              temperature = sqlite3_column_double (pStmt, 7);
-              humidity = sqlite3_column_double (pStmt, 8);
+              norm = (const char*) sqlite3_column_text (pStmt, 1);
+              test_person_id = sqlite3_column_int (pStmt, 2);
+              test_object_id = sqlite3_column_int (pStmt, 3);
+              torque_tester_id = sqlite3_column_int (pStmt, 4);
+              start_time = (const char*) sqlite3_column_text (pStmt, 5);
+              end_time = (const char*) sqlite3_column_text (pStmt, 6);
+              raw_data_filename = (const char*) sqlite3_column_text (pStmt, 7);
+              temperature = sqlite3_column_double (pStmt, 8);
+              humidity = sqlite3_column_double (pStmt, 9);
             }
           sqlite3_finalize(pStmt);
           if (rc == SQLITE_DONE)
@@ -729,24 +730,25 @@ void measurement::save (sqlite3 *db)
   sqlite3_exec(db, "BEGIN;", 0, 0, 0);
   // insert measurement
   int rc = sqlite3_prepare_v2 (db, "INSERT INTO measurement"
-                               "(test_person_id, test_object_id, torque_tester_id, start_time,"
+                               "(norm, test_person_id, test_object_id, torque_tester_id, start_time,"
                                "end_time, raw_data_filename, temperature, humidity)"
-                               "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8);", -1, &pStmt, NULL);
+                               "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9);", -1, &pStmt, NULL);
   if (rc == SQLITE_OK)
     {
+      cout << "measurement::save norm = " << norm << endl;
       cout << "measurement::save test_person.id = " << tp.id << endl;
       cout << "measurement::save test_object.id = " << to.id << endl;
       cout << "measurement::save torque_tester.id = " << tt.id << endl;
 
-      sqlite3_bind_int (pStmt, 1, tp.id);
-      sqlite3_bind_int (pStmt, 2, to.id);
-      sqlite3_bind_int (pStmt, 3, tt.id);
-      sqlite3_bind_text (pStmt, 4, start_time.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 5, end_time.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 6, raw_data_filename.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_double (pStmt, 7, temperature);
-      sqlite3_bind_double (pStmt, 8, humidity);
-
+      sqlite3_bind_text (pStmt, 1, norm.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_int (pStmt, 2, tp.id);
+      sqlite3_bind_int (pStmt, 3, to.id);
+      sqlite3_bind_int (pStmt, 4, tt.id);
+      sqlite3_bind_text (pStmt, 5, start_time.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 6, end_time.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 7, raw_data_filename.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_double (pStmt, 8, temperature);
+      sqlite3_bind_double (pStmt, 9, humidity);
 
       for (int j=0; j<5; ++j)
         {
@@ -911,7 +913,7 @@ double measurement::cairo_print_5_meas_table (cairo_t *cr, double c1, double top
       bool rise_time_okay = 1;
 
       // rise_time ist nur für TypII interessant
-      // Siehe DIN 6789-1 Kapitel 6.2.4
+      // Siehe DIN EN ISO 6789-1 Kapitel 6.2.4
       if (to.is_type (2))
         {
           double rise_time = measurement_items[k]->rise_time;
@@ -1363,6 +1365,7 @@ ostream& operator<< (ostream& os, const measurement &mm)
 {
   os << "measurement:" << endl;
   os << "  id               = " << mm.id << endl;
+  os << "  norm             = " << mm.norm << endl;
   os << "  test_person.id   = " << mm.tp.id << endl;
   os << "  test_object.id   = " << mm.to.id << endl;
   os << "  torque_tester.id = " << mm.tt.id << endl;

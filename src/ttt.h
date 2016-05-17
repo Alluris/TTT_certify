@@ -126,8 +126,8 @@ private:
   enum e_report_style
   {
     QUICK_CHECK_REPORT,
-    DIN6789_REPORT,
-    DIN6789_LIKE_REPORT_WITH_REPEATS
+    ISO6789_REPORT,
+    ISO6789_LIKE_REPORT_WITH_REPEATS
   } report_style;
 
 public:
@@ -174,7 +174,7 @@ public:
   void clear_steps ();
 
   // komplette Sequenzen hinzufügen
-  void add_DIN6789_steps (bool repeat_on_timing_violation);
+  void add_ISO6789_steps (bool repeat_on_timing_violation);
 
   bool run ();
 
@@ -183,13 +183,13 @@ public:
 
   void start_sequencer (double temperature, double humidity);
   void start_sequencer_quick_check (double temperature, double humidity, double nominal_value);
-  void start_sequencer_DIN6789 (double temperature, double humidity, bool repeat_on_timing_violation, bool repeat_on_tolerance_violation);
+  void start_sequencer_ISO6789 (double temperature, double humidity, bool repeat_on_timing_violation, bool repeat_on_tolerance_violation);
 
   void stop_sequencer ();
   enum out_cmd sequencer_inout (double torque, bool confirmation);
 
   void print_result ();
-  report_result DIN6789_report (string fn, int id, bool repeat_on_tolerance_violation);
+  report_result ISO6789_report (string fn, int id, bool repeat_on_tolerance_violation);
 
   friend ostream& operator<<(ostream& os, const ttt& d);
 

@@ -57,7 +57,8 @@ INSERT INTO torque_tester (serial_number,
                          uncertainty_of_measurement)
        VALUES ("L.12345", "Alluris GmbH & Co. KG", "TTT", "2017-01", "2000-05-03", "calnumber fillme", 10, 0.01, 0.005);
 
-INSERT INTO measurement (test_person_id,
+INSERT INTO measurement (norm,
+                         test_person_id,
                          test_object_id,
                          torque_tester_id,
                          start_time,
@@ -65,8 +66,8 @@ INSERT INTO measurement (test_person_id,
                          raw_data_filename,
                          temperature,
                          humidity)
-       VALUES (1, 1, 1, "2015-11-17 10:01:02", "2015-11-17 10:18:22", "foo.bar", 21.34, 56.78),
-              (1, 16, 1, "2015-11-17 11:01:02", "2015-11-17 11:18:22", "foo.bar", 21.34, 66.78);
+       VALUES ("ISO 6789", 1, 1, 1, "2015-11-17 10:01:02", "2015-11-17 10:18:22", "foo.bar", 21.34, 56.78),
+              ("ISO 6789-1", 1, 16, 1, "2015-11-17 11:01:02", "2015-11-17 11:18:22", "foo.bar", 21.34, 66.78);
 
 INSERT INTO measurement_item ( ts,
                                measurement,

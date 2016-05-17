@@ -286,6 +286,7 @@ int main ()
   /*********** CHECK measurement save/load cycle **********/
   measurement mm;
 
+  mm.norm = "foobar";
   mm.tp = tp;
   mm.tt = tt;
   mm.to = to;
@@ -320,7 +321,7 @@ int main ()
   /******** CHECK measurement statistics ******************/
   mm.load_with_id (db, 1);
 
-
+  cout << mm.norm << endl;
   // display found test_objects with "PROX%"
   //unsigned int k;
   //for (k=0; k<vto.size(); ++k)

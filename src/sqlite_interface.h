@@ -95,7 +95,7 @@ public:
   double max_torque;
   double resolution;      // Auflösung
   string attachments;     // Anbauteile
-  double accuracy;        // Genauigkeit (besser "zulässige Messabweichung"), 0 = aus der DIN6789 bestimmen, sonst Herstellerangabe
+  double accuracy;        // Genauigkeit (besser "zulässige Messabweichung"), 0 = aus der DIN EN ISO 6789 bestimmen, sonst Herstellerangabe
 
   test_object(): id(-1), dir_of_rotation(-1), lever_length(-1), min_torque(-1), max_torque(-1), resolution(-1), accuracy(-1) {}
   void load_with_id (sqlite3 *db, int search_id);
@@ -214,7 +214,7 @@ public:
   string ts;  //timestamp
   double nominal_value;
   double indicated_value;
-  double rise_time;         // Only TypII, see DIN 6789-1 6.2.4
+  double rise_time;         // Only TypII, see DIN EN ISO 6789-1 6.2.4
 
   // loading and saving of measurement_item
   // is done in measurement::load/save
@@ -252,6 +252,7 @@ private:
 public:
   int id;
 
+  string norm;
   test_person tp;
   test_object to;
   torque_tester tt;

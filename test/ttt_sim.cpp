@@ -124,7 +124,7 @@ int main (int argc, char **argv)
 
   my.connect_measurement_input (argv[2]);
   cout << "Used simulation file = " << argv[2] << endl;
-  my.start_sequencer_DIN6789 (21.23, 34.56, false, false);
+  my.start_sequencer_ISO6789 (21.23, 34.56, false, false);
 
   try
     {

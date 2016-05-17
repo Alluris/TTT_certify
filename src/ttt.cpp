@@ -172,8 +172,8 @@ bool ttt::run ()
       meas.end_time = get_localtime();
       meas.save (db);
 
-      // create report for DIN 6789 TypI and Typ II
-      if (report_style == DIN6789_REPORT || report_style == DIN6789_LIKE_REPORT_WITH_REPEATS)
+      // create report for DIN EN ISO 6789 TypI and Typ II
+      if (report_style == ISO6789_REPORT || report_style == ISO6789_LIKE_REPORT_WITH_REPEATS)
         {
           ostringstream os;
 
@@ -190,12 +190,12 @@ bool ttt::run ()
           report_filename = os.str ();
           std::replace_if(report_filename.begin(), report_filename.end(), isnalnum, '_');
 
-          if (report_style == DIN6789_REPORT)
-            report_filename += "_DIN6789.pdf";
+          if (report_style == ISO6789_REPORT)
+            report_filename += "_ISO6789.pdf";
           else
-            report_filename += "_like_DIN6789.pdf";
+            report_filename += "_like_ISO6789.pdf";
 
-          report_result res = create_DIN6789_report (db, meas.id, report_filename.c_str (), report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
+          report_result res = create_ISO6789_report (db, meas.id, report_filename.c_str (), report_style == ISO6789_LIKE_REPORT_WITH_REPEATS);
 
           if (res.values_below_max_deviation && !res.timing_violation)
             print_result (gettext ("Kalibrierung innerhalb Toleranz"));
@@ -340,7 +340,7 @@ bool ttt::run ()
                 cell_color = FL_RED;
 
               bool overwrite_measurement =   (! p->is_in (accuracy))
-                                             && (report_style == DIN6789_LIKE_REPORT_WITH_REPEATS);
+                                             && (report_style == ISO6789_LIKE_REPORT_WITH_REPEATS);
               // add result to measurement table
               if (m_table)
                 m_table->add_measurement (pmeas->get_peak_torque (), overwrite_measurement, cell_color);
@@ -399,7 +399,7 @@ void ttt::clear_steps()
 }
 
 // add complete DIN ISO 6789 sequences
-void ttt::add_DIN6789_steps (bool repeat_on_timing_violation)
+void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
 {
   int runs;
   int sign;
@@ -425,7 +425,7 @@ void ttt::add_DIN6789_steps (bool repeat_on_timing_violation)
       throw runtime_error ("Unknown dir_of_rotation");
     }
 
-  cout << "ttt::add_DIN6789_steps " << meas.to.get_type_class ()
+  cout << "ttt::add_ISO6789_steps " << meas.to.get_type_class ()
        << " runs=" << runs
        << " sign=" << sign << endl;
 
@@ -436,7 +436,7 @@ void ttt::add_DIN6789_steps (bool repeat_on_timing_violation)
 
       // check for same sign
       if ((min_torque * max_torque) < 0)
-        throw out_of_range("ttt::add_DIN6789_steps: min_torque and max_torque must have the same sign");
+        throw out_of_range("ttt::add_ISO6789_steps: min_torque and max_torque must have the same sign");
 
       // three torque tester preload cycles
       for (int k = 0; k < 3; ++k)
@@ -550,6 +550,21 @@ void ttt::start_sequencer (double temperature, double humidity)
   meas.humidity = humidity;
   meas.start_time = get_localtime();
 
+  switch (report_style)
+    {
+      case QUICK_CHECK_REPORT:
+        meas.norm = "quick-check";
+        break;
+      case ISO6789_REPORT:
+        meas.norm = "ISO6789";
+        break;
+      case ISO6789_LIKE_REPORT_WITH_REPEATS:
+        meas.norm = "ISO6789 with repeats";
+        break;
+      default:
+        meas.norm = "undefined";
+    }
+
   // configure measurement_table
   if (m_table)
     {
@@ -636,7 +651,7 @@ void ttt::start_sequencer_quick_check (double temperature, double humidity, doub
   start_sequencer (temperature, humidity);
 }
 
-void ttt::start_sequencer_DIN6789 (double temperature, double humidity, bool repeat_on_timing_violation, bool repeat_on_tolerance_violation)
+void ttt::start_sequencer_ISO6789 (double temperature, double humidity, bool repeat_on_timing_violation, bool repeat_on_tolerance_violation)
 {
   if (sequencer_is_running)
     throw runtime_error ("Sequencer is already running. Please stop it first");
@@ -645,12 +660,12 @@ void ttt::start_sequencer_DIN6789 (double temperature, double humidity, bool rep
   // min_torque and max_torque_resolution from database
   // resolution from DIN678
 
-  add_DIN6789_steps (repeat_on_timing_violation);
+  add_ISO6789_steps (repeat_on_timing_violation);
 
   if (! repeat_on_tolerance_violation)
-    report_style = DIN6789_REPORT;
+    report_style = ISO6789_REPORT;
   else
-    report_style = DIN6789_LIKE_REPORT_WITH_REPEATS;
+    report_style = ISO6789_LIKE_REPORT_WITH_REPEATS;
 
   start_sequencer (temperature, humidity);
 }

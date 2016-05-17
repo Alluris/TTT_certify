@@ -156,7 +156,7 @@ btn_test_person_abort->hide ();}
         xywh {178 208 210 25} deactivate
       }
       Fl_Choice choice_test_object_type {
-        label {DIN 6789 Typ}
+        label {DIN EN ISO 6789 Typ}
         callback {update_test_object_type_class();
 update_test_object_accuracy();} open
         xywh {178 240 210 28} down_box BORDER_BOX when 1 deactivate
@@ -324,7 +324,7 @@ catch (std::runtime_error &e)
           label {%}
           xywh {288 714 55 25} maximum 20 step 0.01 deactivate
         }
-        Fl_Round_Button rb_accuracy_from_din6789 {
+        Fl_Round_Button rb_accuracy_from_ISO6789 {
           label {aus der DIN EN ISO 6789}
           callback {vi_test_object_accuracy->deactivate ();
 update_test_object_accuracy();}
@@ -507,13 +507,13 @@ else if (rb_din_6789->value () || rb_like_6789_repeat->value ())
                           "aus Messgerät und Anwender muss kleiner als ein Viertel der\\n"
                           "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs sein."));
     else if (temp > 28.0 || temp < 18.0)
-      fl_alert ( gettext ("Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 Kapitel 6.3"));
+      fl_alert ( gettext ("Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN EN ISO 6789-1:2015 Kapitel 6.3"));
     else
       {
         if (humidity > 90)
-          fl_alert ( gettext ("relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN 6789-1:2015 Kapitel 6.3"));
+          fl_alert ( gettext ("relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN EN ISO 6789-1:2015 Kapitel 6.3"));
         else
-          myTTT->start_sequencer_DIN6789 (temp, humidity, rb_repeat_until_okay->value (), rb_like_6789_repeat->value ());
+          myTTT->start_sequencer_ISO6789 (temp, humidity, rb_repeat_until_okay->value (), rb_like_6789_repeat->value ());
       }
   }
 
@@ -577,7 +577,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
         xywh {785 40 145 25} type Radio down_box ROUND_DOWN_BOX value 1
       }
       Fl_Round_Button rb_like_6789_repeat {
-        label {Ablauf nach DIN 6789-1 aber mit Wiederholungen bei Überschreitung der zulässigen Abweichung}
+        label {Ablauf nach DIN EN ISO 6789-1 aber mit Wiederholungen bei Überschreitung der zulässigen Abweichung}
         callback {update_quick_check_nominal_visibility();}
         xywh {785 75 260 65} type Radio down_box ROUND_DOWN_BOX align 148
       }
@@ -763,13 +763,13 @@ if (id > 0)
         double accuracy =  myTTT->get_test_object_accuracy ();
         if (accuracy == 0)
           {
-            rb_accuracy_from_din6789->set ();
+            rb_accuracy_from_ISO6789->set ();
             rb_manufacturer_accuracy->clear ();
             accuracy = myTTT->get_test_object_accuracy_from_DIN ();
           }
         else
           {
-            rb_accuracy_from_din6789->clear ();
+            rb_accuracy_from_ISO6789->clear ();
             rb_manufacturer_accuracy->set ();
           }
 
@@ -850,7 +850,7 @@ else
 
 Function {update_test_object_accuracy()} {open
 } {
-  code {if (rb_accuracy_from_din6789->value ())
+  code {if (rb_accuracy_from_ISO6789->value ())
   {
     int id = choice_test_object_type->value ();
     string selected_tc = choice_test_object_type->menu ()[id].label ();
@@ -943,7 +943,7 @@ Function {set_test_object_fields_editable(bool editable)} {open return_type void
     vi_test_object_max_torque->activate ();
     vi_test_object_resolution->activate ();
     mi_test_object_attachments->activate ();
-    rb_accuracy_from_din6789->activate ();
+    rb_accuracy_from_ISO6789->activate ();
     rb_manufacturer_accuracy->activate ();
 
     btn_test_object_search->hide ();
@@ -969,7 +969,7 @@ else
     vi_test_object_resolution->deactivate ();
     mi_test_object_attachments->deactivate ();
     vi_test_object_accuracy->deactivate ();
-    rb_accuracy_from_din6789->deactivate ();
+    rb_accuracy_from_ISO6789->deactivate ();
     rb_manufacturer_accuracy->deactivate ();
 
     btn_test_object_search->show ();
@@ -996,7 +996,7 @@ vi_test_object_max_torque->value(0);
 vi_test_object_resolution->value(0);
 mi_test_object_attachments->value("");
 
-rb_accuracy_from_din6789->set ();
+rb_accuracy_from_ISO6789->set ();
 rb_manufacturer_accuracy->clear ();} {}
 } 
 
