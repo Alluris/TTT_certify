@@ -57,12 +57,17 @@ void update_indicated_torque(double v)
 {
   double abs_nominal = abs (vo_nominal_value->value ());
   dial_torque->value (v);
-  if (abs(v) > abs_nominal)
-    dial_torque->color (FL_RED);
-  else if (abs(v) > 0.7 * abs_nominal)
-    dial_torque->color (FL_YELLOW);
+  if (abs_nominal != 0)
+    {
+      if (abs(v) > abs_nominal)
+        dial_torque->color (FL_RED);
+      else if (abs(v) > 0.7 * abs_nominal)
+        dial_torque->color (FL_YELLOW);
+      else
+        dial_torque->color (FL_GREEN);
+    }
   else
-    dial_torque->color (FL_GREEN);
+    dial_torque->color (FL_GRAY);
   dial_torque->redraw ();
 }
 
