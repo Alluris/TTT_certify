@@ -1,51 +1,51 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0303 
-i18n_type 1 
-i18n_include <libintl.h> 
-i18n_function gettext 
-header_name {.h} 
+version 1.0304
+i18n_type 1
+i18n_include <libintl.h>
+i18n_function gettext
+header_name {.h}
 code_name {.cxx}
 decl {//\#include "confuse.h"} {public global
-} 
+}
 
 decl {\#include <FL/fl_ask.H>} {public global
-} 
+}
 
 decl {\#include <FL/Fl_Text_Display.H>} {public global
-} 
+}
 
 decl {\#include <FL/Fl_Tooltip.H>} {public global
-} 
+}
 
 decl {\#include "ttt.h"} {public global
-} 
+}
 
 decl {\#include "cairo_box.h"} {public global
-} 
+}
 
 decl {\#include "cairo_print_devices.h"} {public global
-} 
+}
 
 decl {\#include "test_object_table.h"} {public global
-} 
+}
 
 decl {\#include "test_person_table.h"} {public global
-} 
+}
 
 decl {\#include "measurement_table.h"} {public global
-} 
+}
 
 decl {void run_cb(void *)} {public global
-} 
+}
 
 decl {ttt *myTTT;} {public local
-} 
+}
 
 decl {Fl_Text_Buffer *instruction_buff;} {public local
-} 
+}
 
 decl {bool test_object_edit_flag;} {private local
-} 
+}
 
 Function {create_widgets()} {open return_type void
 } {
@@ -328,7 +328,7 @@ catch (std::runtime_error &e)
           label {aus der DIN EN ISO 6789}
           callback {vi_test_object_accuracy->deactivate ();
 update_test_object_accuracy();}
-          tooltip {Use DIN EN ISO 6789-1:2015 chapter 5.1.5} xywh {50 699 190 25} type Radio down_box ROUND_DOWN_BOX deactivate
+          tooltip {Use DIN EN ISO 6789:2003-10 chapter 5.1.5.2} xywh {50 699 190 25} type Radio down_box ROUND_DOWN_BOX deactivate
         }
         Fl_Round_Button rb_manufacturer_accuracy {
           label Herstellerangabe
@@ -395,19 +395,19 @@ set_test_object_fields_editable (true);}
     }
     Fl_Group {} {
       label Umgebungsbedingungen open
-      tooltip {DIN EN ISO 6789-1:2015 6.3} xywh {406 6 350 123} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      tooltip {DIN EN ISO 6789:2003-10 6.2} xywh {406 6 350 123} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_temperature {
         label {Kalibriertemperatur [°C]}
-        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 18°C bis 28°C} xywh {685 44 60 25} maximum 40 step 0.1
+        tooltip {Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 18°C bis 28°C} xywh {685 44 60 25} maximum 40 step 0.1
       }
       Fl_Value_Input vi_humidity {
         label {relative Luftfeuchte [%rH]}
-        tooltip {Erlaubter Bereich laut DIN EN ISO 6789-1:2015 6.3 max. 90%} xywh {685 79 60 25} maximum 100 step 0.1
+        tooltip {Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%} xywh {685 79 60 25} maximum 100 step 0.1
       }
     }
     Fl_Group {} {
-      label {Messgerät} open selected
+      label {Messgerät} open
       xywh {406 343 350 420} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vo_torque_tester_id {
@@ -507,11 +507,11 @@ else if (rb_din_6789->value () || rb_like_6789_repeat->value ())
                           "aus Messgerät und Anwender muss kleiner als ein Viertel der\\n"
                           "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs sein."));
     else if (temp > 28.0 || temp < 18.0)
-      fl_alert ( gettext ("Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN EN ISO 6789-1:2015 Kapitel 6.3"));
+      fl_alert ( gettext ("Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN EN ISO 6789:2003-10 Kapitel 6.2"));
     else
       {
         if (humidity > 90)
-          fl_alert ( gettext ("relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN EN ISO 6789-1:2015 Kapitel 6.3"));
+          fl_alert ( gettext ("relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN EN ISO 6789:2003-10 Kapitel 6.2"));
         else
           myTTT->start_sequencer_ISO6789 (temp, humidity, rb_repeat_until_okay->value (), rb_like_6789_repeat->value ());
       }
@@ -577,13 +577,13 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
         xywh {785 40 145 25} type Radio down_box ROUND_DOWN_BOX value 1
       }
       Fl_Round_Button rb_like_6789_repeat {
-        label {Ablauf nach DIN EN ISO 6789-1 aber mit Wiederholungen bei Überschreitung der zulässigen Abweichung}
+        label {Ablauf nach DIN EN ISO 6789 aber mit Wiederholungen bei Überschreitung der zulässigen Abweichung}
         callback {update_quick_check_nominal_visibility();}
         xywh {785 75 260 65} type Radio down_box ROUND_DOWN_BOX align 148
       }
       Fl_Round_Button rb_din_6789 {
-        label {DIN EN ISO 6789-1}
-        callback {update_quick_check_nominal_visibility();}
+        label {DIN EN ISO 6789}
+        callback {update_quick_check_nominal_visibility();} selected
         xywh {785 155 170 25} type Radio down_box ROUND_DOWN_BOX
       }
       Fl_Value_Input vi_single_peak {
@@ -697,7 +697,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
       xywh {595 500 65 30} box GLEAM_THIN_UP_BOX
     }
   }
-} 
+}
 
 Function {load_test_person(int id)} {open return_type void
 } {
@@ -720,7 +720,7 @@ if (id > 0)
         //fl_alert (e.what ());
       }
   }} {}
-} 
+}
 
 Function {load_test_object(int id)} {open return_type void
 } {
@@ -788,7 +788,7 @@ if (id > 0)
         //fl_alert (e.what ());
       }
   }} {}
-} 
+}
 
 Function {load_torque_tester()} {open return_type void
 } {
@@ -815,7 +815,7 @@ catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
   }} {}
-} 
+}
 
 Function {update_test_object_type_class()} {open
 } {
@@ -846,7 +846,7 @@ if (test_object::is_screwdriver (selected_tc))
   vi_test_object_lever_length->hide ();
 else
   vi_test_object_lever_length->show ();} {}
-} 
+}
 
 Function {update_test_object_accuracy()} {open
 } {
@@ -859,7 +859,7 @@ Function {update_test_object_accuracy()} {open
     double acc = test_object::get_accuracy_from_DIN (selected_tc, max_t);
     vi_test_object_accuracy->value (acc * 100);
   }} {}
-} 
+}
 
 Function {update_run_activation()} {open
 } {
@@ -925,7 +925,7 @@ else
     step_progress->hide ();
     vo_step_progress->hide ();
   }} {}
-} 
+}
 
 Function {set_test_object_fields_editable(bool editable)} {open return_type void
 } {
@@ -980,7 +980,7 @@ else
     btn_test_object_save->hide ();
     btn_test_object_abort->hide ();
   }} {}
-} 
+}
 
 Function {clear_test_object_fields()} {open return_type void
 } {
@@ -998,7 +998,7 @@ mi_test_object_attachments->value("");
 
 rb_accuracy_from_ISO6789->set ();
 rb_manufacturer_accuracy->clear ();} {}
-} 
+}
 
 Function {update_quick_check_nominal_visibility()} {open return_type void
 } {
@@ -1006,4 +1006,4 @@ Function {update_quick_check_nominal_visibility()} {open return_type void
   vi_single_peak->show ();
 else
   vi_single_peak->hide ();} {}
-} 
+}

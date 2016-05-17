@@ -80,7 +80,13 @@ report_result create_ISO6789_report ( sqlite3 *db,
   // Überschrift
   cairo_move_to (cr, left_c1, 3.2);
   if (! repeat_on_tolerance_violation)
+#ifdef ISO6789_1
     cairo_show_text (cr, "Kalibrierschein nach DIN EN ISO 6789-1:2015-02");
+#elif defined (ISO6789)
+    cairo_show_text (cr, "Kalibrierschein nach DIN EN ISO 6789:2003-10");
+#else
+  #error No ISO 6789 variant defined
+#endif
   else
     cairo_show_text (cr, "Kalibrierschein");
 
@@ -109,17 +115,36 @@ report_result create_ISO6789_report ( sqlite3 *db,
   top = cairo_print_two_columns (cr, left_c1, left_c2, top, "Kalibrierverfahren", "Calibration method", "");
   cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
   if (! repeat_on_tolerance_violation)
+
+#ifdef ISO6789_1
     top = cairo_print_text (cr, left_c1, top, "Das Gerät wurde nach den Vorschriften der DIN EN ISO 6789-1:2015 kalibriert.\n"
                             "Angegeben ist die erweiterte Messunsicherheit, die sich aus der Standardmessunsicherheit\n"
                             "durch Multiplikation mit dem Erweiterungsfaktor k=2 ergibt. Der Wert der Messgröße liegt\n"
                             "mit einer Wahrscheinlichkeit von 95% im zugeordneten Werteintervall.");
+#elif defined (ISO6789)
+    top = cairo_print_text (cr, left_c1, top, "Das Gerät wurde nach den Vorschriften der DIN EN ISO 6789:2003-10 kalibriert.\n"
+                            "Angegeben ist die erweiterte Messunsicherheit, die sich aus der Standardmessunsicherheit\n"
+                            "durch Multiplikation mit dem Erweiterungsfaktor k=2 ergibt. Der Wert der Messgröße liegt\n"
+                            "mit einer Wahrscheinlichkeit von 95% im zugeordneten Werteintervall.");
+#else
+  #error No ISO 6789 variant defined
+#endif
 
   cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
   if (! repeat_on_tolerance_violation)
+#ifdef ISO6789_1
     top = cairo_print_text (cr, left_c1, top + 0.2, "The instrument was calibrated according directive DIN EN ISO 6789-1:2015.\n"
                             "Stated is the expanded uncertainty. The exanded uncertainty assigned to the measurement\n"
                             "results is obtained by multiplying the standard uncertainty by the coverage factor k=2.\n"
                             "The value of the measurand lies within the asign range of values with a probability of 95%.");
+#elif defined (ISO6789)
+    top = cairo_print_text (cr, left_c1, top + 0.2, "The instrument was calibrated according directive DIN EN ISO 6789:2003-10.\n"
+                            "Stated is the expanded uncertainty. The exanded uncertainty assigned to the measurement\n"
+                            "results is obtained by multiplying the standard uncertainty by the coverage factor k=2.\n"
+                            "The value of the measurand lies within the asign range of values with a probability of 95%.");
+#else
+  #error No ISO 6789 variant defined
+#endif
 
   // Prüfer
   top = cairo_horizontal_line (cr, left_c1, top);
