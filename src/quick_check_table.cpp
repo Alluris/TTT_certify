@@ -31,6 +31,7 @@ void quick_check_table::DrawData(const char *s, int X, int Y, int W, int H, Fl_C
 void quick_check_table::draw_cell(TableContext context, int ROW, int COL, int X, int Y, int W, int H)
 {
   static char s[40];
+  (void) COL;
   switch ( context )
     {
     case CONTEXT_STARTPAGE:                   // before page is drawn..
@@ -46,7 +47,7 @@ void quick_check_table::draw_cell(TableContext context, int ROW, int COL, int X,
       DrawHeader(s,X,Y,W,H);
       return;
     case CONTEXT_CELL:                        // Draw data in cells
-      if (ROW < peak_values.size ())
+      if (ROW < int(peak_values.size ()))
         snprintf (s, 40, "%.2f", peak_values[ROW]);
       else
         snprintf (s, 40, "---");
@@ -60,6 +61,8 @@ void quick_check_table::draw_cell(TableContext context, int ROW, int COL, int X,
 quick_check_table::quick_check_table(int X, int Y, int W, int H, const char *L)
   : Fl_Table(X, Y, 173, 178,L)
 {
+  (void) W;
+  (void) H;
   // width = row_header_width + col_width_all + 3
   // height = col_header_height + 5 * row_height_all + 3
 

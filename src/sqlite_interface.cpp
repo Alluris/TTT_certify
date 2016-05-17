@@ -462,6 +462,8 @@ void test_object::get_timing_from_DIN (string tc, double torque, double &min_t, 
 #elif defined (ISO6789)
   // 6789 6.3.2
   // >= 80% between 0.5s and 4s
+  (void) tc;
+  (void) torque;
   min_t = 0.5;
   max_t = 4.0;
 #else
