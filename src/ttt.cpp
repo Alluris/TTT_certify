@@ -24,6 +24,10 @@ If not, see <http://www.gnu.org/licenses/>.
 
 #include "ttt.h"
 
+#ifdef _WIN32
+  #include <Shellapi.h>  //for ShellExecute
+#endif
+
 bool isnalnum (char c)
 {
   return ! std::isalnum (c);
@@ -204,7 +208,16 @@ bool ttt::run ()
           else
             print_result (gettext ("*Kalibrierung außerhalb Toleranz"));
 
-          print_step ( string (gettext ("Kalibrierschein:")) + " " + report_filename, 1);
+          // open created pdf
+
+#ifdef _WIN32
+          ShellExecute (0, 0, report_filename.c_str (), 0, 0 , SW_SHOW );
+#else
+          char call[256];
+          snprintf (call, 256, "xdg-open %s", report_filename.c_str ());
+          system (call);
+#endif
+          //print_step ( string (gettext ("Kalibrierschein:")) + " " + report_filename, 1);
         }
       else if (report_style == QUICK_CHECK_REPORT) //single peak
         {
@@ -219,8 +232,9 @@ bool ttt::run ()
           else
             print_result (gettext ("*Schnellkalibrierung außerhalb Toleranz"));
         }
-      else
-        print_step ("finished", 1);
+      //else
+      // print_step ("finished", 1);
+
     }
 
   if (sequencer_is_running)

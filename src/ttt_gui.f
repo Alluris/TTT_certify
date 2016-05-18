@@ -50,7 +50,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT certify v0.1.8 vom 01.02.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT certify v0.2.1 vom 18.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2392 223 1280 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
@@ -518,7 +518,7 @@ else if (rb_din_6789->value () || rb_like_6789_repeat->value ())
   }
 
 update_run_activation ();
-Fl::add_timeout(0.01, run_cb);}
+Fl::add_timeout(0.01, run_cb);} selected
         xywh {785 195 110 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_stop {
@@ -583,7 +583,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
       }
       Fl_Round_Button rb_din_6789 {
         label {DIN EN ISO 6789}
-        callback {update_quick_check_nominal_visibility();} selected
+        callback {update_quick_check_nominal_visibility();}
         xywh {785 155 170 25} type Radio down_box ROUND_DOWN_BOX
       }
       Fl_Value_Input vi_single_peak {
