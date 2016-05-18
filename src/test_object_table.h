@@ -144,6 +144,7 @@ public:
     vto.clear ();
     search_test_objects (db, field, subst_wildcards (str), vto);
     rows (vto.size());
+    redraw ();
   }
 
   void do_select_cb ()
