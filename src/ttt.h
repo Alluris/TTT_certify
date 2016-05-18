@@ -274,6 +274,11 @@ public:
     meas.to.load_with_id (db, id);
   }
 
+  int _search_active_adjacent_test_object (int id)
+  {
+    return search_active_adjacent_test_object (db, id);
+  }
+
   // set id inactive and return next adjacent test_object or 0 if there is none
   int delete_test_object (int id)
   {

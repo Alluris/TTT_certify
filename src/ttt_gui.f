@@ -51,7 +51,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.2.1 vom 18.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2392 223 1280 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2086 239 1275 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -136,7 +136,12 @@ btn_test_person_abort->hide ();}
     } {
       Fl_Value_Input vi_test_object_id {
         label id
-        callback {load_test_object(o->value ());} selected
+        callback {int id = myTTT->_search_active_adjacent_test_object (o->value());
+if (id)
+  {
+    o->value (id);
+    load_test_object (id);
+  }} selected
         xywh {177 40 40 30} minimum 1 maximum 500 step 1
       }
       Fl_Input inp_test_object_equipment_nr {
@@ -625,7 +630,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_object_win {
     label {test_object search} open
-    xywh {2288 448 935 645} type Double modal visible
+    xywh {2288 448 935 645} type Double hide modal
   } {
     Fl_Table to {open
       xywh {9 110 920 480}
@@ -684,7 +689,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_person_win {
     label {test_person search} open
-    xywh {2319 150 670 540} type Double modal visible
+    xywh {2319 150 670 540} type Double hide modal
   } {
     Fl_Table tp {open
       xywh {20 70 640 410}
