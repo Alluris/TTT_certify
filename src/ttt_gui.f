@@ -106,8 +106,8 @@ btn_test_person_abort->do_callback ();}
         xywh {536 171 40 30} minimum 1 maximum 100 step 1 deactivate
       }
       Fl_Value_Input vi_test_person_uncertainty {
-        label {Messunsicherheit [%]}
-        tooltip {Messunsicherheit durch den Bediener} xywh {686 281 60 25} maximum 100 step 0.1 deactivate
+        label {erweiterte Messunsicherheit [%]}
+        tooltip {erweiterte Messunsicherheit durch den Bediener} xywh {686 281 60 25} maximum 100 step 0.1 deactivate
       }
       Fl_Button btn_test_person_abort {
         label {@undo abbrechen}
@@ -466,8 +466,14 @@ double humidity = vi_humidity->value ();
 
 // extended uncertainty, thus 1/2
 double torque_tester_uncertainty = vo_torque_tester_uncertainty->value () / 200.0;
-double test_person_uncertainty =  vi_test_person_uncertainty->value ()/100.0;
+double test_person_uncertainty =  vi_test_person_uncertainty->value () / 200.0;
 double total_extended_uncertainty = 2 * sqrt (torque_tester_uncertainty*torque_tester_uncertainty + test_person_uncertainty*test_person_uncertainty);
+double test_object_accuracy = vi_test_object_accuracy->value () / 100;
+
+std::cout << "torque_tester_uncertainty  = " << torque_tester_uncertainty << endl;
+std::cout << "test_person_uncertainty    = " << test_person_uncertainty << endl;
+std::cout << "total_extended_uncertainty = " << total_extended_uncertainty << endl;
+std::cout << "test_object_accuracy       = " << test_object_accuracy << endl;
 
 string t = myTTT->get_test_object_type ();
 bool use_mean_as_nominal_value = test_object::has_no_scale (t) && ! test_object::has_fixed_trigger (t);
@@ -502,10 +508,18 @@ if (rb_quick_peak->value ())
   }
 else if (rb_din_6789->value () || rb_like_6789_repeat->value ())
   {
-    if (! (total_extended_uncertainty < vi_test_object_accuracy->value ()/400.0))
-      fl_alert ( gettext ("Das Intervall der maximalen relativen erweiterten Messunsicherheit\\n"
-                          "aus Messgerät und Anwender muss kleiner als ein Viertel der\\n"
-                          "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs sein."));
+    if (! (total_extended_uncertainty < test_object_accuracy/4))
+      {
+      char uncertainty_alert[512];
+      snprintf (uncertainty_alert, 512,
+                gettext ("Das Intervall der maximalen relativen erweiterten Messunsicherheit (=%.2f%%)\\n"
+                         "aus Messgerät und Anwender muss kleiner als ein Viertel der\\n"
+                         "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs (=%.2f%%) sein."),
+                total_extended_uncertainty * 100,
+                test_object_accuracy / 4.0 * 100);
+                          
+      fl_alert (uncertainty_alert);
+      }
     else if (temp > 28.0 || temp < 18.0)
       fl_alert ( gettext ("Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN EN ISO 6789:2003-10 Kapitel 6.2"));
     else

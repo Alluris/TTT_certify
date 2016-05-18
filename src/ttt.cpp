@@ -25,7 +25,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include "ttt.h"
 
 #ifdef _WIN32
-  #include <Shellapi.h>  //for ShellExecute
+#include <Shellapi.h>  //for ShellExecute
 #endif
 
 bool isnalnum (char c)
@@ -493,14 +493,14 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
         }
 
 #ifdef ISO6789
-          // DIN EN ISO  6789  : 6.3 Kalibrierbedingungen
-          // c.) Typ I  ... eine Vorbelastung mit dem Höchstwert ...
-          // d.) Typ II ... 5 Auslösungen ohne Messung...
-          if (meas.to.is_type (1))
-            add_step (new preload_test_object_step(max_torque, 0.1));
-          else if (meas.to.is_type (2))
-            for (int k = 0; k < 5; ++k)
-              add_step (new preload_test_object_step(max_torque, 0.1));
+      // DIN EN ISO  6789  : 6.3 Kalibrierbedingungen
+      // c.) Typ I  ... eine Vorbelastung mit dem Höchstwert ...
+      // d.) Typ II ... 5 Auslösungen ohne Messung...
+      if (meas.to.is_type (1))
+        add_step (new preload_test_object_step(max_torque, 0.1));
+      else if (meas.to.is_type (2))
+        for (int k = 0; k < 5; ++k)
+          add_step (new preload_test_object_step(max_torque, 0.1));
 #endif
 
       for (unsigned int i=0; i < torque_list.size (); ++i)
@@ -779,7 +779,7 @@ void ttt::load_torque_tester ()
           // create new entry
           meas.tt.serial_number         = pttt->get_serial ();
           meas.tt.manufacturer          = "Alluris GmbH & Co. KG";
-          meas.tt.model                 = "TTT";
+          meas.tt.model                 = pttt->get_model ();
           meas.tt.next_calibration_date = pttt->get_next_cal_date ();
           meas.tt.calibration_date      = pttt->get_cal_date ();
           meas.tt.calibration_number    = pttt->get_cal_number ();

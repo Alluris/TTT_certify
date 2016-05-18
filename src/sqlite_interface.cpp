@@ -233,9 +233,9 @@ double test_person::cairo_print (cairo_t *cr, double c1, double c2, double top)
   top = cairo_print_two_columns (cr, c1, c2, top, "Verantwortlicher", "supervisor", supervisor);
 
   ostringstream os_uncertainty;
-  os_uncertainty << uncertainty * 100 << " %";
+  os_uncertainty << uncertainty * 100 << " % (k=2)";
 
-  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheit", "uncertainty", os_uncertainty.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheit Bediener", "uncertainty by operator", os_uncertainty.str ());
   return top;
 }
 
@@ -330,6 +330,9 @@ double test_object::cairo_print (cairo_t *cr, double c1, double c2, double top)
   top = cairo_print_two_columns (cr, c1, c2, top, "Seriennummer", "Serial number", serial_number);
   top = cairo_print_two_columns (cr, c1, c2, top, "Prüfmittelnummer", "Test equipment number", equipment_number);
 
+  string cat_type = DIN_type + " Klasse " + DIN_class;
+  top = cairo_print_two_columns (cr, c1, c2, top, "Typ", "Type", cat_type);
+
   double scale = 14;
   cairo_save (cr);
   cairo_translate (cr, c1, top);
@@ -339,9 +342,6 @@ double test_object::cairo_print (cairo_t *cr, double c1, double c2, double top)
   string tmp = DIN_type + DIN_class;
   top += 1 + scale * cairo_print_str (cr, tmp.c_str ());    // Print device
   cairo_restore (cr);
-
-  string cat_type = DIN_type + " Klasse " + DIN_class;
-  top = cairo_print_two_columns (cr, c1, c2, top, "Typ", "Type", cat_type);
 
   // Funktionsrichtung
   string str_rot;
@@ -393,7 +393,15 @@ double test_object::cairo_print (cairo_t *cr, double c1, double c2, double top)
   if (accuracy == 0)
     {
       accuracy = get_accuracy_from_DIN ();
+
+#ifdef ISO6789_1
       os_accuracy << accuracy * 100 << " % (gemäß DIN EN ISO 6789-1)";
+#elif defined (ISO6789)
+      os_accuracy << accuracy * 100 << " % (gemäß DIN EN ISO 6789)";
+#else
+#error No ISO 6789 variant defined
+#endif
+
     }
   else
     os_accuracy << accuracy * 100 << " % (gemäß Herstellerangabe)";
@@ -598,8 +606,8 @@ double torque_tester::cairo_print (cairo_t *cr, double c1, double c2, double top
   top = cairo_print_two_columns (cr, c1, c2, top, "Skalenteilung", "Resolution", os_resolution.str ());
 
   ostringstream os_uncertainty_of_measurement;
-  os_uncertainty_of_measurement << uncertainty_of_measurement * 100 << " %";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheit", "uncertainty of measurement", os_uncertainty_of_measurement.str ());
+  os_uncertainty_of_measurement << uncertainty_of_measurement * 100 << " % (k=2)";
+  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheitsintervall", "uncertainty of measurement", os_uncertainty_of_measurement.str ());
 
   return top;
 }
@@ -903,7 +911,7 @@ double measurement::cairo_print_5_meas_table (cairo_t *cr, double c1, double top
               cairo_centered_text (cr, c1 + col_width/2, y - col_height / 2, str);
             }
 
-          // Gesamte Standardmessunsicherheit
+          // Gesamte Standardmessunsicherheit u
           snprintf (str, 40, "%.2f Nm", abs (total_uncertainty () * nominal_value));
           cairo_centered_text (cr, c1 + width - 1.5 * col_width, y - col_height / 2, str);
           //snprintf (str, 40, "%.2f %%", total_uncertainty () * 100);
@@ -998,8 +1006,8 @@ double measurement::cairo_print_5_meas_table (cairo_t *cr, double c1, double top
         snprintf (str, 8, "Xr%i", k );
 
       cairo_centered_text (cr, c1 + col_width * (k + 0.5), top + header_height - 2 * col_height / 3, str);
-      cairo_centered_text (cr, c1 + col_width * (k + 0.5), top + header_height - col_height / 3, "(a  )");
-      cairo_centered_text (cr, c1 + col_width * (k + 0.5) + 0.15, top + header_height - col_height / 3 + 0.1, "s");
+      cairo_centered_text (cr, c1 + col_width * (k + 0.5), top + header_height - col_height / 3, "(as)");
+      //cairo_centered_text (cr, c1 + col_width * (k + 0.5) + 0.15, top + header_height - col_height / 3 + 0.1, "s");
     }
 
   cairo_centered_text (cr, c1 + col_width/2, top + header_height - col_height / 2, "Xa");
@@ -1180,8 +1188,8 @@ double measurement::cairo_print_header (cairo_t *cr, double c1, double c2, doubl
   top = cairo_print_two_columns (cr, c1, c2, top + 0.2, "Verwendete Formelzeichen", "Used formular symbols", "");
   top = cairo_print_legend (cr, c1, c2/2, top, "u", "Gesamte Standardmessunsicherheit", "Total uncertainty of measurement");
   top = cairo_print_legend (cr, c1, c2/2, top, "w", "Gesamte relative Standardmessunsicherheit", "Total relative uncertainty of measurement");
-  top = cairo_print_legend (cr, c1, c2/2, top, "Xr", "Mit Hilfe des Messgeräts bestimmter Bezugswert", "FIXME: english translation");
-  top = cairo_print_legend (cr, c1, c2/2, top, "Xa", "Anzeige-, Einstell-, Nenn- oder Rechenwert", "FIXME: english translation");
+  top = cairo_print_legend (cr, c1, c2/2, top, "Xr", "Mit Hilfe des Messgeräts bestimmter Bezugswert", "Displayed value of calibration unit");
+  top = cairo_print_legend (cr, c1, c2/2, top, "Xa", "Anzeige-, Einstell-, Nenn- oder Rechenwert des Kalibriergegenstandes", "Nominal value of calibration object");
   top = cairo_print_legend (cr, c1, c2/2, top, "as", "Relative Abweichung", "Relative deviation");
   return top;
 }
@@ -1221,12 +1229,13 @@ double measurement::cairo_print (cairo_t *cr, double c1, double c2, double top, 
   if (timing_violation)
     {
       cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
-      top = cairo_print_text (cr, c1, top, "*) Die Mindestzeit um das Drehoment von 80% des Zielwerts bis auf den Zielwert zu\n"
-                              "erhöhen, konnte nicht eingehalten werden. Siehe DIN EN ISO 6789-1:2015 Kapitel 6.2.4");
+      top = cairo_print_text (cr, c1, top, "*) Die Mindestzeit, um das Drehmoment von 80% des Zielwerts bis auf den Zielwert zu\n"
+                              //"erhöhen, wurde nicht eingehalten. Siehe DIN EN ISO 6789-1:2015 Kapitel 6.2.4");
+                              "erhöhen, wurde nicht eingehalten (siehe DIN EN ISO 6789 Kapitel 6.3.2).");
 
       cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
-      top = cairo_print_text (cr, c1, top + 0.2, "FIXME: Satz oben in englisch...\n"
-                              "FIXME: Satz oben in englisch...");
+      top = cairo_print_text (cr, c1, top + 0.2, "The minimal rise time from 80% to 100% of nominal value was not reached\n"
+                              "(see DIN EN ISO 6789 chapter 6.3.2).");
     }
 
   {
@@ -1234,7 +1243,7 @@ double measurement::cairo_print (cairo_t *cr, double c1, double c2, double top, 
     ostringstream uncertainty_str;
     uncertainty_str.precision (3);
     uncertainty_str << "Das Intervall der maximalen relativen erweiterten Messunsicherheit aus Messgerät\n"
-                    "und Anwender von " << 100 * total_uncertainty () << "% ist kleiner als ein Viertel der höchstzulässigen Abweichung des\n"
+                    "und Anwender von " << 100 * 2 * total_uncertainty () << "% ist kleiner als ein Viertel der höchstzulässigen Abweichung des\n"
                     "Drehmoment-Schraubwerkzeugs.";
     top = cairo_print_text (cr, c1, top + 0.5, uncertainty_str.str ());
   }
@@ -1243,9 +1252,8 @@ double measurement::cairo_print (cairo_t *cr, double c1, double c2, double top, 
     cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
     ostringstream uncertainty_str;
     uncertainty_str.precision (3);
-    uncertainty_str << "FIXME: in english...\n"
-                    "und Anwender von " << 100 * total_uncertainty () << "% ist kleiner als ein Viertel der höchstzulässigen Abweichung des\n"
-                    "Drehmoment-Schraubwerkzeugs.";
+    uncertainty_str << "The interval " << 100 * 2 * total_uncertainty () << "% of maximum relative expanded uncertainty of measurement\n"
+                    "of device and operator is lower than 25% of maximum error of calibration object.";
     top = cairo_print_text (cr, c1, top + 0.2, uncertainty_str.str ());
   }
   return top;
@@ -1253,31 +1261,29 @@ double measurement::cairo_print (cairo_t *cr, double c1, double c2, double top, 
 
 double measurement::cairo_print_conformity (cairo_t *cr, double c1, double top, bool &values_below_max_deviation)
 {
+  cairo_set_font_size (cr, 0.5);
   top = cairo_print_two_columns (cr, c1, 0, top, "Konformitätsaussage", "Conformity", "");
+  cairo_set_font_size (cr, 0.4);
+
   cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
   if (values_below_max_deviation)
     {
       cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
-      top = cairo_print_text (cr, c1, top, "Messwerte liegen innerhalb der zulässigen Abweichungen nach ISO 6789-1:2015.\n"
-                              "Lorem ipsum sum\n"
-                              "Lorem ipsum sum");
+      top = cairo_print_text (cr, c1, top, "Messwerte liegen innerhalb der zulässigen Abweichungen nach ISO 6789:2003-10.");
+
       cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
-      top = cairo_print_text (cr, c1, top + 0.5, "FIXME: auf englisch Messwerte liegen innerhalb ....\n"
-                              "Lorem ipsum sum\n"
-                              "Lorem ipsum sum");
+      top = cairo_print_text (cr, c1, top + 0.2, "Measurement values within allowed error of ISO 6789:2003-10.");
     }
   else
     {
       cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
-      top = cairo_print_text (cr, c1, top, "Messwerte liegen außerhalb der zulässigen Abweichung nach ISO 6789-1:2015.\n"
-                              "Lorem ipsum sum\n"
-                              "Lorem ipsum sum");
+      top = cairo_print_text (cr, c1, top, "Messwerte liegen außerhalb der zulässigen Abweichungen nach ISO 6789:2003-10.");
+
       cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
-      top = cairo_print_text (cr, c1, top + 0.2, "FIXME: auf englisch Messwerte liegen außerhalb...\n"
-                              "Lorem ipsum sum\n"
-                              "Lorem ipsum sum");
+      top = cairo_print_text (cr, c1, top + 0.2, "Measurement values outside allowed error of ISO 6789:2003-10.");
     }
 
+  top += 1;
   return top;
 }
 

@@ -18,7 +18,7 @@ all: $(TARGETS)
 
 ttt_certify.db:
 	sqlite3 ttt_certify.db < ../src/create_database.sql
-	sqlite3 ttt_certify.db < ../src/fill_database.sql
+	sqlite3 ttt_certify.db < ../src/fill_database_debug.sql
 
 test_ttt_device: test_ttt_device.cpp $(OBJ)
 	$(GCC) $(CPPFLAGS) $^ -o $@ $(LIBS)

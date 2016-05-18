@@ -284,10 +284,12 @@ public:
   void load_with_id (sqlite3 *db, int search_id);
   void save (sqlite3 *db);
 
-  double total_uncertainty ()
+  double total_uncertainty () //Messunsicherheit
   {
-    return sqrt (tt.uncertainty_of_measurement*tt.uncertainty_of_measurement / 4
-                 +tp.uncertainty*tp.uncertainty);
+    double ret = sqrt ( tt.uncertainty_of_measurement * tt.uncertainty_of_measurement / 4
+                        +tp.uncertainty * tp.uncertainty / 4);
+    //std::cout << "total_uncertainty () returns " << ret << std::endl;
+    return ret;
   }
 
   double cairo_print_1_meas_table (cairo_t *cr, double c1, double top, unsigned int first, unsigned int last, bool &values_below_max_deviation, bool &timing_violation);

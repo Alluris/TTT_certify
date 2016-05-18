@@ -54,7 +54,7 @@ private:
   string next_cal_date;
   string cal_date;
   string cal_number;
-  double uncertainty;
+  double uncertainty;   //relative erweiterte Messunsicherheit (k=2)
   double peak_level;
   bool measuring;
   bool streaming;
@@ -99,6 +99,20 @@ public:
   double get_max_torque ()
   {
     return max_M;
+  }
+
+  string get_model ()
+  {
+    if (max_M == 2)
+      return "TTT-300B2";
+    else if (max_M == 5)
+      return "TTT-300B5";
+    else if (max_M == 10)
+      return "TTT-300C1";
+    else if (max_M == 25)
+      return "TTT-300C2";
+    else if (max_M == 50)
+      return "TTT-300C5";
   }
 
   double get_resolution ()

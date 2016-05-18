@@ -27,7 +27,7 @@ If not, see <http://www.gnu.org/licenses/>.
 void print_page_number (cairo_t *cr, int num)
 {
   char str[20];
-  snprintf (str, 20, "Seite %i", num);
+  snprintf (str, 20, "Seite %i / 5", num);
   cairo_centered_text (cr, 10, 28, str);
 }
 
@@ -85,7 +85,7 @@ report_result create_ISO6789_report ( sqlite3 *db,
 #elif defined (ISO6789)
     cairo_show_text (cr, "Kalibrierschein nach DIN EN ISO 6789:2003-10");
 #else
-  #error No ISO 6789 variant defined
+#error No ISO 6789 variant defined
 #endif
   else
     cairo_show_text (cr, "Kalibrierschein");
@@ -112,7 +112,10 @@ report_result create_ISO6789_report ( sqlite3 *db,
   // horizontale Linie, Kalibrierverfahren
   top = cairo_horizontal_line (cr, left_c1, top);
 
+  cairo_set_font_size (cr, 0.5);
   top = cairo_print_two_columns (cr, left_c1, left_c2, top, "Kalibrierverfahren", "Calibration method", "");
+  cairo_set_font_size (cr, 0.4);
+
   cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
   if (! repeat_on_tolerance_violation)
 
@@ -127,7 +130,7 @@ report_result create_ISO6789_report ( sqlite3 *db,
                             "durch Multiplikation mit dem Erweiterungsfaktor k=2 ergibt. Der Wert der Messgröße liegt\n"
                             "mit einer Wahrscheinlichkeit von 95% im zugeordneten Werteintervall.");
 #else
-  #error No ISO 6789 variant defined
+#error No ISO 6789 variant defined
 #endif
 
   cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
@@ -143,7 +146,7 @@ report_result create_ISO6789_report ( sqlite3 *db,
                             "results is obtained by multiplying the standard uncertainty by the coverage factor k=2.\n"
                             "The value of the measurand lies within the asign range of values with a probability of 95%.");
 #else
-  #error No ISO 6789 variant defined
+#error No ISO 6789 variant defined
 #endif
 
   // Prüfer
@@ -152,7 +155,9 @@ report_result create_ISO6789_report ( sqlite3 *db,
 
   // Torque Tester
   top = cairo_horizontal_line (cr, left_c1, top);
-  top = cairo_print_two_columns (cr, left_c1, left_c2, top, "Verwendete Mess- und Prüfeinrichtungen", "Test and equipment used", "");
+  cairo_set_font_size (cr, 0.5);
+  top = cairo_print_two_columns (cr, left_c1, left_c2, top, "Verwendete Mess- und Prüfeinrichtungen", "Test equipment used", "");
+  cairo_set_font_size (cr, 0.4);
   top = mm.tt.cairo_print (cr, left_c1, left_c2, top + 0.5);
 
   // Neue Seite
@@ -170,18 +175,22 @@ report_result create_ISO6789_report ( sqlite3 *db,
   // Messung
   top = mm.cairo_print (cr, left_c1, left_c2, top, ret.values_below_max_deviation, ret.timing_violation);
 
+  print_page_number (cr, page_num++);
+  cairo_show_page (cr);
+  top = 2;
+
   // Konformitätsaussage
   top = mm.cairo_print_conformity (cr, left_c1, top + 0.5, ret.values_below_max_deviation);
 
   // Bemerkungen
-  top = cairo_print_two_columns (cr, left_c1, left_c2, top + 0.5, "Bemerkungen", "Remarks", "");
+  // top = cairo_print_two_columns (cr, left_c1, left_c2, top + 0.5, "Bemerkungen", "Remarks", "");
 
   cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
   top = cairo_print_text (cr, left_c1, top, "Die englische Fassung dieses Kalibrierscheines ist eine unverbindliche Übersetzung.\n"
                           "Im Zweifelsfall gilt der deutsche Originaltext.");
 
   cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
-  top = cairo_print_text (cr, left_c1, top, "The english version of the calibration certificate is not a binding translation.\n"
+  top = cairo_print_text (cr, left_c1, top + 0.2, "The english version of the calibration certificate is not a binding translation.\n"
                           "If any matter gives rise to controversy, the german original text is valid.");
 
   top += 1;

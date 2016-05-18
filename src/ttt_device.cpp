@@ -75,15 +75,15 @@ void ttt_device::init ()
   resolution = pow(10, -al.get_digits ()) * al.get_resolution ();
 
   cout << "ttt_device::init" << endl;
-  cout << "  serial        = " << serial << endl;
-  cout << "  next_cal_date = " << next_cal_date << endl;
-  cout << "  cal_date      = " << cal_date << endl;
-  cout << "  cal_number    = " << cal_number << endl;
-  cout << "  scale         = " << scale << endl;
-  cout << "  resolution    = " << resolution << endl;
-  cout << "  max_M         = " << max_M << endl;
-  cout << "  uncertainty   = " << uncertainty << endl;
-  cout << "  peak_level    = " << peak_level << endl;
+  cout << "  serial            = " << serial << endl;
+  cout << "  next_cal_date     = " << next_cal_date << endl;
+  cout << "  cal_date          = " << cal_date << endl;
+  cout << "  cal_number        = " << cal_number << endl;
+  cout << "  scale             = " << scale << endl;
+  cout << "  resolution        = " << resolution << endl;
+  cout << "  max_M             = " << max_M << endl;
+  cout << "  uncertainty (k=2) = " << uncertainty << endl;
+  cout << "  peak_level        = " << peak_level << endl;
 }
 
 ttt_device::~ttt_device ()
