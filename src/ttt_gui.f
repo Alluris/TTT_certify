@@ -136,8 +136,8 @@ btn_test_person_abort->hide ();}
     } {
       Fl_Value_Input vi_test_object_id {
         label id
-        callback {load_test_object(o->value ());}
-        xywh {177 40 40 30} minimum 1 maximum 500 step 1 deactivate
+        callback {load_test_object(o->value ());} selected
+        xywh {177 40 40 30} minimum 1 maximum 500 step 1
       }
       Fl_Input inp_test_object_equipment_nr {
         label {Prüfmittelnummer}
@@ -532,7 +532,7 @@ else if (rb_din_6789->value () || rb_like_6789_repeat->value ())
   }
 
 update_run_activation ();
-Fl::add_timeout(0.01, run_cb);} selected
+Fl::add_timeout(0.01, run_cb);}
         xywh {785 195 110 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_stop {
