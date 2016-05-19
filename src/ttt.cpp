@@ -767,7 +767,8 @@ void ttt::load_torque_tester ()
 {
   if (pttt)
     {
-      // check if this is a new TTT or already in database
+      // check if this is a new TTT (using serial number),
+      // or if the next calibration date has changed (because it has been calibrated)
       int id = meas.tt.search_serial_and_next_cal_date (db, pttt->get_serial (), pttt->get_next_cal_date ());
       if (id > 0)
         {
