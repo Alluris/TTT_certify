@@ -50,8 +50,8 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT certify v0.2.1 vom 18.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2521 254 1275 765} type Double color 40 labelfont 1 align 20 visible
+    label {TTT certify v0.2.1 vom 18.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    xywh {524 228 1275 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -59,11 +59,11 @@ Function {create_widgets()} {open return_type void
     } {
       Fl_Input inp_test_person_name {
         label Name
-        xywh {536 211 210 25} when 8 deactivate
+        xywh {536 211 210 25} deactivate
       }
       Fl_Input inp_test_person_supervisor {
         label Verantwortlicher
-        xywh {536 246 210 25} when 8 deactivate
+        xywh {536 246 210 25} deactivate
       }
       Fl_Value_Input vi_test_person_uncertainty {
         label {erweiterte Messunsicherheit [%]}
@@ -708,7 +708,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     }
   }
   Fl_Window test_person_win {
-    label Bearbeitersuche selected
+    label Bearbeitersuche
     xywh {2319 150 670 540} type Double hide modal
   } {
     Fl_Table tp {open
