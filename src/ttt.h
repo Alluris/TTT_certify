@@ -294,6 +294,11 @@ public:
 
   //******* test person **************/
 
+  int get_test_person_id ()
+  {
+    return meas.tp.id;
+  }
+
   string get_test_person_name ()
   {
     return meas.tp.name;
@@ -310,6 +315,11 @@ public:
   }
 
   //******* test object **************/
+  int get_test_object_id ()
+  {
+    return meas.to.id;
+  }
+
   string get_test_object_equipment_nr ()
   {
     return meas.to.equipment_number;

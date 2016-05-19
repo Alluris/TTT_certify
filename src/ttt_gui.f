@@ -51,7 +51,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.2.1 vom 18.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2086 239 1275 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2070 239 1275 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -141,7 +141,7 @@ if (id)
   {
     o->value (id);
     load_test_object (id);
-  }} selected
+  }}
         xywh {177 40 40 30} minimum 1 maximum 500 step 1
       }
       Fl_Input inp_test_object_equipment_nr {
@@ -461,7 +461,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Prüfung} open
+      label {Prüfung} open selected
       xywh {761 6 515 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
@@ -482,6 +482,19 @@ std::cout << "test_object_accuracy       = " << test_object_accuracy << endl;
 
 string t = myTTT->get_test_object_type ();
 bool use_mean_as_nominal_value = test_object::has_no_scale (t) && ! test_object::has_fixed_trigger (t);
+
+if (myTTT->get_test_object_id () < 1)
+  {
+    fl_alert (gettext ("Es ist kein Drehmoment-Schraubwerkzeug ausgewählt."));
+    return;
+  }
+
+
+if (myTTT->get_test_person_id () < 1)
+  {
+    fl_alert (gettext ("Es ist kein Bearbeiter ausgewählt."));
+    return;
+  }
 
 if (btn_test_object_save->visible ())
   {
