@@ -51,7 +51,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.2.1 vom 18.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2070 239 1275 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2454 219 1275 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -624,15 +624,15 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
       }
       Fl_Group grp_rise_time {
         label {Zeitüberwachung} open
-        tooltip {Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge} xywh {1080 93 180 62} box GTK_THIN_UP_BOX align 5
+        tooltip {Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge} xywh {1080 108 180 64} box GTK_THIN_UP_BOX
       } {
         Fl_Round_Button rb_repeat_until_okay {
           label {Wiederholung bis normgerecht}
-          xywh {1090 97 170 28} type Radio down_box ROUND_DOWN_BOX value 1 align 148
+          xywh {1087 113 170 28} type Radio down_box ROUND_DOWN_BOX value 1 align 148
         }
         Fl_Round_Button rb_ignore_timing {
           label {keine Wiederholung}
-          xywh {1090 130 170 25} type Radio down_box ROUND_DOWN_BOX
+          xywh {1087 143 170 27} type Radio down_box ROUND_DOWN_BOX
         }
       }
       Fl_Table mtable {open
@@ -1035,7 +1035,13 @@ rb_manufacturer_accuracy->clear ();} {}
 Function {update_quick_check_nominal_visibility()} {open return_type void
 } {
   code {if (rb_quick_peak->value ())
-  vi_single_peak->show ();
+  {
+    vi_single_peak->show ();
+    grp_rise_time->hide ();
+  }
 else
-  vi_single_peak->hide ();} {}
+  {
+    vi_single_peak->hide ();
+    grp_rise_time->show ();
+  }} {}
 }
