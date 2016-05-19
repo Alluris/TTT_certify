@@ -54,7 +54,7 @@ Function {create_widgets()} {open return_type void
     xywh {2521 254 1275 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
-      label Bearbeiter
+      label Bearbeiter open
       xywh {406 141 350 190} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Input inp_test_person_name {
@@ -65,21 +65,9 @@ Function {create_widgets()} {open return_type void
         label Verantwortlicher
         xywh {536 246 210 25} when 8 deactivate
       }
-      Fl_Button btn_test_person_new {
-        label {@filenew neu}
-        callback {vi_test_person_id->hide ();
-inp_test_person_name->value ("");
-inp_test_person_supervisor->value ("");
-vi_test_person_uncertainty->value (0.0);
-
-inp_test_person_name->activate ();
-inp_test_person_supervisor->activate ();
-vi_test_person_uncertainty->activate ();
-btn_test_person_new->hide ();
-btn_test_person_search->hide ();
-btn_test_person_save->show ();
-btn_test_person_abort->show ();}
-        xywh {581 171 70 30} box GLEAM_THIN_UP_BOX
+      Fl_Value_Input vi_test_person_uncertainty {
+        label {erweiterte Messunsicherheit [%]}
+        tooltip {erweiterte Messunsicherheit durch den Bediener} xywh {686 281 60 25} maximum 100 step 0.1 deactivate
       }
       Fl_Button btn_test_person_save {
         label {@filesave speichern}
@@ -97,17 +85,29 @@ if (name.empty () || supervisor.empty () || uncertainty == 0.0)
 int id = myTTT->new_test_person (name, supervisor, uncertainty);
 vi_test_person_id->value (id);
 
-btn_test_person_abort->do_callback ();}
+btn_test_person_abort->do_callback ();} selected
         xywh {651 171 95 30} box GLEAM_THIN_UP_BOX
+      }
+      Fl_Button btn_test_person_new {
+        label {@filenew neu}
+        callback {vi_test_person_id->hide ();
+inp_test_person_name->value ("");
+inp_test_person_supervisor->value ("");
+vi_test_person_uncertainty->value (0.0);
+
+inp_test_person_name->activate ();
+inp_test_person_supervisor->activate ();
+vi_test_person_uncertainty->activate ();
+btn_test_person_new->hide ();
+btn_test_person_search->hide ();
+btn_test_person_save->show ();
+btn_test_person_abort->show ();}
+        xywh {581 171 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Value_Input vi_test_person_id {
         label id
         callback {load_test_person(o->value ());}
         xywh {536 171 40 30} minimum 1 maximum 100 step 1 deactivate
-      }
-      Fl_Value_Input vi_test_person_uncertainty {
-        label {erweiterte Messunsicherheit [%]}
-        tooltip {erweiterte Messunsicherheit durch den Bediener} xywh {686 281 60 25} maximum 100 step 0.1 deactivate
       }
       Fl_Button btn_test_person_abort {
         label {@undo abbrechen}
@@ -461,7 +461,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Prüfung} selected
+      label {Prüfung}
       xywh {761 6 515 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
