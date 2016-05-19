@@ -400,7 +400,7 @@ set_test_object_fields_editable (true);}
     }
     Fl_Group {} {
       label Umgebungsbedingungen open
-      tooltip {DIN EN ISO 6789:2003-10 6.2} xywh {406 6 350 123} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      xywh {406 6 350 123} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_temperature {
         label {Kalibriertemperatur [°C]}
