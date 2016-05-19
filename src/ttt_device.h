@@ -113,6 +113,7 @@ public:
       return "TTT-300C2";
     else if (max_M == 50)
       return "TTT-300C5";
+    return "unknown";
   }
 
   double get_resolution ()
