@@ -85,7 +85,7 @@ if (name.empty () || supervisor.empty () || uncertainty == 0.0)
 int id = myTTT->new_test_person (name, supervisor, uncertainty);
 vi_test_person_id->value (id);
 
-btn_test_person_abort->do_callback ();} selected
+btn_test_person_abort->do_callback ();}
         xywh {651 171 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_person_new {
@@ -131,7 +131,7 @@ btn_test_person_abort->hide ();}
       }
     }
     Fl_Group {} {
-      label {Drehmoment-Schraubwerkzeug}
+      label {Drehmoment-Schraubwerkzeug} open
       xywh {3 6 400 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_test_object_id {
@@ -461,7 +461,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Prüfung}
+      label {Prüfung} open
       xywh {761 6 515 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
@@ -482,6 +482,13 @@ std::cout << "test_object_accuracy       = " << test_object_accuracy << endl;
 
 string t = myTTT->get_test_object_type ();
 bool use_mean_as_nominal_value = test_object::has_no_scale (t) && ! test_object::has_fixed_trigger (t);
+
+if (myTTT->get_test_object_max_torque() > myTTT->get_torque_tester_max_torque ())
+  {
+    fl_alert (gettext ("Das maximale Drehmoment des Schraubwerkzeugs überschreitet\\n"
+    		       "den Maximalwert des Messgeräts. Ggf. anderes TTT anschließen!"));
+    return;
+  }
 
 if (myTTT->get_test_object_id () < 1)
   {
@@ -701,7 +708,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     }
   }
   Fl_Window test_person_win {
-    label Bearbeitersuche
+    label Bearbeitersuche selected
     xywh {2319 150 670 540} type Double hide modal
   } {
     Fl_Table tp {open
@@ -773,6 +780,7 @@ if (id > 0)
         choice_test_object_type->value (ind);
 
         rb_din_6789->setonly ();
+         rb_din_6789->do_callback ();
 
         //only Typ II devices are rise_time monitored
         if (myTTT->test_object_is_type (2))
