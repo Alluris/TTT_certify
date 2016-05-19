@@ -51,10 +51,10 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT certify v0.2.1 vom 18.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2454 219 1275 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2521 254 1275 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
-      label Bearbeiter open
+      label Bearbeiter
       xywh {406 141 350 190} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Input inp_test_person_name {
@@ -131,7 +131,7 @@ btn_test_person_abort->hide ();}
       }
     }
     Fl_Group {} {
-      label {Drehmoment-Schraubwerkzeug} open
+      label {Drehmoment-Schraubwerkzeug}
       xywh {3 6 400 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_test_object_id {
@@ -217,7 +217,7 @@ update_test_object_accuracy();} open
       }
       Fl_Choice choice_test_object_dir_of_rotation {
         label Funktionsrichtung
-        callback {cout << o->value() << endl;} open
+        callback {cout << o->value() << endl;}
         xywh {288 442 90 25} down_box BORDER_BOX deactivate
       } {
         MenuItem {} {
@@ -322,7 +322,7 @@ catch (std::runtime_error &e)
         xywh {293 77 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
-        label {Höchstzulässige Abweichung} open
+        label {Höchstzulässige Abweichung}
         xywh {40 694 338 59} box GTK_DOWN_BOX align 5
       } {
         Fl_Value_Input vi_test_object_accuracy {
@@ -399,7 +399,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label Umgebungsbedingungen open
+      label Umgebungsbedingungen
       xywh {406 6 350 123} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_temperature {
@@ -412,7 +412,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Messgerät} open
+      label {Messgerät}
       xywh {406 343 350 420} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vo_torque_tester_id {
@@ -461,7 +461,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Prüfung} open selected
+      label {Prüfung} selected
       xywh {761 6 515 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
@@ -642,7 +642,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     }
   }
   Fl_Window test_object_win {
-    label {test_object search} open
+    label Werkzeugsuche
     xywh {2288 448 935 645} type Double hide modal
   } {
     Fl_Table to {open
@@ -701,7 +701,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     }
   }
   Fl_Window test_person_win {
-    label {test_person search} open
+    label Bearbeitersuche
     xywh {2319 150 670 540} type Double hide modal
   } {
     Fl_Table tp {open
