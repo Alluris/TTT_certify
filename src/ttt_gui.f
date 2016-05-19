@@ -522,7 +522,7 @@ else if (rb_din_6789->value () || rb_like_6789_repeat->value ())
                          "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs (=%.2f%%) sein."),
                 total_extended_uncertainty * 100,
                 test_object_accuracy / 4.0 * 100);
-                          
+
       fl_alert (uncertainty_alert);
       }
     else if (temp > 28.0 || temp < 18.0)
