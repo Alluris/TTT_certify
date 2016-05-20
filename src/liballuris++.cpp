@@ -127,6 +127,9 @@ string liballuris::get_calibration_date ()
   //cout << "liballuris_get_calibration_date cal_date=" << cal_date << endl;
   RUNTIME_ERROR(r,"");
 
+  if (cal_date == 0xFFFF)
+    return "not calibrated";
+
   // convert days since 1.1.2000 to string
   time_t rawtime;
   time ( &rawtime );
@@ -154,6 +157,11 @@ string liballuris::get_calibration_number ()
   char tmp_buf[SERIAL_LEN];
   int r = liballuris_get_calibration_number (usb_h, tmp_buf, SERIAL_LEN);
   RUNTIME_ERROR(r,"");
+
+  std::cout << int(tmp_buf[0]) << std::endl;
+  if (tmp_buf[0] == -1)
+    return "not calibrated";
+
   return tmp_buf;
 }
 
@@ -162,6 +170,8 @@ double liballuris::get_uncertainty ()
   double uncertainty;
   int r = liballuris_get_uncertainty (usb_h, &uncertainty);
   RUNTIME_ERROR(r,"");
+  if (isnan (uncertainty))
+    uncertainty = 1;
   return uncertainty;
 }
 
