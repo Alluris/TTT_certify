@@ -41,7 +41,8 @@ using namespace std;
 enum out_cmd
 {
   NO_CMD = 0,
-  CMD_TARA = 1
+  CMD_TARA = 1,
+  RESET_CONFIRMATION = 2
 };
 
 class step

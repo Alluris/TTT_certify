@@ -501,6 +501,10 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
       else if (meas.to.is_type (2))
         for (int k = 0; k < 5; ++k)
           add_step (new preload_test_object_step(max_torque, 0.1));
+
+      // DIN EN ISO 6789: 6.3.1 c)
+      // Nur einmalig in Funktionsrichtung das Werkzeug tarieren
+      add_step (new tare_test_object_step());
 #endif
 
       for (unsigned int i=0; i < torque_list.size (); ++i)
@@ -546,8 +550,12 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
             }
           else // typ 1
             {
-              // Tara Prüfling
+
+#ifdef ISO6789_1
+              // DIN EN ISO 6789-1: Anhang C
+              // Bei 6789-1 wird bei jedem Wert das Werkzeug tariert
               add_step (new tare_test_object_step());
+#endif
 
               for (int k = 0; k < 5; ++k)
                 add_step (new peak_meas_step(torque_list[i], start_peak_torque_factor, stop_peak_torque_factor));
@@ -734,8 +742,12 @@ void ttt::stop_sequencer ()
 
 out_cmd ttt::sequencer_inout (double torque, bool confirmation)
 {
+  out_cmd ret;
   step *pstep = steps[current_step];
-  return pstep->inout (torque, confirmation);
+  ret = pstep->inout (torque, confirmation);
+  if (ret == RESET_CONFIRMATION)
+    this->confirmation = false;
+  return ret;
 }
 
 //! Loop over steps and list detected peaks

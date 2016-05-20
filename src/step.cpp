@@ -289,6 +289,7 @@ enum out_cmd tare_test_object_step::inout (double torque, bool confirmation)
   else if (int_step == 1 && confirmation)
     {
       int_step++;
+      return RESET_CONFIRMATION;
     }
   else if (int_step == 2)
     {
@@ -307,7 +308,7 @@ string tare_test_object_step::instruction ()
       oss << gettext ("Drehmoment-Schraubwerkzeug aus dem Messgerät entnehmen und 5s warten");
       break;
     case 1:
-      oss << gettext ("Drehmoment-Schraubwerkzeug tarieren");
+      oss << gettext ("Drehmoment-Schraubwerkzeug tarieren, wieder in das Messgerät einsetzen und die Schaltfläche 'Bestätigung' drücken");
       break;
     case 2:
       break;
