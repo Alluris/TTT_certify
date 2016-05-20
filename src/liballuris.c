@@ -319,9 +319,8 @@ int liballuris_get_device_list (libusb_context* ctx, struct alluris_device_descr
 #ifdef PRINT_DEBUG_MSG
           printf ("desc.idVendor = 0x%04X, desc.idProduct = 0x%04X\n", desc.idVendor, desc.idProduct);
 #endif
-          //check for compatible devices
-          // FMIS or TTT
-          if (desc.idVendor == 0x04d8 && (desc.idProduct == 0xfc30 || desc.idProduct == 0xf25e) )
+          // check for TTT
+          if (desc.idVendor == 0x04d8 && desc.idProduct == 0xf25e)
             {
               alluris_devs[num_alluris_devices].dev = dev;
 
