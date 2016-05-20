@@ -50,8 +50,8 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT certify v0.2.1 vom 18.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
-    xywh {524 228 1275 765} type Double color 40 labelfont 1 align 20 visible
+    label {TTT_Certify v0.2.3 vom 20.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    xywh {2449 244 1275 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -780,13 +780,7 @@ if (id > 0)
         choice_test_object_type->value (ind);
 
         rb_din_6789->setonly ();
-         rb_din_6789->do_callback ();
-
-        //only Typ II devices are rise_time monitored
-        if (myTTT->test_object_is_type (2))
-          grp_rise_time->show ();
-        else
-          grp_rise_time->hide ();
+        rb_din_6789->do_callback ();
 
         int dir =  myTTT->get_test_object_dir_of_rotation ();
         choice_test_object_dir_of_rotation->value (dir);
@@ -1050,6 +1044,11 @@ Function {update_quick_check_nominal_visibility()} {open return_type void
 else
   {
     vi_single_peak->hide ();
-    grp_rise_time->show ();
+
+    //only Typ II devices are rise_time monitored
+    if (myTTT->test_object_is_type (2))
+      grp_rise_time->show ();
+    else
+      grp_rise_time->hide ();
   }} {}
 }
