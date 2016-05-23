@@ -543,7 +543,11 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
 #error No ISO 6789 variant defined
 #endif
 
-              double peak_level = get_torque_tester_peak_level ();
+              // get peak level from test_object table
+              double peak_level = meas.to.peak_trigger2_factor;
+              // Use setting from TTT if peak_level <= 0
+              if (peak_level <= 0)
+                peak_level = get_torque_tester_peak_level ();
 
               for (int k = 0; k < count_click_measurements; ++k)
                 add_step (new peak_click_step(torque_list[i], min_t, max_t, repeat_on_timing_violation, start_peak_torque_factor, peak_level));

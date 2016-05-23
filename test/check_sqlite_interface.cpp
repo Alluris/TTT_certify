@@ -45,6 +45,9 @@ int main ()
   assert (! to.is_screwdriver ());
   assert (! to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
+
+/*
+  ISO 6789-1
   to.get_timing_from_DIN (5, min_t, max_t);
   assert (min_t == 0.5 && max_t == 0);
   to.get_timing_from_DIN (50, min_t, max_t);
@@ -53,6 +56,18 @@ int main ()
   assert (min_t == 1.5 && max_t == 0);
   to.get_timing_from_DIN (1500, min_t, max_t);
   assert (min_t == 2 && max_t == 0);
+*/
+
+  //ISO 6789
+  to.get_timing_from_DIN (5, min_t, max_t);
+  assert (min_t == 0.5 && max_t == 4);
+  to.get_timing_from_DIN (50, min_t, max_t);
+  assert (min_t == 0.5 && max_t == 4);
+  to.get_timing_from_DIN (500, min_t, max_t);
+  assert (min_t == 0.5 && max_t == 4);
+  to.get_timing_from_DIN (1500, min_t, max_t);
+  assert (min_t == 0.5 && max_t == 4);
+
 
   to.DIN_type = "I";
   to.DIN_class = "B";
@@ -64,7 +79,12 @@ int main ()
   assert (! to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
   to.get_timing_from_DIN (99, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 1.0 && max_t == 0);
+  */
+
+  // ISO 6789:
+  assert (min_t == 0.5 && max_t == 4);
 
   to.DIN_type = "I";
   to.DIN_class = "C";
@@ -76,8 +96,13 @@ int main ()
   assert (! to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
   to.get_timing_from_DIN (100, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 1.5 && max_t == 0);
-
+  */
+  
+  // ISO 6789
+  assert (min_t == 0.5 && max_t == 4);
+  
   to.DIN_type = "I";
   to.DIN_class = "D";
   to.max_torque = 11;
@@ -88,7 +113,11 @@ int main ()
   assert (! to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
   to.get_timing_from_DIN (10, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 0.5 && max_t == 1.0);
+  */
+  // ISO 6789
+  assert (min_t == 0.5 && max_t == 4.0);
 
   to.DIN_type = "I";
   to.DIN_class = "E";
@@ -100,7 +129,11 @@ int main ()
   assert (! to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
   to.get_timing_from_DIN (200, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 0.5 && max_t == 1.0);
+  */
+  // ISO6789
+  assert (min_t == 0.5 && max_t == 4.0);
 
   to.DIN_type = "II";
   to.DIN_class = "A";
@@ -112,8 +145,12 @@ int main ()
   assert (! to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
   to.get_timing_from_DIN (10, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 1.0 && max_t == 0.0);
-
+  */
+  // ISO6789
+  assert (min_t == 0.5 && max_t == 4.0);
+  
   to.DIN_type = "II";
   to.DIN_class = "B";
   to.max_torque = 11;
@@ -124,7 +161,11 @@ int main ()
   assert (to.has_no_scale ());
   assert (to.has_fixed_trigger ());
   to.get_timing_from_DIN (100, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 1.5 && max_t == 0.0);
+  */
+  // ISO6789
+  assert (min_t == 0.5 && max_t == 4.0);
 
   to.DIN_type = "II";
   to.DIN_class = "C";
@@ -136,7 +177,11 @@ int main ()
   assert (to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
   to.get_timing_from_DIN (10, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 1.0 && max_t == 0.0);
+  */
+  // ISO 6789
+  assert (min_t == 0.5 && max_t == 4.0);
 
   to.DIN_type = "II";
   to.DIN_class = "D";
@@ -148,8 +193,12 @@ int main ()
   assert (! to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
   to.get_timing_from_DIN (10, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 0.5 && max_t == 1.0);
-
+  */
+  // ISO 6789
+  assert (min_t == 0.5 && max_t == 4.0);
+  
   to.DIN_type = "II";
   to.DIN_class = "E";
   to.max_torque = 11;
@@ -160,7 +209,11 @@ int main ()
   assert (to.has_no_scale ());
   assert (to.has_fixed_trigger ());
   to.get_timing_from_DIN (10, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 0.5 && max_t == 1.0);
+  */
+  // ISO 6789
+  assert (min_t == 0.5 && max_t == 4.0);
 
   to.DIN_type = "II";
   to.DIN_class = "F";
@@ -172,7 +225,11 @@ int main ()
   assert (to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
   to.get_timing_from_DIN (10, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 0.5 && max_t == 1.0);
+  */
+  // ISO 6789
+  assert (min_t == 0.5 && max_t == 4.0);
 
   to.DIN_type = "II";
   to.DIN_class = "G";
@@ -184,7 +241,11 @@ int main ()
   assert (! to.has_no_scale ());
   assert (! to.has_fixed_trigger ());
   to.get_timing_from_DIN (1000, min_t, max_t);
+  /* ISO 6789-1
   assert (min_t == 2 && max_t == 0.0);
+  */
+  // ISO 6789
+  assert (min_t == 0.5 && max_t == 4.0);
 
   // init db
 
@@ -204,19 +265,20 @@ int main ()
   /*********** CHECK test_object save/load cycle **********/
 
   to.active = true;
-  to.equipment_number = "ZX4";
-  to.serial_number   = "XYZ 12345";
-  to.manufacturer    = "ACME";
-  to.model           = "super special tool";
-  to.DIN_type        = "II";
-  to.DIN_class       = "B";
-  to.dir_of_rotation = 0;    // 0 = beide, 1 = nur rechtsdrehend, 2 = nur linksdrehend
-  to.lever_length    = 0.2345;
-  to.min_torque      = 5;
-  to.max_torque      = 50;
-  to.resolution      = 0.5;
-  to.attachments     = "my super attachment";
-  to.accuracy        = 0.03;
+  to.equipment_number     = "ZX4";
+  to.serial_number        = "XYZ 12345";
+  to.manufacturer         = "ACME";
+  to.model                = "super special tool";
+  to.DIN_type             = "II";
+  to.DIN_class            = "B";
+  to.dir_of_rotation      = 0;    // 0 = beide, 1 = nur rechtsdrehend, 2 = nur linksdrehend
+  to.lever_length         = 0.2345;
+  to.min_torque           = 5;
+  to.max_torque           = 50;
+  to.resolution           = 0.5;
+  to.attachments          = "my super attachment";
+  to.accuracy             = 0.03;
+  to.peak_trigger2_factor = 0.8;
 
   to.save (db);
   printf ("to rowid = %i\n", to.id);

@@ -1,9 +1,8 @@
 /*
-  18.11.2015 Andreas Weber
+  23.05.2016 Andreas Weber
   TTT Datenbank und Tabellen anlegen
 
   https://www.sqlite.org/docs.html
-
 */
 
 DROP TABLE IF EXISTS test_person;
@@ -39,7 +38,8 @@ CREATE TABLE test_object (id INTEGER PRIMARY KEY,
                           max_torque REAL,
                           resolution REAL,           -- r siehe 6789-2 6.2.1
                           attachments TEXT,          -- Anbauteile
-                          accuracy REAL              -- relativ. 0 = aus der ISO 6789, sonst Herstellerangabe
+                          accuracy REAL,             -- relativ. 0 = aus der ISO 6789, sonst Herstellerangabe
+                          peak_trigger2_factor REAL  -- Peak detection faktor. 0 = use TTT setting.
                           );
 
 ---------------------------------------------------------------------------

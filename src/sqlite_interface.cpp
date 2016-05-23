@@ -266,6 +266,7 @@ void test_object::load_with_id (sqlite3 *db, int search_id)
               resolution = sqlite3_column_double (pStmt, 12);
               attachments = (const char*) sqlite3_column_text (pStmt, 13);
               accuracy = sqlite3_column_double (pStmt, 14);
+              peak_trigger2_factor = sqlite3_column_double (pStmt, 15);
             }
           sqlite3_finalize(pStmt);
           if (rc == SQLITE_DONE)
@@ -287,8 +288,8 @@ void test_object::save (sqlite3 *db)
 
   sqlite3_stmt *pStmt;
   int rc = sqlite3_prepare_v2 (db, "INSERT INTO test_object (active, serial_number, equipment_number, manufacturer, model, DIN_type, "
-                               "DIN_class, dir_of_rotation, lever_length, min_torque, max_torque, resolution, attachments, accuracy)"
-                               "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14);", -1, &pStmt, NULL);
+                               "DIN_class, dir_of_rotation, lever_length, min_torque, max_torque, resolution, attachments, accuracy, peak_trigger2_factor)"
+                               "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15);", -1, &pStmt, NULL);
   if (rc == SQLITE_OK)
     {
       sqlite3_bind_int (pStmt, 1, active);
@@ -305,6 +306,7 @@ void test_object::save (sqlite3 *db)
       sqlite3_bind_double (pStmt, 12, resolution);
       sqlite3_bind_text (pStmt, 13, attachments.c_str (), -1, SQLITE_STATIC);
       sqlite3_bind_double (pStmt, 14, accuracy);
+      sqlite3_bind_double (pStmt, 15, peak_trigger2_factor);
       rc = sqlite3_step (pStmt);
       sqlite3_finalize(pStmt);
       if (rc != SQLITE_DONE)
@@ -1328,21 +1330,22 @@ ostream& operator<< (ostream& os, const test_person &tp)
 ostream& operator<< (ostream& os, const test_object &to)
 {
   os << "test_object:" << endl;
-  os << "  id                = " << to.id << endl;
-  os << "  active            = " << to.active << endl;
-  os << "  test_equipment_nr = " << to.equipment_number << endl;
-  os << "  serial_number     = " << to.serial_number << endl;
-  os << "  manufacturer      = " << to.manufacturer << endl;
-  os << "  model             = " << to.model << endl;
-  os << "  DIN_type          = " << to.DIN_type << endl;
-  os << "  DIN_class         = " << to.DIN_class << endl;
-  os << "  dir_of_rotation   = " << to.dir_of_rotation << endl;
-  os << "  lever_length      = " << to.lever_length << endl;
-  os << "  min_torque        = " << to.min_torque << endl;
-  os << "  max_torque        = " << to.max_torque << endl;
-  os << "  resolution        = " << to.resolution << endl;
-  os << "  attachments       = " << to.attachments << endl;
-  os << "  accuracy          = " << to.accuracy << endl;
+  os << "  id                   = " << to.id << endl;
+  os << "  active               = " << to.active << endl;
+  os << "  test_equipment_nr    = " << to.equipment_number << endl;
+  os << "  serial_number        = " << to.serial_number << endl;
+  os << "  manufacturer         = " << to.manufacturer << endl;
+  os << "  model                = " << to.model << endl;
+  os << "  DIN_type             = " << to.DIN_type << endl;
+  os << "  DIN_class            = " << to.DIN_class << endl;
+  os << "  dir_of_rotation      = " << to.dir_of_rotation << endl;
+  os << "  lever_length         = " << to.lever_length << endl;
+  os << "  min_torque           = " << to.min_torque << endl;
+  os << "  max_torque           = " << to.max_torque << endl;
+  os << "  resolution           = " << to.resolution << endl;
+  os << "  attachments          = " << to.attachments << endl;
+  os << "  accuracy             = " << to.accuracy << endl;
+  os << "  peak_trigger2_factor = " << to.peak_trigger2_factor << endl;
   return os;
 }
 
@@ -1360,7 +1363,8 @@ bool test_object::equal (const test_object &to)
              &&  min_torque == to.min_torque
              &&  max_torque == to.max_torque
              &&  resolution == to.resolution
-             &&  accuracy == to.accuracy;
+             &&  accuracy == to.accuracy
+             &&  peak_trigger2_factor == to.peak_trigger2_factor;
 }
 
 ostream& operator<< (ostream& os, const torque_tester &tt)

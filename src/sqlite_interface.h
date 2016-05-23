@@ -97,8 +97,9 @@ public:
   double resolution;      // Auflösung
   string attachments;     // Anbauteile
   double accuracy;        // Genauigkeit (besser "zulässige Messabweichung"), 0 = aus der DIN EN ISO 6789 bestimmen, sonst Herstellerangabe
+  double peak_trigger2_factor;  // Detektionsschwelle für Typ II peak, typischerweise 0.8..0.9. Wenn == 0.0 wird der am TTT eingestellte Wert verwendet
 
-  test_object(): id(-1), dir_of_rotation(-1), lever_length(-1), min_torque(-1), max_torque(-1), resolution(-1), accuracy(-1) {}
+  test_object(): id(-1), dir_of_rotation(-1), lever_length(-1), min_torque(-1), max_torque(-1), resolution(-1), accuracy(-1), peak_trigger2_factor(-1) {}
   void load_with_id (sqlite3 *db, int search_id);
   void save (sqlite3 *db);
 
