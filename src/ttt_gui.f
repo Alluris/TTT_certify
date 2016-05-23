@@ -50,7 +50,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify v0.2.3 vom 20.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    label {TTT_Certify v0.2.3 vom 20.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2449 244 1275 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
@@ -106,7 +106,7 @@ btn_test_person_abort->show ();}
       }
       Fl_Value_Input vi_test_person_id {
         label id
-        callback {load_test_person(o->value ());}
+        callback {load_test_person(o->value ());} selected
         xywh {536 171 40 30} minimum 1 maximum 100 step 1 deactivate
       }
       Fl_Button btn_test_person_abort {
@@ -310,7 +310,8 @@ try
               max_torque,
               vi_test_object_resolution->value (),
               mi_test_object_attachments->value (),
-              accuracy);
+              accuracy,
+              0); //peak_trigger2_factor ist in der Datenbank vorbereitet, wird hier aber noch nicht verwendet
 
     vi_test_object_id->value (id);
     btn_test_object_abort->do_callback ();

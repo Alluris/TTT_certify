@@ -504,7 +504,8 @@ void ttt::add_ISO6789_steps (bool repeat_on_timing_violation)
 
       // DIN EN ISO 6789: 6.3.1 c)
       // Nur einmalig in Funktionsrichtung das Werkzeug tarieren
-      add_step (new tare_test_object_step());
+      if (meas.to.is_type (1))
+        add_step (new tare_test_object_step());
 #endif
 
       for (unsigned int i=0; i < torque_list.size (); ++i)

@@ -216,7 +216,8 @@ public:
                         double max_torque,
                         double resolution,
                         string attachments,
-                        double accuracy)
+                        double accuracy,
+                        double peak_trigger2_factor)
   {
     meas.to.id = -1;
     meas.to.active = true;
@@ -243,6 +244,7 @@ public:
     meas.to.resolution      = resolution;
     meas.to.attachments     = attachments;
     meas.to.accuracy        = accuracy;
+    meas.to.peak_trigger2_factor = peak_trigger2_factor;
     meas.to.save (db);
     return meas.to.id;
   }

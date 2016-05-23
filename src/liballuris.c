@@ -1584,7 +1584,8 @@ int liballuris_set_peak_level (libusb_device_handle *dev_handle, int v)
   out_buf[0] = 0x31;
   out_buf[1] = 3;
   out_buf[2] = v;
-  int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 3, DEFAULT_SEND_TIMEOUT, 3, DEFAULT_RECEIVE_TIMEOUT);
+  // worst execution time = 0.484s
+  int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 3, DEFAULT_SEND_TIMEOUT, 3, 726);
 
   if (in_buf[2] != v)
     return LIBALLURIS_DEVICE_BUSY;
