@@ -255,6 +255,16 @@ int main(int argc, char **argv)
 
   create_widgets ();
 
+#ifdef _WIN32
+  mainwin->icon((char *)LoadIcon(fl_display, MAKEINTRESOURCE(101)));
+#elif !defined(__APPLE__)
+  //FIXME: Not yet tested for Apple
+  fl_open_display();
+  mainwin->icon((char *)XCreateBitmapFromData(fl_display, DefaultRootWindow(fl_display),
+                                     (char *)sudoku_bits, sudoku_width,
+				     sudoku_height));
+#endif // WIN32
+
   // search table callbacks
   to->set_select_cb (test_object_table_selected);
   tp->set_select_cb (test_person_table_selected);

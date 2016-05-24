@@ -1,1 +1,26 @@
-desk1   ICON "Alluris.ico"
+101 ICON "Alluris.ico"
+
+1 VERSIONINFO
+FILEVERSION     0,0,0,0
+PRODUCTVERSION  0,0,0,0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040704E4"
+    BEGIN
+      VALUE "CompanyName", "Alluris GmbH & Co. KG"
+      VALUE "FileDescription", "GUI for Tool Torque Tester"
+      VALUE "FileVersion", "0.2.4"
+      VALUE "InternalName", "TTT_Certify"
+      VALUE "LegalCopyright", "Alluris GmbH & Co. KG"
+      VALUE "OriginalFilename", "ttt_gui.exe"
+      VALUE "ProductName", "TTT Certify"
+      VALUE "ProductVersion", "0.2.4"
+    END
+  END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x407, 0x4E4
+  END
+END
