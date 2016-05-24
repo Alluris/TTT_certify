@@ -58,6 +58,7 @@ TTT_certify_mingw64_i686_build:
 	cp /mingw32/bin/zlib1.dll $@
 	cp /mingw32/bin/libgraphite2.dll $@
 	cp /mingw32/bin/libpcre-1.dll $@
+	cp ../LICENSE $@
 
 clean:
 	find . -name "octave-workspace" -exec rm {} \;
