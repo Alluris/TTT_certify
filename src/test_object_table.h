@@ -61,6 +61,9 @@ private:
           case 4:
             snprintf (s, 40, "%s", gettext ("Typ"));
             break;
+          case 5:
+            snprintf (s, 40, "%s", gettext ("M_max"));
+            break;
           }
         DrawHeader(s,X,Y,W,H);
         return;
@@ -86,6 +89,9 @@ private:
           case 4:
             snprintf (s, 40, "%s", vto[ROW].get_type_class ().c_str ());
             break;
+          case 5:
+            snprintf (s, 40, "%.2f", vto[ROW].max_torque);
+            break;
           }
         DrawData(s,X,Y,W,H,row_selected (ROW) ? FL_YELLOW : FL_WHITE);
         return;
@@ -106,13 +112,14 @@ public:
     row_resize(0);              // disable row resizing
 
     // Cols
-    cols(5);              // how many columns
+    cols(6);              // how many columns
     col_header(1);        // enable column headers (along top)
     col_width (0, 170);   // Prüfmittelnummer
     col_width (1, 170);   // Seriennummer
     col_width (2, 170);   // Hersteller
     col_width (3, 170);   // Modell
     col_width (4, 70);    // Typ
+    col_width (5, 70);    // M_Max
     col_resize(1);        // enable column resizing
 
     type (SELECT_SINGLE); // Only single rows can be selected
