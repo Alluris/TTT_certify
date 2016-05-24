@@ -694,12 +694,16 @@ void ttt::start_sequencer_quick_check (double temperature, double humidity, doub
 
   clear_steps ();
 
+  add_step (new tare_torque_tester_step());
+
   // 5 Messungen ohne Tara und ohne rise_time Überwachung
   // add_step (new tare_step());
 
   if (test_object_is_type (2))
     {
-      double peak_level = get_torque_tester_peak_level ();
+      double peak_level = meas.to.peak_trigger2_factor;
+      if (peak_level <= 0)
+        peak_level = get_torque_tester_peak_level ();
 
       for (int k = 0; k < 5; ++k)
         add_step (new peak_click_step(nominal_value, 0, 10, false, start_peak_torque_factor, peak_level));
