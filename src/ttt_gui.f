@@ -41,7 +41,7 @@ decl {void run_cb(void *)} {public global
 decl {ttt *myTTT;} {public local
 }
 
-decl {Fl_Text_Buffer *instruction_buff;} {public local
+decl {Fl_Text_Buffer *instruction_buff;} {selected public local
 }
 
 decl {bool test_object_edit_flag;} {private local
@@ -50,8 +50,8 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify v0.2.3 vom 20.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2449 244 1275 765} type Double color 40 labelfont 1 align 20 visible
+    label {TTT_Certify v0.2.4 vom 24.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    xywh {2449 244 1275 765} type Double color 40 labelfont 1 align 20 hide
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -106,7 +106,7 @@ btn_test_person_abort->show ();}
       }
       Fl_Value_Input vi_test_person_id {
         label id
-        callback {load_test_person(o->value ());} selected
+        callback {load_test_person(o->value ());}
         xywh {536 171 40 30} minimum 1 maximum 100 step 1 deactivate
       }
       Fl_Button btn_test_person_abort {
