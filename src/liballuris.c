@@ -238,8 +238,8 @@ static int liballuris_interrupt_transfer (libusb_device_handle* dev_handle,
       // if we want to disable streaming (0x01 0x04 0x00....) then reread and discard ID_SAMPLE 0x02
       if (r == LIBUSB_SUCCESS && out_buf[0] == 0x01 && out_buf[2] == 0x00 && in_buf[0] == 0x02)
         {
-          liballuris_clear_RX (dev_handle, 250);
-          liballuris_clear_RX (dev_handle, 250);
+          liballuris_clear_RX (dev_handle, 400);
+          liballuris_clear_RX (dev_handle, 400);
           return LIBUSB_SUCCESS;
         }
 

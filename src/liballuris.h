@@ -50,10 +50,10 @@ If not, see <http://www.gnu.org/licenses/>.
 #define MAX_NUM_DEVICES 4
 
 //! Default timeout in milliseconds while writing to the device
-#define DEFAULT_SEND_TIMEOUT 50
+#define DEFAULT_SEND_TIMEOUT 250
 
 //! Default timeout in milliseconds while reading from the device
-#define DEFAULT_RECEIVE_TIMEOUT 100
+#define DEFAULT_RECEIVE_TIMEOUT 500
 
 //! Default send buffer size. Should be multiple of wMaxPacketSize
 #define DEFAULT_SEND_BUF_LEN 64
