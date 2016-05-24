@@ -208,8 +208,19 @@ int main(int argc, char **argv)
   if (argc > 3)
     {
       cerr << "Usage: ttt_gui [TEST_OBJECT_RECORD_ID] [SIM_FN]" << endl;
+      cerr << "or" << endl;
+      cerr << "on windoze: ttt_gui [LANG ID]" << endl;
       return -1;
     }
+
+#ifdef _WIN32
+  if (argc == 2)
+    {
+      char lang_buf[50];
+      snprintf (lang_buf, 50, "LANG=%s", argv[1]);
+      putenv (lang_buf);
+    }
+#endif
 
   // read setting with libconfuse
   static char *database = NULL;
@@ -257,13 +268,11 @@ int main(int argc, char **argv)
 
 #ifdef _WIN32
   mainwin->icon((char *)LoadIcon(fl_display, MAKEINTRESOURCE(101)));
-#elif !defined(__APPLE__)
-  //FIXME: Not yet tested for Apple
-  fl_open_display();
-  mainwin->icon((char *)XCreateBitmapFromData(fl_display, DefaultRootWindow(fl_display),
-                                     (char *)sudoku_bits, sudoku_width,
-				     sudoku_height));
-#endif // WIN32
+#else
+  // not yet implemented for *NIX and APPLE.
+  // See: http://www.fltk.org/doc-1.3/osissues.html
+  // Setting the Icon of a Window
+#endif
 
   // search table callbacks
   to->set_select_cb (test_object_table_selected);
@@ -321,7 +330,7 @@ int main(int argc, char **argv)
       search_test_person_name->value ("*");
       tp->search_name ("*");
 
-      if (argc > 1)
+      if (argc == 3)
         vi_test_object_id->value (atoi (argv[1]));
       else
         // select initial test_person from config
