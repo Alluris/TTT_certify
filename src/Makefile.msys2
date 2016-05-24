@@ -61,5 +61,5 @@ TTT_certify_mingw64_i686_build:
 
 clean:
 	find . -name "octave-workspace" -exec rm {} \;
-	rm -f $(TARGETS)
+	rm -rf $(TARGETS)
 	rm -f *.log *.o
