@@ -533,10 +533,11 @@ int torque_tester::search_serial_and_next_cal_date (sqlite3 *db, string serial, 
       sqlite3_bind_text (pStmt, 1, serial.c_str (), -1, SQLITE_STATIC);
       sqlite3_bind_text (pStmt, 2, next_cal_date.c_str (), -1, SQLITE_STATIC);
       rc = sqlite3_step (pStmt);
-      if (rc == SQLITE_ROW)
+      if (rc == SQLITE_ROW){
         tmp_id = sqlite3_column_int (pStmt, 0);
+      	rc = sqlite3_step (pStmt);
+      }
 
-      rc = sqlite3_step (pStmt);
       if (rc != SQLITE_DONE)
         throw runtime_error ("torque_tester::search_serial_and_next_cal_date more than one torqe_tester with given serial and next_cal_date");
 
