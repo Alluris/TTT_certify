@@ -205,6 +205,13 @@ void cairo_box::graphic(cairo_t* cr, double x, double y, double w, double h)
 
 int main(int argc, char **argv)
 {
+
+#ifdef _WIN32
+  std::ofstream out("logfiles/ttt_gui.log");
+  std::streambuf *coutbuf = std::cout.rdbuf();
+  std::cout.rdbuf(out.rdbuf()); //redirect std::cout
+#endif
+
   if (argc > 3)
     {
       cerr << "Usage: ttt_gui [TEST_OBJECT_RECORD_ID] [SIM_FN]" << endl;
@@ -216,9 +223,12 @@ int main(int argc, char **argv)
 #ifdef _WIN32
   if (argc == 2)
     {
-      char lang_buf[50];
+      // create string on heap (putenv doesn't copy the string)
+      // never free it! (this sound like a memory leak, I know)
+      char *lang_buf = (char *) malloc (50);
       snprintf (lang_buf, 50, "LANG=%s", argv[1]);
-      putenv (lang_buf);
+      putenv(lang_buf);
+      std::cout << "putenv(" << lang_buf << ")" << std::endl;
     }
 #endif
 
@@ -257,12 +267,6 @@ int main(int argc, char **argv)
   //bindtextdomain("ttt","/usr/share/locale");
   bindtextdomain("ttt","./po");
   textdomain ("ttt");
-
-#ifdef _WIN32
-  std::ofstream out("logfiles/ttt_gui.log");
-  std::streambuf *coutbuf = std::cout.rdbuf();
-  std::cout.rdbuf(out.rdbuf()); //redirect std::cout
-#endif
 
   create_widgets ();
 
