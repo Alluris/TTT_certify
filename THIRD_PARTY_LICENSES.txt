@@ -1,0 +1,33 @@
+This product depends on many free third party libraries which are included in the Windows binary release.
+See directory "./third_party_licenses" for a copy of related licenses
+
++--------------------------+---------------+---------------------+-------------------+--------------------------------------------------------------------------------------------------+
+|        Framework         |    Library    |  Corresponding dll  |     license       |                                             Website                                              |
++--------------------------+---------------+---------------------+-------------------+--------------------------------------------------------------------------------------------------+
+| bzip2                    | libbzip2      | libbz2-1.dll        | BSD-style         | http://www.bzip.org/                                                                             |
+| cairo                    | libcairo2     | libcairo-2.dll      | LGPL/MPL          | https://www.cairographics.org/                                                                   |
+| libConfuse               | libconfuse    | libconfuse-0.dll    | ISC License       | https://github.com/martinh/libconfuse                                                            |
+| Expat                    | libexpat      | libexpat-1.dll      | MIT/X Consortium  | http://expat.sourceforge.net/                                                                    |
+| fontconfig               | libfontconfig | libfontconfig-1.dll | MIT               | https://www.freedesktop.org/wiki/Software/fontconfig/                                            |
+| FreeType                 | libfreetype   | libfreetype-6.dll   | FTL               | https://www.freetype.org/                                                                        |
+| gcc                      | libgcc        | libgcc_s_dw2-1.dll  | GCC RLE (*1)      | https://gcc.gnu.org/onlinedocs/gccint/Libgcc.html                                                |
+| GLib                     | libglib2.0    | libglib-2.0-0.dll   | LGPL              | https://developer.gnome.org/glib/stable/glib.html                                                |
+| HarfBuzz                 | libharfbuzz   | libharfbuzz-0.dll   | MIT               | https://www.freedesktop.org/wiki/Software/HarfBuzz/                                              |
+| libiconv                 | libiconv      | libiconv-2.dll      | LGPL              | http://www.gnu.org/software/libiconv/                                                            |
+| libintl                  | libintl       | libintl-8.dll       | LGPL              | http://www.gnu.org/software/gettext/gettext.html                                                 |
+| Pixman                   | libpixman     | libpixman-1-0.dll   | MIT               | http://www.pixman.org/                                                                           |
+| libpng                   | libpng        | libpng16-16.dll     | zlib/libpng (*2)  | http://libpng.org/pub/png/libpng.html                                                            |
+| SQLite                   | libsqlite3    | libsqlite3-0.dll    | Public domain (*3)| http://www.sqlite.org/                                                                           |
+| GNU Standard C++ Library | libstdc++     | libstdc++-6.dll     | LGPL              | https://gcc.gnu.org/libstdc++/                                                                   |
+| libusb                   | libusb        | libusb-1.0.dll      | LGPLv2.1          | http://libusb.info/                                                                              |
+| MinGW                    | libwinpthread | libwinpthread-1.dll | BSD-style         | https://sourceforge.net/p/mingw-w64/code/6184/tree/trunk/mingw-w64-libraries/winpthreads/COPYING |
+| Zlib                     | libzlib       | zlib1.dll           | zlib-license      | http://zlib.net/                                                                                 |
+| Graphite(SIL)            | libgraphite   | libgraphite2.dll    | LGPL              | http://graphite.sil.org/                                                                         |
+| PCRE                     | libpcre       | libpcre-1.dll       | BSD               | http://www.pcre.org/                                                                             |
++--------------------------+---------------+---------------------+-------------------+--------------------------------------------------------------------------------------------------+
+
+*1: http://www.gnu.org/licenses/gcc-exception-3.1-faq.de.html
+*2: https://opensource.org/licenses/Zlib
+*3: http://www.sqlite.org/copyright.html
+
+This table was made with the help of https://ozh.github.io/ascii-tables/
