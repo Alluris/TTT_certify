@@ -41,7 +41,7 @@ decl {void run_cb(void *)} {public global
 decl {ttt *myTTT;} {public local
 }
 
-decl {Fl_Text_Buffer *instruction_buff;} {selected public local
+decl {Fl_Text_Buffer *instruction_buff;} {public local
 }
 
 decl {bool test_object_edit_flag;} {private local
@@ -50,8 +50,8 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify v0.2.4 vom 24.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2449 244 1275 765} type Double color 40 labelfont 1 align 20 hide
+    label {TTT_Certify v0.2.5 vom 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    xywh {2449 244 1275 765} type Double color 40 labelfont 1 align 20 visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -413,36 +413,36 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Messgerät}
+      label {Messgerät} open selected
       xywh {406 343 350 420} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vo_torque_tester_id {
         label id
-        xywh {551 368 25 25} deactivate
+        xywh {566 368 25 25} deactivate
       }
       Fl_Input out_torque_tester_serial {
         label Seriennummer
-        xywh {551 403 195 25} deactivate
+        xywh {566 403 180 25} deactivate
       }
       Fl_Input out_torque_tester_manufacturer {
         label Hersteller
-        xywh {551 438 195 25} deactivate
+        xywh {566 438 180 25} deactivate
       }
       Fl_Input out_torque_tester_model {
         label Model
-        xywh {551 474 195 25} deactivate
+        xywh {566 474 180 25} deactivate
       }
       Fl_Input out_torque_tester_cal_date {
         label Kalibrierdatum
-        xywh {551 509 195 26} deactivate
+        xywh {566 509 180 26} deactivate
       }
       Fl_Input out_torque_tester_next_cal_date {
-        label {Kalibrierfälligkeit}
-        xywh {551 546 195 26} align 132 deactivate
+        label Kalibrierempfehlung
+        xywh {566 546 180 26} align 132 deactivate
       }
       Fl_Input out_torque_tester_cal_number {
         label {Kalibrierschein Nr.}
-        xywh {551 582 195 26} deactivate
+        xywh {566 582 180 26} deactivate
       }
       Fl_Value_Input vo_torque_tester_max_torque {
         label {Nominalwert [Nm]}
