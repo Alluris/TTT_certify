@@ -229,13 +229,13 @@ double test_person::cairo_print (cairo_t *cr, double c1, double c2, double top)
   os << id;
 
   //top = cairo_print_two_columns (cr, c1, c2, top, "Prüfer id", "inspector id", os.str ());
-  top = cairo_print_two_columns (cr, c1, c2, top, "Prüfer", "name", name);
-  top = cairo_print_two_columns (cr, c1, c2, top, "Verantwortlicher", "supervisor", supervisor);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Prüfer", "Name", name);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Verantwortlicher", "Supervisor", supervisor);
 
   ostringstream os_uncertainty;
   os_uncertainty << uncertainty * 100 << " % (k=2)";
 
-  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheit Bediener", "uncertainty by operator", os_uncertainty.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheit Bediener", "Uncertainty by operator", os_uncertainty.str ());
   return top;
 }
 
@@ -361,14 +361,14 @@ double test_object::cairo_print (cairo_t *cr, double c1, double c2, double top)
     default:
       break;
     }
-  top = cairo_print_two_columns (cr, c1, c2, top, "Funktionsrichtung(en)", "direction of rotation", str_rot);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Funktionsrichtung(en)", "Direction of rotation", str_rot);
 
   // Don't print lever length for screwdrivers
   if (! is_screwdriver ())
     {
       ostringstream os_lever_length;
       os_lever_length << lever_length << " m";
-      top = cairo_print_two_columns (cr, c1, c2, top, "Abstand Kraftangriffspunkt", "lever length", os_lever_length.str ());
+      top = cairo_print_two_columns (cr, c1, c2, top, "Abstand Kraftangriffspunkt", "Lever length", os_lever_length.str ());
     }
 
   // Don't print min torque if it has a fixed trigger
@@ -376,12 +376,12 @@ double test_object::cairo_print (cairo_t *cr, double c1, double c2, double top)
     {
       ostringstream os_min;
       os_min << min_torque << " Nm";
-      top = cairo_print_two_columns (cr, c1, c2, top, "Unterer Grenzwert", "Min torque", os_min.str ());
+      top = cairo_print_two_columns (cr, c1, c2, top, "Unterer Grenzwert", "Min. torque", os_min.str ());
     }
 
   ostringstream os_max;
   os_max << max_torque << " Nm";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Oberer Grenzwert", "Max torque", os_max.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Oberer Grenzwert", "Max. torque", os_max.str ());
 
   // Print resolution if device has a scale
   if (! has_no_scale ())
@@ -408,9 +408,9 @@ double test_object::cairo_print (cairo_t *cr, double c1, double c2, double top)
   else
     os_accuracy << accuracy * 100 << " % (gemäß Herstellerangabe)";
 
-  top = cairo_print_two_columns (cr, c1, c2, top, "höchstzulässige Abweichung", "maximum deviation", os_accuracy.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "höchstzulässige Abweichung", "Maximum deviation", os_accuracy.str ());
 
-  top = cairo_print_two_columns (cr, c1, c2, top, "Anbauteile", "attachments", attachments);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Anbauteile", "Attachments", attachments);
 
   return top;
 }
@@ -596,13 +596,13 @@ double torque_tester::cairo_print (cairo_t *cr, double c1, double c2, double top
   top = cairo_print_two_columns (cr, c1, c2, top, "Normale", "Standards", model);
   top = cairo_print_two_columns (cr, c1, c2, top, "Hersteller", "Manufacturer", manufacturer);
   top = cairo_print_two_columns (cr, c1, c2, top, "Seriennummer", "Serial number", serial_number);
-  top = cairo_print_two_columns (cr, c1, c2, top, "Nächstes Kalibrierdatum", "next calibration date", next_calibration_date);
-  top = cairo_print_two_columns (cr, c1, c2, top, "Kalibrierdatum", "calibration date", calibration_date);
-  top = cairo_print_two_columns (cr, c1, c2, top, "Kalibriernummer", "calibration number", calibration_number);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Kalibrierempfehlung", "Recalibration recommended", next_calibration_date);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Kalibrierdatum", "Calibration date", calibration_date);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Kalibriernummer", "Calibration number", calibration_number);
 
   ostringstream os_max;
   os_max << max_torque << " Nm";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Oberer Grenzwert", "Max torque", os_max.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Oberer Grenzwert", "Max. torque", os_max.str ());
 
   ostringstream os_resolution;
   os_resolution << resolution << " Nm";
@@ -610,7 +610,7 @@ double torque_tester::cairo_print (cairo_t *cr, double c1, double c2, double top
 
   ostringstream os_uncertainty_of_measurement;
   os_uncertainty_of_measurement << uncertainty_of_measurement * 100 << " % (k=2)";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheitsintervall", "uncertainty of measurement", os_uncertainty_of_measurement.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheitsintervall", "Uncertainty of measurement", os_uncertainty_of_measurement.str ());
 
   return top;
 }
@@ -1176,16 +1176,16 @@ double measurement::cairo_print_1_meas_table (cairo_t *cr, double c1, double top
 double measurement::cairo_print_header (cairo_t *cr, double c1, double c2, double top)
 {
   //source, font size, face and so on has to be initialized
-  top = cairo_print_two_columns (cr, c1, c2, top, "Start der Kalibrierung", "start of calibration", start_time);
-  top = cairo_print_two_columns (cr, c1, c2, top, "Ende der Kalibrierung", "stop of calibration", end_time);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Start der Kalibrierung", "Start of calibration", start_time);
+  top = cairo_print_two_columns (cr, c1, c2, top, "Ende der Kalibrierung", "End of calibration", end_time);
 
   ostringstream os_temp;
   os_temp << temperature << " °C";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Temperatur", "temperature", os_temp.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Temperatur", "Temperature", os_temp.str ());
 
   ostringstream os_humidity;
   os_humidity << humidity << " %rH";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Feuchtigkeit", "humidity", os_humidity.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Feuchtigkeit", "Humidity", os_humidity.str ());
 
   // Legende
   top = cairo_print_two_columns (cr, c1, c2, top + 0.2, "Verwendete Formelzeichen", "Used formular symbols", "");

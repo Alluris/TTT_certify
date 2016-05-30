@@ -99,7 +99,7 @@ report_result create_ISO6789_report ( sqlite3 *db,
   // Kalibrierdatum (end_time der Messung)
   cairo_set_font_size (cr, 0.4);
   double top = 6;
-  top = cairo_print_two_columns (cr, left_c1, left_c2, top, "Kalibrierdatum", "Date of Calibration", mm.end_time);
+  top = cairo_print_two_columns (cr, left_c1, left_c2, top, "Kalibrierdatum", "Date of calibration", mm.end_time);
 
   // Gegenstand
   top = mm.to.cairo_print (cr, left_c1, left_c2, top);
