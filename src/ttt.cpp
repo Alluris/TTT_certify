@@ -212,6 +212,10 @@ bool ttt::run ()
 
 #ifdef _WIN32
           ShellExecute (0, 0, report_filename.c_str (), 0, 0 , SW_SHOW );
+#elif __APPLE__
+          char call[256];
+          snprintf (call, 256, "open %s", report_filename.c_str ());
+          system (call);
 #else
           char call[256];
           snprintf (call, 256, "xdg-open %s", report_filename.c_str ());
