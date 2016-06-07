@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
 "POT-Creation-Date: 2016-05-30 10:31+0200\n"
-"PO-Revision-Date: 2016-05-30 16:24+0200\n"
+"PO-Revision-Date: 2016-05-31 12:26+0200\n"
 "Last-Translator: Klaus Hartkopf <hartkopf@alluris.de>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
-msgstr "+Précharger la dynamomètre à la valeur nominale"
+msgstr "+Précharger le dynamomètre à la valeur nominale"
 
 #: ../step.cpp:139
 msgid "Messgerät entlasten"
@@ -46,7 +46,8 @@ msgstr "Préparation de l'outil de vissage du couple"
 msgid ""
 "Drehmoment-Schraubwerkzeug entfernen und Messgerät für Tara nicht bewegen"
 msgstr ""
-"Retirer l'outil de vissage couple et ne pas bouger le dynamomètre pour tare"
+"Retirer l'outil de vissage du couple et ne pas bouger le dynamomètre pour "
+"tare"
 
 #: ../step.cpp:256
 msgid "Messgerät nicht bewegen, Tara läuft"
@@ -95,7 +96,7 @@ msgstr "+Charger l'outil de vissage du couple jusqu'à son déclenchement"
 #: ../step.cpp:576
 #, c-format
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
-msgstr "*Montée du couple était trop rapide (%.2fs < %.2fs). Répéter"
+msgstr "*Montée du couple était trop rapide (%.2fs < %.2fs). Répétition"
 
 #: ../step.cpp:580
 #, c-format
@@ -144,7 +145,7 @@ msgstr "Le numéro de l'outil de contrôle doit être clair."
 
 #: ../ttt_gui.cpp:259
 msgid "Wirklich löschen?"
-msgstr "Effacer réellement ?"
+msgstr "Effacer réellement?"
 
 #: ../ttt_gui.cpp:259
 msgid "Ja"
@@ -159,8 +160,9 @@ msgid ""
 "Das maximale Drehmoment des Schraubwerkzeugs überschreitet\n"
 "den Maximalwert des Messgeräts. Ggf. anderes TTT anschließen!"
 msgstr ""
-"Le couple maxi de l'outil de vissage dépasse\n"
-"la valeur maximale du dynamomètre. Raccorder éventuellement autre TTT !"
+"Le couple maxi de l'outil de vissage dépasse la valeur maximale du "
+"dynamomètre.\n"
+"Raccorder éventuellement autre TTT!"
 
 #: ../ttt_gui.cpp:351
 msgid "Es ist kein Drehmoment-Schraubwerkzeug ausgewählt."
@@ -239,7 +241,7 @@ msgid ""
 "79100 Freiburg, software@alluris.de"
 msgstr ""
 "TTT_Certify v0.2.5 du 30.06.2016 Alluris GmbH & Co. KG, Basler Str. 65, "
-"79100 Freiburg, software@alluris.de "
+"79100 Freiburg, software@alluris.de"
 
 #: ../ttt_gui.cpp:579
 msgid "Bearbeiter"
@@ -356,7 +358,7 @@ msgid ""
 msgstr ""
 "Mesure de l'axe de mesure jusqu'au centre de la zone de maintien de la main "
 "de la poignée ou du point d'attaque de la charge marqué sauf si le point "
-"d'attaque de la force est marqué ;"
+"d'attaque de la force est marqué;"
 
 #. Fl_Value_Input* vi_test_object_lever_length
 #: ../ttt_gui.cpp:679
@@ -376,7 +378,7 @@ msgstr "Valeur seuil supérieure (Nm)"
 #: ../ttt_gui.cpp:687
 msgid "Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE"
 msgstr ""
-"Valeur seuil supérieure de la palage de mesure TE  indiquée par le fabricant"
+"Valeur seuil supérieure de la plage de mesure TE  indiquée par le fabricant"
 
 #. Fl_Value_Input* vi_test_object_max_torque
 #. Fl_Value_Input* vo_torque_tester_max_torque
@@ -461,7 +463,7 @@ msgstr "Plage autorisée suivant DIN EN ISO 6789: 2003-10 6.2 18°C à 28°C"
 #. Fl_Value_Input* vi_temperature
 #: ../ttt_gui.cpp:781
 msgid "relative Luftfeuchte [%rH]"
-msgstr "Humidité relative de l'air (%H)"
+msgstr "Humidité relative de l'air (%HR)"
 
 #: ../ttt_gui.cpp:782
 msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%"
@@ -522,7 +524,7 @@ msgstr "Stop"
 #. Fl_Button* btn_stop
 #: ../ttt_gui.cpp:847
 msgid "@+82redo"
-msgstr "@+80redo"
+msgstr "@+82redo"
 
 #: ../ttt_gui.cpp:848 ../ttt_gui.cpp:853
 msgid "Drehrichtung"
@@ -607,7 +609,7 @@ msgstr "Sélectionner"
 #. Fl_Double_Window* test_object_win
 #: ../ttt_gui.cpp:1006
 msgid "Bearbeitersuche"
-msgstr "Recherche d'opérateurs"
+msgstr "Recherche d'opérateur"
 
 #: ../cairo_print_devices.c:5481
 msgid "Schlüssel mit Drehstab oder Biegestab"
@@ -654,7 +656,7 @@ msgstr "Tournevis, à réglage fixe"
 
 #: ../cairo_print_devices.c:5531
 msgid "Schraubendreher, verstellbar, ohne Skale"
-msgstr "Tournevis, réglable, sans graduction"
+msgstr "Tournevis, réglable, sans graduation"
 
 #: ../cairo_print_devices.c:5536
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
