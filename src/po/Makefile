@@ -1,7 +1,7 @@
 .PHONY: all
 .PHONY: clean
 
-all: ttt.pot en.mo fr.mo
+all: ttt.pot en.mo fr.mo it.mo es.mo
 
 ../ttt_gui.cpp:
 	make -C ../ ttt_gui.cpp
@@ -24,8 +24,14 @@ ttt.pot: ../step.cpp ../ttt.cpp ../ttt_gui.cpp ../ttt_gui_main.cpp ../cairo_prin
 	mkdir -p $(basename $@)/LC_MESSAGES
 	msgfmt -cv $< -o $(basename $@)/LC_MESSAGES/ttt.mo
 
+update: ttt.pot
+	msgmerge -U en.po ttt.pot
+	msgmerge -U fr.po ttt.pot
+	msgmerge -U it.po ttt.pot
+	msgmerge -U es.po ttt.pot
+
 clean:
 	rm -f *.mo
-	rm -rf en fr
+	rm -rf en fr it es
 
 ## try poedit!

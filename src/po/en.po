@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-05-25 12:06+0200\n"
-"PO-Revision-Date: 2016-05-25 12:12+0100\n"
+"POT-Creation-Date: 2016-05-30 10:31+0200\n"
+"PO-Revision-Date: 2016-05-30 10:33+0100\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -213,7 +213,7 @@ msgstr ""
 
 #: ../ttt_gui.cpp:574
 msgid ""
-"TTT_Certify v0.2.4 vom 24.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
+"TTT_Certify v0.2.5 vom 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
 "79100 Freiburg, software@alluris.de"
 msgstr ""
 
@@ -453,7 +453,7 @@ msgstr ""
 
 #. Fl_Input* out_torque_tester_cal_date
 #: ../ttt_gui.cpp:808
-msgid "Kalibrierfälligkeit"
+msgid "Kalibrierempfehlung"
 msgstr ""
 
 #. Fl_Input* out_torque_tester_next_cal_date
