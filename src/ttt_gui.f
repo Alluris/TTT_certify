@@ -51,7 +51,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT_Certify v0.2.5 vom 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2449 244 1275 765} type Double color 40 labelfont 1 align 20 visible
+    xywh {2449 244 1275 765} type Double color 40 labelfont 1 align 20 resizable visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -67,7 +67,7 @@ Function {create_widgets()} {open return_type void
       }
       Fl_Value_Input vi_test_person_uncertainty {
         label {erweiterte Messunsicherheit [%]}
-        tooltip {erweiterte Messunsicherheit durch den Bediener} xywh {686 281 60 25} maximum 100 step 0.1 deactivate
+        tooltip {erweiterte Messunsicherheit durch den Bediener} xywh {686 281 60 25} align 132 maximum 100 step 0.1 deactivate
       }
       Fl_Button btn_test_person_save {
         label {@filesave speichern}
@@ -324,7 +324,7 @@ catch (std::runtime_error &e)
       }
       Fl_Group {} {
         label {Höchstzulässige Abweichung}
-        xywh {40 694 338 59} box GTK_DOWN_BOX align 5
+        xywh {40 694 338 59} box GTK_DOWN_BOX align 133
       } {
         Fl_Value_Input vi_test_object_accuracy {
           label {%}
@@ -413,7 +413,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Messgerät} open selected
+      label {Messgerät} open
       xywh {406 343 350 420} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vo_torque_tester_id {
@@ -429,7 +429,7 @@ set_test_object_fields_editable (true);}
         xywh {566 438 180 25} deactivate
       }
       Fl_Input out_torque_tester_model {
-        label Model
+        label Model selected
         xywh {566 474 180 25} deactivate
       }
       Fl_Input out_torque_tester_cal_date {
@@ -438,11 +438,11 @@ set_test_object_fields_editable (true);}
       }
       Fl_Input out_torque_tester_next_cal_date {
         label Kalibrierempfehlung
-        xywh {566 546 180 26} align 132 deactivate
+        xywh {566 546 180 26} deactivate
       }
       Fl_Input out_torque_tester_cal_number {
         label {Kalibrierschein Nr.}
-        xywh {566 582 180 26} deactivate
+        xywh {566 582 180 26} align 132 deactivate
       }
       Fl_Value_Input vo_torque_tester_max_torque {
         label {Nominalwert [Nm]}
@@ -454,7 +454,7 @@ set_test_object_fields_editable (true);}
       }
       Fl_Value_Input vo_torque_tester_uncertainty {
         label {erweiterte Messunsicherheit [%]}
-        xywh {676 687 70 25} step 0.01 deactivate
+        xywh {676 687 70 25} align 132 step 0.01 deactivate
       }
       Fl_Value_Input vo_torque_tester_peak_level {
         label {Peak Level [%]}
