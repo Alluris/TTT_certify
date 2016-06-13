@@ -1,17 +1,17 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0303 
-header_name {.h} 
+version 1.0304
+header_name {.h}
 code_name {.cxx}
 decl {\#include "cairo_plot.h"} {public local
-} 
+}
 
 decl {\#include "cairo_star.h"} {public local
-} 
+}
 
 Function {} {open
 } {
   Fl_Window mainwin {
-    label {start test} open
+    label {start test} open selected
     xywh {199 126 960 575} type Double resizable visible
   } {
     Fl_Box plot {
@@ -23,14 +23,26 @@ Function {} {open
       class cairo_star
     }
     Fl_Button {} {
-      label fill
+      label {y = 0.5 * x}
       callback {plot->clear_points ();
 
 for (int k=0;k<10;++k)
-  plot->add_point(k, 0.2*k);
+  plot->add_point(k, 0.5*k);
 
 plot->redraw ();}
-      xywh {90 405 155 40}
+      xywh {90 405 195 40}
+    }
+    Fl_Button {} {
+      label {y = cos (x)}
+      callback {plot->clear_points ();
+
+for (int k=0;k<100;++k)
+  {
+    double p = k/10.0;
+    plot->add_point(p, cos (p));
+  }
+plot->redraw ();}
+      xywh {90 460 195 40}
     }
   }
-} 
+}
