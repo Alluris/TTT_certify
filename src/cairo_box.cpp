@@ -27,6 +27,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include <cairo-pdf.h>
 #include <FL/fl_draw.H>
 #include "cairo_box.h"
+#include <cmath>
 
 cairo_box::cairo_box (int x, int y, int w, int h, const char *l) : Fl_Box (x, y, w, h, l)
 {
@@ -55,29 +56,25 @@ cairo_surface_t*  cairo_box::set_surface(int wo, int ho)
 void cairo_box::draw(void)
 {
   // using fltk functions, set up white background with thin black frame
-  fl_push_no_clip();            /* remove any clipping region set by the expose events... */
-  fl_push_clip(x(), y(), w(), h());
   fl_color(FL_WHITE);
   fl_rectf(x(), y(), w(), h());
   fl_color(FL_BLACK);
   fl_rect(x(), y(), w(), h());
 
+  //fl_push_clip(100,100,100,100);
+  //fl_color(FL_BLACK);
+  //fl_line(1,1,parent()->w(),parent()->h());
+
   // set up cairo structures
   surface = set_surface(parent()->w(), parent()->h());
   cr      = cairo_create(surface);
-  cairo_set_source_rgb(cr, 0.0, 0.0, 0.0); // set drawing color to black
+  cairo_set_source_rgb (cr, 0.0, 0.0, 0.0); // set drawing color to black
   cairo_new_path(cr);
 
-  // virtual function defined in driver program
-  graphic(cr, x(), y(), w(), h());
+  //printf ("x()=%i, y()=%i, w()=%i, h()=%i\n", x(), y(), w(), h());
+  cairo_draw ();
 
   // release the cairo context
   cairo_destroy(cr);
   cairo_surface_destroy(surface);
-
-  // remove clip regions
-  fl_pop_clip();    // local clip region
-  fl_pop_clip();    // "no_clip" region
 }
-
-

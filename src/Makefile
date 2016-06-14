@@ -21,12 +21,12 @@ ttt_gui.cpp ttt_gui.h: ttt_gui.f
 %.o:%.c %.h
 	g++ $(CPPFLAGS) -c $<
 
-ttt_gui: ttt_gui.o ttt_gui_main.o measurement_table.o ttt.o ttt_device.o step.o sqlite_interface.o cairo_box.o cairo_drawing_functions.o cairo_print_devices.o liballuris++.o liballuris.o
+ttt_gui: ttt_gui.o ttt_gui_main.o measurement_table.o ttt.o ttt_device.o step.o sqlite_interface.o cairo_box.o cairo_device_box.o cairo_drawing_functions.o cairo_print_devices.o liballuris++.o liballuris.o
 	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_certify.db: create_database.sql fill_database.sql
-	sqlite3 ttt_certify.db < create_database.sql
-	sqlite3 ttt_certify.db < fill_database.sql
+	sqlite3 ttt_certify.db < $(word 1,$^)
+	sqlite3 ttt_certify.db < $(word 2,$^)
 
 ttt_quick_check_config.cpp ttt_quick_check_config.h: ttt_quick_check_config.f
 	fluid -o .cpp -c $<

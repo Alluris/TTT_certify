@@ -31,6 +31,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #ifndef CAIROBOX
 #define CAIROBOX
 
+#include <FL/Fl.H>
 #include <FL/Fl_Box.H>
 #include <cairo.h>
 
@@ -43,16 +44,29 @@ If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include <iostream>
+#include <stdio.h>
 
 class cairo_box : public Fl_Box
 {
+private:
   void draw(void);
-  cairo_t*          cr;
   cairo_surface_t*  surface;
   cairo_surface_t*  set_surface(int wo, int ho);
+protected:
+  cairo_t*          cr;
 public:
-  virtual void graphic(cairo_t* cr, double, double, double, double);
   cairo_box(int x, int y, int w, int h, const char *l=0);
+
+  void print_matrix ()
+  {
+    cairo_matrix_t matrix;
+    cairo_get_matrix (cr, &matrix);
+    printf ("\n");
+    printf ("| xx=%8.3f xy=%8.3f x0=%8.3f |\n", matrix.xx, matrix.xy, matrix.x0);
+    printf ("| xy=%8.3f yy=%8.3f y0=%8.3f |\n", matrix.yx, matrix.yy, matrix.y0);
+    printf ("|    %8.3f    %8.3f    %8.3f |\n", 0.0, 0.0, 1.0);
+  }
+  virtual void cairo_draw() = 0;
 };
 
 #endif

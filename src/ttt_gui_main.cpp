@@ -190,19 +190,6 @@ void test_person_table_selected (int id)
   test_person_win->hide ();
 }
 
-void cairo_box::graphic(cairo_t* cr, double x, double y, double w, double h)
-{
-  (void) h; //we don't need h here
-  cairo_translate (cr, x, y);
-  cairo_set_line_width (cr, 0.002);
-
-  cairo_scale (cr, 0.8 * w, 0.8 * w);
-  cairo_translate (cr, 0.1, 0.1);
-
-  int id = choice_test_object_type->value();
-  cairo_print_id (cr, id);
-}
-
 int main(int argc, char **argv)
 {
 

@@ -23,6 +23,9 @@ decl {\#include "ttt.h"} {public global
 decl {\#include "cairo_box.h"} {public global
 }
 
+decl {\#include "cairo_device_box.h"} {public global
+}
+
 decl {\#include "cairo_print_devices.h"} {public global
 }
 
@@ -345,7 +348,7 @@ update_test_object_accuracy();}
       Fl_Box cbox {
         label Klassifizierung
         xywh {22 302 365 135} box GTK_DOWN_BOX align 137
-        class cairo_box
+        class cairo_device_box
       }
       Fl_Button btn_test_object_abort {
         label {@undo abbrechen}
@@ -429,7 +432,7 @@ set_test_object_fields_editable (true);}
         xywh {566 438 180 25} deactivate
       }
       Fl_Input out_torque_tester_model {
-        label Model selected
+        label Model
         xywh {566 474 180 25} deactivate
       }
       Fl_Input out_torque_tester_cal_date {
@@ -825,7 +828,7 @@ if (id > 0)
   }} {}
 }
 
-Function {load_torque_tester()} {open return_type void
+Function {load_torque_tester()} {open selected return_type void
 } {
   code {// Seriennummer und next_cal_date des angeschlossenen TTTs wird ausgelesen
 // und anhand dieser in der Datenbank gesucht
@@ -858,6 +861,8 @@ Function {update_test_object_type_class()} {open
 char buf[100];
 type_class_description_id (id, buf, 100);
 cbox->copy_label (buf);
+cbox->update_id (id);
+
 mainwin->damage (FL_DAMAGE_ALL, cbox->x(), cbox->y()-30, cbox->w(), 29);
 cbox->redraw ();
 
