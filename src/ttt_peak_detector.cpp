@@ -37,20 +37,19 @@ bool ttt_peak_detector::update (double v)
   if (state == 0 && v > thres_start)
     {
       state = 1;
+      ps.push_back (peakset ());
+      ps.back().start_x = v_cnt;
+      ps.back().min_after_peak1_x = -1;
+      ps.back().min_after_peak1_y = 0;
+      ps.back().peak2_x = -1;
+      ps.back().peak2_y = 0;
+      ps.back().stop_x = -1;
     }
   else if (state == 1 && v < thres_peak1_rel * cummax)
     {
       state = 2;
-      ps.push_back (peakset ());
       ps.back().peak1_x = cummax_i;
       ps.back().peak1_y = cummax;
-
-      ps.back().min_after_peak1_x = -1;
-      ps.back().min_after_peak1_y = 0;
-
-      ps.back().peak2_x = -1;
-      ps.back().peak2_y = 0;
-
       cummin = cummax;
     }
   else if (state == 2 && v > cummin + (1-thres_peak1_rel)/3 * ps.back().peak1_y)
@@ -68,6 +67,7 @@ bool ttt_peak_detector::update (double v)
           ps.back().peak2_y = cummax;
         }
       state = 0;
+      ps.back().stop_x = v_cnt;
       cummax = 0;
       num_peaks++;
       retval = true;

@@ -13,7 +13,7 @@ cairo_plot::cairo_plot (int x, int y, int w, int h, const char *l)
     ylimmode (AUTO)
 {
 
-  clear_points ();
+  clear ();
   set_xlim (0, 10);
   set_ylim (0, 5);
 
@@ -242,7 +242,7 @@ void cairo_plot::load_csv (const char *fn, double FS)
   ifstream in (fn);
   if (in.is_open())
     {
-      clear_points ();
+      clear ();
       while (! in.fail ())
         {
           in >> value;
@@ -279,13 +279,20 @@ int cairo_plot::handle (int event)
   switch (event)
     {
     case FL_PUSH:
-      last_x = Fl::event_x ();
-      last_y = Fl::event_y ();
-      //cout << "last_x=" << last_x << " last_y" << last_y << endl;
+      if (Fl::event_button () == FL_RIGHT_MOUSE)
+        {
+          update_limits ();
+          redraw ();
+        }
+      else
+        {
+          last_x = Fl::event_x ();
+          last_y = Fl::event_y ();
+        }
       return 1;
 
     case FL_DRAG:
-      if (Fl::event_button () == 1) //PAN
+      if (Fl::event_button () == FL_LEFT_MOUSE) //PAN
         {
           int dx = Fl::event_x () - last_x;
           int dy = Fl::event_y () - last_y;
@@ -306,6 +313,16 @@ int cairo_plot::handle (int event)
           return 1;
         }
       break;
+
+    case FL_RELEASE:
+      if (Fl::event_button () == FL_LEFT_MOUSE && Fl::event_clicks ())
+        {
+          //double click
+          update_limits ();
+          redraw ();
+        }
+      return 1;
+
     case FL_MOUSEWHEEL:
       //cout << "event_dy " << Fl::event_dy () << endl;
 

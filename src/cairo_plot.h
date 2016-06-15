@@ -99,7 +99,7 @@ public:
     plot_marker.push_back (new marker (x, y, dia, red, green, blue));
   }
 
-  void clear_points ()
+  void clear ()
   {
     xdata.clear ();
     ydata.clear ();
@@ -107,6 +107,7 @@ public:
     ymin = 1.0/0.0;
     xmax = - xmin;
     ymax = - ymin;
+    plot_marker.clear ();
   }
 
   void set_xtick (double start, double step, double stop)
@@ -168,6 +169,12 @@ public:
       }
   }
 
+  void get_xlim (double &x0, double &x1)
+  {
+    x0 = xlim[0];
+    x1 = xlim[1];
+  }
+
   void set_ylim (double y0, double y1)
   {
     ylim[0] = y0;
@@ -180,10 +187,16 @@ public:
       }
   }
 
+  void get_ylim (double &y0, double &y1)
+  {
+    y0 = ylim[0];
+    y1 = ylim[1];
+  }
+
   void update_limits ()
   {
     set_xlim (xmin, xmax);
-    set_ylim (ymin, ymax);
+    set_ylim (ymin, ymax * 1.1);
   }
 
   void load_csv (const char *fn, double FS);

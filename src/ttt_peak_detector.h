@@ -28,11 +28,14 @@ If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <cstdio>
 #include <vector>
+#include <stdexcept>
 
 using namespace std;
 
 struct peakset
 {
+  int start_x;
+
   int peak1_x;
   double peak1_y;
 
@@ -41,6 +44,8 @@ struct peakset
 
   int peak2_x;
   double peak2_y;
+
+  int stop_x;
 };
 
 class ttt_peak_detector
@@ -51,7 +56,7 @@ private:
   double cummin;
   int cummax_i;
   int cummin_i;
-  int num_peaks;
+  unsigned int num_peaks;
   int state;
   int v_cnt;
 
@@ -89,9 +94,15 @@ public:
   void print_stats ()
   {
     cout << "Processed " << v_cnt << " values, found " << num_peaks << " peaksets" << endl;
-    for (int k=0; k < num_peaks; ++k)
+    for (unsigned int k=0; k < num_peaks; ++k)
       {
-        printf ("#%2i %6i %5.1f %6i %5.1f %6i %5.1f\n", k, ps[k].peak1_x, ps[k].peak1_y, ps[k].min_after_peak1_x, ps[k].min_after_peak1_y, ps[k].peak2_x, ps[k].peak2_y);
+        printf ("#%2i %6i %6i %5.1f %6i %5.1f %6i %5.1f %6i\n",
+                k,
+                ps[k].start_x,
+                ps[k].peak1_x, ps[k].peak1_y,
+                ps[k].min_after_peak1_x, ps[k].min_after_peak1_y,
+                ps[k].peak2_x, ps[k].peak2_y,
+                ps[k].stop_x);
       }
   }
 
@@ -100,9 +111,20 @@ public:
     return num_peaks;
   }
 
-  peakset get_peakset (int num)
+  peakset get_peakset (unsigned int num)
   {
-    return ps[num];
+    if (num < num_peaks)
+      return ps[num];
+    else
+      throw std::out_of_range ("No peakset with given num");
+  }
+
+  peakset get_last_peakset ()
+  {
+    if (num_peaks > 0)
+      return ps[num_peaks - 1];
+    else
+      throw std::out_of_range ("No peakset available");
   }
 
 };
