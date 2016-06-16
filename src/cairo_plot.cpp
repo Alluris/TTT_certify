@@ -10,7 +10,11 @@ cairo_plot::cairo_plot (int x, int y, int w, int h, const char *l)
     xtickmode (AUTO),
     ytickmode (AUTO),
     xlimmode (AUTO),
-    ylimmode (AUTO)
+    ylimmode (AUTO),
+    zoom_max_x (50),
+    zoom_min_x (0.1),
+    zoom_max_y (500),
+    zoom_min_y (0.1)
 {
 
   clear ();
