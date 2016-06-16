@@ -36,7 +36,7 @@ Function {} {open
 } {
   Fl_Window mainwin {
     label {TTT test object param check} open selected
-    xywh {2611 414 1050 705} type Double visible
+    xywh {2581 307 1045 665} type Double resizable visible
   } {
     Fl_Box cplot {
       xywh {7 8 758 689}
@@ -44,7 +44,7 @@ Function {} {open
     }
     Fl_Group {} {
       label Messung open
-      xywh {775 165 265 115} box GTK_DOWN_BOX align 5
+      xywh {775 159 265 165} box GTK_DOWN_BOX align 5
     } {
       Fl_Button btn_start {
         label {Tara+start}
@@ -57,7 +57,7 @@ Function {} {open
     values.clear ();
     Fl::add_timeout(0.01, run_cb);
   }}
-        xywh {785 185 85 35} box GTK_UP_BOX deactivate
+        xywh {785 179 85 35} box GTK_UP_BOX deactivate
       }
       Fl_Button btn_stop {
         label stop
@@ -68,51 +68,46 @@ Function {} {open
     o->deactivate ();
     btn_start->activate ();
   }}
-        xywh {785 230 85 35} box GTK_UP_BOX deactivate
+        xywh {785 224 85 35} box GTK_UP_BOX deactivate
       }
       Fl_Value_Output vo_value {
         label {Messwert [Nm]}
-        xywh {880 200 150 65} align 5 step 0.1 textsize 49
+        xywh {880 194 150 65} align 5 step 0.1 textsize 49
       }
-    }
-    Fl_Group {} {
-      label Peakdetektionsparameter open
-      xywh {775 310 265 65} box GTK_DOWN_BOX align 5
-    } {
       Fl_Value_Input vi_peak1_thres {
         label {Schwellwert Peak 1 [%]}
         callback {// keep current view
 update_cplot(true);}
-        tooltip {typsich 80% .. 90%} xywh {970 330 45 25} minimum 30 maximum 99 step 1 value 90
+        tooltip {typsich 80% .. 90%} xywh {980 284 45 25} minimum 30 maximum 99 step 1 value 90
       }
     }
     Fl_Group {} {
       label Statistiken open
-      xywh {775 405 265 135} box GTK_DOWN_BOX align 5
+      xywh {775 346 265 135} box GTK_DOWN_BOX align 5
     } {
       Fl_Value_Output vo_peak1 {
         label {Peak 1 [Nm]}
-        xywh {965 415 55 30} color 2 step 0.1
+        xywh {965 356 55 30} color 2 step 0.1
       }
       Fl_Value_Output vo_min1 {
         label {min nach Peak 1 [Nm]}
-        xywh {965 455 55 30} color 4 step 0.1 textcolor 255
+        xywh {965 396 55 30} color 4 step 0.1 textcolor 255
       }
       Fl_Value_Output vo_peak2 {
         label {Peak 2 [Nm]}
-        xywh {965 495 55 30} color 1 step 0.1
+        xywh {965 436 55 30} color 1 step 0.1
       }
     }
     Fl_Group {} {
       label {TTT über USB} open
-      xywh {775 25 265 115} box GTK_DOWN_BOX align 5
+      xywh {775 20 265 115} box GTK_DOWN_BOX align 5
     } {
       Fl_Value_Output vo_mmax {
         label {M_max [Nm]}
-        xywh {885 85 50 30} step 0.1 value 50
+        xywh {905 80 50 30} step 0.1 value 50
       }
       Fl_Check_Button meas_led {
-        xywh {790 35 35 40} type Normal down_box ROUND_DOWN_BOX selection_color 63 labelsize 25 when 0 deactivate
+        xywh {790 30 35 40} type Normal down_box ROUND_DOWN_BOX selection_color 63 labelsize 25 when 0 deactivate
       }
       Fl_Button btn_connect {
         label verbinden
@@ -152,35 +147,39 @@ else
   }
 
 mainwin->cursor (FL_CURSOR_DEFAULT);}
-        xywh {850 35 105 40} box GTK_UP_BOX
+        xywh {850 30 105 40} box GTK_UP_BOX
       }
     }
-    Fl_Button btn_csv {
-      label {Beispiel laden}
-      callback {string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand.csv";
-  double value;
-  int cnt = 0;
-  ifstream in (fn.c_str ());
-  if (in.is_open())
-    {
-      values.clear ();
-      while (! in.fail ())
-        {
-          in >> value;
-          values.push_back (value);
-	  cnt++;	
-        }
-
-      if (in.fail () && ! in.eof ())
-        cerr << "Couldn't read double in line " << cnt << endl;
-      cout << "read " << cnt << " values..." << endl;
-
-      in.close();
-      update_cplot();
-    }
-  else
-    cerr << "Unable to open file '" << fn << "'" << endl;}
-      xywh {820 630 165 40}
+    Fl_Group {} {
+      label Beispiele open
+      xywh {775 506 264 154} box GTK_DOWN_BOX align 5
+    } {
+      Fl_Button btn_csv1 {
+        label {\#1}
+        callback {string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand_2.csv";
+load_example (fn);}
+        xywh {970 587 30 30}
+      }
+      Fl_Button btn_csv2 {
+        label {\#2}
+        callback {string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand.csv";
+load_example (fn);}
+        xywh {970 617 30 30}
+      }
+      Fl_Button btn_csv3 {
+        label {\#1}
+        callback {string fn = "./examples/Garant_65_6050_6_SN15-492265_Hand.csv";
+load_example (fn);}
+        xywh {970 532 30 30} align 128
+      }
+      Fl_Box {} {
+        label {Garant 65 6050 6}
+        image {examples/Garant_65_6050_6_SN15-492265.png} xywh {782 513 170 65} box ENGRAVED_BOX
+      }
+      Fl_Box {} {
+        label {MANOSKOP 730/4}
+        image {examples/Stahlwille_MANOSKOP_730_4_610315061.png} xywh {782 584 170 65} box ENGRAVED_BOX
+      }
     }
   }
   code {try
@@ -326,4 +325,33 @@ for (unsigned int k=0; k < values.size (); ++k)
         break;
       }
   }} {}
+}
+
+Function {load_example(string fn)} {open
+} {
+  code {double value;
+  int cnt = 0;
+  ifstream in (fn.c_str ());
+  if (in.is_open())
+    {
+      values.clear ();
+      while (! in.fail ())
+        {
+          in >> value;
+          values.push_back (value);
+	  cnt++;	
+        }
+
+      if (in.fail () && ! in.eof ())
+        cerr << "Couldn't read double in line " << cnt << endl;
+      cout << "read " << cnt << " values..." << endl;
+
+      in.close();
+      update_cplot();
+    }
+  else
+    {
+      fl_alert (gettext ("Die Datei '%s' konnte nicht gefunden werden"), fn.c_str());
+      cerr << "Unable to open file '" << fn << "'" << endl;
+    }} {}
 }
