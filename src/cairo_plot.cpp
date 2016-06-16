@@ -324,13 +324,19 @@ int cairo_plot::handle (int event)
       return 1;
 
     case FL_MOUSEWHEEL:
-      //cout << "event_dy " << Fl::event_dy () << endl;
+#define SCALE_FACTOR 5
+      double dw = Fl::event_dy ();
 
-      double xw = (xlim[1] - xlim[0]) * Fl::event_dy ();
-      set_xlim (xlim[0] - xw/10, xlim[1] + xw/10);
+      if (dw < (- SCALE_FACTOR + 1))
+        {
+          dw = - SCALE_FACTOR + 1;
+          cout << "limit dw to " << dw << endl;
+        }
+      double xw = (xlim[1] - xlim[0]) * dw;
+      set_xlim (xlim[0] - xw/(2 * SCALE_FACTOR), xlim[1] + xw/(2 * SCALE_FACTOR));
 
-      double yw = (ylim[1] - ylim[0]) * Fl::event_dy ();
-      set_ylim (ylim[0] - yw/10, ylim[1] + yw/10);
+      double yw = (ylim[1] - ylim[0]) * dw;
+      set_ylim (ylim[0] - yw/(2 * SCALE_FACTOR), ylim[1] + yw/(2 * SCALE_FACTOR));
 
       redraw ();
       return 1;

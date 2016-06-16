@@ -159,13 +159,17 @@ public:
 
   void set_xlim (double x0, double x1)
   {
-    xlim[0] = x0;
-    xlim[1] = x1;
-
-    if (xtickmode == AUTO)
+    cout << "set_xlim (" << x0 << ", " << x1 << ")" << endl;
+    if (x0 < x1)
       {
-        double step = tick_from_lim (xlim[1] - xlim[0]);
-        set_xtick (ceil (xlim[0] / step) * step, step, floor (xlim[1] / step) * step);
+        xlim[0] = x0;
+        xlim[1] = x1;
+
+        if (xtickmode == AUTO)
+          {
+            double step = tick_from_lim (xlim[1] - xlim[0]);
+            set_xtick (ceil (xlim[0] / step) * step, step, floor (xlim[1] / step) * step);
+          }
       }
   }
 
@@ -177,13 +181,17 @@ public:
 
   void set_ylim (double y0, double y1)
   {
-    ylim[0] = y0;
-    ylim[1] = y1;
-
-    if (ytickmode == AUTO)
+    cout << "set_ylim (" << y0 << ", " << y1 << ")" << endl;
+    if (y0 < y1)
       {
-        double step = tick_from_lim (ylim[1] - ylim[0]);
-        set_ytick (ceil (ylim[0] / step) * step, step, floor (ylim[1] / step) * step);
+        ylim[0] = y0;
+        ylim[1] = y1;
+
+        if (ytickmode == AUTO)
+          {
+            double step = tick_from_lim (ylim[1] - ylim[0]);
+            set_ytick (ceil (ylim[0] / step) * step, step, floor (ylim[1] / step) * step);
+          }
       }
   }
 
