@@ -35,11 +35,11 @@ decl {\#define FS 900.0} {private local
 Function {} {open
 } {
   Fl_Window mainwin {
-    label {TTT test object param check} open selected
-    xywh {2581 307 1045 665} type Double resizable visible
+    label {TTT test object param check} open
+    xywh {2539 420 1045 665} type Double resizable visible
   } {
     Fl_Box cplot {
-      xywh {7 8 758 689}
+      xywh {5 3 765 659}
       class cairo_plot
     }
     Fl_Group {} {
@@ -74,11 +74,11 @@ Function {} {open
         label {Messwert [Nm]}
         xywh {880 194 150 65} align 5 step 0.1 textsize 49
       }
-      Fl_Value_Input vi_peak1_thres {
+      Fl_Value_Slider vi_peak1_thres {
         label {Schwellwert Peak 1 [%]}
         callback {// keep current view
 update_cplot(true);}
-        tooltip {typsich 80% .. 90%} xywh {980 284 45 25} minimum 30 maximum 99 step 1 value 90
+        tooltip {typisch 80% .. 90%} xywh {786 285 246 30} type {Horz Knob} align 1 minimum 30 maximum 99 step 1 value 90 textsize 14
       }
     }
     Fl_Group {} {
@@ -103,11 +103,11 @@ update_cplot(true);}
       xywh {775 20 265 115} box GTK_DOWN_BOX align 5
     } {
       Fl_Value_Output vo_mmax {
-        label {M_max [Nm]}
-        xywh {905 80 50 30} step 0.1 value 50
+        label {M_max [Nm]} selected
+        xywh {930 90 60 30} step 0.1 value 50
       }
       Fl_Check_Button meas_led {
-        xywh {790 30 35 40} type Normal down_box ROUND_DOWN_BOX selection_color 63 labelsize 25 when 0 deactivate
+        xywh {845 35 35 40} type Normal down_box ROUND_DOWN_BOX selection_color 63 labelsize 25 when 0 deactivate
       }
       Fl_Button btn_connect {
         label verbinden
@@ -147,7 +147,7 @@ else
   }
 
 mainwin->cursor (FL_CURSOR_DEFAULT);}
-        xywh {850 30 105 40} box GTK_UP_BOX
+        xywh {885 35 105 40} box GTK_UP_BOX
       }
     }
     Fl_Group {} {
@@ -215,7 +215,7 @@ if (measuring)
     // feed into peakdetection
     for (unsigned int k=0; k<tmp.size (); ++k)
     {
-      bool r = peakd.update (tmp[k]);
+      bool r = peakd.update (fabs(tmp[k]));
       if (r)
         {
           printf ("new peakset in peakd\\n");
@@ -266,7 +266,7 @@ if (keep_view)
 // feed values in peak detector
 for (unsigned int k=0; k < values.size (); ++k)
   {
-    bool r = tmp_peakd.update (values[k]);
+    bool r = tmp_peakd.update (fabs(values[k]));
     if (r)
       {
         printf ("new peakset\\n");
@@ -286,7 +286,7 @@ for (unsigned int k=0; k < values.size (); ++k)
         // feed into cplot
         cplot->clear ();
         for (unsigned int j=0; j <= (stop - start); ++j)
-          cplot->add_point (j/FS, values[start + j]);
+          cplot->add_point (j/FS, fabs(values[start + j]));
 
         if (keep_view)
           {

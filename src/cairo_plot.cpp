@@ -12,9 +12,9 @@ cairo_plot::cairo_plot (int x, int y, int w, int h, const char *l)
     xlimmode (AUTO),
     ylimmode (AUTO),
     zoom_max_x (50),
-    zoom_min_x (0.1),
+    zoom_min_x (0.02),
     zoom_max_y (500),
-    zoom_min_y (0.1)
+    zoom_min_y (0.05)
 {
 
   clear ();
@@ -328,21 +328,22 @@ int cairo_plot::handle (int event)
       return 1;
 
     case FL_MOUSEWHEEL:
+
 #define SCALE_FACTOR 5
+
       double dw = Fl::event_dy ();
 
       if (dw < (- SCALE_FACTOR + 1))
         {
           dw = - SCALE_FACTOR + 1;
-          cout << "limit dw to " << dw << endl;
+          //cout << "limit dw to " << dw << endl;
         }
-      double xw = (xlim[1] - xlim[0]) * dw;
-      set_xlim (xlim[0] - xw/(2 * SCALE_FACTOR), xlim[1] + xw/(2 * SCALE_FACTOR));
 
-      double yw = (ylim[1] - ylim[0]) * dw;
-      set_ylim (ylim[0] - yw/(2 * SCALE_FACTOR), ylim[1] + yw/(2 * SCALE_FACTOR));
+      double zoom_factor = 1 + dw/SCALE_FACTOR;
+      //cout << "zoom_factor=" << zoom_factor << endl;
 
-      redraw ();
+      zoom (zoom_factor);
+
       return 1;
     }
   return 1;

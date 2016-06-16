@@ -154,38 +154,44 @@ public:
 
   double tick_from_lim (double lim)
   {
-    double r5 = pow (5.0, ceil (log (lim / 10.0) / log(5.0)));
-    double r2 = pow (2.0, ceil (log (lim / 10.0) / log(2.0)));
-    if (lim / r5 < 5 && lim / r2 >= 5)
-      return r2;
-    else
-      return r5;
+    // in GNU Octave
+    // n = round (3 * log10 (range / 7));
+    // ret = (mod(n, 3).^2 + 1) .* 10.^floor(n/3);
+    // Attention:
+    // Octave mod (n, 3) is not equal to C++ n%3
+
+    int n = round (3 * log (lim / 7.0) / log (10));
+    double mod3 = n%3;
+    if (mod3 < 0)
+      mod3 += 3;
+
+    return (pow (mod3, 2) + 1) * pow (10, floor (n / 3.0));
+  }
+
+  void zoom (double factor)
+  {
+    double new_w =  (xlim[1] - xlim[0]) * factor;
+    double new_h =  (ylim[1] - ylim[0]) * factor;
+
+    if (   new_w < zoom_max_x
+           && new_w > zoom_min_x
+           && new_h < zoom_max_y
+           && new_h > zoom_min_y )
+      {
+        double mean_x = (xlim[0] + xlim[1]) / 2;
+        double mean_y = (ylim[0] + ylim[1]) / 2;
+
+        set_xlim (mean_x - new_w/2, mean_x + new_w/2);
+        set_ylim (mean_y - new_h/2, mean_y + new_h/2);
+        redraw ();
+      }
   }
 
   void set_xlim (double x0, double x1)
   {
     cout << "set_xlim (" << x0 << ", " << x1 << ")" << endl;
 
-    if (x1 < x0)
-      {
-        double tmp = x1;
-        x1 = x0;
-        x0 = x1;
-      }
-
-    if ((x1 - x0) < zoom_min_x)
-      {
-        x0 = (x0 + x1)/2 - zoom_min_x/2;
-        x1 = (x0 + x1)/2 + zoom_min_x/2;
-      }
-
-    if ((x1 - x0) > zoom_max_x)
-      {
-        x0 = (x0 + x1)/2 - zoom_max_x/2;
-        x1 = (x0 + x1)/2 + zoom_max_x/2;
-      }
-
-    if (x0 < x1)
+    if (x1 > x0 + zoom_min_x)
       {
         xlim[0] = x0;
         xlim[1] = x1;
@@ -193,6 +199,7 @@ public:
         if (xtickmode == AUTO)
           {
             double step = tick_from_lim (xlim[1] - xlim[0]);
+            cout << "xstep=" << step << endl;
             set_xtick (ceil (xlim[0] / step) * step, step, floor (xlim[1] / step) * step);
           }
       }
@@ -208,26 +215,7 @@ public:
   {
     cout << "set_ylim (" << y0 << ", " << y1 << ")" << endl;
 
-    if (y1 < y0)
-      {
-        double tmp = y1;
-        y1 = y0;
-        y0 = y1;
-      }
-
-    if ((y1 - y0) < zoom_min_y)
-      {
-        y0 = (y0 + y1)/2 - zoom_min_y/2;
-        y1 = (y0 + y1)/2 + zoom_min_y/2;
-      }
-
-    if ((y1 - y0) > zoom_max_y)
-      {
-        y0 = (y0 + y1)/2 - zoom_max_y/2;
-        y1 = (y0 + y1)/2 + zoom_max_y/2;
-      }
-
-    if (y0 < y1)
+    if (y1 > y0 + zoom_min_y)
       {
         ylim[0] = y0;
         ylim[1] = y1;
