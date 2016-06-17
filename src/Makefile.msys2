@@ -1,7 +1,7 @@
 .PHONY:clean
 .PHONY:TTT_certify_mingw64_i686_build
 
-TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cpp ttt_quick_check_config.h ttt_quick_check_config TTT_certify_mingw64_i686_build ttt_certify.res
+TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cpp ttt_quick_check_config.h ttt_quick_check_config ttt_param_check TTT_certify_mingw64_i686_build ttt_certify.res
 CPPFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -D FLTK_HAVE_CAIRO
 LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lconfuse -lintl
 
@@ -32,12 +32,18 @@ ttt_quick_check_config.cpp ttt_quick_check_config.h: ttt_quick_check_config.f
 ttt_quick_check_config: ttt_quick_check_config.o quick_check_table.o liballuris++.o liballuris.o
 	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
-ttt_certify.res: ttt_certify.rc 	
+ttt_param_check.cpp ttt_param_check.h: ttt_param_check.f
+	fluid -o .cpp -c $<
+
+ttt_param_check: ttt_param_check.o cairo_plot.o cairo_box.o ttt_peak_detector.o ttt_device.o liballuris++.o liballuris.o
+	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+
+ttt_certify.res: ttt_certify.rc
 	windres $^ -O coff -o $@
-	
+
 TTT_certify_mingw64_i686_build:
 	mkdir -p $@
-	cp ttt_certify.db ttt_gui.exe ttt_quick_check_config.exe $@
+	cp ttt_certify.db ttt_gui.exe ttt_quick_check_config.exe ttt_param_check.exe $@
 	cp /mingw32/bin/libbz2-1.dll $@
 	cp /mingw32/bin/libcairo-2.dll $@
 	cp /mingw32/bin/libconfuse-0.dll $@
@@ -60,6 +66,7 @@ TTT_certify_mingw64_i686_build:
 	cp /mingw32/bin/libpcre-1.dll $@
 	cp ../LICENSE.txt $@
 	cp ../THIRD_PARTY_LICENSES.txt $@
+	cp -r examples $@
 	cp -r ../third_party_licenses $@
 	cp -r --parents po/en $@
 	cp -r --parents po/fr $@
