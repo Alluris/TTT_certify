@@ -65,6 +65,8 @@ private:
   double thres_stop;
   double thres_peak1_rel;
 
+  int stop_delay_samples;
+
   vector <peakset> ps;
 public:
   ttt_peak_detector ();

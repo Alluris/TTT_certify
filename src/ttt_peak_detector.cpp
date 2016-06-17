@@ -3,7 +3,8 @@
 ttt_peak_detector::ttt_peak_detector ()
   : thres_start (0),
     thres_stop (0),
-    thres_peak1_rel (0.9)
+    thres_peak1_rel (0.9),
+    stop_delay_samples (100)
 {
   cout << "ttt_peak_detector::ttt_peak_detector ()" << endl;
   clear ();
@@ -12,12 +13,13 @@ ttt_peak_detector::ttt_peak_detector ()
 bool ttt_peak_detector::update (double v)
 {
   bool retval = false;
+  static int timer = 0;
   /* Algorithmus / Idee
    * Start der Peakdetektion wenn > thres_start (z.B. 2% von M-Max)
    * Detektion des 1. Peaks wenn Wert < thres_peak1_rel * cumsum
    * Kommt noch ein zweiter Peak bei dem zwischen Minimum und Maximum ein delta von > (1-thres_peak1_rel)/3 * Peak1 liegt,
    * wird auch das Minimum und der zweite Peak detektiert
-   * Ende Detektion wenn Wert < thres_stop (z.B. 1% von M_max)
+   * Ende Detektion wenn Wert für 0.2s < thres_stop (z.B. 1% von M_max) bleibt
   */
 
   // cummax aktualisieren
@@ -59,18 +61,32 @@ bool ttt_peak_detector::update (double v)
       ps.back().min_after_peak1_x = cummin_i;
       ps.back().min_after_peak1_y = cummin;
     }
-  else if (state >= 2 && v < thres_stop)
+  else if ((state == 2 || state == 3) && v < thres_stop)
     {
       if (state == 3)
         {
           ps.back().peak2_x = cummax_i;
           ps.back().peak2_y = cummax;
         }
-      state = 0;
-      ps.back().stop_x = v_cnt;
-      cummax = 0;
-      num_peaks++;
-      retval = true;
+      state = 4;
+    }
+  else if (state == 4)
+    {
+      //printf ("timer=%i\n", timer);
+      if (v > thres_stop)
+        timer = 0;
+      else
+        timer++;
+
+      if (timer > stop_delay_samples)
+        {
+          state = 0;
+          timer = 0;
+          ps.back().stop_x = v_cnt;
+          cummax = 0;
+          num_peaks++;
+          retval = true;
+        }
     }
   v_cnt++;
   return retval;

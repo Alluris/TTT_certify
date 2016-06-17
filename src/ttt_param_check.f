@@ -106,7 +106,7 @@ update_cplot(true);}
         label {M_max [Nm]}
         xywh {930 90 60 30} step 0.1 value 50
       }
-      Fl_Check_Button meas_led {selected
+      Fl_Check_Button meas_led {
         xywh {845 35 35 40} type Normal down_box ROUND_DOWN_BOX selection_color 63 labelsize 25 when 0 deactivate
       }
       Fl_Button btn_connect {
@@ -151,18 +151,18 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
       }
     }
     Fl_Group {} {
-      label Beispiele open
+      label Beispiele open selected
       xywh {775 506 264 154} box GTK_DOWN_BOX align 5
     } {
       Fl_Button btn_csv1 {
         label {\#1}
-        callback {string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand_2.csv";
+        callback {string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand.csv";
 load_example (fn);}
         xywh {970 587 30 30}
       }
       Fl_Button btn_csv2 {
         label {\#2}
-        callback {string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand.csv";
+        callback {string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand_2.csv";
 load_example (fn);}
         xywh {970 617 30 30}
       }
