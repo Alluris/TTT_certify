@@ -53,8 +53,8 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify v0.2.5 vom 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2449 244 1275 765} type Double color 40 labelfont 1 align 20 resizable visible
+    label {TTT_Certify v0.2.6 vom 17.06.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    xywh {2501 255 1275 765} type Double color 40 labelfont 1 align 20 resizable visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -134,7 +134,7 @@ btn_test_person_abort->hide ();}
       }
     }
     Fl_Group {} {
-      label {Drehmoment-Schraubwerkzeug} open
+      label {Drehmoment-Schraubwerkzeug} open selected
       xywh {3 6 400 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_test_object_id {
@@ -149,25 +149,25 @@ if (id)
       }
       Fl_Input inp_test_object_equipment_nr {
         label {Prüfmittelnummer}
-        xywh {178 112 210 25} deactivate
+        xywh {178 109 210 25} deactivate
       }
       Fl_Input inp_test_object_serial {
         label Seriennummer
-        xywh {178 144 210 25} deactivate
+        xywh {178 138 210 25} deactivate
       }
       Fl_Input inp_test_object_manufacturer {
         label Hersteller
-        xywh {178 176 210 25} deactivate
+        xywh {178 168 210 25} deactivate
       }
       Fl_Input inp_test_object_model {
         label Modell
-        xywh {178 208 210 25} deactivate
+        xywh {178 197 210 25} deactivate
       }
       Fl_Choice choice_test_object_type {
         label {DIN EN ISO 6789 Typ}
         callback {update_test_object_type_class();
 update_test_object_accuracy();} open
-        xywh {178 240 210 28} down_box BORDER_BOX when 1 deactivate
+        xywh {178 227 210 28} down_box BORDER_BOX when 1 deactivate
       } {
         MenuItem {} {
           label IA
@@ -221,7 +221,7 @@ update_test_object_accuracy();} open
       Fl_Choice choice_test_object_dir_of_rotation {
         label Funktionsrichtung
         callback {cout << o->value() << endl;}
-        xywh {288 442 90 25} down_box BORDER_BOX deactivate
+        xywh {288 427 90 25} down_box BORDER_BOX deactivate
       } {
         MenuItem {} {
           label beide
@@ -238,24 +238,24 @@ update_test_object_accuracy();} open
       }
       Fl_Value_Input vi_test_object_lever_length {
         label {Hebellänge [cm]}
-        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {288 471 90 25} maximum 150 step 0.01 deactivate
+        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {288 455 90 25} maximum 150 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_min_torque {
         label {Unterer Grenzwert [Nm]}
-        tooltip {Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA} xywh {288 501 90 25} align 132 maximum 100 step 0.01 deactivate
+        tooltip {Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA} xywh {288 483 90 25} align 132 maximum 100 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_max_torque {
         label {Oberer Grenzwert [Nm]}
         callback {update_test_object_accuracy();}
-        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {288 530 90 25} maximum 100 step 0.01 deactivate
+        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {288 512 90 25} maximum 100 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_resolution {
         label {Auflösung [Nm]}
-        tooltip {Auflösung von der Anzeige r} xywh {288 560 90 25} maximum 10 step 0.01 deactivate
+        tooltip {Auflösung von der Anzeige r} xywh {288 540 90 25} maximum 10 step 0.01 deactivate
       }
       Fl_Input mi_test_object_attachments {
         label Anbauteile
-        tooltip {Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich Passstücke und austauschbarer Aufsätze} xywh {43 600 335 74} type Multiline align 5 deactivate
+        tooltip {Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich Passstücke und austauschbarer Aufsätze} xywh {22 607 365 67} type Multiline align 5 deactivate
       }
       Fl_Button btn_test_object_new {
         label {@filenew neu}
@@ -285,6 +285,7 @@ string serial = inp_test_object_serial->value ();
 string manufacturer = inp_test_object_manufacturer->value ();
 string model =  inp_test_object_model->value ();
 double max_torque = vi_test_object_max_torque->value ();
+double peak_trigger2_factor = vi_test_object_peak_threshold->value () / 100.0;
 
 if (equipment_nr.empty () || serial.empty () || manufacturer.empty () || model.empty () || max_torque == 0)
   {
@@ -314,7 +315,7 @@ try
               vi_test_object_resolution->value (),
               mi_test_object_attachments->value (),
               accuracy,
-              0); //peak_trigger2_factor ist in der Datenbank vorbereitet, wird hier aber noch nicht verwendet
+              peak_trigger2_factor);
 
     vi_test_object_id->value (id);
     btn_test_object_abort->do_callback ();
@@ -323,11 +324,11 @@ catch (std::runtime_error &e)
   {
     fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
   }}
-        xywh {293 77 95 30} box GLEAM_THIN_UP_BOX
+        xywh {293 74 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
         label {Höchstzulässige Abweichung}
-        xywh {40 694 338 59} box GTK_DOWN_BOX align 133
+        xywh {22 694 365 59} box GTK_DOWN_BOX align 133
       } {
         Fl_Value_Input vi_test_object_accuracy {
           label {%}
@@ -337,17 +338,17 @@ catch (std::runtime_error &e)
           label {aus der DIN EN ISO 6789}
           callback {vi_test_object_accuracy->deactivate ();
 update_test_object_accuracy();}
-          tooltip {Use DIN EN ISO 6789:2003-10 chapter 5.1.5.2} xywh {50 699 190 25} type Radio down_box ROUND_DOWN_BOX deactivate
+          tooltip {Use DIN EN ISO 6789:2003-10 chapter 5.1.5.2} xywh {30 700 190 25} type Radio down_box ROUND_DOWN_BOX deactivate
         }
         Fl_Round_Button rb_manufacturer_accuracy {
           label Herstellerangabe
           callback {vi_test_object_accuracy->activate ();}
-          xywh {50 724 240 25} type Radio down_box ROUND_DOWN_BOX deactivate
+          xywh {30 725 240 25} type Radio down_box ROUND_DOWN_BOX deactivate
         }
       }
       Fl_Box cbox {
         label Klassifizierung
-        xywh {22 302 365 135} box GTK_DOWN_BOX align 137
+        xywh {22 289 365 135} box GTK_DOWN_BOX align 137
         class cairo_device_box
       }
       Fl_Button btn_test_object_abort {
@@ -355,7 +356,7 @@ update_test_object_accuracy();}
         callback {set_test_object_fields_editable (false);
 vi_test_object_id->show ();
 load_test_object (vi_test_object_id->value ());}
-        xywh {178 77 110 30} box GLEAM_THIN_UP_BOX
+        xywh {178 74 110 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_search {
         label {@search}
@@ -400,6 +401,10 @@ inp_test_object_serial->value ("");}
 test_object_edit_flag = true;
 set_test_object_fields_editable (true);}
         xywh {78 40 70 30} box GLEAM_THIN_UP_BOX
+      }
+      Fl_Value_Input vi_test_object_peak_threshold {
+        label {Schwellwert Peak1 [%]}
+        tooltip {Zur Bestimmung ggf. das Tool "TTT Param Check" verwenden. Wenn 0%, wird der Parameter vom TTT übernommen.} xywh {287 569 90 25} maximum 99 step 1 deactivate
       }
     }
     Fl_Group {} {
@@ -797,6 +802,7 @@ if (id > 0)
         vi_single_peak->maximum (vi_test_object_max_torque->value());
 
         vi_test_object_resolution->value(myTTT->get_test_object_resolution ());
+        vi_test_object_peak_threshold->value (100 * myTTT->get_test_object_peak_trigger2_factor());
 
         double accuracy =  myTTT->get_test_object_accuracy ();
         if (accuracy == 0)
@@ -828,7 +834,7 @@ if (id > 0)
   }} {}
 }
 
-Function {load_torque_tester()} {open selected return_type void
+Function {load_torque_tester()} {open return_type void
 } {
   code {// Seriennummer und next_cal_date des angeschlossenen TTTs wird ausgelesen
 // und anhand dieser in der Datenbank gesucht
@@ -885,7 +891,13 @@ else
 if (test_object::is_screwdriver (selected_tc))
   vi_test_object_lever_length->hide ();
 else
-  vi_test_object_lever_length->show ();} {}
+  vi_test_object_lever_length->show ();
+
+//hide peak_trigger2_factor for class I devices
+if (selected_tc.at(1) == 'I')
+  vi_test_object_peak_threshold->show ();
+else
+  vi_test_object_peak_threshold->hide ();} {}
 }
 
 Function {update_test_object_accuracy()} {open
@@ -982,6 +994,7 @@ Function {set_test_object_fields_editable(bool editable)} {open return_type void
     vi_test_object_min_torque->activate ();
     vi_test_object_max_torque->activate ();
     vi_test_object_resolution->activate ();
+    vi_test_object_peak_threshold->activate ();
     mi_test_object_attachments->activate ();
     rb_accuracy_from_ISO6789->activate ();
     rb_manufacturer_accuracy->activate ();
@@ -993,7 +1006,6 @@ Function {set_test_object_fields_editable(bool editable)} {open return_type void
     btn_test_object_delete->hide ();
     btn_test_object_save->show ();
     btn_test_object_abort->show ();
-
   }
 else
   {
@@ -1007,6 +1019,7 @@ else
     vi_test_object_min_torque->deactivate ();
     vi_test_object_max_torque->deactivate ();
     vi_test_object_resolution->deactivate ();
+    vi_test_object_peak_threshold->deactivate ();
     mi_test_object_attachments->deactivate ();
     vi_test_object_accuracy->deactivate ();
     rb_accuracy_from_ISO6789->deactivate ();
@@ -1034,6 +1047,7 @@ vi_test_object_lever_length->value(0);
 vi_test_object_min_torque->value(0);
 vi_test_object_max_torque->value(0);
 vi_test_object_resolution->value(0);
+vi_test_object_peak_threshold->value(0);
 mi_test_object_attachments->value("");
 
 rb_accuracy_from_ISO6789->set ();

@@ -408,6 +408,11 @@ public:
     return meas.to.get_accuracy_from_DIN ();
   }
 
+  double get_test_object_peak_trigger2_factor ()
+  {
+    return meas.to.peak_trigger2_factor;
+  }
+
   void print_test_object ()
   {
     cout << meas.to;
