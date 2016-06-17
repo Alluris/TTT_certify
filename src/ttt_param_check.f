@@ -103,10 +103,10 @@ update_cplot(true);}
       xywh {775 20 265 115} box GTK_DOWN_BOX align 5
     } {
       Fl_Value_Output vo_mmax {
-        label {M_max [Nm]} selected
+        label {M_max [Nm]}
         xywh {930 90 60 30} step 0.1 value 50
       }
-      Fl_Check_Button meas_led {
+      Fl_Check_Button meas_led {selected
         xywh {845 35 35 40} type Normal down_box ROUND_DOWN_BOX selection_color 63 labelsize 25 when 0 deactivate
       }
       Fl_Button btn_connect {
@@ -207,7 +207,7 @@ if (measuring)
     //append new values
     in_buf.reserve (in_buf.size () + tmp.size ());
     in_buf.insert (in_buf.end (), tmp.begin (), tmp.end ());
-    printf ("size of in_buf = %i\\n", in_buf.size());
+    //printf ("size of in_buf = %i\\n", in_buf.size());
 
     if (tmp.size () > 0)
       vo_value->value (tmp.back());
@@ -227,7 +227,7 @@ if (measuring)
           if (start < 0)
             start = 0;
           int stop = last.stop_x + 0.2 * FS;
-          if (stop >= in_buf.size ())
+          if (stop >= int(in_buf.size ()))
             stop = in_buf.size () - 1;
 
 	  vector<double>::iterator it = in_buf.begin();
@@ -246,7 +246,7 @@ if (measuring)
 
 Function {update_cplot(bool keep_view = 0)} {open return_type void
 } {
-  code {printf ("size of values = %i\\n", values.size());
+  code {//printf ("size of values = %i\\n", values.size());
 
 ttt_peak_detector tmp_peakd;
 // Start and Stop threshold hard coded 2% and 1%
@@ -269,7 +269,7 @@ for (unsigned int k=0; k < values.size (); ++k)
     bool r = tmp_peakd.update (fabs(values[k]));
     if (r)
       {
-        printf ("new peakset\\n");
+        //printf ("new peakset\\n");
         tmp_peakd.print_stats ();
 
         peakset last = tmp_peakd.get_last_peakset ();
@@ -280,12 +280,12 @@ for (unsigned int k=0; k < values.size (); ++k)
           start = 0;
         // 0.2s after stop
         int stop = last.stop_x + 0.2 * FS;
-        if (stop >= values.size ())
+        if (stop >= int(values.size ()))
           stop = values.size () - 1;
 
         // feed into cplot
         cplot->clear ();
-        for (unsigned int j=0; j <= (stop - start); ++j)
+        for (int j=0; j <= (stop - start); ++j)
           cplot->add_point (j/FS, fabs(values[start + j]));
 
         if (keep_view)

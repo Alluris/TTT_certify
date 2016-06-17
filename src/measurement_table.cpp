@@ -44,7 +44,7 @@ void measurement_table::draw_cell(TableContext context, int ROW, int COL, int X,
       return;
     case CONTEXT_ROW_HEADER:                  // Draw row headers
       //sprintf(s,"%03d:", vto[ROW].id);
-      if (ROW < nominal_values.size ())
+      if (ROW < int(nominal_values.size ()))
         {
           sprintf(s,"%.2f Nm", nominal_values[ROW]);
           DrawHeader(s,X,Y,W,H);
