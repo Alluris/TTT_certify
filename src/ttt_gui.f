@@ -134,7 +134,7 @@ btn_test_person_abort->hide ();}
       }
     }
     Fl_Group {} {
-      label {Drehmoment-Schraubwerkzeug} open selected
+      label {Drehmoment-Schraubwerkzeug} open
       xywh {3 6 400 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_test_object_id {
@@ -627,7 +627,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
       Fl_Round_Button rb_like_6789_repeat {
         label {Ablauf nach DIN EN ISO 6789 aber mit Wiederholungen bei Überschreitung der zulässigen Abweichung}
         callback {update_quick_check_nominal_visibility();}
-        xywh {785 75 260 65} type Radio down_box ROUND_DOWN_BOX align 148
+        xywh {785 75 285 65} type Radio down_box ROUND_DOWN_BOX align 148
       }
       Fl_Round_Button rb_din_6789 {
         label {DIN EN ISO 6789}
@@ -639,7 +639,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
         xywh {1085 40 50 25} step 0.1
       }
       Fl_Group grp_rise_time {
-        label {Zeitüberwachung} open
+        label {Zeitüberwachung} open selected
         tooltip {Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge} xywh {1080 108 180 64} box GTK_THIN_UP_BOX
       } {
         Fl_Round_Button rb_repeat_until_okay {
@@ -659,7 +659,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_object_win {
     label Werkzeugsuche
-    xywh {2288 448 935 645} type Double hide modal
+    xywh {2288 448 935 645} type Double resizable modal visible
   } {
     Fl_Table to {open
       xywh {9 110 920 480}
@@ -718,7 +718,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
   }
   Fl_Window test_person_win {
     label Bearbeitersuche
-    xywh {2319 150 670 540} type Double hide modal
+    xywh {2319 150 670 540} type Double hide resizable modal
   } {
     Fl_Table tp {open
       xywh {20 70 640 410}
