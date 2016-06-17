@@ -1,5 +1,4 @@
-.PHONY: all
-.PHONY: clean
+.PHONY: all clean update
 
 all: ttt.pot en.mo fr.mo it.mo es.mo
 
@@ -7,10 +6,11 @@ all: ttt.pot en.mo fr.mo it.mo es.mo
 	make -C ../ ttt_gui.cpp
 
 ## update sources with grep -lR gettext
-ttt.pot: ../step.cpp ../ttt.cpp ../ttt_gui.cpp ../ttt_gui_main.cpp ../cairo_print_devices.c ../ttt_quick_check_config.cpp ../test_object_table.h ../test_person_table.h ../liballuris++.cpp
+ttt.pot: ../step.cpp ../ttt.cpp ../ttt_gui.f ../ttt_gui_main.cpp ../cairo_print_devices.c ../ttt_quick_check_config.f ../test_object_table.h ../test_person_table.h ../liballuris++.cpp ../ttt_param_check.f
 	$(MAKE) -C ../ ttt_gui.cpp
 	$(MAKE) -C ../ ttt_quick_check_config.cpp
-	xgettext -C -c --from-code=UTF-8 --package-name=TTT --msgid-bugs-address=software@alluris.de $^ -o $@
+	$(MAKE) -C ../ ttt_param_check.cpp
+	xgettext -C -c --from-code=UTF-8 --package-name=TTT --msgid-bugs-address=software@alluris.de $(patsubst %.f,%.cpp,$^) -o $@
 
 ## call it pot so the translator has to rename it to .po
 ## this should prevent accidentally overwrites
@@ -31,7 +31,5 @@ update: ttt.pot
 	msgmerge -U es.po ttt.pot
 
 clean:
-	rm -f *.mo
+	rm -f *.mo *po~ ttt.pot
 	rm -rf en fr it es
-
-## try poedit!
