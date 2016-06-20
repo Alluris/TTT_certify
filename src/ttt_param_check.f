@@ -36,15 +36,15 @@ Function {} {open
 } {
   Fl_Window mainwin {
     label {TTT test object param check} open
-    xywh {2539 420 1045 665} type Double resizable visible
+    xywh {2554 271 1045 710} type Double resizable visible
   } {
     Fl_Box cplot {
-      xywh {5 3 765 659}
+      xywh {5 3 765 701}
       class cairo_plot
     }
     Fl_Group {} {
       label Messung open
-      xywh {775 159 265 165} box GTK_DOWN_BOX align 5
+      xywh {775 159 265 212} box GTK_DOWN_BOX align 5
     } {
       Fl_Button btn_start {
         label {Tara+start}
@@ -78,24 +78,38 @@ Function {} {open
         label {Schwellwert Peak 1 [%]}
         callback {// keep current view
 update_cplot(true);}
-        tooltip {typisch 80% .. 90%} xywh {786 285 246 30} type {Horz Knob} align 1 minimum 30 maximum 99 step 1 value 90 textsize 14
+        tooltip {typisch 80% .. 90%} xywh {785 285 244 30} type {Horz Knob} align 1 minimum 30 maximum 99 step 1 value 90 textsize 14
+      }
+      Fl_Choice choice_direction {
+        label Drehrichtung
+        callback {cout << "choice=" << o->value() << endl;} open
+        xywh {930 335 100 25} down_box BORDER_BOX
+      } {
+        MenuItem {} {
+          label rechts
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label links
+          xywh {0 0 100 20}
+        }
       }
     }
     Fl_Group {} {
       label Statistiken open
-      xywh {775 346 265 135} box GTK_DOWN_BOX align 5
+      xywh {775 394 265 135} box GTK_DOWN_BOX align 5
     } {
       Fl_Value_Output vo_peak1 {
         label {Peak 1 [Nm]}
-        xywh {965 356 55 30} color 2 step 0.1
+        xywh {965 404 55 30} color 2 step 0.1
       }
       Fl_Value_Output vo_min1 {
         label {min nach Peak 1 [Nm]}
-        xywh {965 396 55 30} color 4 step 0.1 textcolor 255
+        xywh {965 444 55 30} color 4 step 0.1 textcolor 255
       }
       Fl_Value_Output vo_peak2 {
         label {Peak 2 [Nm]}
-        xywh {965 436 55 30} color 1 step 0.1
+        xywh {965 484 55 30} color 1 step 0.1
       }
     }
     Fl_Group {} {
@@ -151,34 +165,37 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
       }
     }
     Fl_Group {} {
-      label Beispiele open selected
-      xywh {775 506 264 154} box GTK_DOWN_BOX align 5
+      label Beispiele open
+      xywh {775 551 264 154} box GTK_DOWN_BOX align 5
     } {
       Fl_Button btn_csv1 {
         label {\#1}
-        callback {string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand.csv";
+        callback {choice_direction->value(0);
+string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand.csv";
 load_example (fn);}
-        xywh {970 587 30 30}
+        xywh {970 632 30 30}
       }
       Fl_Button btn_csv2 {
         label {\#2}
-        callback {string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand_2.csv";
+        callback {choice_direction->value(0);
+string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand_2.csv";
 load_example (fn);}
-        xywh {970 617 30 30}
+        xywh {970 662 30 30}
       }
       Fl_Button btn_csv3 {
         label {\#1}
-        callback {string fn = "./examples/Garant_65_6050_6_SN15-492265_Hand.csv";
-load_example (fn);}
-        xywh {970 532 30 30} align 128
+        callback {choice_direction->value(0);
+string fn = "./examples/Garant_65_6050_6_SN15-492265_Hand.csv";
+load_example (fn);} selected
+        xywh {970 577 30 30} align 128
       }
       Fl_Box {} {
         label {Garant 65 6050 6}
-        image {examples/Garant_65_6050_6_SN15-492265.png} xywh {782 513 170 65} box ENGRAVED_BOX
+        image {examples/Garant_65_6050_6_SN15-492265.png} xywh {782 558 170 65} box ENGRAVED_BOX
       }
       Fl_Box {} {
         label {MANOSKOP 730/4}
-        image {examples/Stahlwille_MANOSKOP_730_4_610315061.png} xywh {782 584 170 65} box ENGRAVED_BOX
+        image {examples/Stahlwille_MANOSKOP_730_4_610315061.png} xywh {782 629 170 65} box ENGRAVED_BOX
       }
     }
   }
@@ -215,7 +232,7 @@ if (measuring)
     // feed into peakdetection
     for (unsigned int k=0; k<tmp.size (); ++k)
     {
-      bool r = peakd.update (fabs(tmp[k]));
+      bool r = peakd.update (rot () * tmp[k]);
       if (r)
         {
           printf ("new peakset in peakd\\n");
@@ -266,7 +283,7 @@ if (keep_view)
 // feed values in peak detector
 for (unsigned int k=0; k < values.size (); ++k)
   {
-    bool r = tmp_peakd.update (fabs(values[k]));
+    bool r = tmp_peakd.update (rot () * values[k]);
     if (r)
       {
         //printf ("new peakset\\n");
@@ -286,7 +303,7 @@ for (unsigned int k=0; k < values.size (); ++k)
         // feed into cplot
         cplot->clear ();
         for (int j=0; j <= (stop - start); ++j)
-          cplot->add_point (j/FS, fabs(values[start + j]));
+          cplot->add_point (j/FS, rot ()* values[start + j]);
 
         if (keep_view)
           {
@@ -354,4 +371,12 @@ Function {load_example(string fn)} {open
       fl_alert (gettext ("Die Datei '%s' konnte nicht gefunden werden"), fn.c_str());
       cerr << "Unable to open file '" << fn << "'" << endl;
     }} {}
+}
+
+Function {rot()} {open return_type double
+} {
+  code {int s = choice_direction->value ();
+assert (s >= 0);
+assert (s <= 1);
+return 1 - (s * 2);} {}
 }
