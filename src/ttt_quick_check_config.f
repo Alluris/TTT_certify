@@ -1,18 +1,18 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0303 
-i18n_type 1 
-i18n_include <libintl.h> 
-i18n_function gettext 
-header_name {.h} 
+version 1.0304
+i18n_type 1
+i18n_include <libintl.h>
+i18n_function gettext
+header_name {.h}
 code_name {.cxx}
 decl {\#include <FL/fl_ask.H>} {public global
-} 
+}
 
 decl {\#include "liballuris++.h"} {public global
-} 
+}
 
 decl {\#include "quick_check_table.h"} {public global
-} 
+}
 
 Function {} {open
 } {
@@ -22,19 +22,19 @@ bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
     label {TTT quick check config} open selected
-    xywh {1149 221 485 530} type Double visible
+    xywh {112 175 475 545} type Double visible
   } {
     Fl_Value_Input vi_nominal {
       label {Nominalwert [Nm]}
-      xywh {250 20 55 25} minimum -10 maximum 10 step 0.1
+      xywh {250 20 55 25} box GTK_DOWN_BOX minimum -10 maximum 10 step 0.1
     }
     Fl_Value_Input vi_upper_limit {
       label {oberer Grenzwert [Nm]}
-      xywh {250 70 55 25} minimum -11 maximum 11 step 0.01
+      xywh {250 70 55 25} box GTK_DOWN_BOX minimum -11 maximum 11 step 0.01
     }
     Fl_Value_Input vi_lower_limit {
       label {unterer Grenzwert [Nm]}
-      xywh {250 100 55 25} minimum -11 maximum 11 step 0.01
+      xywh {250 100 55 25} box GTK_DOWN_BOX minimum -11 maximum 11 step 0.01
     }
     Fl_Button {} {
       label {Konfiguration ins Messgerät schreiben}
@@ -73,19 +73,19 @@ catch (std::runtime_error &e)
     fl_alert (e.what ());
   }
 mainwin->cursor (FL_CURSOR_DEFAULT);}
-      xywh {85 190 315 35}
+      xywh {85 190 315 35} box GTK_UP_BOX
     }
     Fl_Button {} {
       label {3%}
       callback {vi_upper_limit->value (vi_nominal->value () * 1.03);
 vi_lower_limit->value (vi_nominal->value () * 0.97);}
-      xywh {335 83 45 25}
+      xywh {335 83 45 25} box GTK_UP_BOX
     }
     Fl_Button {} {
       label {6%}
       callback {vi_upper_limit->value (vi_nominal->value () * 1.06);
 vi_lower_limit->value (vi_nominal->value () * 0.94);}
-      xywh {385 83 45 25}
+      xywh {385 83 45 25} box GTK_UP_BOX
     }
     Fl_Value_Input vi_peak_level {
       label {Detektionsschwelle [%]}
@@ -94,7 +94,7 @@ vi_lower_limit->value (vi_nominal->value () * 0.94);}
 else
   o->color (FL_WHITE);
 o->redraw ();}
-      tooltip {Detektionsschwelle < 50% ist nicht empfehlenswert} xywh {250 140 55 25} align 132 minimum 10 maximum 90 step 10 value 60
+      tooltip {Detektionsschwelle < 50% ist nicht empfehlenswert} xywh {250 140 55 25} box GTK_DOWN_BOX align 132 minimum 10 maximum 90 step 1 value 90
     }
     Fl_Button {} {
       label {Gerätespeicher auslesen}
@@ -145,7 +145,7 @@ catch (std::runtime_error &e)
     fl_alert (e.what ());
   }
 mainwin->cursor (FL_CURSOR_DEFAULT);}
-      xywh {250 305 205 35}
+      xywh {245 275 205 35} box GTK_UP_BOX
     }
     Fl_Button {} {
       label {Gerätespeicher löschen}
@@ -164,20 +164,20 @@ catch (std::runtime_error &e)
     fl_alert (e.what ());
   }
 mainwin->cursor (FL_CURSOR_DEFAULT);}
-      xywh {250 365 205 35}
+      xywh {245 325 205 35} box GTK_UP_BOX
     }
     Fl_Table quick_tbl {open
-      xywh {70 272 153 178}
+      xywh {50 272 145 201} box GTK_THIN_DOWN_FRAME
       class quick_check_table
     } {}
     Fl_Value_Output vo_mean {
       label {Mittelwert [Nm]}
-      xywh {70 480 110 30} type 0 color 49 selection_color 49 labeltype NORMAL_LABEL align 5 when 1 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
+      xywh {40 505 110 30} box GTK_DOWN_BOX align 5 step 0.001
     }
     Fl_Value_Output vo_std {
       label {Standardabweichung [Nm]}
-      xywh {220 480 110 30} type 0 color 49 selection_color 49 labeltype NORMAL_LABEL align 5 when 1 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
+      xywh {225 505 110 30} box GTK_DOWN_BOX align 5 step 0.001
     }
   }
   code {//quick_tbl->hide ();} {}
-} 
+}
