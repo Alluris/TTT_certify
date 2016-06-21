@@ -35,8 +35,8 @@ decl {\#define FS 900.0} {private local
 Function {} {open
 } {
   Fl_Window mainwin {
-    label {TTT test object param check} open
-    xywh {2554 271 1045 710} type Double resizable visible
+    label {TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    xywh {2554 271 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible
   } {
     Fl_Box cplot {
       xywh {5 3 765 701}
@@ -44,10 +44,10 @@ Function {} {open
     }
     Fl_Group {} {
       label Messung open
-      xywh {775 159 265 212} box GTK_DOWN_BOX align 5
+      xywh {775 138 265 233} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
-        label {Tara+start}
+        label Start
         callback {if (dev)
   {
     dev->start ();
@@ -58,10 +58,10 @@ Function {} {open
     Fl::add_timeout(0.01, run_cb);
   }
 }
-        xywh {785 179 85 35} box GTK_UP_BOX deactivate
+        xywh {785 179 85 35} box GLEAM_UP_BOX deactivate
       }
       Fl_Button btn_stop {
-        label stop
+        label Stop
         callback {if (dev)
   {
     dev->stop ();
@@ -70,21 +70,20 @@ Function {} {open
     btn_start->activate ();
   }
 }
-        xywh {785 224 85 35} box GTK_UP_BOX deactivate
+        xywh {785 224 85 35} box GLEAM_UP_BOX deactivate
       }
       Fl_Value_Output vo_value {
-        label {Messwert [Nm]} selected
+        label {Messwert [Nm]}
         xywh {880 193 150 65} align 5 step 0.1 textsize 49
       }
       Fl_Value_Slider vi_peak1_thres {
-        label {Peakdetektion 1 [%]}
+        label {Peakdetektion [%]}
         callback {// keep current view
 update_cplot(true);}
         tooltip {typisch 80% .. 90%} xywh {785 285 244 30} type {Horz Knob} align 1 minimum 30 maximum 99 step 1 value 90 textsize 14
       }
       Fl_Choice choice_direction {
-        label Drehrichtung
-        callback {cout << "choice=" << o->value() << endl;} open
+        label Funktionsrichtung open
         xywh {930 335 100 25} down_box BORDER_BOX
       } {
         MenuItem {} {
@@ -98,16 +97,16 @@ update_cplot(true);}
       }
     }
     Fl_Group {} {
-      label Statistiken open
-      xywh {775 394 265 135} box GTK_DOWN_BOX align 5
+      label Ergebnis open
+      xywh {775 374 265 155} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Output vo_peak1 {
         label {Peak 1 [Nm]}
         xywh {965 404 55 30} color 2 step 0.1
       }
       Fl_Value_Output vo_min1 {
-        label {min nach Peak 1 [Nm]}
-        xywh {965 444 55 30} color 4 step 0.1 textcolor 255
+        label {Minimum nach Peak 1 [Nm]}
+        xywh {965 444 55 30} color 4 align 132 step 0.1 textcolor 255
       }
       Fl_Value_Output vo_peak2 {
         label {Peak 2 [Nm]}
@@ -115,15 +114,15 @@ update_cplot(true);}
       }
     }
     Fl_Group {} {
-      label {TTT über USB} open
-      xywh {775 20 265 115} box GTK_DOWN_BOX align 5
+      label {Messgerät} open selected
+      xywh {775 5 265 130} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Output vo_mmax {
-        label {M_max [Nm]}
-        xywh {930 90 60 30} step 0.1 value 50
+        label {Nominalwert [Nm]}
+        xywh {955 90 60 30} step 0.1 value 50
       }
       Fl_Check_Button meas_led {
-        xywh {845 35 35 40} type Normal down_box ROUND_DOWN_BOX selection_color 63 labelsize 25 when 0 deactivate
+        xywh {865 35 35 40} type Normal down_box ROUND_DOWN_BOX selection_color 63 labelsize 25 when 0 deactivate
       }
       Fl_Button btn_connect {
         label verbinden
@@ -163,41 +162,41 @@ else
   }
 
 mainwin->cursor (FL_CURSOR_DEFAULT);}
-        xywh {885 35 105 40} box GTK_UP_BOX
+        xywh {910 35 105 40} box GLEAM_UP_BOX
       }
     }
     Fl_Group {} {
       label Beispiele open
-      xywh {775 551 264 154} box GTK_DOWN_BOX align 5
+      xywh {775 533 264 172} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_csv1 {
         label {\#1}
         callback {choice_direction->value(0);
 string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand.csv";
 load_example (fn);}
-        xywh {970 632 30 30}
+        xywh {970 632 30 30} box GLEAM_UP_BOX
       }
       Fl_Button btn_csv2 {
         label {\#2}
         callback {choice_direction->value(0);
 string fn = "./examples/Stahlwille_MANOSKOP_730_4_610315061_Hand_2.csv";
 load_example (fn);}
-        xywh {970 662 30 30}
+        xywh {970 662 30 30} box GLEAM_UP_BOX
       }
       Fl_Button btn_csv3 {
         label {\#1}
         callback {choice_direction->value(0);
 string fn = "./examples/Garant_65_6050_6_SN15-492265_Hand.csv";
 load_example (fn);}
-        xywh {970 577 30 30} align 128
+        xywh {970 577 30 30} box GLEAM_UP_BOX align 128
       }
       Fl_Box {} {
         label {Garant 65 6050 6}
-        image {examples/Garant_65_6050_6_SN15-492265.png} xywh {782 558 170 65} box ENGRAVED_BOX
+        image {examples/Garant_65_6050_6_SN15-492265.png} xywh {782 564 170 65}
       }
       Fl_Box {} {
         label {MANOSKOP 730/4}
-        image {examples/Stahlwille_MANOSKOP_730_4_610315061.png} xywh {782 629 170 65} box ENGRAVED_BOX
+        image {examples/Stahlwille_MANOSKOP_730_4_610315061.png} xywh {782 630 170 65}
       }
     }
   }
@@ -206,6 +205,9 @@ load_example (fn);}
     mainwin->show(argc, argv);
     // load example on startup
     // btn_csv->do_callback ();
+
+    cplot->set_xlabel ("t [s]");
+    cplot->set_ylabel ("M [Nm]");
     return Fl::run();
   }
 catch (std::runtime_error &e)
@@ -366,7 +368,7 @@ if (in.is_open())
 
     if (in.fail () && ! in.eof ())
       cerr << "Couldn't read double in line " << cnt << endl;
-    cout << "read " << cnt << " values..." << endl;
+    //cout << "read " << cnt << " values..." << endl;
 
     in.close();
     update_cplot();

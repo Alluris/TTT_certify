@@ -21,7 +21,7 @@ Function {} {open
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT quick check config} open
+    label {TTT_Quick-Check V1.01.001} open
     xywh {2076 275 375 555} type Double color 40 visible
   } {
     Fl_Group {} {
@@ -189,11 +189,11 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
       } {}
       Fl_Value_Output vo_mean {
         label {Mittelwert [Nm]}
-        xywh {20 500 110 30} box DOWN_BOX color 49 selection_color 49 labelfont 0 labelsize 14 labelcolor 0 align 5 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
+        xywh {20 500 110 30} box DOWN_BOX align 5 step 0.001
       }
       Fl_Value_Output vo_std {
         label {Standardabweichung [Nm]}
-        xywh {140 500 110 30} box DOWN_BOX color 49 selection_color 49 labelfont 0 labelsize 14 labelcolor 0 align 5 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
+        xywh {140 500 110 30} box DOWN_BOX align 5 step 0.001
       }
     }
   }
