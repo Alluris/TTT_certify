@@ -1228,9 +1228,9 @@ int liballuris_get_mode (libusb_device_handle *dev_handle, enum liballuris_measu
  */
 int liballuris_set_mem_mode (libusb_device_handle *dev_handle, enum liballuris_memory_mode mode)
 {
-  if (mode < 0 || mode > 2)
+  if (mode < 0 || mode > 3)
     {
-      fprintf (stderr, "Error: memory mode %i out of range 0..2\n", mode);
+      fprintf (stderr, "Error: memory mode %i out of range 0..3\n", mode);
       return LIBALLURIS_OUT_OF_RANGE;
     }
   out_buf[0] = 0x1D;
