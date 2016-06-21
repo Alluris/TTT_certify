@@ -3,7 +3,7 @@
 CPPFLAGS = -Wall -Wextra -ggdb -I ../src/
 GCC = g++
 
-TARGETS = test_ttt_device ttt_certify.db ttt_cli ttt_sim check_sqlite_interface check_create_cairo_report lsusb-libusb check_ttt_step check_liballuris
+TARGETS = test_ttt_device ttt_certify.db ttt_cli ttt_sim check_sqlite_interface check_create_cairo_report lsusb-libusb check_ttt_step check_liballuris start_stop
 OBJ     = ../src/ttt_device.o ../src/ttt.o ../src/measurement_table.o ../src/step.o ../src/sqlite_interface.o ../src/cairo_drawing_functions.o ../src/cairo_print_devices.o ../src/liballuris++.o ../src/liballuris.o
 LIBS    = -lsqlite3 -lcairo -lusb-1.0 -lfltk -lconfuse
 
@@ -43,6 +43,9 @@ check_liballuris: check_liballuris++.cpp $(OBJ)
 
 lsusb-libusb: lsusb-libusb.c
 	gcc -g -o $@ $< -lm -lusb-1.0
+
+start_stop: start_stop.c
+	gcc -g -o $@ $< ../src/liballuris.o -lusb-1.0
 
 TEST_FILES=test_object_id6.log test_object_id7.log test_object_id8.log test_object_id9.log\
            test_object_id10.log test_object_id11.log test_object_id12.log test_object_id13.log\
