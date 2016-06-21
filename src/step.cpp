@@ -452,6 +452,7 @@ out_cmd peak_click_step::inout (double torque, bool confirmation)
     cout << " peak_trigger2_threshold=" << peak_trigger2_threshold;
     cout << endl;
   */
+  double sign = (nominal > 0)? 1 : -1;
 
   if ((int_step == 0) &&
       ( (start_peak_torque > 0 && torque >= start_peak_torque)
@@ -487,7 +488,6 @@ out_cmd peak_click_step::inout (double torque, bool confirmation)
 
       if (torque_80_time == 0 && first_peak_time == 0)
         {
-          double sign = (nominal > 0)? 1 : -1;
           // Anstiegszeit überprüfen
           // von 80% * first_peak bis first_peak
           unsigned int k = 0;
@@ -513,6 +513,7 @@ out_cmd peak_click_step::inout (double torque, bool confirmation)
         }
       else
         {
+#if 0
           // Die Variante hier wartet, bis torque 2s lang unter der peak_trigger2_threshold Schwelle war
           // (ignoriert wenn die Kraft später nochmal ansteigt)
           if (   (nominal > 0 && torque < peak_trigger2_threshold)
@@ -532,6 +533,21 @@ out_cmd peak_click_step::inout (double torque, bool confirmation)
                    << " nominal=" << nominal << endl;
               */
             }
+#else
+          // Die Variante hier wartet, bis torque 0.5s lang dauerhaft unter 10% des Peak1 fällt
+          double stop_thres = sign * 0.1 * first_peak;
+          //cout << "stop_thres = " << stop_thres << endl;
+          if (   (nominal > 0 && torque < stop_thres) || (nominal < 0 && torque > stop_thres))
+            wait_t += v_time[v_time.size()-1] - v_time[v_time.size()-2];
+          else
+            wait_t = 0;
+
+          if (wait_t > 0.5)
+            {
+              int_step++;
+              finished = true;
+            }
+#endif
         }
 
     }
