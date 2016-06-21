@@ -26,56 +26,66 @@ If not, see <http://www.gnu.org/licenses/>.
 
 int main()
 {
-  class liballuris a;
-  //class alluris a("P.26901");
+  try
+    {
+      class liballuris a;
 
-  cout << "get_serial_number ()         = " << a.get_serial_number () << endl;
-  cout << "get_next_calibration_date () = " << a.get_next_calibration_date () << endl;
-  cout << "get_calibration_date ()      = " << a.get_calibration_date () << endl;
-  cout << "get_calibration_number ()    = " << a.get_calibration_number () << endl;
-  cout << "get_uncertainty ()           = " << a.get_uncertainty () << endl;
-  cout << "get_digits ()                = " << a.get_digits () << endl;
-  cout << "get_F_max ()                 = " << a.get_F_max () << endl;
-  cout << "get_peak_level ()            = " << a.get_peak_level () << endl;
-  //a.set_peak_level (0.8);
-  //assert (a.get_peak_level () == 0.8);
-  cout << "get_autostop ()              = " << a.get_autostop () << endl;
+      a.set_cyclic_measurement (0, 19);
+      a.stop_measurement ();
 
-  sleep (0.1);
-  a.set_autostop (30);
-  //sleep (0.1);
-  //assert (a.get_autostop () == 0);
+      //class alluris a("P.26901");
 
-  a.set_key_lock (1);
-  sleep (1);
-  a.set_key_lock (0);
+      cout << "get_serial_number ()         = " << a.get_serial_number () << endl;
+      cout << "get_next_calibration_date () = " << a.get_next_calibration_date () << endl;
+      cout << "get_calibration_date ()      = " << a.get_calibration_date () << endl;
+      cout << "get_calibration_number ()    = " << a.get_calibration_number () << endl;
+      cout << "get_uncertainty ()           = " << a.get_uncertainty () << endl;
+      cout << "get_digits ()                = " << a.get_digits () << endl;
+      cout << "get_F_max ()                 = " << a.get_F_max () << endl;
+      cout << "get_peak_level ()            = " << a.get_peak_level () << endl;
+      //a.set_peak_level (0.8);
+      //assert (a.get_peak_level () == 0.8);
+      cout << "get_autostop ()              = " << a.get_autostop () << endl;
 
-  a.start_measurement ();
-  usleep (1e6);
-  a.stop_measurement ();
-  a.start_measurement ();
-  a.set_cyclic_measurement (1, 19);
+      sleep (0.1);
+      a.set_autostop (30);
+      //sleep (0.1);
+      //assert (a.get_autostop () == 0);
 
-  /*
-    for (int k=0; k<100; ++k)
-      {
-        usleep (10e3);
-        vector<int> tmp = a.poll_measurement_no_wait ();
-        cout << "got " << tmp.size () << " samples" << endl;
-      }
+      a.set_key_lock (1);
+      sleep (1);
+      a.set_key_lock (0);
 
-    usleep (1e6);
-    cout << "--------------------------------------------" << endl;
-    for (int k=0; k<100; ++k)
-      {
-        vector<int> tmp = a.poll_measurement_no_wait ();
-        cout << "got " << tmp.size () << " samples" << endl;
-      }
-  */
-  a.set_cyclic_measurement (0, 19);
-  a.set_cyclic_measurement (1, 19);
-  a.set_cyclic_measurement (0, 19);
-  a.stop_measurement ();
+      a.set_mode (LIBALLURIS_MODE_PEAK);
+      a.start_measurement ();
+      usleep (1e6);
+      a.stop_measurement ();
+      a.start_measurement ();
+      a.set_cyclic_measurement (1, 19);
 
+      for (int k=0; k<100; ++k)
+        {
+          usleep (10e3);
+          vector<int> tmp = a.poll_measurement_no_wait ();
+          cout << "got " << tmp.size () << " samples" << endl;
+        }
+
+      usleep (1e6);
+      cout << "--------------------------------------------" << endl;
+      for (int k=0; k<100; ++k)
+        {
+          vector<int> tmp = a.poll_measurement_no_wait ();
+          cout << "got " << tmp.size () << " samples" << endl;
+        }
+
+      a.set_cyclic_measurement (0, 19);
+      a.set_cyclic_measurement (1, 19);
+      a.set_cyclic_measurement (0, 19);
+      a.stop_measurement ();
+    }
+  catch (std::runtime_error &e)
+    {
+      cerr << "ERROR:" << e.what () << endl;
+    };
   return 0;
 }
