@@ -54,7 +54,7 @@ Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
     label {TTT_Certify v0.2.7 vom 20.06.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
-    xywh {2501 255 1275 765} type Double color 40 labelfont 1 align 20 resizable visible
+    xywh {2391 192 1275 765} type Double color 40 labelfont 1 align 20 resizable size_range {800 600 0 0} visible
   } {
     Fl_Group {} {
       label Bearbeiter open
@@ -62,11 +62,11 @@ Function {create_widgets()} {open return_type void
     } {
       Fl_Input inp_test_person_name {
         label Name
-        xywh {536 211 210 25} deactivate
+        xywh {536 211 210 25} align 132 deactivate
       }
       Fl_Input inp_test_person_supervisor {
         label Verantwortlicher
-        xywh {536 246 210 25} deactivate
+        xywh {536 246 210 25} align 132 deactivate
       }
       Fl_Value_Input vi_test_person_uncertainty {
         label {erweiterte Messunsicherheit [%]}
@@ -144,31 +144,30 @@ if (id)
   {
     o->value (id);
     load_test_object (id);
-  }
-}
+  }}
         xywh {177 40 40 30} minimum 1 maximum 500 step 1
       }
       Fl_Input inp_test_object_equipment_nr {
         label {Prüfmittelnummer}
-        xywh {178 109 210 25} deactivate
+        xywh {178 109 210 25} align 132 deactivate
       }
       Fl_Input inp_test_object_serial {
         label Seriennummer
-        xywh {178 138 210 25} deactivate
+        xywh {178 138 210 25} align 132 deactivate
       }
       Fl_Input inp_test_object_manufacturer {
         label Hersteller
-        xywh {178 168 210 25} deactivate
+        xywh {178 168 210 25} align 132 deactivate
       }
       Fl_Input inp_test_object_model {
         label Modell
-        xywh {178 197 210 25} deactivate
+        xywh {178 197 210 25} align 132 deactivate
       }
       Fl_Choice choice_test_object_type {
         label {DIN EN ISO 6789 Typ}
         callback {update_test_object_type_class();
-update_test_object_accuracy();} open
-        xywh {178 227 210 28} down_box BORDER_BOX when 1 deactivate
+update_test_object_accuracy();} open selected
+        xywh {178 227 210 28} down_box BORDER_BOX align 132 when 1 deactivate
       } {
         MenuItem {} {
           label IA
@@ -239,7 +238,7 @@ update_test_object_accuracy();} open
       }
       Fl_Value_Input vi_test_object_lever_length {
         label {Hebellänge [cm]}
-        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {288 455 90 25} maximum 150 step 0.01 deactivate
+        tooltip {Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist markiert;} xywh {288 455 90 25} align 132 maximum 150 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_min_torque {
         label {Unterer Grenzwert [Nm]}
@@ -248,11 +247,11 @@ update_test_object_accuracy();} open
       Fl_Value_Input vi_test_object_max_torque {
         label {Oberer Grenzwert [Nm]}
         callback {update_test_object_accuracy();}
-        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {288 512 90 25} maximum 100 step 0.01 deactivate
+        tooltip {Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE} xywh {288 512 90 25} align 132 maximum 100 step 0.01 deactivate
       }
       Fl_Value_Input vi_test_object_resolution {
         label {Auflösung [Nm]}
-        tooltip {Auflösung von der Anzeige r} xywh {288 540 90 25} maximum 10 step 0.01 deactivate
+        tooltip {Auflösung von der Anzeige r} xywh {288 540 90 25} align 132 maximum 10 step 0.01 deactivate
       }
       Fl_Input mi_test_object_attachments {
         label Anbauteile
@@ -324,8 +323,7 @@ try
 catch (std::runtime_error &e)
   {
     fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
-  }
-}
+  }}
         xywh {293 74 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
@@ -383,8 +381,7 @@ if (r == 0)
         vi_test_object_id->hide ();
         clear_test_object_fields ();
       }
-  }
-}
+  }}
         xywh {8 40 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_copy {
@@ -407,7 +404,7 @@ set_test_object_fields_editable (true);}
       }
       Fl_Value_Input vi_test_object_peak_threshold {
         label {Peakdetektion [%]}
-        tooltip {Zur Bestimmung ggf. das Tool "TTT Param Check" verwenden. Wenn 0%, wird der Parameter vom TTT übernommen.} xywh {287 569 90 25} maximum 99 step 1 deactivate
+        tooltip {Zur Bestimmung ggf. das Tool "TTT Param Check" verwenden. Wenn 0%, wird der Parameter vom TTT übernommen.} xywh {287 569 90 25} align 132 maximum 99 step 1 deactivate
       }
     }
     Fl_Group {} {
@@ -416,11 +413,11 @@ set_test_object_fields_editable (true);}
     } {
       Fl_Value_Input vi_temperature {
         label {Kalibriertemperatur [°C]}
-        tooltip {Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 18°C bis 28°C} xywh {685 44 60 25} maximum 40 step 0.1
+        tooltip {Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 18°C bis 28°C} xywh {685 44 60 25} align 132 maximum 40 step 0.1
       }
       Fl_Value_Input vi_humidity {
         label {relative Luftfeuchte [%rH]}
-        tooltip {Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%} xywh {685 79 60 25} maximum 100 step 0.1
+        tooltip {Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%} xywh {685 79 60 25} align 132 maximum 100 step 0.1
       }
     }
     Fl_Group {} {
@@ -433,23 +430,23 @@ set_test_object_fields_editable (true);}
       }
       Fl_Input out_torque_tester_serial {
         label Seriennummer
-        xywh {566 403 180 25} deactivate
+        xywh {566 403 180 25} align 132 deactivate
       }
       Fl_Input out_torque_tester_manufacturer {
         label Hersteller
-        xywh {566 438 180 25} deactivate
+        xywh {566 438 180 25} align 132 deactivate
       }
       Fl_Input out_torque_tester_model {
         label Model
-        xywh {566 474 180 25} deactivate
+        xywh {566 474 180 25} align 132 deactivate
       }
       Fl_Input out_torque_tester_cal_date {
         label Kalibrierdatum
-        xywh {566 509 180 26} deactivate
+        xywh {566 509 180 26} align 132 deactivate
       }
       Fl_Input out_torque_tester_next_cal_date {
         label Kalibrierempfehlung
-        xywh {566 546 180 26} deactivate
+        xywh {566 546 180 26} align 132 deactivate
       }
       Fl_Input out_torque_tester_cal_number {
         label {Kalibrierschein Nr.}
@@ -457,11 +454,11 @@ set_test_object_fields_editable (true);}
       }
       Fl_Value_Input vo_torque_tester_max_torque {
         label {Nominalwert [Nm]}
-        xywh {676 623 70 25} step 0.01 deactivate
+        xywh {676 623 70 25} align 132 step 0.01 deactivate
       }
       Fl_Value_Input vo_torque_tester_resolution {
         label {Auflösung [Nm]}
-        xywh {676 655 70 25} step 0.01 deactivate
+        xywh {676 655 70 25} align 132 step 0.01 deactivate
       }
       Fl_Value_Input vo_torque_tester_uncertainty {
         label {erweiterte Messunsicherheit [%]}
@@ -469,7 +466,7 @@ set_test_object_fields_editable (true);}
       }
       Fl_Value_Input vo_torque_tester_peak_level {
         label {Peakdetektion [%]}
-        xywh {676 720 70 25} step 1 deactivate
+        xywh {676 720 70 25} align 132 step 1 deactivate
       }
     }
     Fl_Group {} {
@@ -585,8 +582,7 @@ Fl::add_timeout(0.01, run_cb);}
 catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
-  }
-}
+  }}
         xywh {962 195 110 30} box GLEAM_THIN_UP_BOX deactivate
       }
       Fl_Button btn_direction_cw {
@@ -672,7 +668,7 @@ catch (std::runtime_error &e)
     label Werkzeugsuche
     xywh {2288 448 935 645} type Double resizable modal visible
   } {
-    Fl_Table to {open selected
+    Fl_Table to {open
       xywh {9 110 920 480}
       class test_object_table
     } {}
@@ -778,8 +774,7 @@ if (id > 0)
         //don't show error message
         //fl_alert (e.what ());
       }
-  }
-} {}
+  }} {}
 }
 
 Function {load_test_object(int id)} {open return_type void
@@ -844,8 +839,7 @@ if (id > 0)
         //vorerst keine Fehlermeldung
         //fl_alert (e.what ());
       }
-  }
-} {}
+  }} {}
 }
 
 Function {load_torque_tester()} {open return_type void
@@ -873,8 +867,7 @@ try
 catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
-  }
-} {}
+  }} {}
 }
 
 Function {update_test_object_type_class()} {open
@@ -926,8 +919,7 @@ Function {update_test_object_accuracy()} {open
     double max_t = vi_test_object_max_torque->value ();
     double acc = test_object::get_accuracy_from_DIN (selected_tc, max_t);
     vi_test_object_accuracy->value (acc * 100);
-  }
-} {}
+  }} {}
 }
 
 Function {update_run_activation()} {open
@@ -993,8 +985,7 @@ else
     to_step->hide ();
     step_progress->hide ();
     vo_step_progress->hide ();
-  }
-} {}
+  }} {}
 }
 
 Function {set_test_object_fields_editable(bool editable)} {open return_type void
@@ -1050,8 +1041,7 @@ else
     btn_test_object_delete->show ();
     btn_test_object_save->hide ();
     btn_test_object_abort->hide ();
-  }
-} {}
+  }} {}
 }
 
 Function {clear_test_object_fields()} {open return_type void
@@ -1089,6 +1079,5 @@ else
       grp_rise_time->show ();
     else
       grp_rise_time->hide ();
-  }
-} {}
+  }} {}
 }
