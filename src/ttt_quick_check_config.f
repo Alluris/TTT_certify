@@ -16,13 +16,24 @@ decl {\#include "quick_check_table.h"} {public global
 
 Function {} {open
 } {
-  code {setlocale (LC_ALL, "");
-//bindtextdomain("ttt","/usr/share/locale");
+  code {\#ifdef _WIN32
+  if (argc == 2)
+    {
+      // create string on heap (putenv doesn't copy the string)
+      // never free it! (this sound like a memory leak, I know)
+      char *lang_buf = (char *) malloc (50);
+      snprintf (lang_buf, 50, "LANG=%s", argv[1]);
+      putenv(lang_buf);
+      std::cout << "putenv(" << lang_buf << ")" << std::endl;
+    }
+\#endif
+
+setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
     label {TTT_Quick-Check V1.01.001} open
-    xywh {2076 275 375 555} type Double color 40 visible
+    xywh {2747 268 375 555} type Double color 40 visible
   } {
     Fl_Group {} {
       label {Prüfung} open
@@ -110,7 +121,7 @@ vi_test_object_accuracy->do_callback ();}
       }
     }
     Fl_Group {} {
-      label Messwerte open selected
+      label Messwerte open
       xywh {5 265 363 285} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button {} {

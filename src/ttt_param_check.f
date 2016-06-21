@@ -34,6 +34,21 @@ decl {\#define FS 900.0} {private local
 
 Function {} {open
 } {
+  code {\#ifdef _WIN32
+  if (argc == 2)
+    {
+      // create string on heap (putenv doesn't copy the string)
+      // never free it! (this sound like a memory leak, I know)
+      char *lang_buf = (char *) malloc (50);
+      snprintf (lang_buf, 50, "LANG=%s", argv[1]);
+      putenv(lang_buf);
+      std::cout << "putenv(" << lang_buf << ")" << std::endl;
+    }
+\#endif
+
+setlocale (LC_ALL, "");
+bindtextdomain("ttt","./po");
+textdomain ("ttt");} {}
   Fl_Window mainwin {
     label {TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2554 271 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible
@@ -56,8 +71,7 @@ Function {} {open
     btn_stop->activate ();
     values.clear ();
     Fl::add_timeout(0.01, run_cb);
-  }
-}
+  }}
         xywh {785 179 85 35} box GLEAM_UP_BOX deactivate
       }
       Fl_Button btn_stop {
@@ -68,8 +82,7 @@ Function {} {open
     measuring = false;
     o->deactivate ();
     btn_start->activate ();
-  }
-}
+  }}
         xywh {785 224 85 35} box GLEAM_UP_BOX deactivate
       }
       Fl_Value_Output vo_value {
@@ -114,7 +127,7 @@ update_cplot(true);}
       }
     }
     Fl_Group {} {
-      label {Messgerät} open selected
+      label {Messgerät} open
       xywh {775 5 265 130} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Output vo_mmax {
@@ -200,7 +213,8 @@ load_example (fn);}
       }
     }
   }
-  code {try
+  code {//run
+try
   {
     mainwin->show(argc, argv);
     // load example on startup
@@ -214,8 +228,8 @@ catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
     return -1;
+  }} {selected
   }
-} {}
 }
 
 Function {run_cb(void*)} {open return_type void
@@ -263,8 +277,7 @@ if (measuring)
           }
       }
     Fl::repeat_timeout(0.01, run_cb);
-  }
-} {}
+  }} {}
 }
 
 Function {update_cplot(bool keep_view = 0)} {open return_type void
@@ -347,8 +360,7 @@ for (unsigned int k=0; k < values.size (); ++k)
         cplot->redraw ();
         break;
       }
-  }
-} {}
+  }} {}
 }
 
 Function {load_example(string fn)} {open
@@ -377,8 +389,7 @@ else
   {
     fl_alert (gettext ("Die Datei '%s' konnte nicht gefunden werden"), fn.c_str());
     cerr << "Unable to open file '" << fn << "'" << endl;
-  }
-} {}
+  }} {}
 }
 
 Function {rot()} {open return_type double
