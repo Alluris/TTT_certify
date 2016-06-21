@@ -6,7 +6,7 @@ ttt_peak_detector::ttt_peak_detector ()
     thres_peak1_rel (0.9),
     stop_delay_samples (100)
 {
-  cout << "ttt_peak_detector::ttt_peak_detector ()" << endl;
+  //cout << "ttt_peak_detector::ttt_peak_detector ()" << endl;
   clear ();
 }
 
