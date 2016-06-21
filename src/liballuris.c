@@ -235,14 +235,6 @@ static int liballuris_interrupt_transfer (libusb_device_handle* dev_handle,
         }
 #endif
 
-      // if we want to disable streaming (0x01 0x04 0x00....) then reread and discard ID_SAMPLE 0x02
-      //if (r == LIBUSB_SUCCESS && out_buf[0] == 0x01 && out_buf[2] == 0x00 && in_buf[0] == 0x02)
-      //  {
-      //    liballuris_clear_RX (dev_handle, 400);
-      //    liballuris_clear_RX (dev_handle, 400);
-      //    return LIBUSB_SUCCESS;
-      //  }
-
       if (r != LIBUSB_SUCCESS || actual != reply_len)
         {
           if (r == LIBUSB_ERROR_OVERFLOW)
@@ -855,18 +847,10 @@ int liballuris_cyclic_measurement (libusb_device_handle *dev_handle, char enable
     {
       ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 4, DEFAULT_SEND_TIMEOUT, 0, 0);
       liballuris_clear_RX (dev_handle, 100);
-      liballuris_clear_RX (dev_handle, 200);
-      liballuris_clear_RX (dev_handle, 200);
+      liballuris_clear_RX (dev_handle, 100);
+      liballuris_clear_RX (dev_handle, 100);
     }
 
-  // we expect LIBUSB_ERROR_OVERFLOW if we try to disable streaming
-  //if (ret == LIBUSB_ERROR_OVERFLOW)
-  //  {
-  //    liballuris_clear_RX (dev_handle, 10);
-  //    // one more try
-  //    ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 4, DEFAULT_SEND_TIMEOUT, 0, DEFAULT_RECEIVE_TIMEOUT);
-  //    liballuris_clear_RX (dev_handle, 10);
-  //  }
   return ret;
 }
 
