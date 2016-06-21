@@ -21,7 +21,7 @@ Function {} {open
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT quick check config} open selected
+    label {TTT quick check config} open
     xywh {112 175 475 545} type Double visible
   } {
     Fl_Value_Input vi_nominal {
@@ -72,7 +72,7 @@ catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
   }
-mainwin->cursor (FL_CURSOR_DEFAULT);}
+mainwin->cursor (FL_CURSOR_DEFAULT);} selected
       xywh {85 190 315 35} box GTK_UP_BOX
     }
     Fl_Button {} {
@@ -88,13 +88,13 @@ vi_lower_limit->value (vi_nominal->value () * 0.94);}
       xywh {385 83 45 25} box GTK_UP_BOX
     }
     Fl_Value_Input vi_peak_level {
-      label {Detektionsschwelle [%]}
+      label {Peakdetektion [%]}
       callback {if (o->value () < 50)
   o->color (FL_RED);
 else
   o->color (FL_WHITE);
 o->redraw ();}
-      tooltip {Detektionsschwelle < 50% ist nicht empfehlenswert} xywh {250 140 55 25} box GTK_DOWN_BOX align 132 minimum 10 maximum 90 step 1 value 90
+      tooltip {Peakdetektion < 50% ist nicht empfehlenswert} xywh {250 140 55 25} box GTK_DOWN_BOX align 132 minimum 10 maximum 90 step 1 value 90
     }
     Fl_Button {} {
       label {Gerätespeicher auslesen}

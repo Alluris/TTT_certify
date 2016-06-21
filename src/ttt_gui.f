@@ -53,7 +53,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify v0.2.6 vom 17.06.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT_Certify v0.2.7 vom 20.06.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2501 255 1275 765} type Double color 40 labelfont 1 align 20 resizable visible
   } {
     Fl_Group {} {
@@ -144,7 +144,8 @@ if (id)
   {
     o->value (id);
     load_test_object (id);
-  }}
+  }
+}
         xywh {177 40 40 30} minimum 1 maximum 500 step 1
       }
       Fl_Input inp_test_object_equipment_nr {
@@ -323,7 +324,8 @@ try
 catch (std::runtime_error &e)
   {
     fl_alert (gettext ("Die Prüfmittelnummer muss eindeutig sein."));
-  }}
+  }
+}
         xywh {293 74 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Group {} {
@@ -381,7 +383,8 @@ if (r == 0)
         vi_test_object_id->hide ();
         clear_test_object_fields ();
       }
-  }}
+  }
+}
         xywh {8 40 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_copy {
@@ -403,7 +406,7 @@ set_test_object_fields_editable (true);}
         xywh {78 40 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Value_Input vi_test_object_peak_threshold {
-        label {Schwellwert Peak1 [%]}
+        label {Peakdetektion [%]}
         tooltip {Zur Bestimmung ggf. das Tool "TTT Param Check" verwenden. Wenn 0%, wird der Parameter vom TTT übernommen.} xywh {287 569 90 25} maximum 99 step 1 deactivate
       }
     }
@@ -465,7 +468,7 @@ set_test_object_fields_editable (true);}
         xywh {676 687 70 25} align 132 step 0.01 deactivate
       }
       Fl_Value_Input vo_torque_tester_peak_level {
-        label {Peak Level [%]}
+        label {Peakdetektion [%]}
         xywh {676 720 70 25} step 1 deactivate
       }
     }
@@ -495,7 +498,7 @@ bool use_mean_as_nominal_value = test_object::has_no_scale (t) && ! test_object:
 if (myTTT->get_test_object_max_torque() > myTTT->get_torque_tester_max_torque ())
   {
     fl_alert (gettext ("Das maximale Drehmoment des Schraubwerkzeugs überschreitet\\n"
-    		       "den Maximalwert des Messgeräts. Ggf. anderes TTT anschließen!"));
+                       "den Maximalwert des Messgeräts. Ggf. anderes TTT anschließen!"));
     return;
   }
 
@@ -544,15 +547,15 @@ else if (rb_din_6789->value () || rb_like_6789_repeat->value ())
   {
     if (! (total_extended_uncertainty < test_object_accuracy/4))
       {
-      char uncertainty_alert[512];
-      snprintf (uncertainty_alert, 512,
-                gettext ("Das Intervall der maximalen relativen erweiterten Messunsicherheit (=%.2f%%)\\n"
-                         "aus Messgerät und Anwender muss kleiner als ein Viertel der\\n"
-                         "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs (=%.2f%%) sein."),
-                total_extended_uncertainty * 100,
-                test_object_accuracy / 4.0 * 100);
+        char uncertainty_alert[512];
+        snprintf (uncertainty_alert, 512,
+                  gettext ("Das Intervall der maximalen relativen erweiterten Messunsicherheit (=%.2f%%)\\n"
+                           "aus Messgerät und Anwender muss kleiner als ein Viertel der\\n"
+                           "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs (=%.2f%%) sein."),
+                  total_extended_uncertainty * 100,
+                  test_object_accuracy / 4.0 * 100);
 
-      fl_alert (uncertainty_alert);
+        fl_alert (uncertainty_alert);
       }
     else if (temp > 28.0 || temp < 18.0)
       fl_alert ( gettext ("Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN EN ISO 6789:2003-10 Kapitel 6.2"));
@@ -571,11 +574,19 @@ Fl::add_timeout(0.01, run_cb);}
       }
       Fl_Button btn_stop {
         label Stopp
-        callback {myTTT->stop_sequencer();
-btn_result->show ();
-mtable->show ();
-btn_result->color (FL_RED);
-btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
+        callback {try
+  {
+    myTTT->stop_sequencer();
+    btn_result->show ();
+    mtable->show ();
+    btn_result->color (FL_RED);
+    btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));
+  }
+catch (std::runtime_error &e)
+  {
+    fl_alert (e.what ());
+  }
+}
         xywh {962 195 110 30} box GLEAM_THIN_UP_BOX deactivate
       }
       Fl_Button btn_direction_cw {
@@ -639,7 +650,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
         xywh {1085 40 50 25} step 0.1
       }
       Fl_Group grp_rise_time {
-        label {Zeitüberwachung} open selected
+        label {Zeitüberwachung} open
         tooltip {Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge} xywh {1080 108 180 64} box GTK_THIN_UP_BOX
       } {
         Fl_Round_Button rb_repeat_until_okay {
@@ -661,7 +672,7 @@ btn_result->copy_label (gettext ("Kalibrierung durch Benutzer abgebrochen"));}
     label Werkzeugsuche
     xywh {2288 448 935 645} type Double resizable modal visible
   } {
-    Fl_Table to {open
+    Fl_Table to {open selected
       xywh {9 110 920 480}
       class test_object_table
     } {}
@@ -767,7 +778,8 @@ if (id > 0)
         //don't show error message
         //fl_alert (e.what ());
       }
-  }} {}
+  }
+} {}
 }
 
 Function {load_test_object(int id)} {open return_type void
@@ -800,6 +812,7 @@ if (id > 0)
 
         //minimum und maximum festlegen
         vi_single_peak->maximum (vi_test_object_max_torque->value());
+        vi_single_peak->minimum (-vi_test_object_max_torque->value());
 
         vi_test_object_resolution->value(myTTT->get_test_object_resolution ());
         vi_test_object_peak_threshold->value (100 * myTTT->get_test_object_peak_trigger2_factor());
@@ -831,7 +844,8 @@ if (id > 0)
         //vorerst keine Fehlermeldung
         //fl_alert (e.what ());
       }
-  }} {}
+  }
+} {}
 }
 
 Function {load_torque_tester()} {open return_type void
@@ -854,11 +868,13 @@ try
     vo_torque_tester_uncertainty->value(100 * myTTT->get_torque_tester_uncertainty_of_measurement ());
     vo_torque_tester_peak_level->value (100 * myTTT->get_torque_tester_peak_level ());
     vi_single_peak->maximum (myTTT->get_torque_tester_max_torque ());
+    vi_single_peak->minimum (- myTTT->get_torque_tester_max_torque ());
   }
 catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
-  }} {}
+  }
+} {}
 }
 
 Function {update_test_object_type_class()} {open
@@ -910,7 +926,8 @@ Function {update_test_object_accuracy()} {open
     double max_t = vi_test_object_max_torque->value ();
     double acc = test_object::get_accuracy_from_DIN (selected_tc, max_t);
     vi_test_object_accuracy->value (acc * 100);
-  }} {}
+  }
+} {}
 }
 
 Function {update_run_activation()} {open
@@ -976,7 +993,8 @@ else
     to_step->hide ();
     step_progress->hide ();
     vo_step_progress->hide ();
-  }} {}
+  }
+} {}
 }
 
 Function {set_test_object_fields_editable(bool editable)} {open return_type void
@@ -1032,7 +1050,8 @@ else
     btn_test_object_delete->show ();
     btn_test_object_save->hide ();
     btn_test_object_abort->hide ();
-  }} {}
+  }
+} {}
 }
 
 Function {clear_test_object_fields()} {open return_type void
@@ -1070,5 +1089,6 @@ else
       grp_rise_time->show ();
     else
       grp_rise_time->hide ();
-  }} {}
+  }
+} {}
 }

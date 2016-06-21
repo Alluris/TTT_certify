@@ -56,7 +56,8 @@ Function {} {open
     btn_stop->activate ();
     values.clear ();
     Fl::add_timeout(0.01, run_cb);
-  }}
+  }
+}
         xywh {785 179 85 35} box GTK_UP_BOX deactivate
       }
       Fl_Button btn_stop {
@@ -67,15 +68,16 @@ Function {} {open
     measuring = false;
     o->deactivate ();
     btn_start->activate ();
-  }}
+  }
+}
         xywh {785 224 85 35} box GTK_UP_BOX deactivate
       }
       Fl_Value_Output vo_value {
-        label {Messwert [Nm]}
-        xywh {880 194 150 65} align 5 step 0.1 textsize 49
+        label {Messwert [Nm]} selected
+        xywh {880 193 150 65} align 5 step 0.1 textsize 49
       }
       Fl_Value_Slider vi_peak1_thres {
-        label {Schwellwert Peak 1 [%]}
+        label {Peakdetektion 1 [%]}
         callback {// keep current view
 update_cplot(true);}
         tooltip {typisch 80% .. 90%} xywh {785 285 244 30} type {Horz Knob} align 1 minimum 30 maximum 99 step 1 value 90 textsize 14
@@ -131,33 +133,33 @@ Fl::wait ();
 if (! meas_led->value ())
   {
     try
-    {
-      dev = new ttt_device ();
-      meas_led->value (1);
-      o->copy_label (gettext ("trennen"));
-      
-      btn_start->activate ();      
+      {
+        dev = new ttt_device ();
+        meas_led->value (1);
+        o->copy_label (gettext ("trennen"));
 
-      double mmax = dev->get_max_torque ();
-      vo_mmax->value (mmax);
-      // Start and Stop threshold hard coded 2% and 1%
-      peakd.set_thresholds (0.02 * mmax, 0.01 * mmax, vi_peak1_thres->value () / 100.0);
-    }
+        btn_start->activate ();
+
+        double mmax = dev->get_max_torque ();
+        vo_mmax->value (mmax);
+        // Start and Stop threshold hard coded 2% and 1%
+        peakd.set_thresholds (0.02 * mmax, 0.01 * mmax, vi_peak1_thres->value () / 100.0);
+      }
     catch (std::runtime_error &e)
-    {
-      fl_alert (e.what ());
-    }
+      {
+        fl_alert (e.what ());
+      }
   }
 else
   {
-     btn_stop->do_callback ();
-     delete dev;
-     dev = 0;
-     meas_led->value (0);
-     o->copy_label (gettext ("verbinden"));
- 
-     btn_start->deactivate ();      
-     btn_stop->deactivate (); 
+    btn_stop->do_callback ();
+    delete dev;
+    dev = 0;
+    meas_led->value (0);
+    o->copy_label (gettext ("verbinden"));
+
+    btn_start->deactivate ();
+    btn_stop->deactivate ();
   }
 
 mainwin->cursor (FL_CURSOR_DEFAULT);}
@@ -186,7 +188,7 @@ load_example (fn);}
         label {\#1}
         callback {choice_direction->value(0);
 string fn = "./examples/Garant_65_6050_6_SN15-492265_Hand.csv";
-load_example (fn);} selected
+load_example (fn);}
         xywh {970 577 30 30} align 128
       }
       Fl_Box {} {
@@ -205,12 +207,13 @@ load_example (fn);} selected
     // load example on startup
     // btn_csv->do_callback ();
     return Fl::run();
-   }
+  }
 catch (std::runtime_error &e)
-   {
+  {
     fl_alert (e.what ());
     return -1;
-   }} {}
+  }
+} {}
 }
 
 Function {run_cb(void*)} {open return_type void
@@ -231,34 +234,35 @@ if (measuring)
 
     // feed into peakdetection
     for (unsigned int k=0; k<tmp.size (); ++k)
-    {
-      bool r = peakd.update (rot () * tmp[k]);
-      if (r)
-        {
-          printf ("new peakset in peakd\\n");
-          peakd.print_stats ();
-          peakset last = peakd.get_last_peakset ();
+      {
+        bool r = peakd.update (rot () * tmp[k]);
+        if (r)
+          {
+            printf ("new peakset in peakd\\n");
+            peakd.print_stats ();
+            peakset last = peakd.get_last_peakset ();
 
-	  //copy int0 values, 0.5s before/after start/stop
-          int start = last.start_x - 0.2 * FS;
-          if (start < 0)
-            start = 0;
-          int stop = last.stop_x + 0.2 * FS;
-          if (stop >= int(in_buf.size ()))
-            stop = in_buf.size () - 1;
+            //copy int0 values, 0.5s before/after start/stop
+            int start = last.start_x - 0.2 * FS;
+            if (start < 0)
+              start = 0;
+            int stop = last.stop_x + 0.2 * FS;
+            if (stop >= int(in_buf.size ()))
+              stop = in_buf.size () - 1;
 
-	  vector<double>::iterator it = in_buf.begin();
-          values.assign (it+start, it+stop);
+            vector<double>::iterator it = in_buf.begin();
+            values.assign (it+start, it+stop);
 
-	  update_cplot ();		
+            update_cplot ();
 
-	  in_buf.clear();
-	  peakd.clear ();
-	  break;
-	}
-    }
+            in_buf.clear();
+            peakd.clear ();
+            break;
+          }
+      }
     Fl::repeat_timeout(0.01, run_cb);
-  }} {}
+  }
+} {}
 }
 
 Function {update_cplot(bool keep_view = 0)} {open return_type void
@@ -278,7 +282,7 @@ if (keep_view)
   {
     cplot->get_xlim (x0, x1);
     cplot->get_ylim (y0, y1);
-  }  
+  }
 
 // feed values in peak detector
 for (unsigned int k=0; k < values.size (); ++k)
@@ -309,7 +313,7 @@ for (unsigned int k=0; k < values.size (); ++k)
           {
             cplot->set_xlim (x0, x1);
             cplot->set_ylim (y0, y1);
-          }  
+          }
         else
           cplot->update_limits ();
 
@@ -321,7 +325,7 @@ for (unsigned int k=0; k < values.size (); ++k)
           }
         else
           vo_peak1->value (0);
-        
+
         if (last.min_after_peak1_x > 0)
           {
             cplot->add_marker ((last.min_after_peak1_x - start)/FS, last.min_after_peak1_y, 15, 0, 0, 1);
@@ -329,7 +333,7 @@ for (unsigned int k=0; k < values.size (); ++k)
           }
         else
           vo_min1->value (0);
-          
+
         if (last.peak2_x > 0)
           {
             cplot->add_marker ((last.peak2_x - start)/FS, last.peak2_y, 15, 1, 0, 0);
@@ -337,40 +341,42 @@ for (unsigned int k=0; k < values.size (); ++k)
           }
         else
           vo_peak2->value (0);
-          
+
         cplot->redraw ();
         break;
       }
-  }} {}
+  }
+} {}
 }
 
 Function {load_example(string fn)} {open
 } {
   code {double value;
-  int cnt = 0;
-  ifstream in (fn.c_str ());
-  if (in.is_open())
-    {
-      values.clear ();
-      while (! in.fail ())
-        {
-          in >> value;
-          values.push_back (value);
-	  cnt++;	
-        }
+int cnt = 0;
+ifstream in (fn.c_str ());
+if (in.is_open())
+  {
+    values.clear ();
+    while (! in.fail ())
+      {
+        in >> value;
+        values.push_back (value);
+        cnt++;
+      }
 
-      if (in.fail () && ! in.eof ())
-        cerr << "Couldn't read double in line " << cnt << endl;
-      cout << "read " << cnt << " values..." << endl;
+    if (in.fail () && ! in.eof ())
+      cerr << "Couldn't read double in line " << cnt << endl;
+    cout << "read " << cnt << " values..." << endl;
 
-      in.close();
-      update_cplot();
-    }
-  else
-    {
-      fl_alert (gettext ("Die Datei '%s' konnte nicht gefunden werden"), fn.c_str());
-      cerr << "Unable to open file '" << fn << "'" << endl;
-    }} {}
+    in.close();
+    update_cplot();
+  }
+else
+  {
+    fl_alert (gettext ("Die Datei '%s' konnte nicht gefunden werden"), fn.c_str());
+    cerr << "Unable to open file '" << fn << "'" << endl;
+  }
+} {}
 }
 
 Function {rot()} {open return_type double
