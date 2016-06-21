@@ -743,6 +743,7 @@ void ttt::start_sequencer_ISO6789 (double temperature, double humidity, bool rep
 
 void ttt::stop_sequencer ()
 {
+  cout << "ttt::stop_sequencer ()" << endl;
   if (measurement_output.is_open ())
     measurement_output.close ();
 

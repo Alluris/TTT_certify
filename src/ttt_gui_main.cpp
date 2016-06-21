@@ -135,13 +135,6 @@ void update_step(string s, double v)
   to_step->value (s.c_str ());
   step_progress->value (v * 100);
   vo_step_progress->value (v * 100);
-  /*
-    // finished
-    if (v >= 1)
-      btn_result->show ();
-    else
-      btn_result->hide ();
-  */
 }
 
 void update_result(string s)
@@ -166,10 +159,17 @@ void update_result(string s)
 
 void run_cb(void*)
 {
-  if (myTTT->run ())
-    Fl::repeat_timeout(0.01, run_cb);
-  else
-    update_run_activation ();
+  try
+  {
+	  if (myTTT->run ())
+		Fl::repeat_timeout(0.01, run_cb);
+	  else
+		update_run_activation ();
+  }
+  catch (std::runtime_error &e)
+  {
+      fl_alert (e.what ());
+  }
 }
 
 void test_object_table_selected (int id)

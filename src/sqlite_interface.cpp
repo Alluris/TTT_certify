@@ -737,6 +737,8 @@ void measurement::load_with_id (sqlite3 *db, int search_id)
 
 void measurement::save (sqlite3 *db)
 {
+  cout << "measurement::save (sqlite3 *db) tp.id="<< tp.id << " tt.id=" << tt.id << " to.id=" << to.id << endl;
+
   // check if we should create a new test_person entry
   if (tp.id == 0)
     tp.save (db);
