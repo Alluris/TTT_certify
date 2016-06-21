@@ -53,7 +53,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify v0.2.7 vom 20.06.2016 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2391 192 1275 765} type Double color 40 labelfont 1 align 20 resizable size_range {800 600 0 0} visible
   } {
     Fl_Group {} {
@@ -166,7 +166,7 @@ if (id)
       Fl_Choice choice_test_object_type {
         label {DIN EN ISO 6789 Typ}
         callback {update_test_object_type_class();
-update_test_object_accuracy();} open selected
+update_test_object_accuracy();} open
         xywh {178 227 210 28} down_box BORDER_BOX align 132 when 1 deactivate
       } {
         MenuItem {} {
@@ -470,8 +470,8 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Prüfung} open
-      xywh {761 6 515 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      label {Prüfung} open selected
+      xywh {761 6 510 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
         label Start

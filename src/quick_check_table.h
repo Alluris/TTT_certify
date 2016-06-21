@@ -27,6 +27,7 @@ public:
   void clear ()
   {
     peak_values.clear ();
+    rows (5);
   }
 
   void set_nominal_value (double nom)

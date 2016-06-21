@@ -41,6 +41,7 @@ textdomain ("ttt");} {}
     } {
       Fl_Value_Input vi_nominal {
         label {Nominalwert [Nm]}
+        callback {vi_test_object_accuracy->do_callback ()}
         xywh {195 40 55 25} minimum -50 maximum 50 step 0.1
       }
       Fl_Value_Input vi_test_object_accuracy {
@@ -96,7 +97,7 @@ o->redraw ();}
         al.set_lower_limit (round (vi_upper_limit->value () / scale));
         al.set_upper_limit (round (vi_lower_limit->value () / scale));
       }
-    al.set_memory_mode (LIBALLURIS_MEM_MODE_SINGLE);
+    al.set_memory_mode (LIBALLURIS_MEM_MODE_QUICK_CHECK);
     al.set_unit (LIBALLURIS_UNIT_N);
     al.set_peak_level (vi_peak_level->value() / 100.0);
   }
@@ -121,7 +122,7 @@ vi_test_object_accuracy->do_callback ();}
       }
     }
     Fl_Group {} {
-      label Messwerte open
+      label Messwerte open selected
       xywh {5 265 363 285} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button {} {
@@ -185,6 +186,8 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
 
     al.clear_memory ();
     quick_tbl->clear ();
+    vo_std->value (0);
+    vo_mean->value (0);
     //quick_tbl->hide ();
   }
 catch (std::runtime_error &e)
