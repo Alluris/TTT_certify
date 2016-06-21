@@ -43,7 +43,7 @@ string liballuris::err_msg (int err)
 }
 
 #define ERR_PREFIX(e) liballuris_error_name (e) << " in " << __FILE__ << ":" << __LINE__ << "(" << __FUNCTION__ << "):"
-#define RUNTIME_ERROR(e, msg) if(e) { std::ostringstream tmp_err; tmp_err << ERR_PREFIX(r) << msg << "\n\n" << err_msg(e); throw runtime_error (tmp_err.str ());}
+#define RUNTIME_ERROR(e, msg) if(e) { std::ostringstream tmp_err; tmp_err << ERR_PREFIX(e) << msg << "\n\n" << err_msg(e); throw runtime_error (tmp_err.str ());}
 
 liballuris::liballuris ()
 {
