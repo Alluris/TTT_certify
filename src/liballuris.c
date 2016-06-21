@@ -1585,9 +1585,10 @@ int liballuris_sim_keypress (libusb_device_handle *dev_handle, unsigned char mas
   return liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 3, DEFAULT_SEND_TIMEOUT, 3, DEFAULT_RECEIVE_TIMEOUT);
 }
 
+// Parameter P7
 int liballuris_set_peak_level (libusb_device_handle *dev_handle, int v)
 {
-  if (v < 1 || v > 9)
+  if (v < 1 || v > 99)
     return LIBALLURIS_OUT_OF_RANGE;
 
   out_buf[0] = 0x31;
@@ -1602,6 +1603,7 @@ int liballuris_set_peak_level (libusb_device_handle *dev_handle, int v)
   return ret;
 }
 
+// Parameter P7
 int liballuris_get_peak_level (libusb_device_handle *dev_handle, int *v)
 {
   out_buf[0] = 0x32;

@@ -269,7 +269,7 @@ void liballuris::clear_RX (int timeout)
 
 void liballuris::set_peak_level (double level)
 {
-  int tmp = round (level * 10);
+  int tmp = round (level * 100);
   int r = liballuris_set_peak_level (usb_h, tmp);
   RUNTIME_ERROR(r,"");
 }
@@ -279,7 +279,7 @@ double liballuris::get_peak_level ()
   int level;
   int r = liballuris_get_peak_level (usb_h, &level);
   RUNTIME_ERROR(r,"");
-  return level / 10.0;
+  return level / 100.0;
 }
 
 void liballuris::set_autostop (int t)
