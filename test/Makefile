@@ -45,7 +45,7 @@ lsusb-libusb: lsusb-libusb.c
 	gcc -g -o $@ $< -lm -lusb-1.0
 
 start_stop: start_stop.c
-	gcc -g -o $@ $< ../src/liballuris.o -lusb-1.0
+	gcc $(CPPFLAGS) -g -o $@ $< ../src/liballuris.o -lusb-1.0
 
 TEST_FILES=test_object_id6.log test_object_id7.log test_object_id8.log test_object_id9.log\
            test_object_id10.log test_object_id11.log test_object_id12.log test_object_id13.log\
