@@ -160,16 +160,16 @@ void update_result(string s)
 void run_cb(void*)
 {
   try
-  {
-	  if (myTTT->run ())
-		Fl::repeat_timeout(0.01, run_cb);
-	  else
-		update_run_activation ();
-  }
+    {
+      if (myTTT->run ())
+        Fl::repeat_timeout(0.01, run_cb);
+      else
+        update_run_activation ();
+    }
   catch (std::runtime_error &e)
-  {
+    {
       fl_alert (e.what ());
-  }
+    }
 }
 
 void test_object_table_selected (int id)

@@ -852,12 +852,12 @@ int liballuris_cyclic_measurement (libusb_device_handle *dev_handle, char enable
   if (enable)
     ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 4, DEFAULT_SEND_TIMEOUT, 4, DEFAULT_RECEIVE_TIMEOUT);
   else
-  {
-    ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 4, DEFAULT_SEND_TIMEOUT, 0, 0);
-    liballuris_clear_RX (dev_handle, 100);
-    liballuris_clear_RX (dev_handle, 200);
-    liballuris_clear_RX (dev_handle, 200);
-  }
+    {
+      ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 4, DEFAULT_SEND_TIMEOUT, 0, 0);
+      liballuris_clear_RX (dev_handle, 100);
+      liballuris_clear_RX (dev_handle, 200);
+      liballuris_clear_RX (dev_handle, 200);
+    }
 
   // we expect LIBUSB_ERROR_OVERFLOW if we try to disable streaming
   //if (ret == LIBUSB_ERROR_OVERFLOW)
