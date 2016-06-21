@@ -223,10 +223,10 @@ enum out_cmd tare_torque_tester_step::inout (double torque, bool confirmation)
   step::inout (torque, confirmation);
   enum out_cmd ret = NO_CMD;
 
-  // wait 5s until starting tare on the device so that the user can
+  // wait 3s until starting tare on the device so that the user can
   // completely release the device
 //cout << "tare_torque_tester_step::inout v_time.back ()=" << v_time.back () << endl;
-  if (int_step == 0 && v_time.back () > 5)
+  if (int_step == 0 && v_time.back () > 3)
     {
       int_step = 1;
     }
