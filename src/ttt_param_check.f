@@ -216,7 +216,7 @@ load_example (fn);}
   code {//run
 try
   {
-    mainwin->show(argc, argv);
+    mainwin->show();
     // load example on startup
     // btn_csv->do_callback ();
 

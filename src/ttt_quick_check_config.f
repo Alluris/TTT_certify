@@ -122,7 +122,7 @@ vi_test_object_accuracy->do_callback ();}
       }
     }
     Fl_Group {} {
-      label Messwerte open selected
+      label Messwerte open
       xywh {5 265 363 285} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button {} {
@@ -202,7 +202,7 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
         class quick_check_table
       } {}
       Fl_Value_Output vo_mean {
-        label {Mittelwert [Nm]}
+        label {Mittelwert [Nm]} selected
         xywh {20 500 110 30} box DOWN_BOX align 5 step 0.001
       }
       Fl_Value_Output vo_std {
@@ -211,5 +211,7 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
       }
     }
   }
-  code {//quick_tbl->hide ();} {}
+  code {//quick_tbl->hide ();
+mainwin->show();
+return Fl::run();} {}
 }
