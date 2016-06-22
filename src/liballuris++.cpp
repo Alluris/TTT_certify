@@ -29,6 +29,8 @@ string liballuris::err_msg (int err)
     {
     case LIBUSB_ERROR_NOT_FOUND:
     case LIBUSB_ERROR_NO_DEVICE:
+    case LIBUSB_ERROR_PIPE:
+    case LIBUSB_ERROR_IO:
       ret =  gettext (
                "Keine Verbindung zum TTT.\n"
                "Bitte überprüfen Sie die USB-Leitung zum PC und stellen Sie sicher, dass\n"

@@ -582,6 +582,7 @@ Fl::add_timeout(0.01, run_cb);}
 catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
+	exit (-1);
   }}
         xywh {962 195 110 30} box GLEAM_THIN_UP_BOX deactivate
       }
