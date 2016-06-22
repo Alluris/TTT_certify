@@ -70,6 +70,8 @@ TTT_certify_mingw64_i686_build:
 	cp -r ../third_party_licenses $@
 	cp -r --parents po/en $@
 	cp -r --parents po/fr $@
+	cp -r --parents po/es $@
+	cp -r --parents po/it $@
 
 clean:
 	find . -name "octave-workspace" -exec rm {} \;
