@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-06-21 09:44+0200\n"
+"POT-Creation-Date: 2016-06-23 08:51+0200\n"
 "PO-Revision-Date: 2016-06-20 12:43+0200\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: English\n"
@@ -34,7 +34,7 @@ msgstr "Preparation of measuring instrument"
 msgid "+Drehmoment-Schraubwerkzeug mit Nominalwert vorbelasten"
 msgstr "+Preload torque tool with nominal value"
 
-#: ../step.cpp:196 ../step.cpp:570
+#: ../step.cpp:196 ../step.cpp:586
 msgid "Drehmoment-Schraubwerkzeug entlasten"
 msgstr "Relieve torque tool"
 
@@ -85,22 +85,22 @@ msgstr "Load torque Tool with nominal value and then relieve"
 msgid "Peakmessung Typ I"
 msgstr "Peak measurement type I"
 
-#: ../step.cpp:567
+#: ../step.cpp:583
 msgid "+Drehmoment-Schraubwerkzeug belasten bis es auslöst"
 msgstr "Load torque tool until click"
 
 #. cout << "rise_time=" << rise_time << endl;
-#: ../step.cpp:576
+#: ../step.cpp:592
 #, c-format
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
 msgstr "* Torque rise was too fast (% .2fs <% .2fs). Repetition"
 
-#: ../step.cpp:580
+#: ../step.cpp:596
 #, c-format
 msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
 msgstr "* Torque rise was too slow (% .2fs <% .2fs). Repetition"
 
-#: ../step.cpp:591
+#: ../step.cpp:607
 msgid "Peakmessung Typ II"
 msgstr "Peak measurement type II"
 
@@ -237,59 +237,59 @@ msgstr ""
 msgid "Kalibrierung durch Benutzer abgebrochen"
 msgstr "Calibration aborted by user"
 
-#: ../ttt_gui.cpp:584
+#: ../ttt_gui.cpp:585
 #, fuzzy
 msgid ""
-"TTT_Certify v0.2.7 vom 20.06.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
-"79100 Freiburg, software@alluris.de"
+"TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"Freiburg, software@alluris.de"
 msgstr ""
 "TTT_Certify v0.2.5  30/05/2016  Alluris GmbH & Co. KG, Basler Str. 65 , "
 "79100 Freiburg, software@alluris.de"
 
-#: ../ttt_gui.cpp:589
+#: ../ttt_gui.cpp:590
 msgid "Bearbeiter"
 msgstr "Operator"
 
 #. test_person_table* tp
-#: ../ttt_gui.cpp:594 ../ttt_gui.cpp:1040 ../test_person_table.h:50
+#: ../ttt_gui.cpp:595 ../ttt_gui.cpp:1063 ../test_person_table.h:50
 msgid "Name"
 msgstr "Operator name"
 
 #. Fl_Input* inp_test_person_name
-#: ../ttt_gui.cpp:597 ../test_person_table.h:53
+#: ../ttt_gui.cpp:599 ../test_person_table.h:53
 msgid "Verantwortlicher"
 msgstr "Supervisor"
 
 #. Fl_Input* inp_test_person_supervisor
 #. Fl_Value_Input* vo_torque_tester_resolution
-#: ../ttt_gui.cpp:600 ../ttt_gui.cpp:841
+#: ../ttt_gui.cpp:603 ../ttt_gui.cpp:862
 msgid "erweiterte Messunsicherheit [%]"
 msgstr "Expanded uncertainty of measurement [%]"
 
-#: ../ttt_gui.cpp:601
+#: ../ttt_gui.cpp:604
 msgid "erweiterte Messunsicherheit durch den Bediener"
 msgstr "Expanded uncertainty of operator [%]"
 
 #. Fl_Value_Input* vi_test_person_uncertainty
 #. Fl_Button* btn_test_object_new
-#: ../ttt_gui.cpp:607 ../ttt_gui.cpp:721
+#: ../ttt_gui.cpp:610 ../ttt_gui.cpp:732
 msgid "@filesave speichern"
 msgstr "@filesave save"
 
 #. Fl_Button* btn_test_person_save
 #. Fl_Input* mi_test_object_attachments
-#: ../ttt_gui.cpp:611 ../ttt_gui.cpp:717
+#: ../ttt_gui.cpp:614 ../ttt_gui.cpp:728
 msgid "@filenew neu"
 msgstr "@filenew new"
 
 #. Fl_Button* btn_test_person_new
-#: ../ttt_gui.cpp:615 ../ttt_gui.cpp:637 ../ttt_gui.cpp:811
+#: ../ttt_gui.cpp:618 ../ttt_gui.cpp:640 ../ttt_gui.cpp:825
 msgid "id"
 msgstr "ID"
 
 #. Fl_Value_Input* vi_test_person_id
 #. cairo_device_box* cbox
-#: ../ttt_gui.cpp:622 ../ttt_gui.cpp:759
+#: ../ttt_gui.cpp:625 ../ttt_gui.cpp:770
 msgid "@undo abbrechen"
 msgstr "@undo abort"
 
@@ -300,27 +300,27 @@ msgstr "@undo abort"
 #. Fl_Button* btn_search_serial_number
 #. Fl_Button* btn_search_manufacturer
 #. Fl_Input* search_test_person_name
-#: ../ttt_gui.cpp:626 ../ttt_gui.cpp:763 ../ttt_gui.cpp:999
-#: ../ttt_gui.cpp:1003 ../ttt_gui.cpp:1007 ../ttt_gui.cpp:1011
-#: ../ttt_gui.cpp:1044
+#: ../ttt_gui.cpp:629 ../ttt_gui.cpp:774 ../ttt_gui.cpp:1022
+#: ../ttt_gui.cpp:1026 ../ttt_gui.cpp:1030 ../ttt_gui.cpp:1034
+#: ../ttt_gui.cpp:1067
 msgid "@search"
 msgstr "@search"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:632
+#: ../ttt_gui.cpp:635
 msgid "Drehmoment-Schraubwerkzeug"
 msgstr "Torque tool"
 
 #. Fl_Value_Input* vi_test_object_id
 #. test_object_table* to
-#: ../ttt_gui.cpp:643 ../ttt_gui.cpp:983
+#: ../ttt_gui.cpp:646 ../ttt_gui.cpp:1006
 msgid "Prüfmittelnummer"
 msgstr "Inventory number"
 
 #. Fl_Input* inp_test_object_equipment_nr
 #. Fl_Value_Input* vo_torque_tester_id
 #. Fl_Input* search_test_object_equipment_nr
-#: ../ttt_gui.cpp:646 ../ttt_gui.cpp:814 ../ttt_gui.cpp:987
+#: ../ttt_gui.cpp:650 ../ttt_gui.cpp:828 ../ttt_gui.cpp:1010
 #: ../test_object_table.h:53
 msgid "Seriennummer"
 msgstr "Serial number"
@@ -328,36 +328,37 @@ msgstr "Serial number"
 #. Fl_Input* inp_test_object_serial
 #. Fl_Input* out_torque_tester_serial
 #. Fl_Input* search_test_object_serial
-#: ../ttt_gui.cpp:649 ../ttt_gui.cpp:817 ../ttt_gui.cpp:991
+#: ../ttt_gui.cpp:654 ../ttt_gui.cpp:832 ../ttt_gui.cpp:1014
 #: ../test_object_table.h:56
 msgid "Hersteller"
 msgstr "Manufacturer"
 
 #. Fl_Input* inp_test_object_manufacturer
 #. Fl_Input* search_test_object_manufacturer
-#: ../ttt_gui.cpp:652 ../ttt_gui.cpp:995 ../test_object_table.h:59
+#: ../ttt_gui.cpp:658 ../ttt_gui.cpp:1018 ../test_object_table.h:59
 msgid "Modell"
 msgstr "Model"
 
 #. Fl_Input* inp_test_object_model
-#: ../ttt_gui.cpp:655
+#: ../ttt_gui.cpp:662
 msgid "DIN EN ISO 6789 Typ"
 msgstr "DIN EN ISO 6789 Typ"
 
 # ?
 #. Fl_Choice* choice_test_object_type
-#: ../ttt_gui.cpp:669
+#. Fl_Value_Slider* vi_peak1_thres
+#: ../ttt_gui.cpp:677 ../ttt_param_check.cpp:1736
 msgid "Funktionsrichtung"
 msgstr "Direction of operation"
 
 #. Fl_Choice* choice_test_object_dir_of_rotation
-#: ../ttt_gui.cpp:682
+#: ../ttt_gui.cpp:690
 msgid "Hebellänge [cm]"
 msgstr "Lever length [cm]"
 
 # Quelltext doppelt gemoppelt?
 #  ...bis zum markierten Punkt, es sei denn er ist markiert...
-#: ../ttt_gui.cpp:683
+#: ../ttt_gui.cpp:691
 msgid ""
 "Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder "
 "des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist "
@@ -368,39 +369,41 @@ msgstr ""
 "application point is marked;"
 
 #. Fl_Value_Input* vi_test_object_lever_length
-#: ../ttt_gui.cpp:690
+#. Fl_Value_Input* vi_test_object_accuracy
+#: ../ttt_gui.cpp:699 ../ttt_quick_check_config.cpp:198
 msgid "Unterer Grenzwert [Nm]"
 msgstr "Lower limit [Nm]"
 
-#: ../ttt_gui.cpp:691
+#: ../ttt_gui.cpp:700
 msgid "Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA"
 msgstr "Lower limit of the measuring range TA specified by the manufacturer"
 
 #. Fl_Value_Input* vi_test_object_min_torque
-#: ../ttt_gui.cpp:697
+#. Fl_Value_Input* vi_lower_limit
+#: ../ttt_gui.cpp:706 ../ttt_quick_check_config.cpp:203
 msgid "Oberer Grenzwert [Nm]"
 msgstr "Upper Limit [Nm]"
 
-#: ../ttt_gui.cpp:698
+#: ../ttt_gui.cpp:707
 msgid "Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE"
 msgstr "Lower limit of the measuring range TE specified by the manufacturer"
 
 #. Fl_Value_Input* vi_test_object_max_torque
 #. Fl_Value_Input* vo_torque_tester_max_torque
-#: ../ttt_gui.cpp:704 ../ttt_gui.cpp:837
+#: ../ttt_gui.cpp:714 ../ttt_gui.cpp:857
 msgid "Auflösung [Nm]"
 msgstr "Resolution [Nm]"
 
-#: ../ttt_gui.cpp:705
+#: ../ttt_gui.cpp:715
 msgid "Auflösung von der Anzeige r"
 msgstr "Resolution of the display r"
 
 #. Fl_Value_Input* vi_test_object_resolution
-#: ../ttt_gui.cpp:710
+#: ../ttt_gui.cpp:721
 msgid "Anbauteile"
 msgstr "attachments"
 
-#: ../ttt_gui.cpp:711
+#: ../ttt_gui.cpp:722
 msgid ""
 "Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich "
 "Passstücke und austauschbarer Aufsätze"
@@ -409,171 +412,174 @@ msgstr ""
 "interchangeable attachments"
 
 #. Fl_Button* btn_test_object_save
-#: ../ttt_gui.cpp:725
+#: ../ttt_gui.cpp:736
 msgid "Höchstzulässige Abweichung"
 msgstr "Maximum admissible deviation"
 
 #. Fl_Button* btn_result
-#: ../ttt_gui.cpp:728 ../ttt_gui.cpp:906
+#: ../ttt_gui.cpp:739 ../ttt_gui.cpp:928
 msgid "%"
 msgstr "%"
 
 #. Fl_Value_Input* vi_test_object_accuracy
-#: ../ttt_gui.cpp:733
+#: ../ttt_gui.cpp:744
 msgid "aus der DIN EN ISO 6789"
 msgstr "according to DIN ISO 6789"
 
-#: ../ttt_gui.cpp:734
+#: ../ttt_gui.cpp:745
 msgid "Use DIN EN ISO 6789:2003-10 chapter 5.1.5.2"
 msgstr "Use DIN EN ISO 6789:2003-10 chapter 5.1.5.2"
 
 #. Fl_Round_Button* rb_accuracy_from_ISO6789
-#: ../ttt_gui.cpp:740
+#: ../ttt_gui.cpp:751
 msgid "Herstellerangabe"
 msgstr "Manufacturer specifications"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:748
+#: ../ttt_gui.cpp:759
 msgid "Klassifizierung"
 msgstr "Classification"
 
 #. Fl_Button* btn_test_object_search
-#: ../ttt_gui.cpp:767
+#: ../ttt_gui.cpp:778
 msgid "löschen"
 msgstr "Delete"
 
 #. Fl_Button* btn_test_object_delete
-#: ../ttt_gui.cpp:771
+#: ../ttt_gui.cpp:782
 msgid "kopieren"
 msgstr "Copy"
 
 # Bearbeiten?
 #. Fl_Button* btn_test_object_copy
-#: ../ttt_gui.cpp:775
+#: ../ttt_gui.cpp:786
 msgid "editieren"
 msgstr "Edit"
 
 # ?
 #. Fl_Button* btn_test_object_edit
 #. Fl_Value_Input* vo_torque_tester_uncertainty
-#. Fl_Button* o
-#: ../ttt_gui.cpp:779 ../ttt_gui.cpp:846 ../ttt_quick_check_config.cpp:182
+#. Fl_Value_Input* vi_upper_limit
+#. Fl_Value_Output* vo_value
+#: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:208
+#: ../ttt_param_check.cpp:1725
 #, fuzzy
 msgid "Peakdetektion [%]"
 msgstr "Peak Level [%]"
 
-#: ../ttt_gui.cpp:780
+#: ../ttt_gui.cpp:791
 msgid ""
 "Zur Bestimmung ggf. das Tool \"TTT Param Check\" verwenden. Wenn 0%, wird "
 "der Parameter vom TTT übernommen."
 msgstr ""
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:788
+#: ../ttt_gui.cpp:800
 msgid "Umgebungsbedingungen"
 msgstr "Environmental conditions"
 
-#: ../ttt_gui.cpp:793
+#: ../ttt_gui.cpp:805
 msgid "Kalibriertemperatur [°C]"
 msgstr "Temperatur during calibration [°C]"
 
-#: ../ttt_gui.cpp:794
+#: ../ttt_gui.cpp:806
 msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 18°C bis 28°C"
 msgstr ""
 "Permissible range according to DIN EN ISO 6789: 2003-10 6.2 18 ° C to 28 ° C"
 
 #. Fl_Value_Input* vi_temperature
-#: ../ttt_gui.cpp:799
+#: ../ttt_gui.cpp:812
 msgid "relative Luftfeuchte [%rH]"
 msgstr "Relative Humidity  [%RH]"
 
-#: ../ttt_gui.cpp:800
+#: ../ttt_gui.cpp:813
 msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%"
 msgstr "Permissible range according to DIN EN ISO 6789:2003-10 6.2 max. 90%"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:806
+#: ../ttt_gui.cpp:820 ../ttt_param_check.cpp:1770
 msgid "Messgerät"
 msgstr "Measuring instrument"
 
 #. Fl_Input* out_torque_tester_manufacturer
-#: ../ttt_gui.cpp:820
+#: ../ttt_gui.cpp:836
 msgid "Model"
 msgstr "Model"
 
 #. Fl_Input* out_torque_tester_model
-#: ../ttt_gui.cpp:823
+#: ../ttt_gui.cpp:840
 msgid "Kalibrierdatum"
 msgstr "Date of calibration"
 
 #. Fl_Input* out_torque_tester_cal_date
-#: ../ttt_gui.cpp:826
+#: ../ttt_gui.cpp:844
 msgid "Kalibrierempfehlung"
 msgstr "Next calibration recommended"
 
 #. Fl_Input* out_torque_tester_next_cal_date
-#: ../ttt_gui.cpp:829
+#: ../ttt_gui.cpp:848
 msgid "Kalibrierschein Nr."
 msgstr "Calibration certificate no."
 
 #. Fl_Input* out_torque_tester_cal_number
 #. Fl_Button* btn_confirm
 #. Fl_Round_Button* rb_din_6789
-#: ../ttt_gui.cpp:833 ../ttt_gui.cpp:881 ../ttt_gui.cpp:933
-#: ../ttt_quick_check_config.cpp:152
+#: ../ttt_gui.cpp:852 ../ttt_gui.cpp:903 ../ttt_gui.cpp:955
+#: ../ttt_quick_check_config.cpp:184 ../ttt_param_check.cpp:1775
 msgid "Nominalwert [Nm]"
 msgstr "Nominal value [Nm]"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:852
+#: ../ttt_gui.cpp:874 ../ttt_quick_check_config.cpp:179
 msgid "Prüfung"
 msgstr "Test"
 
-#: ../ttt_gui.cpp:857
+#: ../ttt_gui.cpp:879 ../ttt_param_check.cpp:1710
 msgid "Start"
 msgstr "Start"
 
 #. Fl_Button* btn_start
-#: ../ttt_gui.cpp:861
+#: ../ttt_gui.cpp:883
 msgid "Stopp"
 msgstr "Stop"
 
 #. Fl_Button* btn_stop
-#: ../ttt_gui.cpp:866
+#: ../ttt_gui.cpp:888
 msgid "@+82redo"
 msgstr "@+82redo"
 
-#: ../ttt_gui.cpp:867 ../ttt_gui.cpp:872 ../ttt_param_check.cpp:1745
+#: ../ttt_gui.cpp:889 ../ttt_gui.cpp:894
 msgid "Drehrichtung"
 msgstr "Direction of rotation"
 
 #. Fl_Button* btn_direction_cw
-#: ../ttt_gui.cpp:871
+#: ../ttt_gui.cpp:893
 msgid "@+88undo"
 msgstr "@+88undo"
 
 #. Fl_Button* btn_direction_ccw
-#: ../ttt_gui.cpp:876
+#: ../ttt_gui.cpp:898
 msgid "Bestätigung"
 msgstr "Confirmation"
 
 #. Fl_Value_Output* vo_nominal_value
-#: ../ttt_gui.cpp:888
+#: ../ttt_gui.cpp:910
 msgid "aktueller Schritt"
 msgstr "Current step"
 
 #. Fl_Dial* dial_torque
-#: ../ttt_gui.cpp:896 ../ttt_param_check.cpp:1727
+#. Fl_Button* btn_stop
+#: ../ttt_gui.cpp:918 ../ttt_param_check.cpp:1720
 msgid "Messwert [Nm]"
 msgstr "Measured value"
 
 #. Fl_Text_Display* td_instruction
-#: ../ttt_gui.cpp:915
+#: ../ttt_gui.cpp:937
 msgid "Schnellprüfung"
 msgstr "Quick check"
 
 #. Fl_Round_Button* rb_quick_peak
-#: ../ttt_gui.cpp:921
+#: ../ttt_gui.cpp:943
 msgid ""
 "Ablauf nach DIN EN ISO 6789 aber mit Wiederholungen bei Überschreitung der "
 "zulässigen Abweichung"
@@ -582,48 +588,48 @@ msgstr ""
 "the admissible deviation"
 
 #. Fl_Round_Button* rb_like_6789_repeat
-#: ../ttt_gui.cpp:928
+#: ../ttt_gui.cpp:950
 msgid "DIN EN ISO 6789"
 msgstr ""
 
 #. Fl_Value_Input* vi_single_peak
-#: ../ttt_gui.cpp:936
+#: ../ttt_gui.cpp:958
 msgid "Zeitüberwachung"
 msgstr "Time monitoring"
 
-#: ../ttt_gui.cpp:937
+#: ../ttt_gui.cpp:959
 msgid ""
 "Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge"
 msgstr "Minimum period for the application of torque values for Type II Tools"
 
-#: ../ttt_gui.cpp:940
+#: ../ttt_gui.cpp:962
 msgid "Wiederholung bis normgerecht"
 msgstr "Repetitions until standard reached"
 
 #. Fl_Round_Button* rb_repeat_until_okay
-#: ../ttt_gui.cpp:946
+#: ../ttt_gui.cpp:968
 msgid "keine Wiederholung"
 msgstr "No repetitions"
 
 #. Fl_Double_Window* mainwin
-#: ../ttt_gui.cpp:970
+#: ../ttt_gui.cpp:993
 msgid "Werkzeugsuche"
 msgstr "Tool search"
 
 #. Fl_Button* btn_search_model
 #. Fl_Button* btn_search_person_name
-#: ../ttt_gui.cpp:1015 ../ttt_gui.cpp:1048
+#: ../ttt_gui.cpp:1038 ../ttt_gui.cpp:1071
 msgid "abbrechen"
 msgstr "Abort"
 
 #. Fl_Button* o
 #. Fl_Button* btn_test_object_cancel
-#: ../ttt_gui.cpp:1019 ../ttt_gui.cpp:1052
+#: ../ttt_gui.cpp:1042 ../ttt_gui.cpp:1075
 msgid "wählen"
 msgstr "Select"
 
 #. Fl_Double_Window* test_object_win
-#: ../ttt_gui.cpp:1027
+#: ../ttt_gui.cpp:1050
 msgid "Bearbeitersuche"
 msgstr "Operator search"
 
@@ -677,57 +683,60 @@ msgstr "Screwdriver adjustable, without scale"
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
 msgstr "Wrench with bending beam, adjustable, with scale"
 
-#: ../ttt_quick_check_config.cpp:151
-msgid "TTT quick check config"
-msgstr "TTT quick check config"
+#: ../ttt_quick_check_config.cpp:177
+msgid "TTT_Quick-Check V1.01.001"
+msgstr ""
 
 #. Fl_Value_Input* vi_nominal
-#: ../ttt_quick_check_config.cpp:158
-msgid "oberer Grenzwert [Nm]"
-msgstr "Upper Limit [Nm]"
+#: ../ttt_quick_check_config.cpp:190
+#, fuzzy
+msgid "Höchstzulässige Abweichung [%]"
+msgstr "Maximum admissible deviation"
 
-#. Fl_Value_Input* vi_upper_limit
-#: ../ttt_quick_check_config.cpp:164
-msgid "unterer Grenzwert [Nm]"
-msgstr "Lower Limit [Nm]"
-
-#. Fl_Value_Input* vi_lower_limit
-#: ../ttt_quick_check_config.cpp:170
-msgid "Konfiguration ins Messgerät schreiben"
-msgstr "Write configuration to the measuring instrument"
-
-#. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:174
-msgid "3%"
-msgstr "3%"
-
-#. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:178
-msgid "6%"
-msgstr "6%"
-
-#: ../ttt_quick_check_config.cpp:183
+#: ../ttt_quick_check_config.cpp:209
 #, fuzzy, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Detection threshold <50% is not recommended"
 
 #. Fl_Value_Input* vi_peak_level
-#: ../ttt_quick_check_config.cpp:192
-msgid "Gerätespeicher auslesen"
+#: ../ttt_quick_check_config.cpp:217
+msgid "Konfiguration ins Messgerät schreiben"
+msgstr "Write configuration to the measuring instrument"
+
+#. Fl_Button* o
+#: ../ttt_quick_check_config.cpp:221
+msgid "3%"
+msgstr "3%"
+
+#. Fl_Button* o
+#: ../ttt_quick_check_config.cpp:225
+msgid "6%"
+msgstr "6%"
+
+#. Fl_Group* o
+#: ../ttt_quick_check_config.cpp:231
+#, fuzzy
+msgid "Messwerte"
+msgstr "Measuring instrument"
+
+#: ../ttt_quick_check_config.cpp:236
+#, fuzzy
+msgid "Speicher auslesen"
 msgstr "Read device memory"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:196
-msgid "Gerätespeicher löschen"
+#: ../ttt_quick_check_config.cpp:240
+#, fuzzy
+msgid "Speicher löschen"
 msgstr "Clear device memory"
 
 #. quick_check_table* quick_tbl
-#: ../ttt_quick_check_config.cpp:212
+#: ../ttt_quick_check_config.cpp:256
 msgid "Mittelwert [Nm]"
 msgstr "Average [Nm]"
 
 #. Fl_Value_Output* vo_mean
-#: ../ttt_quick_check_config.cpp:217
+#: ../ttt_quick_check_config.cpp:261
 msgid "Standardabweichung [Nm]"
 msgstr "Standard deviation [Nm]"
 
@@ -747,7 +756,7 @@ msgstr "M_max"
 msgid "Messunsicherheit"
 msgstr "Uncertainty of measurement"
 
-#: ../liballuris++.cpp:33
+#: ../liballuris++.cpp:35
 msgid ""
 "Keine Verbindung zum TTT.\n"
 "Bitte überprüfen Sie die USB-Leitung zum PC und stellen Sie sicher, dass\n"
@@ -760,94 +769,112 @@ msgstr ""
 "Press the Start / Stop button on the TTT \n"
 "if the USB connection has been inserted after the initialization."
 
-#: ../ttt_param_check.cpp:91
+#: ../ttt_param_check.cpp:81
 msgid "trennen"
 msgstr ""
 
-#: ../ttt_param_check.cpp:111 ../ttt_param_check.cpp:1801
+#. Fl_Check_Button* meas_led
+#: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1787
 msgid "verbinden"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1697
-msgid "TTT test object param check"
+#: ../ttt_param_check.cpp:1691
+#, fuzzy
+msgid ""
+"TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"Freiburg, software@alluris.de"
 msgstr ""
+"TTT_Certify v0.2.5  30/05/2016  Alluris GmbH & Co. KG, Basler Str. 65 , "
+"79100 Freiburg, software@alluris.de"
 
-#: ../ttt_param_check.cpp:1711
+#. cairo_plot* cplot
+#: ../ttt_param_check.cpp:1705
 #, fuzzy
 msgid "Messung"
 msgstr "Instruction"
 
+#. Fl_Button* btn_start
 #: ../ttt_param_check.cpp:1715
-msgid "Tara+start"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1721
-msgid "stop"
-msgstr ""
-
-# ?
-#: ../ttt_param_check.cpp:1733
 #, fuzzy
-msgid "Peakdetektion 1 [%]"
-msgstr "Peak Level [%]"
+msgid "Stop"
+msgstr "Stop"
 
-#: ../ttt_param_check.cpp:1734
+#: ../ttt_param_check.cpp:1726
 msgid "typisch 80% .. 90%"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1761
-msgid "Statistiken"
+#. Fl_Group* o
+#: ../ttt_param_check.cpp:1749
+msgid "Ergebnis"
 msgstr ""
 
 # ?
-#: ../ttt_param_check.cpp:1765
+#: ../ttt_param_check.cpp:1754
 #, fuzzy
 msgid "Peak 1 [Nm]"
 msgstr "Peak Level [%]"
 
-#: ../ttt_param_check.cpp:1770
-msgid "min nach Peak 1 [Nm]"
-msgstr ""
+# ?
+#. Fl_Value_Output* vo_peak1
+#: ../ttt_param_check.cpp:1758
+#, fuzzy
+msgid "Minimum nach Peak 1 [Nm]"
+msgstr "Peak Level [%]"
 
 # ?
-#: ../ttt_param_check.cpp:1776
+#. Fl_Value_Output* vo_min1
+#: ../ttt_param_check.cpp:1764
 #, fuzzy
 msgid "Peak 2 [Nm]"
 msgstr "Peak Level [%]"
 
-#: ../ttt_param_check.cpp:1783
-msgid "TTT über USB"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1787
-#, fuzzy
-msgid "M_max [Nm]"
-msgstr "M_max"
-
-#: ../ttt_param_check.cpp:1808
+#. Fl_Group* o
+#: ../ttt_param_check.cpp:1793
 msgid "Beispiele"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1812 ../ttt_param_check.cpp:1820
+#. Fl_Button* btn_csv2
+#: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
 msgid "#1"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1816
+#. Fl_Button* btn_csv1
+#: ../ttt_param_check.cpp:1802
 msgid "#2"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1825
+#. Fl_Button* btn_csv3
+#: ../ttt_param_check.cpp:1811
 msgid "Garant 65 6050 6"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1830
+#. Fl_Box* o
+#: ../ttt_param_check.cpp:1814
 msgid "MANOSKOP 730/4"
 msgstr ""
 
-#: ../ttt_param_check.cpp:2010
+#: ../ttt_param_check.cpp:1995
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
 msgstr ""
+
+#~ msgid "TTT quick check config"
+#~ msgstr "TTT quick check config"
+
+#~ msgid "oberer Grenzwert [Nm]"
+#~ msgstr "Upper Limit [Nm]"
+
+#~ msgid "unterer Grenzwert [Nm]"
+#~ msgstr "Lower Limit [Nm]"
+
+# ?
+#, fuzzy
+#~ msgid "Peakdetektion 1 [%]"
+#~ msgstr "Peak Level [%]"
+
+#, fuzzy
+#~ msgid "M_max [Nm]"
+#~ msgstr "M_max"
 
 #~ msgid "Detektionsschwelle [%]"
 #~ msgstr "Detection threshold [%]"
