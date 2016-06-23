@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-06-21 09:44+0200\n"
-"PO-Revision-Date: 2016-06-08 12:56+0200\n"
+"POT-Creation-Date: 2016-06-08 12:55+0200\n"
+"PO-Revision-Date: 2016-06-22 16:09+0200\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -17,163 +17,185 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
-msgstr ""
+msgstr "Precaricare l’apparecchio di misura con il valore nom."
 
 #: ../step.cpp:139
 msgid "Messgerät entlasten"
-msgstr ""
+msgstr "\"Scaricare l’apparecchio di misura"
 
 #: ../step.cpp:151
 msgid "Vorbereitung des Messgeräts"
-msgstr ""
+msgstr "Preparazione dell’apparecchio di misura"
 
 #: ../step.cpp:193
 msgid "+Drehmoment-Schraubwerkzeug mit Nominalwert vorbelasten"
 msgstr ""
+"+Caricare l'utensile di avvitatura dinamometrico con il valore nominale"
 
 #: ../step.cpp:196 ../step.cpp:570
 msgid "Drehmoment-Schraubwerkzeug entlasten"
-msgstr ""
+msgstr "Scaricare l’utensile di avvitatura dinamometrico"
 
 #: ../step.cpp:208
 msgid "Vorbereitung des Drehmoment-Schraubwerkzeug"
-msgstr ""
+msgstr "Preparazione dell’utensile di avvitatura dinamometrico"
 
 #: ../step.cpp:253
 msgid ""
 "Drehmoment-Schraubwerkzeug entfernen und Messgerät für Tara nicht bewegen"
 msgstr ""
+"Rimuovere l’utensile di avvitatura dinamometrico e non muovere l’apparecchio "
+"di misura per la taratura"
 
 #: ../step.cpp:256
 msgid "Messgerät nicht bewegen, Tara läuft"
-msgstr ""
+msgstr "Non muovere l’apparecchio di misura, taratura in corso"
 
 #: ../step.cpp:268
 msgid "Nullstellung des Messgeräts"
-msgstr ""
+msgstr "Azzeramento dell’apparecchio di misura"
 
 #: ../step.cpp:308
 msgid "Drehmoment-Schraubwerkzeug aus dem Messgerät entnehmen und 5s warten"
 msgstr ""
+"Rimuovere l’utensile di avvitatura dinamometrico dall’apparecchio di misura "
+"e attendere 5 s"
 
 #: ../step.cpp:311
 msgid ""
 "Drehmoment-Schraubwerkzeug tarieren, wieder in das Messgerät einsetzen und "
 "die Schaltfläche 'Bestätigung' drücken"
 msgstr ""
+"Tarare l’utensile di avvitatura dinamometrico, rimetterlo  nell’apparecchio "
+"di misura e premere il pulsante 'Conferma'"
 
 #: ../step.cpp:323
 msgid "Nullstellung des Drehmoment-Schraubwerkzeug"
-msgstr ""
+msgstr "Azzeramento dell’utensile di avvitatura dinamometrico"
 
 #: ../step.cpp:392
 msgid "+Drehmoment-Schraubwerkzeug mit Nominalwert belasten"
-msgstr ""
+msgstr "+Caricare l’utensile di avvitatura dinamometrico con il valore nom."
 
 #: ../step.cpp:395
 msgid ""
 "Drehmoment-Schraubwerkzeug mit Nominalwert belasten und anschließend "
 "entlasten"
 msgstr ""
+"Caricare l’utensile di avvitatura dinamometrico con il valore nominale e "
+"infine scaricarlo"
 
 #: ../step.cpp:405
 msgid "Peakmessung Typ I"
-msgstr ""
+msgstr "Misurazione Peak Tipo I"
 
 #: ../step.cpp:567
 msgid "+Drehmoment-Schraubwerkzeug belasten bis es auslöst"
-msgstr ""
+msgstr "+Caricare l’utensile di avvitatura dinamometrico fino al suo scatto"
 
 #. cout << "rise_time=" << rise_time << endl;
 #: ../step.cpp:576
 #, c-format
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
 msgstr ""
+"L'aumento del momento torcente è stato troppo rapido (%.2fs < %.2fs). "
+"Ripetere"
 
 #: ../step.cpp:580
 #, c-format
 msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
 msgstr ""
+"*L'aumento del momento torcente è stato troppo lento  (%.2fs > %.2fs). "
+"Ripetere"
 
 #: ../step.cpp:591
 msgid "Peakmessung Typ II"
-msgstr ""
+msgstr "Misurazione Peak Tipo II"
 
 #: ../ttt.cpp:205
 msgid "Kalibrierung innerhalb Toleranz"
-msgstr ""
+msgstr "Calibratura entro la tolleranza"
 
 #: ../ttt.cpp:207
 msgid "#Kalibrierung innerhalb Toleranz jedoch Mindestzeit nicht eingehalten"
 msgstr ""
+"#Calibratura entro la tolleranza, tuttavia non è stato rispettato il tempo "
+"minimo"
 
 #: ../ttt.cpp:209
 msgid "*Kalibrierung außerhalb Toleranz"
-msgstr ""
+msgstr "*Calibratura oltre la tolleranza"
 
 #: ../ttt.cpp:235
 msgid "Schnellkalibrierung innerhalb Toleranz"
-msgstr ""
+msgstr "Calibratura rapida entro la tolleranza"
 
 #: ../ttt.cpp:237
 msgid "*Schnellkalibrierung außerhalb Toleranz"
-msgstr ""
+msgstr "Calibratura rapida oltre la tolleranza"
 
 #: ../ttt_gui.cpp:26
 msgid "Name, Verantwortlicher und Messunsicherheit sind Pflichtfelder"
-msgstr ""
+msgstr "Nome, Responsabile e Incertezza della misura sono campi obbligatori"
 
-#: ../ttt_gui.cpp:187
+#: ../ttt_gui.cpp:186
 msgid ""
 "Prüfmittelnummer, Seriennummer, Hersteller, Modell und oberer Grenzwert sind "
 "Pflichtfelder"
 msgstr ""
+"N. del mezzo di controllo, N. di serie, Produttore, Modello e Valore limite "
+"superiore sono campi obbligatori"
 
-#: ../ttt_gui.cpp:220
+#: ../ttt_gui.cpp:219
 msgid "Die Prüfmittelnummer muss eindeutig sein."
-msgstr ""
+msgstr "Il n. del mezzo di controllo deve essere univoco."
 
-#: ../ttt_gui.cpp:260
+#: ../ttt_gui.cpp:259
 msgid "Wirklich löschen?"
-msgstr ""
+msgstr "Cancellare?"
 
-#: ../ttt_gui.cpp:260
+#: ../ttt_gui.cpp:259
 msgid "Ja"
-msgstr ""
+msgstr "Sì"
 
-#: ../ttt_gui.cpp:260
+#: ../ttt_gui.cpp:259
 msgid "Nein"
-msgstr ""
+msgstr "No"
 
-#: ../ttt_gui.cpp:347
+#: ../ttt_gui.cpp:344
 msgid ""
 "Das maximale Drehmoment des Schraubwerkzeugs überschreitet\n"
 "den Maximalwert des Messgeräts. Ggf. anderes TTT anschließen!"
 msgstr ""
+"Il massimo momento torcente dell'utensile di avvitatura supera il valore\n"
+"massimo dell'apparecchio di misura. Evntl. Collegare un altro TTT"
 
-#: ../ttt_gui.cpp:354
+#: ../ttt_gui.cpp:351
 msgid "Es ist kein Drehmoment-Schraubwerkzeug ausgewählt."
-msgstr ""
+msgstr "Non è stato selezionato alcun utensile di avvitatura dinamometrico."
 
-#: ../ttt_gui.cpp:361
+#: ../ttt_gui.cpp:358
 msgid "Es ist kein Bearbeiter ausgewählt."
-msgstr ""
+msgstr "Non è stato selezionato alcun referente."
 
-#: ../ttt_gui.cpp:367
+#: ../ttt_gui.cpp:364
 msgid ""
 "Bitte zuerst das Anlegen eines neuen Drehmoment-Schraubwerkzeugs beenden "
 "oder abbrechen."
 msgstr ""
+"Prima terminare o interrompere la creazione di un nuovo utensile di "
+"avvitatura dinamometrico."
 
-#: ../ttt_gui.cpp:373
+#: ../ttt_gui.cpp:370
 msgid ""
 "Bitte zuerst das Anlegen eines neuen Bearbeiters beenden oder abbrechen."
-msgstr ""
+msgstr "Prima terminare o interrompere la creazione di un nuovo referente"
 
-#: ../ttt_gui.cpp:380
+#: ../ttt_gui.cpp:377
 msgid ""
 "Bei Drehmoment-Schraubwerkzeugen des Typs IIC und IIF ist keine automatische "
 "Wiederholung möglich\n"
@@ -181,12 +203,17 @@ msgid ""
 "und somit eine\n"
 "Bewertung erst dann möglich wird."
 msgstr ""
+"Per gli utensili di avvitatura dinamometrici del tipo IIC e IIF non è "
+"possibile alcuna ripetizione automatica\n"
+"poiché la media aritmetica può essere calcolata solo alla fine della serie "
+"di misurazioni e quindi una\n"
+"valutazione è possibile solo dopo."
 
-#: ../ttt_gui.cpp:391
+#: ../ttt_gui.cpp:388
 msgid "Nominalwert muss <> 0 Nm sein"
-msgstr ""
+msgstr "Il valore nominale deve essere <> 0 Nm"
 
-#: ../ttt_gui.cpp:399
+#: ../ttt_gui.cpp:396
 #, c-format
 msgid ""
 "Das Intervall der maximalen relativen erweiterten Messunsicherheit (=%.2f"
@@ -194,76 +221,86 @@ msgid ""
 "aus Messgerät und Anwender muss kleiner als ein Viertel der\n"
 "höchstzulässigen Abweichung des Drehmoment-Schraubwerkszeugs (=%.2f%%) sein."
 msgstr ""
+"L'intervallo della massima incertezza della misura relativa ampliata (=%.2f"
+"%%)\n"
+"dell’apparecchio e dell’utente deve essere minore di un quarto della\n"
+"massima differenza ammessa dell’utensile di avvitatura dinamometrico (=%.2f"
+"%%) sein."
 
-#: ../ttt_gui.cpp:408
+#: ../ttt_gui.cpp:405
 msgid ""
 "Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN EN ISO "
 "6789:2003-10 Kapitel 6.2"
 msgstr ""
+"Temperatura di calibratura oltre il campo ammesso, vedere DIN EN ISO "
+"6789:2003-10 Capitolo 6.2"
 
-#: ../ttt_gui.cpp:412
+#: ../ttt_gui.cpp:409
 msgid ""
 "relative Luftfeuchte außerhalb des erlaubten Bereichs, siehe DIN EN ISO "
 "6789:2003-10 Kapitel 6.2"
 msgstr ""
+"Umidità atmosferica oltre il campo ammesso, vedere DIN EN ISO 6789:2003-10 "
+"Capitolo 6.2"
 
-#: ../ttt_gui.cpp:431
+#: ../ttt_gui.cpp:426
 msgid "Kalibrierung durch Benutzer abgebrochen"
-msgstr ""
+msgstr "Calibratura interrotta dall'utente"
 
-#: ../ttt_gui.cpp:584
-#, fuzzy
+#: ../ttt_gui.cpp:574
 msgid ""
-"TTT_Certify v0.2.7 vom 20.06.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
+"TTT_Certify v0.2.5 vom 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
 "79100 Freiburg, software@alluris.de"
-msgstr "dummy placeholder to check italian translation, please replace me"
-
-#: ../ttt_gui.cpp:589
-msgid "Bearbeiter"
 msgstr ""
+"TTT_Certify v0.2.5 vom 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
+"79100 Freiburg, software@alluris.de"
+
+#: ../ttt_gui.cpp:579
+msgid "Bearbeiter"
+msgstr "Referente"
 
 #. test_person_table* tp
-#: ../ttt_gui.cpp:594 ../ttt_gui.cpp:1040 ../test_person_table.h:50
+#: ../ttt_gui.cpp:584 ../ttt_gui.cpp:1019 ../test_person_table.h:50
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. Fl_Input* inp_test_person_name
-#: ../ttt_gui.cpp:597 ../test_person_table.h:53
+#: ../ttt_gui.cpp:587 ../test_person_table.h:53
 msgid "Verantwortlicher"
-msgstr ""
+msgstr "Responsabile"
 
 #. Fl_Input* inp_test_person_supervisor
 #. Fl_Value_Input* vo_torque_tester_resolution
-#: ../ttt_gui.cpp:600 ../ttt_gui.cpp:841
+#: ../ttt_gui.cpp:590 ../ttt_gui.cpp:823
 msgid "erweiterte Messunsicherheit [%]"
-msgstr ""
+msgstr "Incertezza della misura ampliata [%]"
 
-#: ../ttt_gui.cpp:601
+#: ../ttt_gui.cpp:591
 msgid "erweiterte Messunsicherheit durch den Bediener"
-msgstr ""
+msgstr "Incertezza della misura ampliata da parte dell'utente"
 
 #. Fl_Value_Input* vi_test_person_uncertainty
 #. Fl_Button* btn_test_object_new
-#: ../ttt_gui.cpp:607 ../ttt_gui.cpp:721
+#: ../ttt_gui.cpp:596 ../ttt_gui.cpp:710
 msgid "@filesave speichern"
-msgstr ""
+msgstr "@filesave salva"
 
 #. Fl_Button* btn_test_person_save
 #. Fl_Input* mi_test_object_attachments
-#: ../ttt_gui.cpp:611 ../ttt_gui.cpp:717
+#: ../ttt_gui.cpp:600 ../ttt_gui.cpp:706
 msgid "@filenew neu"
-msgstr ""
+msgstr "@filenew nuovo"
 
 #. Fl_Button* btn_test_person_new
-#: ../ttt_gui.cpp:615 ../ttt_gui.cpp:637 ../ttt_gui.cpp:811
+#: ../ttt_gui.cpp:604 ../ttt_gui.cpp:626 ../ttt_gui.cpp:793
 msgid "id"
-msgstr ""
+msgstr "id"
 
 #. Fl_Value_Input* vi_test_person_id
-#. cairo_device_box* cbox
-#: ../ttt_gui.cpp:622 ../ttt_gui.cpp:759
+#. cairo_box* cbox
+#: ../ttt_gui.cpp:611 ../ttt_gui.cpp:748
 msgid "@undo abbrechen"
-msgstr ""
+msgstr "@undo annulla"
 
 #. Fl_Button* btn_test_person_abort
 #. Fl_Button* btn_test_object_abort
@@ -272,438 +309,446 @@ msgstr ""
 #. Fl_Button* btn_search_serial_number
 #. Fl_Button* btn_search_manufacturer
 #. Fl_Input* search_test_person_name
-#: ../ttt_gui.cpp:626 ../ttt_gui.cpp:763 ../ttt_gui.cpp:999
-#: ../ttt_gui.cpp:1003 ../ttt_gui.cpp:1007 ../ttt_gui.cpp:1011
-#: ../ttt_gui.cpp:1044
+#: ../ttt_gui.cpp:615 ../ttt_gui.cpp:752 ../ttt_gui.cpp:979 ../ttt_gui.cpp:983
+#: ../ttt_gui.cpp:987 ../ttt_gui.cpp:991 ../ttt_gui.cpp:1023
 msgid "@search"
-msgstr ""
+msgstr "@search cerca"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:632
+#: ../ttt_gui.cpp:621
 msgid "Drehmoment-Schraubwerkzeug"
-msgstr ""
+msgstr "Utensile di avvitatura dinamometrico"
 
 #. Fl_Value_Input* vi_test_object_id
 #. test_object_table* to
-#: ../ttt_gui.cpp:643 ../ttt_gui.cpp:983
+#: ../ttt_gui.cpp:632 ../ttt_gui.cpp:963
 msgid "Prüfmittelnummer"
-msgstr ""
+msgstr "N. del mezzo di controllo"
 
 #. Fl_Input* inp_test_object_equipment_nr
 #. Fl_Value_Input* vo_torque_tester_id
 #. Fl_Input* search_test_object_equipment_nr
-#: ../ttt_gui.cpp:646 ../ttt_gui.cpp:814 ../ttt_gui.cpp:987
+#: ../ttt_gui.cpp:635 ../ttt_gui.cpp:796 ../ttt_gui.cpp:967
 #: ../test_object_table.h:53
 msgid "Seriennummer"
-msgstr ""
+msgstr "N. di serie"
 
 #. Fl_Input* inp_test_object_serial
 #. Fl_Input* out_torque_tester_serial
 #. Fl_Input* search_test_object_serial
-#: ../ttt_gui.cpp:649 ../ttt_gui.cpp:817 ../ttt_gui.cpp:991
+#: ../ttt_gui.cpp:638 ../ttt_gui.cpp:799 ../ttt_gui.cpp:971
 #: ../test_object_table.h:56
 msgid "Hersteller"
-msgstr ""
+msgstr "Produttore"
 
 #. Fl_Input* inp_test_object_manufacturer
 #. Fl_Input* search_test_object_manufacturer
-#: ../ttt_gui.cpp:652 ../ttt_gui.cpp:995 ../test_object_table.h:59
+#: ../ttt_gui.cpp:641 ../ttt_gui.cpp:975 ../test_object_table.h:59
 msgid "Modell"
-msgstr ""
+msgstr "Modello"
 
 #. Fl_Input* inp_test_object_model
-#: ../ttt_gui.cpp:655
+#: ../ttt_gui.cpp:644
 msgid "DIN EN ISO 6789 Typ"
-msgstr ""
+msgstr "DIN EN ISO 6789 Tipo"
 
 #. Fl_Choice* choice_test_object_type
-#: ../ttt_gui.cpp:669
+#: ../ttt_gui.cpp:658
 msgid "Funktionsrichtung"
-msgstr ""
+msgstr "Direzione di funzionamento"
 
 #. Fl_Choice* choice_test_object_dir_of_rotation
-#: ../ttt_gui.cpp:682
+#: ../ttt_gui.cpp:671
 msgid "Hebellänge [cm]"
-msgstr ""
+msgstr "Lunghezza leva [cm]"
 
-#: ../ttt_gui.cpp:683
+#: ../ttt_gui.cpp:672
 msgid ""
 "Maß von der Messachse bis zur Mitte des Handhaltebereichs des Griffs oder "
 "des markierten Lastangriffspunkts, es sei denn, der Kraftangriffspunkt ist "
 "markiert;"
 msgstr ""
+"Dimensione dall'asse di misura fino al centro del punto di mantenimento "
+"dell'impugnatura oppure del punto di attacco del carico, a meno che, il "
+"punto di presa della forza non sia marcato;"
 
 #. Fl_Value_Input* vi_test_object_lever_length
-#: ../ttt_gui.cpp:690
+#: ../ttt_gui.cpp:679
 msgid "Unterer Grenzwert [Nm]"
-msgstr ""
+msgstr "Valore limite inferiore [Nm]"
 
-#: ../ttt_gui.cpp:691
+#: ../ttt_gui.cpp:680
 msgid "Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA"
-msgstr ""
+msgstr "Valore limite inferiore del campo di misura TA indicato dal produttore"
 
 #. Fl_Value_Input* vi_test_object_min_torque
-#: ../ttt_gui.cpp:697
+#: ../ttt_gui.cpp:686
 msgid "Oberer Grenzwert [Nm]"
-msgstr ""
+msgstr "Valore limite superiore [Nm]"
 
-#: ../ttt_gui.cpp:698
+#: ../ttt_gui.cpp:687
 msgid "Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE"
-msgstr ""
+msgstr "Valore limite superiore del campo di misura TE indicato dal produttore"
 
 #. Fl_Value_Input* vi_test_object_max_torque
 #. Fl_Value_Input* vo_torque_tester_max_torque
-#: ../ttt_gui.cpp:704 ../ttt_gui.cpp:837
+#: ../ttt_gui.cpp:693 ../ttt_gui.cpp:819
 msgid "Auflösung [Nm]"
-msgstr ""
+msgstr "Risoluzione [Nm]"
 
-#: ../ttt_gui.cpp:705
+#: ../ttt_gui.cpp:694
 msgid "Auflösung von der Anzeige r"
-msgstr ""
+msgstr "Risoluzione dell'indicazione r"
 
 #. Fl_Value_Input* vi_test_object_resolution
-#: ../ttt_gui.cpp:710
+#: ../ttt_gui.cpp:699
 msgid "Anbauteile"
-msgstr ""
+msgstr "Parti annesse"
 
-#: ../ttt_gui.cpp:711
+#: ../ttt_gui.cpp:700
 msgid ""
 "Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich "
 "Passstücke und austauschbarer Aufsätze"
 msgstr ""
+"Contrassegno di tutti i componenti dell'utensile di avvitatura dinamometrico "
+"compresi gli adattatori e gli inserti intercambiabili"
 
 #. Fl_Button* btn_test_object_save
-#: ../ttt_gui.cpp:725
+#: ../ttt_gui.cpp:714
 msgid "Höchstzulässige Abweichung"
-msgstr ""
+msgstr "Massima deviazione ammessa"
 
 #. Fl_Button* btn_result
-#: ../ttt_gui.cpp:728 ../ttt_gui.cpp:906
+#: ../ttt_gui.cpp:717 ../ttt_gui.cpp:887
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #. Fl_Value_Input* vi_test_object_accuracy
-#: ../ttt_gui.cpp:733
+#: ../ttt_gui.cpp:722
 msgid "aus der DIN EN ISO 6789"
-msgstr ""
+msgstr "dalla DIN EN ISO 6789"
 
-#: ../ttt_gui.cpp:734
+#: ../ttt_gui.cpp:723
 msgid "Use DIN EN ISO 6789:2003-10 chapter 5.1.5.2"
-msgstr ""
+msgstr "Use DIN EN ISO 6789:2003-10 chapter 5.1.5.2"
 
 #. Fl_Round_Button* rb_accuracy_from_ISO6789
-#: ../ttt_gui.cpp:740
+#: ../ttt_gui.cpp:729
 msgid "Herstellerangabe"
-msgstr ""
+msgstr "Dati del produttore"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:748
+#: ../ttt_gui.cpp:737
 msgid "Klassifizierung"
-msgstr ""
+msgstr "Classificazione"
 
 #. Fl_Button* btn_test_object_search
-#: ../ttt_gui.cpp:767
+#: ../ttt_gui.cpp:756
 msgid "löschen"
-msgstr ""
+msgstr "Elimina"
 
 #. Fl_Button* btn_test_object_delete
-#: ../ttt_gui.cpp:771
+#: ../ttt_gui.cpp:760
 msgid "kopieren"
-msgstr ""
+msgstr "Copia"
 
 #. Fl_Button* btn_test_object_copy
-#: ../ttt_gui.cpp:775
+#: ../ttt_gui.cpp:764
 msgid "editieren"
-msgstr ""
+msgstr "Edita"
 
-#. Fl_Button* btn_test_object_edit
-#. Fl_Value_Input* vo_torque_tester_uncertainty
-#. Fl_Button* o
-#: ../ttt_gui.cpp:779 ../ttt_gui.cpp:846 ../ttt_quick_check_config.cpp:182
-msgid "Peakdetektion [%]"
-msgstr ""
+#. Fl_Group* o
+#: ../ttt_gui.cpp:770
+msgid "Umgebungsbedingungen"
+msgstr "Condizioni ambientali"
 
-#: ../ttt_gui.cpp:780
-msgid ""
-"Zur Bestimmung ggf. das Tool \"TTT Param Check\" verwenden. Wenn 0%, wird "
-"der Parameter vom TTT übernommen."
+#: ../ttt_gui.cpp:775
+msgid "Kalibriertemperatur [°C]"
+msgstr "Temperatura di calibratura [°C]"
+
+#: ../ttt_gui.cpp:776
+msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 18°C bis 28°C"
 msgstr ""
+"Campo consentito in base alla DIN EN ISO 6789:2003-10 6.2 da 18°C a 28°C"
+
+#. Fl_Value_Input* vi_temperature
+#: ../ttt_gui.cpp:781
+msgid "relative Luftfeuchte [%rH]"
+msgstr "Umidità atmosferica [%rH]"
+
+#: ../ttt_gui.cpp:782
+msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%"
+msgstr "Campo consentito in base alla DIN EN ISO 6789:2003-10 6.2 max. 90%"
 
 #. Fl_Group* o
 #: ../ttt_gui.cpp:788
-msgid "Umgebungsbedingungen"
-msgstr ""
-
-#: ../ttt_gui.cpp:793
-msgid "Kalibriertemperatur [°C]"
-msgstr ""
-
-#: ../ttt_gui.cpp:794
-msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 18°C bis 28°C"
-msgstr ""
-
-#. Fl_Value_Input* vi_temperature
-#: ../ttt_gui.cpp:799
-msgid "relative Luftfeuchte [%rH]"
-msgstr ""
-
-#: ../ttt_gui.cpp:800
-msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%"
-msgstr ""
-
-#. Fl_Group* o
-#: ../ttt_gui.cpp:806
 msgid "Messgerät"
-msgstr ""
+msgstr "Apparecchio di misura"
 
 #. Fl_Input* out_torque_tester_manufacturer
-#: ../ttt_gui.cpp:820
+#: ../ttt_gui.cpp:802
 msgid "Model"
-msgstr ""
+msgstr "Modello"
 
 #. Fl_Input* out_torque_tester_model
-#: ../ttt_gui.cpp:823
+#: ../ttt_gui.cpp:805
 msgid "Kalibrierdatum"
-msgstr ""
+msgstr "Data di calibratura"
 
 #. Fl_Input* out_torque_tester_cal_date
-#: ../ttt_gui.cpp:826
+#: ../ttt_gui.cpp:808
 msgid "Kalibrierempfehlung"
-msgstr ""
+msgstr "Raccomandazione di calibratura"
 
 #. Fl_Input* out_torque_tester_next_cal_date
-#: ../ttt_gui.cpp:829
+#: ../ttt_gui.cpp:812
 msgid "Kalibrierschein Nr."
-msgstr ""
+msgstr "Certificato di calibratura N."
 
 #. Fl_Input* out_torque_tester_cal_number
 #. Fl_Button* btn_confirm
 #. Fl_Round_Button* rb_din_6789
-#: ../ttt_gui.cpp:833 ../ttt_gui.cpp:881 ../ttt_gui.cpp:933
+#: ../ttt_gui.cpp:815 ../ttt_gui.cpp:862 ../ttt_gui.cpp:914
 #: ../ttt_quick_check_config.cpp:152
 msgid "Nominalwert [Nm]"
-msgstr ""
+msgstr "Valore nominale [Nm]"
+
+#. Fl_Value_Input* vo_torque_tester_uncertainty
+#: ../ttt_gui.cpp:827
+msgid "Peak Level [%]"
+msgstr "Livelllo Peak  [%]"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:852
+#: ../ttt_gui.cpp:833
 msgid "Prüfung"
-msgstr ""
+msgstr "Prova"
 
-#: ../ttt_gui.cpp:857
+#: ../ttt_gui.cpp:838
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #. Fl_Button* btn_start
-#: ../ttt_gui.cpp:861
+#: ../ttt_gui.cpp:842
 msgid "Stopp"
-msgstr ""
+msgstr "Stop"
 
 #. Fl_Button* btn_stop
-#: ../ttt_gui.cpp:866
+#: ../ttt_gui.cpp:847
 msgid "@+82redo"
-msgstr ""
+msgstr "@+82redo"
 
-#: ../ttt_gui.cpp:867 ../ttt_gui.cpp:872 ../ttt_param_check.cpp:1745
+#: ../ttt_gui.cpp:848 ../ttt_gui.cpp:853
 msgid "Drehrichtung"
-msgstr ""
+msgstr "Direzione di rotazione"
 
 #. Fl_Button* btn_direction_cw
-#: ../ttt_gui.cpp:871
+#: ../ttt_gui.cpp:852
 msgid "@+88undo"
-msgstr ""
+msgstr "@+88undo"
 
 #. Fl_Button* btn_direction_ccw
-#: ../ttt_gui.cpp:876
+#: ../ttt_gui.cpp:857
 msgid "Bestätigung"
-msgstr ""
+msgstr "Conferma"
 
 #. Fl_Value_Output* vo_nominal_value
-#: ../ttt_gui.cpp:888
+#: ../ttt_gui.cpp:869
 msgid "aktueller Schritt"
-msgstr ""
+msgstr "Passo attuale"
 
 #. Fl_Dial* dial_torque
-#: ../ttt_gui.cpp:896 ../ttt_param_check.cpp:1727
+#: ../ttt_gui.cpp:877
 msgid "Messwert [Nm]"
-msgstr ""
+msgstr "Valore di misura [Nm]"
 
 #. Fl_Text_Display* td_instruction
-#: ../ttt_gui.cpp:915
+#: ../ttt_gui.cpp:896
 msgid "Schnellprüfung"
-msgstr ""
+msgstr "Prova rapida"
 
 #. Fl_Round_Button* rb_quick_peak
-#: ../ttt_gui.cpp:921
+#: ../ttt_gui.cpp:902
 msgid ""
 "Ablauf nach DIN EN ISO 6789 aber mit Wiederholungen bei Überschreitung der "
 "zulässigen Abweichung"
 msgstr ""
+"Svolgimento secondo DIN EN ISO 6789 però con ripetizioni in caso di "
+"superamento della differenza ammessa"
 
 #. Fl_Round_Button* rb_like_6789_repeat
-#: ../ttt_gui.cpp:928
+#: ../ttt_gui.cpp:909
 msgid "DIN EN ISO 6789"
-msgstr ""
+msgstr "DIN EN ISO 6789"
 
 #. Fl_Value_Input* vi_single_peak
-#: ../ttt_gui.cpp:936
+#: ../ttt_gui.cpp:917
 msgid "Zeitüberwachung"
-msgstr ""
+msgstr "Monitoraggio del tempo"
 
-#: ../ttt_gui.cpp:937
+#: ../ttt_gui.cpp:918
 msgid ""
 "Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge"
 msgstr ""
+"Arco di tempo minimo per l'applicazione dei valori del momento torcente per "
+"gli utensili del tipo II"
 
-#: ../ttt_gui.cpp:940
+#: ../ttt_gui.cpp:921
 msgid "Wiederholung bis normgerecht"
-msgstr ""
+msgstr "Ripetere finché non è conforme alle norme"
 
 #. Fl_Round_Button* rb_repeat_until_okay
-#: ../ttt_gui.cpp:946
+#: ../ttt_gui.cpp:927
 msgid "keine Wiederholung"
-msgstr ""
+msgstr "Nessuna ripetizione"
 
 #. Fl_Double_Window* mainwin
-#: ../ttt_gui.cpp:970
+#: ../ttt_gui.cpp:950
 msgid "Werkzeugsuche"
-msgstr ""
+msgstr "Ricerca utensile"
 
 #. Fl_Button* btn_search_model
 #. Fl_Button* btn_search_person_name
-#: ../ttt_gui.cpp:1015 ../ttt_gui.cpp:1048
+#: ../ttt_gui.cpp:995 ../ttt_gui.cpp:1027
 msgid "abbrechen"
-msgstr ""
+msgstr "Interrompi"
 
 #. Fl_Button* o
 #. Fl_Button* btn_test_object_cancel
-#: ../ttt_gui.cpp:1019 ../ttt_gui.cpp:1052
+#: ../ttt_gui.cpp:999 ../ttt_gui.cpp:1031
 msgid "wählen"
-msgstr ""
+msgstr "Seleziona"
 
 #. Fl_Double_Window* test_object_win
-#: ../ttt_gui.cpp:1027
+#: ../ttt_gui.cpp:1006
 msgid "Bearbeitersuche"
-msgstr ""
+msgstr "Ricerca referente"
 
 #: ../cairo_print_devices.c:5481
 msgid "Schlüssel mit Drehstab oder Biegestab"
-msgstr ""
+msgstr "Chiave con barra di torsione o barra di flessione"
 
 #: ../cairo_print_devices.c:5486
 msgid ""
 "Schlüssel mit festem Gehäuse, mit Skale oder Messuhr oder elektronischer "
 "Anzeige"
 msgstr ""
+"Chiave con corpo solido, con scala o comparatore oppure indicazione "
+"elettronica"
 
 #: ../cairo_print_devices.c:5491
 msgid "Schlüssel mit festem Gehäuse und elektronischer Messung"
-msgstr ""
+msgstr "Chiave con corpo solido e misurazione elettronica"
 
 #: ../cairo_print_devices.c:5496
 msgid "Schraubendreher, mit Skale oder Messuhr oder elektronischer Anzeige"
-msgstr ""
+msgstr "Avvitatrice, con scala o comparatore oppure indicazione elettronica"
 
 #: ../cairo_print_devices.c:5501
 msgid "Schraubendreher mit elektronischer Messung"
-msgstr ""
+msgstr "Avvitatrice con misurazione elettronica"
 
 #: ../cairo_print_devices.c:5506
 msgid "Schlüssel, verstellbar, mit Skale oder elektronischer Anzeige"
-msgstr ""
+msgstr "Chiave regolabile, con scala o indicazione elettronica"
 
 #: ../cairo_print_devices.c:5511
 msgid "Schlüssel, fest eingestellt"
-msgstr ""
+msgstr "Chiave con impostazione fissa"
 
 #: ../cairo_print_devices.c:5516
 msgid "Schlüssel, verstellbar, ohne Skale"
-msgstr ""
+msgstr "Chiave regolabile senza scala"
 
 #: ../cairo_print_devices.c:5521
 msgid "Schraubendreher, verstellbar, mit Skale oder elektronischer Anzeige"
-msgstr ""
+msgstr "Avvitatrice regolabile, con scala o indicazione elettronica"
 
 #: ../cairo_print_devices.c:5526
 msgid "Schraubendreher, fest eingestellt"
-msgstr ""
+msgstr "Avvitatrice con impostazione fissa"
 
 #: ../cairo_print_devices.c:5531
 msgid "Schraubendreher, verstellbar, ohne Skale"
-msgstr ""
+msgstr "Avvitatrice regolabile senza scala"
 
 #: ../cairo_print_devices.c:5536
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
-msgstr ""
+msgstr "Chiave con leva di flessione, regolabile, con scala"
 
 #: ../ttt_quick_check_config.cpp:151
 msgid "TTT quick check config"
-msgstr ""
+msgstr "TTT quick check config"
 
 #. Fl_Value_Input* vi_nominal
-#: ../ttt_quick_check_config.cpp:158
+#: ../ttt_quick_check_config.cpp:157
 msgid "oberer Grenzwert [Nm]"
-msgstr ""
+msgstr "Valore limite superiore [Nm]"
 
 #. Fl_Value_Input* vi_upper_limit
-#: ../ttt_quick_check_config.cpp:164
+#: ../ttt_quick_check_config.cpp:162
 msgid "unterer Grenzwert [Nm]"
-msgstr ""
+msgstr "Valore limite inferiore [Nm]"
 
 #. Fl_Value_Input* vi_lower_limit
-#: ../ttt_quick_check_config.cpp:170
+#: ../ttt_quick_check_config.cpp:167
 msgid "Konfiguration ins Messgerät schreiben"
-msgstr ""
+msgstr "Scrivere la configurazione nell'apparecchio di misura"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:174
+#: ../ttt_quick_check_config.cpp:170
 msgid "3%"
-msgstr ""
+msgstr "3%"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:178
+#: ../ttt_quick_check_config.cpp:173
 msgid "6%"
-msgstr ""
+msgstr "6%"
 
-#: ../ttt_quick_check_config.cpp:183
+#. Fl_Button* o
+#: ../ttt_quick_check_config.cpp:176
+msgid "Detektionsschwelle [%]"
+msgstr "Soglia di rilevamento [%]"
+
+#: ../ttt_quick_check_config.cpp:177
 #, c-format
-msgid "Peakdetektion < 50% ist nicht empfehlenswert"
-msgstr ""
+msgid "Detektionsschwelle < 50% ist nicht empfehlenswert"
+msgstr "Una soglia di rilevamento < 50% non è consigliabile"
 
 #. Fl_Value_Input* vi_peak_level
-#: ../ttt_quick_check_config.cpp:192
+#: ../ttt_quick_check_config.cpp:185
 msgid "Gerätespeicher auslesen"
-msgstr ""
+msgstr "Leggere la memoria dell'apparecchio"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:196
+#: ../ttt_quick_check_config.cpp:188
 msgid "Gerätespeicher löschen"
-msgstr ""
+msgstr "Cancellare la memoria dell'apparecchio"
 
 #. quick_check_table* quick_tbl
-#: ../ttt_quick_check_config.cpp:212
+#: ../ttt_quick_check_config.cpp:203
 msgid "Mittelwert [Nm]"
-msgstr ""
+msgstr "Valore medio [Nm]"
 
 #. Fl_Value_Output* vo_mean
-#: ../ttt_quick_check_config.cpp:217
+#: ../ttt_quick_check_config.cpp:207
 msgid "Standardabweichung [Nm]"
-msgstr ""
+msgstr "Deviazione standard [Nm]"
 
 #: ../test_object_table.h:50
 msgid "Prüfmittelnr."
-msgstr ""
+msgstr "N. del mezzo di controllo"
 
 #: ../test_object_table.h:62
 msgid "Typ"
-msgstr ""
+msgstr "Tipo"
 
 #: ../test_object_table.h:65
 msgid "M_max"
-msgstr ""
+msgstr "M_max"
 
 #: ../test_person_table.h:56
 msgid "Messunsicherheit"
-msgstr ""
+msgstr "Incertezza della misura"
 
 #: ../liballuris++.cpp:33
 msgid ""
@@ -712,84 +757,7 @@ msgid ""
 "das TTT eingeschaltet ist. Drücken Sie die Start/Stop Taste am TTT falls\n"
 "die USB-Verbindung erst nach der Initialisierung eingesteckt wurde."
 msgstr ""
-
-#: ../ttt_param_check.cpp:91
-msgid "trennen"
-msgstr ""
-
-#: ../ttt_param_check.cpp:111 ../ttt_param_check.cpp:1801
-msgid "verbinden"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1697
-msgid "TTT test object param check"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1711
-msgid "Messung"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1715
-msgid "Tara+start"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1721
-msgid "stop"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1733
-msgid "Peakdetektion 1 [%]"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1734
-msgid "typisch 80% .. 90%"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1761
-msgid "Statistiken"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1765
-msgid "Peak 1 [Nm]"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1770
-msgid "min nach Peak 1 [Nm]"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1776
-msgid "Peak 2 [Nm]"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1783
-msgid "TTT über USB"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1787
-msgid "M_max [Nm]"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1808
-msgid "Beispiele"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1812 ../ttt_param_check.cpp:1820
-msgid "#1"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1816
-msgid "#2"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1825
-msgid "Garant 65 6050 6"
-msgstr ""
-
-#: ../ttt_param_check.cpp:1830
-msgid "MANOSKOP 730/4"
-msgstr ""
-
-#: ../ttt_param_check.cpp:2010
-#, c-format
-msgid "Die Datei '%s' konnte nicht gefunden werden"
-msgstr ""
+"Nessun collegamento con il TTT.\n"
+"Controllare il cavo USB verso il PC e assicurarsi, che\n"
+"il TTT sia attivato. Se il collegamento USB è stato inserito solo dopo\n"
+"l'inizializzazione, premere il tasto Start/Stop nel TTT."
