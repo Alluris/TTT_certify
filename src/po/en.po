@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
 "POT-Creation-Date: 2016-06-23 08:51+0200\n"
-"PO-Revision-Date: 2016-06-23 08:58+0200\n"
+"PO-Revision-Date: 2016-06-23 11:20+0200\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -470,6 +470,8 @@ msgid ""
 "Zur Bestimmung ggf. das Tool \"TTT Param Check\" verwenden. Wenn 0%, wird "
 "der Parameter vom TTT übernommen."
 msgstr ""
+"To determine the value use the tool \"TTT Param check\". If 0%, the "
+"parameter is taken from the TTT."
 
 #. Fl_Group* o
 #: ../ttt_gui.cpp:800
@@ -687,12 +689,11 @@ msgstr ""
 
 #. Fl_Value_Input* vi_nominal
 #: ../ttt_quick_check_config.cpp:190
-#, fuzzy
 msgid "Höchstzulässige Abweichung [%]"
-msgstr "Maximum admissible deviation"
+msgstr "Maximum admissible deviation [%]"
 
 #: ../ttt_quick_check_config.cpp:209
-#, fuzzy, c-format
+#, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Detection threshold <50% is not recommended"
 
@@ -717,13 +718,11 @@ msgid "Messwerte"
 msgstr "Measuring values"
 
 #: ../ttt_quick_check_config.cpp:236
-#, fuzzy
 msgid "Speicher auslesen"
 msgstr "Read device memory"
 
 #. Fl_Button* o
 #: ../ttt_quick_check_config.cpp:240
-#, fuzzy
 msgid "Speicher löschen"
 msgstr "Clear device memory"
 
@@ -793,32 +792,29 @@ msgstr "Stop"
 
 #: ../ttt_param_check.cpp:1726
 msgid "typisch 80% .. 90%"
-msgstr ""
+msgstr "Typically 80% ..90%"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1749
 msgid "Ergebnis"
-msgstr ""
+msgstr "Result"
 
 # ?
 #: ../ttt_param_check.cpp:1754
-#, fuzzy
 msgid "Peak 1 [Nm]"
-msgstr "Peak Level [%]"
+msgstr "Peak 1 [Nm]"
 
 # ?
 #. Fl_Value_Output* vo_peak1
 #: ../ttt_param_check.cpp:1758
-#, fuzzy
 msgid "Minimum nach Peak 1 [Nm]"
-msgstr "Peak Level [%]"
+msgstr "Minimum after Peak 1 [Nm]"
 
 # ?
 #. Fl_Value_Output* vo_min1
 #: ../ttt_param_check.cpp:1764
-#, fuzzy
 msgid "Peak 2 [Nm]"
-msgstr "Peak Level [%]"
+msgstr "Peak 2 [Nm]"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1793
@@ -848,7 +844,7 @@ msgstr ""
 #: ../ttt_param_check.cpp:1995
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
-msgstr ""
+msgstr "The file '%s' could not been found"
 
 #~ msgid "TTT quick check config"
 #~ msgstr "TTT quick check config"
