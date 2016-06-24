@@ -30,6 +30,12 @@ update: ttt.pot
 	msgmerge -U it.po ttt.pot
 	msgmerge -U es.po ttt.pot
 
+check:
+	./check_ctrl_chars.sh en.po
+	./check_ctrl_chars.sh it.po
+	./check_ctrl_chars.sh es.po
+	./check_ctrl_chars.sh fr.po
+
 clean:
 	rm -f *.mo *po~ ttt.pot
 	rm -rf en fr it es

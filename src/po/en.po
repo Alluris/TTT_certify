@@ -87,18 +87,18 @@ msgstr "Peak measurement type I"
 
 #: ../step.cpp:583
 msgid "+Drehmoment-Schraubwerkzeug belasten bis es auslöst"
-msgstr "Load torque tool until click"
+msgstr "+Load torque tool until click"
 
 #. cout << "rise_time=" << rise_time << endl;
 #: ../step.cpp:592
 #, c-format
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
-msgstr "* Torque rise was too fast (% .2fs <% .2fs). Repetition"
+msgstr "*Torque rise was too fast (% .2fs <% .2fs). Repetition"
 
 #: ../step.cpp:596
 #, c-format
 msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
-msgstr "* Torque rise was too slow (% .2fs <% .2fs). Repetition"
+msgstr "*Torque rise was too slow (% .2fs <% .2fs). Repetition"
 
 #: ../step.cpp:607
 msgid "Peakmessung Typ II"
@@ -112,11 +112,11 @@ msgstr "Calibration within tolerance"
 
 #: ../ttt.cpp:207
 msgid "#Kalibrierung innerhalb Toleranz jedoch Mindestzeit nicht eingehalten"
-msgstr "Calibration within tolerance but not complying to minimum time"
+msgstr "#Calibration within tolerance but not complying to minimum time"
 
 #: ../ttt.cpp:209
 msgid "*Kalibrierung außerhalb Toleranz"
-msgstr "Calibration out of tolerance"
+msgstr "*Calibration out of tolerance"
 
 #: ../ttt.cpp:235
 msgid "Schnellkalibrierung innerhalb Toleranz"
@@ -824,12 +824,12 @@ msgstr "Examples"
 #. Fl_Button* btn_csv2
 #: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
 msgid "#1"
-msgstr ""
+msgstr "#1"
 
 #. Fl_Button* btn_csv1
 #: ../ttt_param_check.cpp:1802
 msgid "#2"
-msgstr ""
+msgstr "#2"
 
 #. Fl_Button* btn_csv3
 #: ../ttt_param_check.cpp:1811

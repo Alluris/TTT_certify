@@ -95,14 +95,12 @@ msgstr "+Cargar la llave de torque hasta que se active"
 #: ../step.cpp:592
 #, c-format
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
-msgstr ""
-"*El incremento de torque ha sido demasiado rápido (%.2fs < %.2fs). Repetición"
+msgstr "*El incremento de torque ha sido demasiado rápido (%.2fs < %.2fs). Repetición"
 
 #: ../step.cpp:596
 #, c-format
 msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
-msgstr ""
-"*El incremento de torque ha sido demasiado lento (%.2f >%.2fs). Repetición"
+msgstr "*El incremento de torque ha sido demasiado lento (%.2f >%.2fs). Repetición"
 
 #: ../step.cpp:607
 msgid "Peakmessung Typ II"
@@ -114,8 +112,7 @@ msgstr "Calibración dentro de las tolerancias"
 
 #: ../ttt.cpp:207
 msgid "#Kalibrierung innerhalb Toleranz jedoch Mindestzeit nicht eingehalten"
-msgstr ""
-"#Calibración dentro de las tolerancias no obstante tiempo mínimo no cumplido"
+msgstr "#Calibración dentro de las tolerancias no obstante tiempo mínimo no cumplido"
 
 #: ../ttt.cpp:209
 msgid "*Kalibrierung außerhalb Toleranz"
@@ -817,12 +814,12 @@ msgstr "Ejemplos"
 #. Fl_Button* btn_csv2
 #: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
 msgid "#1"
-msgstr ""
+msgstr "#1"
 
 #. Fl_Button* btn_csv1
 #: ../ttt_param_check.cpp:1802
 msgid "#2"
-msgstr ""
+msgstr "#2"
 
 #. Fl_Button* btn_csv3
 #: ../ttt_param_check.cpp:1811

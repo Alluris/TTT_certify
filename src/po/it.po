@@ -21,11 +21,11 @@ msgstr ""
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
-msgstr "Precaricare l’apparecchio di misura con il valore nom."
+msgstr "+Precaricare l’apparecchio di misura con il valore nom."
 
 #: ../step.cpp:139
 msgid "Messgerät entlasten"
-msgstr "\"Scaricare l’apparecchio di misura"
+msgstr "Scaricare l’apparecchio di misura"
 
 #: ../step.cpp:151
 msgid "Vorbereitung des Messgeräts"
@@ -33,8 +33,7 @@ msgstr "Preparazione dell’apparecchio di misura"
 
 #: ../step.cpp:193
 msgid "+Drehmoment-Schraubwerkzeug mit Nominalwert vorbelasten"
-msgstr ""
-"+Caricare l'utensile di avvitatura dinamometrico con il valore nominale"
+msgstr "+Caricare l'utensile di avvitatura dinamometrico con il valore nominale"
 
 #: ../step.cpp:196 ../step.cpp:586
 msgid "Drehmoment-Schraubwerkzeug entlasten"
@@ -101,15 +100,13 @@ msgstr "+Caricare l’utensile di avvitatura dinamometrico fino al suo scatto"
 #: ../step.cpp:592
 #, c-format
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
-msgstr ""
-"L'aumento del momento torcente è stato troppo rapido (%.2fs < %.2fs). "
+msgstr "*L'aumento del momento torcente è stato troppo rapido (%.2fs < %.2fs). "
 "Ripetizione"
 
 #: ../step.cpp:596
 #, c-format
 msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
-msgstr ""
-"*L'aumento del momento torcente è stato troppo lento  (%.2fs > %.2fs). "
+msgstr "*L'aumento del momento torcente è stato troppo lento  (%.2fs > %.2fs). "
 "Ripetizione"
 
 #: ../step.cpp:607
@@ -122,8 +119,7 @@ msgstr "Calibratura entro la tolleranza"
 
 #: ../ttt.cpp:207
 msgid "#Kalibrierung innerhalb Toleranz jedoch Mindestzeit nicht eingehalten"
-msgstr ""
-"#Calibratura entro la tolleranza, tuttavia non è stato rispettato il tempo "
+msgstr "#Calibratura entro la tolleranza, tuttavia non è stato rispettato il tempo "
 "minimo"
 
 #: ../ttt.cpp:209
@@ -132,11 +128,11 @@ msgstr "*Calibratura oltre la tolleranza"
 
 #: ../ttt.cpp:235
 msgid "Schnellkalibrierung innerhalb Toleranz"
-msgstr "Calibratura rapida entro la tolleranza"
+msgstr "*Calibratura rapida entro la tolleranza"
 
 #: ../ttt.cpp:237
 msgid "*Schnellkalibrierung außerhalb Toleranz"
-msgstr "Calibratura rapida oltre la tolleranza"
+msgstr "*Calibratura rapida oltre la tolleranza"
 
 #: ../ttt_gui.cpp:26
 msgid "Name, Verantwortlicher und Messunsicherheit sind Pflichtfelder"
@@ -826,12 +822,12 @@ msgstr "Esempi"
 #. Fl_Button* btn_csv2
 #: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
 msgid "#1"
-msgstr ""
+msgstr "#1"
 
 #. Fl_Button* btn_csv1
 #: ../ttt_param_check.cpp:1802
 msgid "#2"
-msgstr ""
+msgstr "#2"
 
 #. Fl_Button* btn_csv3
 #: ../ttt_param_check.cpp:1811

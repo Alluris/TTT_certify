@@ -269,7 +269,7 @@ msgstr "Incertitude de mesure élargie par l'opérateur"
 #. Fl_Button* btn_test_object_new
 #: ../ttt_gui.cpp:610 ../ttt_gui.cpp:732
 msgid "@filesave speichern"
-msgstr "Enregistrer @filesave"
+msgstr "@filesave Enregistrer"
 
 #. Fl_Button* btn_test_person_save
 #. Fl_Input* mi_test_object_attachments
@@ -286,7 +286,7 @@ msgstr "id"
 #. cairo_device_box* cbox
 #: ../ttt_gui.cpp:625 ../ttt_gui.cpp:770
 msgid "@undo abbrechen"
-msgstr "interrompre @undo"
+msgstr "@undo interrompre"
 
 #. Fl_Button* btn_test_person_abort
 #. Fl_Button* btn_test_object_abort
@@ -813,12 +813,12 @@ msgstr "Examples"
 #. Fl_Button* btn_csv2
 #: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
 msgid "#1"
-msgstr ""
+msgstr "#1"
 
 #. Fl_Button* btn_csv1
 #: ../ttt_param_check.cpp:1802
 msgid "#2"
-msgstr ""
+msgstr "#2"
 
 #. Fl_Button* btn_csv3
 #: ../ttt_param_check.cpp:1811
