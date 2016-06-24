@@ -700,7 +700,6 @@ msgid "Höchstzulässige Abweichung [%]"
 msgstr "Massima deviazione ammessa [%]"
 
 #: ../ttt_quick_check_config.cpp:209
-#, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Una soglia di rilevamento < 50% non è consigliabile"
 

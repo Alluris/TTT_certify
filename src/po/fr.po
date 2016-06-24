@@ -687,7 +687,6 @@ msgid "Höchstzulässige Abweichung [%]"
 msgstr "Écart maximal autorisée"
 
 #: ../ttt_quick_check_config.cpp:209
-#, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Seuil de détection < 50% n'est pas conseillé"
 
