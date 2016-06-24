@@ -124,7 +124,7 @@ msgstr "Quick calibration within tolerance"
 
 #: ../ttt.cpp:237
 msgid "*Schnellkalibrierung außerhalb Toleranz"
-msgstr "Quick calibration out of tolerance"
+msgstr "*Quick calibration out of tolerance"
 
 #: ../ttt_gui.cpp:26
 msgid "Name, Verantwortlicher und Messunsicherheit sind Pflichtfelder"

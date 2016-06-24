@@ -708,16 +708,16 @@ msgstr "6%"
 #. Fl_Group* o
 #: ../ttt_quick_check_config.cpp:231
 msgid "Messwerte"
-msgstr "Valeurs de mesure)"
+msgstr "Valeurs de mesure"
 
 #: ../ttt_quick_check_config.cpp:236
 msgid "Speicher auslesen"
-msgstr "Relever mémoire appareil"
+msgstr "Relever mémoire"
 
 #. Fl_Button* o
 #: ../ttt_quick_check_config.cpp:240
 msgid "Speicher löschen"
-msgstr "Effacer mémoire appareil"
+msgstr "Effacer mémoire"
 
 #. quick_check_table* quick_tbl
 #: ../ttt_quick_check_config.cpp:256
