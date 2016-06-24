@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
 "POT-Creation-Date: 2016-06-23 08:51+0200\n"
-"PO-Revision-Date: 2016-05-31 12:26+0200\n"
+"PO-Revision-Date: 2016-06-23 11:33+0200\n"
 "Last-Translator: Klaus Hartkopf <hartkopf@alluris.de>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -236,13 +236,10 @@ msgid "Kalibrierung durch Benutzer abgebrochen"
 msgstr "Calibrage interrompu par l'utilisateur"
 
 #: ../ttt_gui.cpp:585
-#, fuzzy
 msgid ""
 "TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
-"TTT_Certify v0.2.5 du 30.06.2016 Alluris GmbH & Co. KG, Basler Str. 65, "
-"79100 Freiburg, software@alluris.de"
 
 #: ../ttt_gui.cpp:590
 msgid "Bearbeiter"
@@ -458,15 +455,16 @@ msgstr "Editer"
 #. Fl_Value_Output* vo_value
 #: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:208
 #: ../ttt_param_check.cpp:1725
-#, fuzzy
 msgid "Peakdetektion [%]"
-msgstr "Niveau de pointe (%)"
+msgstr "Détection de pointe [%]"
 
 #: ../ttt_gui.cpp:791
 msgid ""
 "Zur Bestimmung ggf. das Tool \"TTT Param Check\" verwenden. Wenn 0%, wird "
 "der Parameter vom TTT übernommen."
 msgstr ""
+"Pour déterminer utiliser le logiciel \"TTT Param Check\". Si 0%, le "
+"paramètre est pris de l'appareil TTT."
 
 #. Fl_Group* o
 #: ../ttt_gui.cpp:800
@@ -685,12 +683,10 @@ msgstr ""
 
 #. Fl_Value_Input* vi_nominal
 #: ../ttt_quick_check_config.cpp:190
-#, fuzzy
 msgid "Höchstzulässige Abweichung [%]"
-msgstr "Tolérance maximale autorisée"
+msgstr "Écart maximal autorisée"
 
 #: ../ttt_quick_check_config.cpp:209
-#, fuzzy, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Seuil de détection < 50% n'est pas conseillé"
 
@@ -711,20 +707,17 @@ msgstr "6%"
 
 #. Fl_Group* o
 #: ../ttt_quick_check_config.cpp:231
-#, fuzzy
 msgid "Messwerte"
-msgstr "Dynamomètre (appareil de mesure)"
+msgstr "Valeurs de mesure"
 
 #: ../ttt_quick_check_config.cpp:236
-#, fuzzy
 msgid "Speicher auslesen"
-msgstr "Relever mémoire appareil"
+msgstr "Relever mémoire"
 
 #. Fl_Button* o
 #: ../ttt_quick_check_config.cpp:240
-#, fuzzy
 msgid "Speicher löschen"
-msgstr "Effacer mémoire appareil"
+msgstr "Effacer mémoire"
 
 #. quick_check_table* quick_tbl
 #: ../ttt_quick_check_config.cpp:256
@@ -766,63 +759,56 @@ msgstr ""
 
 #: ../ttt_param_check.cpp:81
 msgid "trennen"
-msgstr ""
+msgstr "déconnecter"
 
 #. Fl_Check_Button* meas_led
 #: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1787
 msgid "verbinden"
-msgstr ""
+msgstr "Connecter"
 
 #: ../ttt_param_check.cpp:1691
-#, fuzzy
 msgid ""
 "TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
-"TTT_Certify v0.2.5 du 30.06.2016 Alluris GmbH & Co. KG, Basler Str. 65, "
-"79100 Freiburg, software@alluris.de"
 
 #. cairo_plot* cplot
 #: ../ttt_param_check.cpp:1705
 msgid "Messung"
-msgstr ""
+msgstr "Mesure"
 
 #. Fl_Button* btn_start
 #: ../ttt_param_check.cpp:1715
-#, fuzzy
 msgid "Stop"
-msgstr "Stop"
+msgstr "Arrêt"
 
 #: ../ttt_param_check.cpp:1726
 msgid "typisch 80% .. 90%"
-msgstr ""
+msgstr "Typiquement 80% .. 90%"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1749
 msgid "Ergebnis"
-msgstr ""
+msgstr "Résultat"
 
 #: ../ttt_param_check.cpp:1754
-#, fuzzy
 msgid "Peak 1 [Nm]"
-msgstr "Niveau de pointe (%)"
+msgstr "Peak 1 [Nm]"
 
 #. Fl_Value_Output* vo_peak1
 #: ../ttt_param_check.cpp:1758
-#, fuzzy
 msgid "Minimum nach Peak 1 [Nm]"
-msgstr "Niveau de pointe (%)"
+msgstr "Minimum après Peak 1 [Nm]"
 
 #. Fl_Value_Output* vo_min1
 #: ../ttt_param_check.cpp:1764
-#, fuzzy
 msgid "Peak 2 [Nm]"
-msgstr "Niveau de pointe (%)"
+msgstr "Peak 2 [Nm]"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1793
 msgid "Beispiele"
-msgstr ""
+msgstr "Examples"
 
 #. Fl_Button* btn_csv2
 #: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
@@ -847,7 +833,7 @@ msgstr ""
 #: ../ttt_param_check.cpp:1995
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
-msgstr ""
+msgstr "Le fichier '%s' n'a pas été trouvé"
 
 #~ msgid "TTT quick check config"
 #~ msgstr "TTT quick check config"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
 "POT-Creation-Date: 2016-06-23 08:51+0200\n"
-"PO-Revision-Date: 2016-06-20 12:43+0200\n"
+"PO-Revision-Date: 2016-06-23 11:20+0200\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -104,7 +104,7 @@ msgstr "* Torque rise was too slow (% .2fs <% .2fs). Repetition"
 msgid "Peakmessung Typ II"
 msgstr "Peak measurement type II"
 
-# Toleranz = Muss der Begriff evt. genauer bezeichnet werden? 
+# Toleranz = Muss der Begriff evt. genauer bezeichnet werden?
 # Siehe auch folgende Texte.
 #: ../ttt.cpp:205
 msgid "Kalibrierung innerhalb Toleranz"
@@ -124,7 +124,7 @@ msgstr "Quick calibration within tolerance"
 
 #: ../ttt.cpp:237
 msgid "*Schnellkalibrierung außerhalb Toleranz"
-msgstr "Quick calibration out of tolerance"
+msgstr "*Quick calibration out of tolerance"
 
 #: ../ttt_gui.cpp:26
 msgid "Name, Verantwortlicher und Messunsicherheit sind Pflichtfelder"
@@ -238,13 +238,12 @@ msgid "Kalibrierung durch Benutzer abgebrochen"
 msgstr "Calibration aborted by user"
 
 #: ../ttt_gui.cpp:585
-#, fuzzy
 msgid ""
 "TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
-"TTT_Certify v0.2.5  30/05/2016  Alluris GmbH & Co. KG, Basler Str. 65 , "
-"79100 Freiburg, software@alluris.de"
+"TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"Freiburg, software@alluris.de"
 
 #: ../ttt_gui.cpp:590
 msgid "Bearbeiter"
@@ -463,15 +462,16 @@ msgstr "Edit"
 #. Fl_Value_Output* vo_value
 #: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:208
 #: ../ttt_param_check.cpp:1725
-#, fuzzy
 msgid "Peakdetektion [%]"
-msgstr "Peak Level [%]"
+msgstr "Peak detection [%]"
 
 #: ../ttt_gui.cpp:791
 msgid ""
 "Zur Bestimmung ggf. das Tool \"TTT Param Check\" verwenden. Wenn 0%, wird "
 "der Parameter vom TTT übernommen."
 msgstr ""
+"To determine the value use the tool \"TTT Param check\". If 0%, the "
+"parameter is taken from the TTT."
 
 #. Fl_Group* o
 #: ../ttt_gui.cpp:800
@@ -689,12 +689,11 @@ msgstr ""
 
 #. Fl_Value_Input* vi_nominal
 #: ../ttt_quick_check_config.cpp:190
-#, fuzzy
 msgid "Höchstzulässige Abweichung [%]"
-msgstr "Maximum admissible deviation"
+msgstr "Maximum admissible deviation [%]"
 
 #: ../ttt_quick_check_config.cpp:209
-#, fuzzy, c-format
+#, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Detection threshold <50% is not recommended"
 
@@ -715,18 +714,15 @@ msgstr "6%"
 
 #. Fl_Group* o
 #: ../ttt_quick_check_config.cpp:231
-#, fuzzy
 msgid "Messwerte"
-msgstr "Measuring instrument"
+msgstr "Measuring values"
 
 #: ../ttt_quick_check_config.cpp:236
-#, fuzzy
 msgid "Speicher auslesen"
 msgstr "Read device memory"
 
 #. Fl_Button* o
 #: ../ttt_quick_check_config.cpp:240
-#, fuzzy
 msgid "Speicher löschen"
 msgstr "Clear device memory"
 
@@ -771,67 +767,59 @@ msgstr ""
 
 #: ../ttt_param_check.cpp:81
 msgid "trennen"
-msgstr ""
+msgstr "disconnect"
 
 #. Fl_Check_Button* meas_led
 #: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1787
 msgid "verbinden"
-msgstr ""
+msgstr "connect"
 
 #: ../ttt_param_check.cpp:1691
-#, fuzzy
 msgid ""
 "TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
-"TTT_Certify v0.2.5  30/05/2016  Alluris GmbH & Co. KG, Basler Str. 65 , "
-"79100 Freiburg, software@alluris.de"
 
 #. cairo_plot* cplot
 #: ../ttt_param_check.cpp:1705
-#, fuzzy
 msgid "Messung"
-msgstr "Instruction"
+msgstr "Measurement"
 
 #. Fl_Button* btn_start
 #: ../ttt_param_check.cpp:1715
-#, fuzzy
 msgid "Stop"
 msgstr "Stop"
 
 #: ../ttt_param_check.cpp:1726
 msgid "typisch 80% .. 90%"
-msgstr ""
+msgstr "Typically 80% ..90%"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1749
 msgid "Ergebnis"
-msgstr ""
+msgstr "Result"
 
 # ?
 #: ../ttt_param_check.cpp:1754
-#, fuzzy
 msgid "Peak 1 [Nm]"
-msgstr "Peak Level [%]"
+msgstr "Peak 1 [Nm]"
 
 # ?
 #. Fl_Value_Output* vo_peak1
 #: ../ttt_param_check.cpp:1758
-#, fuzzy
 msgid "Minimum nach Peak 1 [Nm]"
-msgstr "Peak Level [%]"
+msgstr "Minimum after Peak 1 [Nm]"
 
 # ?
 #. Fl_Value_Output* vo_min1
 #: ../ttt_param_check.cpp:1764
-#, fuzzy
 msgid "Peak 2 [Nm]"
-msgstr "Peak Level [%]"
+msgstr "Peak 2 [Nm]"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1793
 msgid "Beispiele"
-msgstr ""
+msgstr "Examples"
 
 #. Fl_Button* btn_csv2
 #: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
@@ -856,7 +844,7 @@ msgstr ""
 #: ../ttt_param_check.cpp:1995
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
-msgstr ""
+msgstr "The file '%s' could not been found"
 
 #~ msgid "TTT quick check config"
 #~ msgstr "TTT quick check config"

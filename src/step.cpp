@@ -535,8 +535,8 @@ out_cmd peak_click_step::inout (double torque, bool confirmation)
             }
 #else
           // Die Variante hier wartet, bis torque 0.5s lang dauerhaft unter 10% des Peak1 fällt
-          double stop_thres = sign * 0.1 * first_peak;
-          //cout << "stop_thres = " << stop_thres << endl;
+          double stop_thres = 0.1 * first_peak;
+          //cout << __LINE__ << " stop_thres = " << stop_thres << " nominal=" << nominal << " torque=" << torque << endl;
           if (   (nominal > 0 && torque < stop_thres) || (nominal < 0 && torque > stop_thres))
             wait_t += v_time[v_time.size()-1] - v_time[v_time.size()-2];
           else

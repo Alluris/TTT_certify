@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
 "POT-Creation-Date: 2016-06-23 08:51+0200\n"
-"PO-Revision-Date: 2016-06-22 16:09+0200\n"
+"PO-Revision-Date: 2016-06-23 10:57+0200\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.7\n"
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
@@ -63,7 +63,7 @@ msgstr "Azzeramento dell’apparecchio di misura"
 msgid "Drehmoment-Schraubwerkzeug aus dem Messgerät entnehmen und 5s warten"
 msgstr ""
 "Rimuovere l’utensile di avvitatura dinamometrico dall’apparecchio di misura "
-"e attendere 5 s"
+"e attendere 5s"
 
 #: ../step.cpp:311
 msgid ""
@@ -103,14 +103,14 @@ msgstr "+Caricare l’utensile di avvitatura dinamometrico fino al suo scatto"
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
 msgstr ""
 "L'aumento del momento torcente è stato troppo rapido (%.2fs < %.2fs). "
-"Ripetere"
+"Ripetizione"
 
 #: ../step.cpp:596
 #, c-format
 msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
 msgstr ""
 "*L'aumento del momento torcente è stato troppo lento  (%.2fs > %.2fs). "
-"Ripetere"
+"Ripetizione"
 
 #: ../step.cpp:607
 msgid "Peakmessung Typ II"
@@ -172,7 +172,7 @@ msgid ""
 "den Maximalwert des Messgeräts. Ggf. anderes TTT anschließen!"
 msgstr ""
 "Il massimo momento torcente dell'utensile di avvitatura supera il valore\n"
-"massimo dell'apparecchio di misura. Evntl. Collegare un altro TTT"
+"massimo dell'apparecchio di misura. Collegare un altro TTT"
 
 #: ../ttt_gui.cpp:354
 msgid "Es ist kein Drehmoment-Schraubwerkzeug ausgewählt."
@@ -180,7 +180,7 @@ msgstr "Non è stato selezionato alcun utensile di avvitatura dinamometrico."
 
 #: ../ttt_gui.cpp:361
 msgid "Es ist kein Bearbeiter ausgewählt."
-msgstr "Non è stato selezionato alcun referente."
+msgstr "Non è stato selezionato alcun utente."
 
 #: ../ttt_gui.cpp:367
 msgid ""
@@ -193,7 +193,7 @@ msgstr ""
 #: ../ttt_gui.cpp:373
 msgid ""
 "Bitte zuerst das Anlegen eines neuen Bearbeiters beenden oder abbrechen."
-msgstr "Prima terminare o interrompere la creazione di un nuovo referente"
+msgstr "Prima terminare o interrompere la creazione di un nuovo utente"
 
 #: ../ttt_gui.cpp:380
 msgid ""
@@ -225,7 +225,7 @@ msgstr ""
 "%%)\n"
 "dell’apparecchio e dell’utente deve essere minore di un quarto della\n"
 "massima differenza ammessa dell’utensile di avvitatura dinamometrico (=%.2f"
-"%%) sein."
+"%%)."
 
 #: ../ttt_gui.cpp:408
 msgid ""
@@ -248,17 +248,14 @@ msgid "Kalibrierung durch Benutzer abgebrochen"
 msgstr "Calibratura interrotta dall'utente"
 
 #: ../ttt_gui.cpp:585
-#, fuzzy
 msgid ""
 "TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
-"TTT_Certify v0.2.5 vom 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
-"79100 Freiburg, software@alluris.de"
 
 #: ../ttt_gui.cpp:590
 msgid "Bearbeiter"
-msgstr "Referente"
+msgstr "Utente"
 
 #. test_person_table* tp
 #: ../ttt_gui.cpp:595 ../ttt_gui.cpp:1063 ../test_person_table.h:50
@@ -373,7 +370,7 @@ msgid ""
 msgstr ""
 "Dimensione dall'asse di misura fino al centro del punto di mantenimento "
 "dell'impugnatura oppure del punto di attacco del carico, a meno che, il "
-"punto di presa della forza non sia marcato;"
+"punto di presa della forza sia marcato;"
 
 #. Fl_Value_Input* vi_test_object_lever_length
 #. Fl_Value_Input* vi_test_object_accuracy
@@ -468,15 +465,16 @@ msgstr "Edita"
 #. Fl_Value_Output* vo_value
 #: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:208
 #: ../ttt_param_check.cpp:1725
-#, fuzzy
 msgid "Peakdetektion [%]"
-msgstr "Livelllo Peak  [%]"
+msgstr "Rilevamento Peak  [%]"
 
 #: ../ttt_gui.cpp:791
 msgid ""
 "Zur Bestimmung ggf. das Tool \"TTT Param Check\" verwenden. Wenn 0%, wird "
 "der Parameter vom TTT übernommen."
 msgstr ""
+"Per determinare il valore si può utilizzare il software \"TTT Param Check\". "
+"Se è uguale 0%, il parametro viene preso dalla TTT."
 
 #. Fl_Group* o
 #: ../ttt_gui.cpp:800
@@ -590,12 +588,12 @@ msgid ""
 "zulässigen Abweichung"
 msgstr ""
 "Svolgimento secondo DIN EN ISO 6789 però con ripetizioni in caso di "
-"superamento della differenza ammessa"
+"superamento della deviazione ammessa"
 
 #. Fl_Round_Button* rb_like_6789_repeat
 #: ../ttt_gui.cpp:950
 msgid "DIN EN ISO 6789"
-msgstr "DIN EN ISO 6789"
+msgstr ""
 
 #. Fl_Value_Input* vi_single_peak
 #: ../ttt_gui.cpp:958
@@ -638,7 +636,7 @@ msgstr "Seleziona"
 #. Fl_Double_Window* test_object_win
 #: ../ttt_gui.cpp:1050
 msgid "Bearbeitersuche"
-msgstr "Ricerca referente"
+msgstr "Ricerca utente"
 
 #: ../cairo_print_devices.c:5481
 msgid "Schlüssel mit Drehstab oder Biegestab"
@@ -698,12 +696,10 @@ msgstr ""
 
 #. Fl_Value_Input* vi_nominal
 #: ../ttt_quick_check_config.cpp:190
-#, fuzzy
 msgid "Höchstzulässige Abweichung [%]"
-msgstr "Massima deviazione ammessa"
+msgstr "Massima deviazione ammessa [%]"
 
 #: ../ttt_quick_check_config.cpp:209
-#, fuzzy, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Una soglia di rilevamento < 50% non è consigliabile"
 
@@ -724,18 +720,15 @@ msgstr "6%"
 
 #. Fl_Group* o
 #: ../ttt_quick_check_config.cpp:231
-#, fuzzy
 msgid "Messwerte"
-msgstr "Apparecchio di misura"
+msgstr "Valori di misura"
 
 #: ../ttt_quick_check_config.cpp:236
-#, fuzzy
 msgid "Speicher auslesen"
 msgstr "Leggere la memoria dell'apparecchio"
 
 #. Fl_Button* o
 #: ../ttt_quick_check_config.cpp:240
-#, fuzzy
 msgid "Speicher löschen"
 msgstr "Cancellare la memoria dell'apparecchio"
 
@@ -779,62 +772,56 @@ msgstr ""
 
 #: ../ttt_param_check.cpp:81
 msgid "trennen"
-msgstr ""
+msgstr "Disconnettere"
 
 #. Fl_Check_Button* meas_led
 #: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1787
 msgid "verbinden"
-msgstr ""
+msgstr "Collegare"
 
 #: ../ttt_param_check.cpp:1691
-#, fuzzy
 msgid ""
 "TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
-"TTT_Certify v0.2.5 vom 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
-"79100 Freiburg, software@alluris.de"
 
 #. cairo_plot* cplot
 #: ../ttt_param_check.cpp:1705
 msgid "Messung"
-msgstr ""
+msgstr "Misurazione"
 
 #. Fl_Button* btn_start
 #: ../ttt_param_check.cpp:1715
-#, fuzzy
 msgid "Stop"
 msgstr "Stop"
 
 #: ../ttt_param_check.cpp:1726
 msgid "typisch 80% .. 90%"
-msgstr ""
+msgstr "tipicamente entro 80% .. 90%"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1749
 msgid "Ergebnis"
-msgstr ""
+msgstr "Risultato"
 
 #: ../ttt_param_check.cpp:1754
-#, fuzzy
 msgid "Peak 1 [Nm]"
-msgstr "Livelllo Peak  [%]"
+msgstr "Peak 1 [Nm]"
 
 #. Fl_Value_Output* vo_peak1
 #: ../ttt_param_check.cpp:1758
 msgid "Minimum nach Peak 1 [Nm]"
-msgstr ""
+msgstr "Minimum dopo Peak 1 [Nm]"
 
 #. Fl_Value_Output* vo_min1
 #: ../ttt_param_check.cpp:1764
-#, fuzzy
 msgid "Peak 2 [Nm]"
-msgstr "Livelllo Peak  [%]"
+msgstr "Peak 2 [Nm]"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1793
 msgid "Beispiele"
-msgstr ""
+msgstr "Esempi"
 
 #. Fl_Button* btn_csv2
 #: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
@@ -859,7 +846,7 @@ msgstr ""
 #: ../ttt_param_check.cpp:1995
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
-msgstr ""
+msgstr "Non è stato trovato il file '%s'"
 
 #~ msgid "TTT quick check config"
 #~ msgstr "TTT quick check config"

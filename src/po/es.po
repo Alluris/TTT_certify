@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
 "POT-Creation-Date: 2016-06-23 08:51+0200\n"
-"PO-Revision-Date: 2016-06-10 11:16+0200\n"
+"PO-Revision-Date: 2016-06-23 09:46+0200\n"
 "Last-Translator: Guillermo Buchholz <gbdata@ya.com>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.7\n"
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
-msgstr "+Instrumento de medición precargado con valor nominal"
+msgstr "+Precargar instrumento de medición con valor nominal"
 
 #: ../step.cpp:139
 msgid "Messgerät entlasten"
@@ -33,7 +33,7 @@ msgstr "Preparación del instrumento de medición"
 
 #: ../step.cpp:193
 msgid "+Drehmoment-Schraubwerkzeug mit Nominalwert vorbelasten"
-msgstr "+Llave de torque precargada con un valor nominal"
+msgstr "+Precargar llave de torque con valor nominal"
 
 #: ../step.cpp:196 ../step.cpp:586
 msgid "Drehmoment-Schraubwerkzeug entlasten"
@@ -74,14 +74,14 @@ msgstr "Puesta a cero del instrumento de medición"
 
 #: ../step.cpp:392
 msgid "+Drehmoment-Schraubwerkzeug mit Nominalwert belasten"
-msgstr "+Cargar la llave de torque con un valor nominal"
+msgstr "+Cargar la llave de torque con valor nominal"
 
 #: ../step.cpp:395
 msgid ""
 "Drehmoment-Schraubwerkzeug mit Nominalwert belasten und anschließend "
 "entlasten"
 msgstr ""
-"Cargar la llave de torque con un valor nominal y a continuación descargarla"
+"Cargar la llave de torque con valor nominal y a continuación descargarla"
 
 #: ../step.cpp:405
 msgid "Peakmessung Typ I"
@@ -223,8 +223,8 @@ msgid ""
 "Kalibriertemperatur außerhalb des erlaubten Bereichs, siehe DIN EN ISO "
 "6789:2003-10 Kapitel 6.2"
 msgstr ""
-"Temperatura de calibración del área permitida, véase DIN EN ISO 6789:2003-10 "
-"Capítulo 6.2"
+"Temperatura de calibración fuera del área permitida, véase DIN EN ISO "
+"6789:2003-10 Capítulo 6.2"
 
 #: ../ttt_gui.cpp:412
 msgid ""
@@ -239,13 +239,10 @@ msgid "Kalibrierung durch Benutzer abgebrochen"
 msgstr "Calibración cancelada por el usuario"
 
 #: ../ttt_gui.cpp:585
-#, fuzzy
 msgid ""
 "TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
-"TTT_Certify v0.2.5 del 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
-"79100 Friburgo, software@alluris.de"
 
 #: ../ttt_gui.cpp:590
 msgid "Bearbeiter"
@@ -375,7 +372,7 @@ msgstr "Valor límite inferior [Nm]"
 #: ../ttt_gui.cpp:700
 msgid "Unterer Grenzwert des vom Hersteller angegebenen Messbereichs TA"
 msgstr ""
-"Valor límite inferior del rango de medición indicado por el fabricante TA"
+"Valor límite inferior del rango de medición TA indicado por el fabricante"
 
 #. Fl_Value_Input* vi_test_object_min_torque
 #. Fl_Value_Input* vi_lower_limit
@@ -386,7 +383,7 @@ msgstr "Valor límite superior [Nm]"
 #: ../ttt_gui.cpp:707
 msgid "Oberer Grenzwert des vom Hersteller angegebenen Messbereichs TE"
 msgstr ""
-"Valor límite superior del rango de medición indicado por el fabricante TA"
+"Valor límite superior del rango de medición TE indicado por el fabricante"
 
 #. Fl_Value_Input* vi_test_object_max_torque
 #. Fl_Value_Input* vo_torque_tester_max_torque
@@ -461,15 +458,16 @@ msgstr "editar"
 #. Fl_Value_Output* vo_value
 #: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:208
 #: ../ttt_param_check.cpp:1725
-#, fuzzy
 msgid "Peakdetektion [%]"
-msgstr "Nivel pico [%]"
+msgstr "Detección pico [%]"
 
 #: ../ttt_gui.cpp:791
 msgid ""
 "Zur Bestimmung ggf. das Tool \"TTT Param Check\" verwenden. Wenn 0%, wird "
 "der Parameter vom TTT übernommen."
 msgstr ""
+"Para determinar utilice el software \"TTT Param Check\". Si 0%, el parámetro "
+"se toma de la TTT."
 
 #. Fl_Group* o
 #: ../ttt_gui.cpp:800
@@ -632,7 +630,7 @@ msgstr "Búsqueda de operador"
 
 #: ../cairo_print_devices.c:5481
 msgid "Schlüssel mit Drehstab oder Biegestab"
-msgstr "Lave con varilla rotativa o varilla de doblado"
+msgstr "Llave con varilla rotativa o varilla de doblado"
 
 #: ../cairo_print_devices.c:5486
 msgid ""
@@ -689,14 +687,12 @@ msgstr ""
 
 #. Fl_Value_Input* vi_nominal
 #: ../ttt_quick_check_config.cpp:190
-#, fuzzy
 msgid "Höchstzulässige Abweichung [%]"
-msgstr "Desviación máxima admisible"
+msgstr "Desviación máxima admisible [%]"
 
 #: ../ttt_quick_check_config.cpp:209
-#, fuzzy, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
-msgstr "Umbral de detección < 50% i no es recomendable"
+msgstr "Umbral de detección < 50% no es recomendable"
 
 #. Fl_Value_Input* vi_peak_level
 #: ../ttt_quick_check_config.cpp:217
@@ -715,18 +711,15 @@ msgstr "6%"
 
 #. Fl_Group* o
 #: ../ttt_quick_check_config.cpp:231
-#, fuzzy
 msgid "Messwerte"
-msgstr "Instrumento de medición"
+msgstr "Valores de medición"
 
 #: ../ttt_quick_check_config.cpp:236
-#, fuzzy
 msgid "Speicher auslesen"
 msgstr "Lectura de la memoria del dispositivo"
 
 #. Fl_Button* o
 #: ../ttt_quick_check_config.cpp:240
-#, fuzzy
 msgid "Speicher löschen"
 msgstr "Borrado de la memoria del dispositivo"
 
@@ -770,63 +763,56 @@ msgstr ""
 
 #: ../ttt_param_check.cpp:81
 msgid "trennen"
-msgstr ""
+msgstr "Desconectar"
 
 #. Fl_Check_Button* meas_led
 #: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1787
 msgid "verbinden"
-msgstr ""
+msgstr "Conectar"
 
 #: ../ttt_param_check.cpp:1691
-#, fuzzy
 msgid ""
 "TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
-"TTT_Certify v0.2.5 del 30.05.2016 Alluris GmbH & Co. KG, Basler Str. 65 , "
-"79100 Friburgo, software@alluris.de"
 
 #. cairo_plot* cplot
 #: ../ttt_param_check.cpp:1705
 msgid "Messung"
-msgstr ""
+msgstr "Medición"
 
 #. Fl_Button* btn_start
 #: ../ttt_param_check.cpp:1715
-#, fuzzy
 msgid "Stop"
 msgstr "Parada"
 
 #: ../ttt_param_check.cpp:1726
 msgid "typisch 80% .. 90%"
-msgstr ""
+msgstr "tipicamente 80% ..90%"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1749
 msgid "Ergebnis"
-msgstr ""
+msgstr "Resultado"
 
 #: ../ttt_param_check.cpp:1754
-#, fuzzy
 msgid "Peak 1 [Nm]"
-msgstr "Nivel pico [%]"
+msgstr "Peak 1 [Nm]"
 
 #. Fl_Value_Output* vo_peak1
 #: ../ttt_param_check.cpp:1758
-#, fuzzy
 msgid "Minimum nach Peak 1 [Nm]"
-msgstr "Nivel pico [%]"
+msgstr "Minimum tras Peak 1 [Nm]"
 
 #. Fl_Value_Output* vo_min1
 #: ../ttt_param_check.cpp:1764
-#, fuzzy
 msgid "Peak 2 [Nm]"
-msgstr "Nivel pico [%]"
+msgstr "Peak 2 [Nm]"
 
 #. Fl_Group* o
 #: ../ttt_param_check.cpp:1793
 msgid "Beispiele"
-msgstr ""
+msgstr "Ejemplos"
 
 #. Fl_Button* btn_csv2
 #: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
@@ -851,7 +837,7 @@ msgstr ""
 #: ../ttt_param_check.cpp:1995
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
-msgstr ""
+msgstr "No se ha encontrado el archivo '%s'"
 
 #~ msgid "TTT quick check config"
 #~ msgstr "TTT quick check configuración"
