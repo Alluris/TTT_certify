@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-06-23 08:51+0200\n"
-"PO-Revision-Date: 2016-06-23 09:46+0200\n"
+"POT-Creation-Date: 2016-10-05 15:53+0200\n"
+"PO-Revision-Date: 2016-10-05 16:17+0200\n"
 "Last-Translator: Guillermo Buchholz <gbdata@ya.com>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
@@ -95,12 +95,14 @@ msgstr "+Cargar la llave de torque hasta que se active"
 #: ../step.cpp:592
 #, c-format
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
-msgstr "*El incremento de torque ha sido demasiado rápido (%.2fs < %.2fs). Repetición"
+msgstr ""
+"*El incremento de torque ha sido demasiado rápido (%.2fs < %.2fs). Repetición"
 
 #: ../step.cpp:596
 #, c-format
 msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
-msgstr "*El incremento de torque ha sido demasiado lento (%.2f >%.2fs). Repetición"
+msgstr ""
+"*El incremento de torque ha sido demasiado lento (%.2f >%.2fs). Repetición"
 
 #: ../step.cpp:607
 msgid "Peakmessung Typ II"
@@ -112,7 +114,8 @@ msgstr "Calibración dentro de las tolerancias"
 
 #: ../ttt.cpp:207
 msgid "#Kalibrierung innerhalb Toleranz jedoch Mindestzeit nicht eingehalten"
-msgstr "#Calibración dentro de las tolerancias no obstante tiempo mínimo no cumplido"
+msgstr ""
+"#Calibración dentro de las tolerancias no obstante tiempo mínimo no cumplido"
 
 #: ../ttt.cpp:209
 msgid "*Kalibrierung außerhalb Toleranz"
@@ -678,8 +681,12 @@ msgstr "Destornillador, regulable, sin escala"
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
 msgstr "Llave con varilla de acero doblable, regulable, con escala"
 
+#: ../ttt_quick_check_config.cpp:102
+msgid "Keine Werte im Gerätespeicher"
+msgstr "Sin valores guardados"
+
 #: ../ttt_quick_check_config.cpp:177
-msgid "TTT_Quick-Check V1.01.001"
+msgid "TTT_Quick-Check V1.01.002"
 msgstr ""
 
 #. Fl_Value_Input* vi_nominal

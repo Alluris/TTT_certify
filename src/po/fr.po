@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-06-23 08:51+0200\n"
-"PO-Revision-Date: 2016-06-23 11:33+0200\n"
+"POT-Creation-Date: 2016-10-05 15:53+0200\n"
+"PO-Revision-Date: 2016-10-05 16:18+0200\n"
 "Last-Translator: Klaus Hartkopf <hartkopf@alluris.de>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
@@ -677,8 +677,12 @@ msgstr "Tournevis, réglable, sans graduation"
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
 msgstr "Clé, avec levier à barre flexible, réglable, avec graduation"
 
+#: ../ttt_quick_check_config.cpp:102
+msgid "Keine Werte im Gerätespeicher"
+msgstr "Pas des valeurs enregeistrées"
+
 #: ../ttt_quick_check_config.cpp:177
-msgid "TTT_Quick-Check V1.01.001"
+msgid "TTT_Quick-Check V1.01.002"
 msgstr ""
 
 #. Fl_Value_Input* vi_nominal

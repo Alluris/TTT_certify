@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-06-23 08:51+0200\n"
-"PO-Revision-Date: 2016-06-23 10:57+0200\n"
+"POT-Creation-Date: 2016-10-05 15:53+0200\n"
+"PO-Revision-Date: 2016-10-05 16:18+0200\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
@@ -33,7 +33,8 @@ msgstr "Preparazione dell’apparecchio di misura"
 
 #: ../step.cpp:193
 msgid "+Drehmoment-Schraubwerkzeug mit Nominalwert vorbelasten"
-msgstr "+Caricare l'utensile di avvitatura dinamometrico con il valore nominale"
+msgstr ""
+"+Caricare l'utensile di avvitatura dinamometrico con il valore nominale"
 
 #: ../step.cpp:196 ../step.cpp:586
 msgid "Drehmoment-Schraubwerkzeug entlasten"
@@ -100,13 +101,15 @@ msgstr "+Caricare l’utensile di avvitatura dinamometrico fino al suo scatto"
 #: ../step.cpp:592
 #, c-format
 msgid "*Drehmomentanstieg war zu schnell (%.2fs < %.2fs). Wiederholung"
-msgstr "*L'aumento del momento torcente è stato troppo rapido (%.2fs < %.2fs). "
+msgstr ""
+"*L'aumento del momento torcente è stato troppo rapido (%.2fs < %.2fs). "
 "Ripetizione"
 
 #: ../step.cpp:596
 #, c-format
 msgid "*Drehmomentanstieg war zu langsam (%.2fs > %.2fs). Wiederholung"
-msgstr "*L'aumento del momento torcente è stato troppo lento  (%.2fs > %.2fs). "
+msgstr ""
+"*L'aumento del momento torcente è stato troppo lento  (%.2fs > %.2fs). "
 "Ripetizione"
 
 #: ../step.cpp:607
@@ -119,7 +122,8 @@ msgstr "Calibratura entro la tolleranza"
 
 #: ../ttt.cpp:207
 msgid "#Kalibrierung innerhalb Toleranz jedoch Mindestzeit nicht eingehalten"
-msgstr "#Calibratura entro la tolleranza, tuttavia non è stato rispettato il tempo "
+msgstr ""
+"#Calibratura entro la tolleranza, tuttavia non è stato rispettato il tempo "
 "minimo"
 
 #: ../ttt.cpp:209
@@ -686,8 +690,12 @@ msgstr "Avvitatrice regolabile senza scala"
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
 msgstr "Chiave con leva di flessione, regolabile, con scala"
 
+#: ../ttt_quick_check_config.cpp:102
+msgid "Keine Werte im Gerätespeicher"
+msgstr "Nessuni valori memorizzati"
+
 #: ../ttt_quick_check_config.cpp:177
-msgid "TTT_Quick-Check V1.01.001"
+msgid "TTT_Quick-Check V1.01.002"
 msgstr ""
 
 #. Fl_Value_Input* vi_nominal
