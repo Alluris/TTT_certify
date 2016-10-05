@@ -32,7 +32,7 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Quick-Check V1.01.001} open
+    label {TTT_Quick-Check V1.01.002} open selected
     xywh {2747 268 375 555} type Double color 40 visible
   } {
     Fl_Group {} {
@@ -143,7 +143,7 @@ vi_test_object_accuracy->do_callback ();}
     cout << "mem.size ()=" << mem.size () << endl;
 
     if (mem.size () == 0)
-      fl_message ("Keine Werte im Gerätespeicher");
+      fl_message (gettext ("Keine Werte im Gerätespeicher"));
     else
       {
         double sum = 0;
@@ -202,7 +202,7 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
         class quick_check_table
       } {}
       Fl_Value_Output vo_mean {
-        label {Mittelwert [Nm]} selected
+        label {Mittelwert [Nm]}
         xywh {20 500 110 30} box DOWN_BOX align 5 step 0.001
       }
       Fl_Value_Output vo_std {

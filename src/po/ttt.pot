@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-06-24 10:38+0200\n"
+"POT-Creation-Date: 2016-10-05 15:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -316,7 +316,7 @@ msgstr ""
 
 #. Fl_Choice* choice_test_object_type
 #. Fl_Value_Slider* vi_peak1_thres
-#: ../ttt_gui.cpp:677 ../ttt_param_check.cpp:1730
+#: ../ttt_gui.cpp:677 ../ttt_param_check.cpp:1736
 msgid "Funktionsrichtung"
 msgstr ""
 
@@ -422,7 +422,7 @@ msgstr ""
 #. Fl_Value_Input* vi_upper_limit
 #. Fl_Value_Output* vo_value
 #: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:208
-#: ../ttt_param_check.cpp:1719
+#: ../ttt_param_check.cpp:1725
 msgid "Peakdetektion [%]"
 msgstr ""
 
@@ -455,7 +455,7 @@ msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%"
 msgstr ""
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:820 ../ttt_param_check.cpp:1764
+#: ../ttt_gui.cpp:820 ../ttt_param_check.cpp:1770
 msgid "Messgerät"
 msgstr ""
 
@@ -483,7 +483,7 @@ msgstr ""
 #. Fl_Button* btn_confirm
 #. Fl_Round_Button* rb_din_6789
 #: ../ttt_gui.cpp:852 ../ttt_gui.cpp:903 ../ttt_gui.cpp:955
-#: ../ttt_quick_check_config.cpp:184 ../ttt_param_check.cpp:1769
+#: ../ttt_quick_check_config.cpp:184 ../ttt_param_check.cpp:1775
 msgid "Nominalwert [Nm]"
 msgstr ""
 
@@ -492,7 +492,7 @@ msgstr ""
 msgid "Prüfung"
 msgstr ""
 
-#: ../ttt_gui.cpp:879 ../ttt_param_check.cpp:1704
+#: ../ttt_gui.cpp:879 ../ttt_param_check.cpp:1710
 msgid "Start"
 msgstr ""
 
@@ -527,7 +527,7 @@ msgstr ""
 
 #. Fl_Dial* dial_torque
 #. Fl_Button* btn_stop
-#: ../ttt_gui.cpp:918 ../ttt_param_check.cpp:1714
+#: ../ttt_gui.cpp:918 ../ttt_param_check.cpp:1720
 msgid "Messwert [Nm]"
 msgstr ""
 
@@ -639,8 +639,12 @@ msgstr ""
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
 msgstr ""
 
+#: ../ttt_quick_check_config.cpp:102
+msgid "Keine Werte im Gerätespeicher"
+msgstr ""
+
 #: ../ttt_quick_check_config.cpp:177
-msgid "TTT_Quick-Check V1.01.001"
+msgid "TTT_Quick-Check V1.01.002"
 msgstr ""
 
 #. Fl_Value_Input* vi_nominal
@@ -720,75 +724,75 @@ msgid "trennen"
 msgstr ""
 
 #. Fl_Check_Button* meas_led
-#: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1781
+#: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1787
 msgid "verbinden"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1685
+#: ../ttt_param_check.cpp:1691
 msgid ""
 "TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
 
 #. cairo_plot* cplot
-#: ../ttt_param_check.cpp:1699
+#: ../ttt_param_check.cpp:1705
 msgid "Messung"
 msgstr ""
 
 #. Fl_Button* btn_start
-#: ../ttt_param_check.cpp:1709
+#: ../ttt_param_check.cpp:1715
 msgid "Stop"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1720
+#: ../ttt_param_check.cpp:1726
 msgid "typisch 80% .. 90%"
 msgstr ""
 
 #. Fl_Group* o
-#: ../ttt_param_check.cpp:1743
+#: ../ttt_param_check.cpp:1749
 msgid "Ergebnis"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1748
+#: ../ttt_param_check.cpp:1754
 msgid "Peak 1 [Nm]"
 msgstr ""
 
 #. Fl_Value_Output* vo_peak1
-#: ../ttt_param_check.cpp:1752
+#: ../ttt_param_check.cpp:1758
 msgid "Minimum nach Peak 1 [Nm]"
 msgstr ""
 
 #. Fl_Value_Output* vo_min1
-#: ../ttt_param_check.cpp:1758
+#: ../ttt_param_check.cpp:1764
 msgid "Peak 2 [Nm]"
 msgstr ""
 
 #. Fl_Group* o
-#: ../ttt_param_check.cpp:1787
+#: ../ttt_param_check.cpp:1793
 msgid "Beispiele"
 msgstr ""
 
 #. Fl_Button* btn_csv2
-#: ../ttt_param_check.cpp:1792 ../ttt_param_check.cpp:1800
+#: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
 msgid "#1"
 msgstr ""
 
 #. Fl_Button* btn_csv1
-#: ../ttt_param_check.cpp:1796
+#: ../ttt_param_check.cpp:1802
 msgid "#2"
 msgstr ""
 
 #. Fl_Button* btn_csv3
-#: ../ttt_param_check.cpp:1805
+#: ../ttt_param_check.cpp:1811
 msgid "Garant 65 6050 6"
 msgstr ""
 
 #. Fl_Box* o
-#: ../ttt_param_check.cpp:1808
+#: ../ttt_param_check.cpp:1814
 msgid "MANOSKOP 730/4"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1989
+#: ../ttt_param_check.cpp:1995
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
 msgstr ""
