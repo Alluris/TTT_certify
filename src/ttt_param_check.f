@@ -50,7 +50,7 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT_Parameter-Check V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2554 271 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible
   } {
     Fl_Box cplot {
@@ -87,7 +87,7 @@ textdomain ("ttt");} {}
       }
       Fl_Value_Output vo_value {
         label {Messwert [Nm]}
-        xywh {880 193 150 65} align 5 step 0.1 textsize 49
+        xywh {880 193 150 65} align 133 step 0.1 textsize 49
       }
       Fl_Value_Slider vi_peak1_thres {
         label {Peakdetektion [%]}
@@ -96,8 +96,8 @@ update_cplot(true);}
         tooltip {typisch 80% .. 90%} xywh {785 285 244 30} type {Horz Knob} align 1 minimum 30 maximum 99 step 1 value 90 textsize 14
       }
       Fl_Choice choice_direction {
-        label Funktionsrichtung open
-        xywh {930 335 100 25} down_box BORDER_BOX
+        label Funktionsrichtung open selected
+        xywh {930 331 100 25} down_box BORDER_BOX align 132
       } {
         MenuItem {} {
           label rechts
@@ -228,8 +228,7 @@ catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
     return -1;
-  }} {selected
-  }
+  }} {}
 }
 
 Function {run_cb(void*)} {open return_type void

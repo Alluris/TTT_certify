@@ -53,7 +53,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT_Certify V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
     xywh {2391 192 1275 765} type Double color 40 labelfont 1 align 20 resizable size_range {800 600 0 0} visible
   } {
     Fl_Group {} {
@@ -73,7 +73,7 @@ Function {create_widgets()} {open return_type void
         tooltip {erweiterte Messunsicherheit durch den Bediener} xywh {686 281 60 25} align 132 maximum 100 step 0.1 deactivate
       }
       Fl_Button btn_test_person_save {
-        label {@filesave speichern}
+        label speichern
         callback {string name = inp_test_person_name->value();
 string supervisor =  inp_test_person_supervisor->value();
 double uncertainty = vi_test_person_uncertainty->value() / 100.0;
@@ -92,7 +92,7 @@ btn_test_person_abort->do_callback ();}
         xywh {651 171 95 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_person_new {
-        label {@filenew neu}
+        label neu
         callback {vi_test_person_id->hide ();
 inp_test_person_name->value ("");
 inp_test_person_supervisor->value ("");
@@ -258,17 +258,17 @@ update_test_object_accuracy();} open
         tooltip {Kennung aller Bauteile des Drehmoment-Schraubwerkzeugs einschließlich Passstücke und austauschbarer Aufsätze} xywh {22 607 365 67} type Multiline align 5 deactivate
       }
       Fl_Button btn_test_object_new {
-        label {@filenew neu}
+        label neu
         callback {test_object_edit_flag = false;
 set_test_object_fields_editable (true);
 clear_test_object_fields ();
 
 update_test_object_type_class();
 update_test_object_accuracy ();}
-        xywh {222 40 56 30} box GLEAM_THIN_UP_BOX
+        xywh {218 40 64 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_save {
-        label {@filesave speichern}
+        label speichern
         callback {int type_class_ind =  choice_test_object_type->value ();
 const Fl_Menu_Item &item = choice_test_object_type->menu ()[type_class_ind];
 
@@ -391,7 +391,7 @@ set_test_object_fields_editable (true);
 
 inp_test_object_equipment_nr->value ("");
 inp_test_object_serial->value ("");}
-        xywh {278 40 70 30} box GLEAM_THIN_UP_BOX
+        xywh {282 40 70 30} box GLEAM_THIN_UP_BOX
       }
       Fl_Button btn_test_object_edit {
         label editieren
@@ -470,7 +470,7 @@ set_test_object_fields_editable (true);}
       }
     }
     Fl_Group {} {
-      label {Prüfung} open selected
+      label {Prüfung} open
       xywh {761 6 510 757} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button btn_start {
@@ -601,7 +601,7 @@ catch (std::runtime_error &e)
       }
       Fl_Value_Output vo_nominal_value {
         label {Nominalwert [Nm]}
-        xywh {785 382 145 60} align 5 minimum -100 maximum 100 step 0.01 textsize 30
+        xywh {785 388 145 60} align 133 minimum -100 maximum 100 step 0.01 textsize 30
       }
       Fl_Output to_step {
         label {aktueller Schritt}
@@ -612,7 +612,7 @@ catch (std::runtime_error &e)
       }
       Fl_Value_Output vo_peak_torque {
         label {Messwert [Nm]}
-        xywh {1110 382 145 60} align 5 step 0.01 textsize 30
+        xywh {1110 388 145 60} align 133 step 0.01 textsize 30
       }
       Fl_Progress step_progress {
         xywh {850 715 410 25} selection_color 178
@@ -635,7 +635,7 @@ catch (std::runtime_error &e)
       Fl_Round_Button rb_like_6789_repeat {
         label {Ablauf nach DIN EN ISO 6789 aber mit Wiederholungen bei Überschreitung der zulässigen Abweichung}
         callback {update_quick_check_nominal_visibility();}
-        xywh {785 75 285 65} type Radio down_box ROUND_DOWN_BOX align 148
+        xywh {785 70 270 75} type Radio down_box ROUND_DOWN_BOX align 148
       }
       Fl_Round_Button rb_din_6789 {
         label {DIN EN ISO 6789}
@@ -648,15 +648,15 @@ catch (std::runtime_error &e)
       }
       Fl_Group grp_rise_time {
         label {Zeitüberwachung} open
-        tooltip {Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge} xywh {1080 108 180 64} box GTK_THIN_UP_BOX
+        tooltip {Mindestzeitraum für die Anwendung von Drehmomentwerten für Typ II Werkzeuge} xywh {1058 70 197 94} box GTK_THIN_UP_BOX
       } {
         Fl_Round_Button rb_repeat_until_okay {
           label {Wiederholung bis normgerecht}
-          xywh {1087 113 170 28} type Radio down_box ROUND_DOWN_BOX value 1 align 148
+          xywh {1065 87 170 28} type Radio down_box ROUND_DOWN_BOX value 1 align 148
         }
         Fl_Round_Button rb_ignore_timing {
           label {keine Wiederholung}
-          xywh {1087 143 170 27} type Radio down_box ROUND_DOWN_BOX
+          xywh {1065 128 170 27} type Radio down_box ROUND_DOWN_BOX
         }
       }
       Fl_Table mtable {open
