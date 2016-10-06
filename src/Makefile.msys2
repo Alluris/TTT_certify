@@ -43,6 +43,7 @@ ttt_certify.res: ttt_certify.rc
 
 TTT_certify_mingw64_i686_build:
 	mkdir -p $@
+	$(MAKE) -C po
 	cp ttt_certify.db ttt_gui.exe ttt_quick_check_config.exe ttt_param_check.exe $@
 	cp /mingw32/bin/libbz2-1.dll $@
 	cp /mingw32/bin/libcairo-2.dll $@
@@ -75,5 +76,6 @@ TTT_certify_mingw64_i686_build:
 
 clean:
 	find . -name "octave-workspace" -exec rm {} \;
+	$(MAKE) -C po clean
 	rm -rf $(TARGETS)
 	rm -f *.log *.o
