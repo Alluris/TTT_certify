@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-10-05 15:53+0200\n"
-"PO-Revision-Date: 2016-10-05 16:01+0100\n"
+"POT-Creation-Date: 2016-10-06 14:52+0200\n"
+"PO-Revision-Date: 2016-10-06 14:56+0200\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
@@ -272,19 +272,19 @@ msgstr "Expanded uncertainty of operator [%]"
 #. Fl_Value_Input* vi_test_person_uncertainty
 #. Fl_Button* btn_test_object_new
 #: ../ttt_gui.cpp:610 ../ttt_gui.cpp:732
-msgid "@filesave speichern"
-msgstr "@filesave save"
+msgid "speichern"
+msgstr "save"
 
 #. Fl_Button* btn_test_person_save
 #. Fl_Input* mi_test_object_attachments
 #: ../ttt_gui.cpp:614 ../ttt_gui.cpp:728
-msgid "@filenew neu"
-msgstr "@filenew new"
+msgid "neu"
+msgstr "new"
 
 #. Fl_Button* btn_test_person_new
 #: ../ttt_gui.cpp:618 ../ttt_gui.cpp:640 ../ttt_gui.cpp:825
 msgid "id"
-msgstr "ID"
+msgstr "id"
 
 #. Fl_Value_Input* vi_test_person_id
 #. cairo_device_box* cbox
@@ -369,7 +369,7 @@ msgstr ""
 
 #. Fl_Value_Input* vi_test_object_lever_length
 #. Fl_Value_Input* vi_test_object_accuracy
-#: ../ttt_gui.cpp:699 ../ttt_quick_check_config.cpp:198
+#: ../ttt_gui.cpp:699 ../ttt_quick_check_config.cpp:212
 msgid "Unterer Grenzwert [Nm]"
 msgstr "Lower limit [Nm]"
 
@@ -379,7 +379,7 @@ msgstr "Lower limit of the measuring range TA specified by the manufacturer"
 
 #. Fl_Value_Input* vi_test_object_min_torque
 #. Fl_Value_Input* vi_lower_limit
-#: ../ttt_gui.cpp:706 ../ttt_quick_check_config.cpp:203
+#: ../ttt_gui.cpp:706 ../ttt_quick_check_config.cpp:218
 msgid "Oberer Grenzwert [Nm]"
 msgstr "Upper Limit [Nm]"
 
@@ -442,25 +442,25 @@ msgstr "Classification"
 #. Fl_Button* btn_test_object_search
 #: ../ttt_gui.cpp:778
 msgid "löschen"
-msgstr "Delete"
+msgstr "delete"
 
 #. Fl_Button* btn_test_object_delete
 #: ../ttt_gui.cpp:782
 msgid "kopieren"
-msgstr "Copy"
+msgstr "copy"
 
 # Bearbeiten?
 #. Fl_Button* btn_test_object_copy
 #: ../ttt_gui.cpp:786
 msgid "editieren"
-msgstr "Edit"
+msgstr "edit"
 
 # ?
 #. Fl_Button* btn_test_object_edit
 #. Fl_Value_Input* vo_torque_tester_uncertainty
 #. Fl_Value_Input* vi_upper_limit
 #. Fl_Value_Output* vo_value
-#: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:208
+#: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:224
 #: ../ttt_param_check.cpp:1725
 msgid "Peakdetektion [%]"
 msgstr "Peak detection [%]"
@@ -490,14 +490,14 @@ msgstr ""
 #. Fl_Value_Input* vi_temperature
 #: ../ttt_gui.cpp:812
 msgid "relative Luftfeuchte [%rH]"
-msgstr "Relative Humidity  [%RH]"
+msgstr "Relative Humidity  [%rH]"
 
 #: ../ttt_gui.cpp:813
 msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%"
 msgstr "Permissible range according to DIN EN ISO 6789:2003-10 6.2 max. 90%"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:820 ../ttt_param_check.cpp:1770
+#: ../ttt_gui.cpp:820 ../ttt_param_check.cpp:1771
 msgid "Messgerät"
 msgstr "Measuring instrument"
 
@@ -525,12 +525,12 @@ msgstr "Calibration certificate no."
 #. Fl_Button* btn_confirm
 #. Fl_Round_Button* rb_din_6789
 #: ../ttt_gui.cpp:852 ../ttt_gui.cpp:903 ../ttt_gui.cpp:955
-#: ../ttt_quick_check_config.cpp:184 ../ttt_param_check.cpp:1775
+#: ../ttt_quick_check_config.cpp:197 ../ttt_param_check.cpp:1776
 msgid "Nominalwert [Nm]"
 msgstr "Nominal value [Nm]"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:874 ../ttt_quick_check_config.cpp:179
+#: ../ttt_gui.cpp:874 ../ttt_quick_check_config.cpp:192
 msgid "Prüfung"
 msgstr "Test"
 
@@ -571,7 +571,7 @@ msgstr "Current step"
 #. Fl_Button* btn_stop
 #: ../ttt_gui.cpp:918 ../ttt_param_check.cpp:1720
 msgid "Messwert [Nm]"
-msgstr "Measured value"
+msgstr "Measured value [Nm]"
 
 #. Fl_Text_Display* td_instruction
 #: ../ttt_gui.cpp:937
@@ -683,59 +683,65 @@ msgstr "Screwdriver adjustable, without scale"
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
 msgstr "Wrench with bending beam, adjustable, with scale"
 
-#: ../ttt_quick_check_config.cpp:102
+#: ../ttt_quick_check_config.cpp:115
 msgid "Keine Werte im Gerätespeicher"
 msgstr "No values saved"
 
-#: ../ttt_quick_check_config.cpp:177
+#: ../ttt_quick_check_config.cpp:190
 msgid "TTT_Quick-Check V1.01.002"
 msgstr ""
 
 #. Fl_Value_Input* vi_nominal
-#: ../ttt_quick_check_config.cpp:190
+#: ../ttt_quick_check_config.cpp:204
 msgid "Höchstzulässige Abweichung [%]"
 msgstr "Maximum admissible deviation [%]"
 
-#: ../ttt_quick_check_config.cpp:209
+#: ../ttt_quick_check_config.cpp:225 ../ttt_quick_check_config.cpp:247
+#, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Detection threshold <50% is not recommended"
 
 #. Fl_Value_Input* vi_peak_level
-#: ../ttt_quick_check_config.cpp:217
+#: ../ttt_quick_check_config.cpp:233
 msgid "Konfiguration ins Messgerät schreiben"
 msgstr "Write configuration to the measuring instrument"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:221
+#: ../ttt_quick_check_config.cpp:238
 msgid "3%"
 msgstr "3%"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:225
+#: ../ttt_quick_check_config.cpp:242
 msgid "6%"
 msgstr "6%"
 
+#. Fl_Button* o
+#: ../ttt_quick_check_config.cpp:246
+msgid "Auto-Stopp [s]"
+msgstr ""
+
 #. Fl_Group* o
-#: ../ttt_quick_check_config.cpp:231
+#: ../ttt_quick_check_config.cpp:257
 msgid "Messwerte"
 msgstr "Measuring values"
 
-#: ../ttt_quick_check_config.cpp:236
+#: ../ttt_quick_check_config.cpp:262
 msgid "Speicher auslesen"
 msgstr "Read device memory"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:240
+#: ../ttt_quick_check_config.cpp:267
 msgid "Speicher löschen"
 msgstr "Clear device memory"
 
 #. quick_check_table* quick_tbl
-#: ../ttt_quick_check_config.cpp:256
+#: ../ttt_quick_check_config.cpp:284
 msgid "Mittelwert [Nm]"
 msgstr "Average [Nm]"
 
 #. Fl_Value_Output* vo_mean
-#: ../ttt_quick_check_config.cpp:261
+#: ../ttt_quick_check_config.cpp:289
 msgid "Standardabweichung [Nm]"
 msgstr "Standard deviation [Nm]"
 
@@ -773,13 +779,13 @@ msgid "trennen"
 msgstr "disconnect"
 
 #. Fl_Check_Button* meas_led
-#: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1787
+#: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1788
 msgid "verbinden"
 msgstr "connect"
 
 #: ../ttt_param_check.cpp:1691
 msgid ""
-"TTT_Parameter-Check V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"TTT_Parameter-Check V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
 
@@ -798,56 +804,59 @@ msgid "typisch 80% .. 90%"
 msgstr "Typically 80% ..90%"
 
 #. Fl_Group* o
-#: ../ttt_param_check.cpp:1749
+#: ../ttt_param_check.cpp:1750
 msgid "Ergebnis"
 msgstr "Result"
 
 # ?
-#: ../ttt_param_check.cpp:1754
+#: ../ttt_param_check.cpp:1755
 msgid "Peak 1 [Nm]"
 msgstr "Peak 1 [Nm]"
 
 # ?
 #. Fl_Value_Output* vo_peak1
-#: ../ttt_param_check.cpp:1758
+#: ../ttt_param_check.cpp:1759
 msgid "Minimum nach Peak 1 [Nm]"
 msgstr "Minimum after Peak 1 [Nm]"
 
 # ?
 #. Fl_Value_Output* vo_min1
-#: ../ttt_param_check.cpp:1764
+#: ../ttt_param_check.cpp:1765
 msgid "Peak 2 [Nm]"
 msgstr "Peak 2 [Nm]"
 
 #. Fl_Group* o
-#: ../ttt_param_check.cpp:1793
+#: ../ttt_param_check.cpp:1794
 msgid "Beispiele"
 msgstr "Examples"
 
 #. Fl_Button* btn_csv2
-#: ../ttt_param_check.cpp:1798 ../ttt_param_check.cpp:1806
+#: ../ttt_param_check.cpp:1799 ../ttt_param_check.cpp:1807
 msgid "#1"
 msgstr "#1"
 
 #. Fl_Button* btn_csv1
-#: ../ttt_param_check.cpp:1802
+#: ../ttt_param_check.cpp:1803
 msgid "#2"
 msgstr "#2"
 
 #. Fl_Button* btn_csv3
-#: ../ttt_param_check.cpp:1811
+#: ../ttt_param_check.cpp:1812
 msgid "Garant 65 6050 6"
 msgstr ""
 
 #. Fl_Box* o
-#: ../ttt_param_check.cpp:1814
+#: ../ttt_param_check.cpp:1815
 msgid "MANOSKOP 730/4"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1995
+#: ../ttt_param_check.cpp:1996
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
 msgstr "The file '%s' could not been found"
+
+#~ msgid "@filenew neu"
+#~ msgstr "@filenew new"
 
 #~ msgid "TTT quick check config"
 #~ msgstr "TTT quick check config"
