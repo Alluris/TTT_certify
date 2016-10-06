@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
 "POT-Creation-Date: 2016-10-06 14:52+0200\n"
-"PO-Revision-Date: 2016-10-06 14:34+0200\n"
+"PO-Revision-Date: 2016-10-06 16:23+0200\n"
 "Last-Translator: Klaus Hartkopf <hartkopf@alluris.de>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -268,15 +268,14 @@ msgstr "Incertitude de mesure élargie par l'opérateur"
 #. Fl_Value_Input* vi_test_person_uncertainty
 #. Fl_Button* btn_test_object_new
 #: ../ttt_gui.cpp:610 ../ttt_gui.cpp:732
-#, fuzzy
 msgid "speichern"
-msgstr "@filesave Enregistrer"
+msgstr "Enregistrer"
 
 #. Fl_Button* btn_test_person_save
 #. Fl_Input* mi_test_object_attachments
 #: ../ttt_gui.cpp:614 ../ttt_gui.cpp:728
 msgid "neu"
-msgstr ""
+msgstr "nouveau"
 
 #. Fl_Button* btn_test_person_new
 #: ../ttt_gui.cpp:618 ../ttt_gui.cpp:640 ../ttt_gui.cpp:825
