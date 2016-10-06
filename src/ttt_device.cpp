@@ -25,7 +25,8 @@ If not, see <http://www.gnu.org/licenses/>.
 #include "ttt_device.h"
 
 ttt_device::ttt_device ()
-  : scale(-1), uncertainty(-1), peak_level(-1), measuring(false), streaming(false)
+  : scale(-1), uncertainty(-1), peak_level(-1), measuring(false), streaming(false),
+    old_autostop(-1)
 {
   cout << "ttt_device c'tor" << endl;
   init ();
@@ -52,6 +53,9 @@ void ttt_device::init ()
 
   // lock keypad
   al.set_key_lock (1);
+
+  // save autostop so that it can be restored
+  old_autostop = al.get_autostop ();
 
   // disable autostop
   al.set_autostop (0);
@@ -84,13 +88,19 @@ void ttt_device::init ()
   cout << "  max_M             = " << max_M << endl;
   cout << "  uncertainty (k=2) = " << uncertainty << endl;
   cout << "  peak_level        = " << peak_level << endl;
+  cout << "  old_autostop      = " << old_autostop << endl;
 }
 
 ttt_device::~ttt_device ()
 {
   stop ();
   al.set_key_lock (0);
-  al.set_autostop (5);
+
+  // if the value for autostop was lost, use a default of 3s
+  if (old_autostop == 0)
+    old_autostop = 3;
+
+  al.set_autostop (old_autostop);
 
   cout << "ttt_device d'tor finished" << endl;
 }

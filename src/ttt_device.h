@@ -58,6 +58,7 @@ private:
   double peak_level;
   bool measuring;
   bool streaming;
+  int old_autostop; // in s
 
 public:
   ttt_device ();
