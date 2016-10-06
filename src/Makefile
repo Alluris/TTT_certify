@@ -1,4 +1,4 @@
-.PHONY:clean
+.PHONY:clean screenshots
 
 TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cpp ttt_quick_check_config.h ttt_quick_check_config ttt_param_check
 
@@ -41,8 +41,31 @@ ttt_param_check.cpp ttt_param_check.h: ttt_param_check.f
 ttt_param_check: ttt_param_check.o cairo_plot.o cairo_box.o ttt_peak_detector.o ttt_device.o liballuris++.o liballuris.o
 	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
+ttt_quick_check_title = 'TTT_Quick-Check V1.01.002'
+ttt_param_check_title = 'TTT_Parameter-Check V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
+ttt_gui_title = 'TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
+
+screenshots: $(TARGETS)
+	mkdir -p screenshots
+	./shot.sh de_DE.utf8 ./ttt_quick_check_config $(ttt_quick_check_title)
+	./shot.sh en_US.utf8 ./ttt_quick_check_config $(ttt_quick_check_title)
+	./shot.sh fr_FR.utf8 ./ttt_quick_check_config $(ttt_quick_check_title)
+	./shot.sh it_IT.utf8 ./ttt_quick_check_config $(ttt_quick_check_title)
+	./shot.sh es_ES.utf8 ./ttt_quick_check_config $(ttt_quick_check_title)
+	./shot.sh de_DE.utf8 ./ttt_param_check $(ttt_param_check_title)
+	./shot.sh en_US.utf8 ./ttt_param_check $(ttt_param_check_title)
+	./shot.sh fr_FR.utf8 ./ttt_param_check $(ttt_param_check_title)
+	./shot.sh it_IT.utf8 ./ttt_param_check $(ttt_param_check_title)
+	./shot.sh es_ES.utf8 ./ttt_param_check $(ttt_param_check_title)
+	./shot.sh de_DE.utf8 ./ttt_gui $(ttt_gui_title)
+	./shot.sh en_US.utf8 ./ttt_gui $(ttt_gui_title)
+	./shot.sh fr_FR.utf8 ./ttt_gui $(ttt_gui_title)
+	./shot.sh it_IT.utf8 ./ttt_gui $(ttt_gui_title)
+	./shot.sh es_ES.utf8 ./ttt_gui $(ttt_gui_title)
+
 clean:
 	find . -name "octave-workspace" -exec rm {} \;
 	rm -f $(TARGETS)
 	rm -f *.log *.o
+	rm -rf screenshots
 
