@@ -460,7 +460,7 @@ out_cmd peak_click_step::inout (double torque, bool confirmation)
     {
       int_step = 1;
     }
-  else if (int_step == 1) // start schwelle überschritten
+  else if (int_step == 1) // Startschwelle überschritten
     {
       if (   (nominal > 0 && ((torque * peak_trigger2_factor) > peak_trigger2_threshold))
              || (nominal < 0 && ((torque * peak_trigger2_factor) < peak_trigger2_threshold)))
