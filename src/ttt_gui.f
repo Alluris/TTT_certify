@@ -53,7 +53,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    label {TTT_Certify V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2391 192 1275 765} type Double color 40 labelfont 1 align 20 resizable size_range {800 600 0 0} visible
   } {
     Fl_Group {} {
@@ -666,8 +666,8 @@ catch (std::runtime_error &e)
     }
   }
   Fl_Window test_object_win {
-    label Werkzeugsuche
-    xywh {2288 448 935 645} type Double resizable modal visible
+    label Werkzeugsuche open
+    xywh {2833 464 940 645} type Double resizable modal visible
   } {
     Fl_Table to {open
       xywh {9 110 920 480}
@@ -714,19 +714,19 @@ catch (std::runtime_error &e)
       xywh {880 62 35 30} box GLEAM_THIN_UP_BOX
     }
     Fl_Button {} {
-      label abbrechen
+      label {@undo abbrechen}
       callback {test_object_win->hide ();}
-      xywh {740 605 90 30} box GLEAM_THIN_UP_BOX
+      xywh {715 605 110 30} box GLEAM_THIN_UP_BOX
     }
     Fl_Button btn_test_object_select {
       label {wählen}
       callback {to->do_select_cb ();}
-      xywh {850 605 65 30} box GLEAM_THIN_UP_BOX
+      xywh {835 605 90 30} box GLEAM_THIN_UP_BOX
     }
   }
   Fl_Window test_person_win {
-    label Bearbeitersuche
-    xywh {2319 150 670 540} type Double hide resizable modal
+    label Bearbeitersuche open selected
+    xywh {3055 165 670 540} type Double resizable modal visible
   } {
     Fl_Table tp {open
       xywh {20 70 640 410}
@@ -743,14 +743,14 @@ catch (std::runtime_error &e)
       xywh {425 20 35 30} box GLEAM_THIN_UP_BOX
     }
     Fl_Button btn_test_object_cancel {
-      label abbrechen
+      label {@undo abbrechen}
       callback {test_person_win->hide ();}
-      xywh {495 500 90 30} box GLEAM_THIN_UP_BOX
+      xywh {450 500 110 30} box GLEAM_THIN_UP_BOX
     }
     Fl_Button btn_test_person_select {
       label {wählen}
       callback {tp->do_select_cb ();}
-      xywh {595 500 65 30} box GLEAM_THIN_UP_BOX
+      xywh {570 500 90 30} box GLEAM_THIN_UP_BOX
     }
   }
 }
