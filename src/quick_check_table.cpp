@@ -59,7 +59,7 @@ void quick_check_table::draw_cell(TableContext context, int ROW, int COL, int X,
 }
 
 quick_check_table::quick_check_table(int X, int Y, int W, int H, const char *L)
-  : Fl_Table(X, Y, 173, 178,L)
+  : Fl_Table(X, Y, 153, 178,L)
 {
   (void) W;
   (void) H;

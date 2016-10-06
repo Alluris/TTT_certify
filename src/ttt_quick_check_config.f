@@ -32,17 +32,17 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Quick-Check V1.01.002} open selected
-    xywh {2747 268 375 555} type Double color 40 visible
+    label {TTT_Quick-Check V1.01.002} open
+    xywh {2747 268 375 630} type Double color 40 visible
   } {
     Fl_Group {} {
       label {Prüfung} open
-      xywh {5 5 363 250} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      xywh {6 5 363 290} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_nominal {
         label {Nominalwert [Nm]}
         callback {vi_test_object_accuracy->do_callback ()}
-        xywh {195 40 55 25} minimum -50 maximum 50 step 0.1
+        xywh {196 40 55 25} align 132 minimum -50 maximum 50 step 0.1
       }
       Fl_Value_Input vi_test_object_accuracy {
         label {Höchstzulässige Abweichung [%]}
@@ -50,15 +50,15 @@ textdomain ("ttt");} {}
 
 vi_upper_limit->value (vi_nominal->value () * (1 + val/100.0));
 vi_lower_limit->value (vi_nominal->value () * (1 - val/100.0));}
-        xywh {195 73 55 25} align 132 minimum 0.1 maximum 10 step 0.1 value 6
+        xywh {196 75 55 25} align 132 minimum 0.1 maximum 10 step 0.1 value 6
       }
       Fl_Value_Input vi_lower_limit {
         label {Unterer Grenzwert [Nm]}
-        xywh {195 107 55 25} minimum -50 maximum 50 step 0.01
+        xywh {196 111 55 25} align 132 minimum -50 maximum 50 step 0.01
       }
       Fl_Value_Input vi_upper_limit {
         label {Oberer Grenzwert [Nm]}
-        xywh {195 141 55 25} minimum -50 maximum 50 step 0.01
+        xywh {196 147 55 25} align 132 minimum -50 maximum 50 step 0.01
       }
       Fl_Value_Input vi_peak_level {
         label {Peakdetektion [%]}
@@ -67,7 +67,7 @@ vi_lower_limit->value (vi_nominal->value () * (1 - val/100.0));}
 else
   o->color (FL_WHITE);
 o->redraw ();}
-        tooltip {Peakdetektion < 50% ist nicht empfehlenswert} xywh {195 175 55 25} align 132 minimum 10 maximum 99 step 1 value 90
+        tooltip {Peakdetektion < 50% ist nicht empfehlenswert} xywh {196 183 55 25} align 132 minimum 10 maximum 99 step 1 value 90
       }
       Fl_Button {} {
         label {Konfiguration ins Messgerät schreiben}
@@ -99,31 +99,43 @@ o->redraw ();}
       }
     al.set_memory_mode (LIBALLURIS_MEM_MODE_QUICK_CHECK);
     al.set_unit (LIBALLURIS_UNIT_N);
-    al.set_peak_level (vi_peak_level->value() / 100.0);
+    al.set_peak_level (vi_peak_level->value () / 100.0);
+    al.set_autostop (vi_autostop->value ());
   }
 catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
   }
 mainwin->cursor (FL_CURSOR_DEFAULT);}
-        xywh {30 215 315 30} box GLEAM_THIN_UP_BOX
+        xywh {15 250 344 40} box GLEAM_THIN_UP_BOX align 128
       }
       Fl_Button {} {
         label {3%}
         callback {vi_test_object_accuracy->value (3);
 vi_test_object_accuracy->do_callback ();}
-        xywh {265 73 45 25} box GLEAM_THIN_UP_BOX
+        xywh {266 75 45 25} box GLEAM_THIN_UP_BOX
       }
       Fl_Button {} {
         label {6%}
         callback {vi_test_object_accuracy->value (6);
 vi_test_object_accuracy->do_callback ();}
-        xywh {309 73 45 25} box GLEAM_THIN_UP_BOX
+        xywh {310 75 45 25} box GLEAM_THIN_UP_BOX
+      }
+      Fl_Value_Input vi_autostop {
+        label {Auto-Stopp [s]}
+        callback {if (o->value () < 2)
+  o->color (FL_RED);
+else if (o->value () < 5)
+  o->color (FL_YELLOW);
+else
+  o->color (FL_WHITE);
+o->redraw ();}
+        tooltip {Peakdetektion < 50% ist nicht empfehlenswert} xywh {195 219 55 25} align 132 minimum 1 maximum 31 step 1 value 2
       }
     }
     Fl_Group {} {
       label Messwerte open
-      xywh {5 265 363 285} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      xywh {6 301 363 323} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Button {} {
         label {Speicher auslesen}
@@ -174,7 +186,7 @@ catch (std::runtime_error &e)
     fl_alert (e.what ());
   }
 mainwin->cursor (FL_CURSOR_DEFAULT);}
-        xywh {200 300 148 35} box GLEAM_THIN_UP_BOX
+        xywh {186 336 172 44} box GLEAM_THIN_UP_BOX align 128
       }
       Fl_Button {} {
         label {Speicher löschen}
@@ -195,19 +207,19 @@ catch (std::runtime_error &e)
     fl_alert (e.what ());
   }
 mainwin->cursor (FL_CURSOR_DEFAULT);}
-        xywh {200 340 148 35} box GLEAM_THIN_UP_BOX
+        xywh {186 391 172 44} box GLEAM_THIN_UP_BOX align 128
       }
       Fl_Table quick_tbl {open
-        xywh {20 298 155 157} box GTK_THIN_DOWN_FRAME
+        xywh {21 334 155 157} box GTK_THIN_DOWN_FRAME
         class quick_check_table
       } {}
       Fl_Value_Output vo_mean {
         label {Mittelwert [Nm]}
-        xywh {20 500 110 30} box DOWN_BOX align 5 step 0.001
+        xywh {21 560 149 30} box DOWN_BOX color 49 selection_color 49 labeltype NORMAL_LABEL labelsize 14 labelcolor 0 align 133 when 1 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
       }
       Fl_Value_Output vo_std {
-        label {Standardabweichung [Nm]}
-        xywh {140 500 110 30} box DOWN_BOX align 5 step 0.001
+        label {Standardabweichung [Nm]} selected
+        xywh {190 560 149 30} box DOWN_BOX color 49 selection_color 49 labeltype NORMAL_LABEL labelsize 14 labelcolor 0 align 133 when 1 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
       }
     }
   }
