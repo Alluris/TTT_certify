@@ -96,7 +96,7 @@ update_cplot(true);}
         tooltip {typisch 80% .. 90%} xywh {785 285 244 30} type {Horz Knob} align 1 minimum 30 maximum 99 step 1 value 90 textsize 14
       }
       Fl_Choice choice_direction {
-        label Funktionsrichtung open selected
+        label Funktionsrichtung open
         xywh {930 331 100 25} down_box BORDER_BOX align 132
       } {
         MenuItem {} {
@@ -174,7 +174,7 @@ else
     btn_stop->deactivate ();
   }
 
-mainwin->cursor (FL_CURSOR_DEFAULT);}
+mainwin->cursor (FL_CURSOR_DEFAULT);} selected
         xywh {910 35 105 40} box GLEAM_UP_BOX
       }
     }
@@ -228,7 +228,11 @@ catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
     return -1;
-  }} {}
+  }
+
+// give xgettext a chance to find "rechts" and "links"
+char* dummy = gettext ("rechts");
+      dummy = gettext ("links");} {}
 }
 
 Function {run_cb(void*)} {open return_type void

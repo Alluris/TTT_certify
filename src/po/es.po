@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-10-06 14:52+0200\n"
-"PO-Revision-Date: 2016-10-06 15:41+0200\n"
+"POT-Creation-Date: 2016-10-07 11:02+0200\n"
+"PO-Revision-Date: 2016-10-07 11:34+0200\n"
 "Last-Translator: Guillermo Buchholz <gbdata@ya.com>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -240,7 +240,7 @@ msgstr "Calibración cancelada por el usuario"
 
 #: ../ttt_gui.cpp:585
 msgid ""
-"TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"TTT_Certify V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
 
@@ -287,7 +287,10 @@ msgstr "id"
 
 #. Fl_Value_Input* vi_test_person_id
 #. cairo_device_box* cbox
-#: ../ttt_gui.cpp:625 ../ttt_gui.cpp:770
+#. Fl_Button* btn_search_model
+#. Fl_Button* btn_search_person_name
+#: ../ttt_gui.cpp:625 ../ttt_gui.cpp:770 ../ttt_gui.cpp:1038
+#: ../ttt_gui.cpp:1071
 msgid "@undo abbrechen"
 msgstr "@undo cancelar"
 
@@ -611,12 +614,6 @@ msgstr "Sin repetición"
 msgid "Werkzeugsuche"
 msgstr "Búsqueda de herramienta"
 
-#. Fl_Button* btn_search_model
-#. Fl_Button* btn_search_person_name
-#: ../ttt_gui.cpp:1038 ../ttt_gui.cpp:1071
-msgid "abbrechen"
-msgstr "cancelar"
-
 #. Fl_Button* o
 #. Fl_Button* btn_test_object_cancel
 #: ../ttt_gui.cpp:1042 ../ttt_gui.cpp:1075
@@ -844,10 +841,22 @@ msgstr ""
 msgid "MANOSKOP 730/4"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1996
+#. give xgettext a chance to find "rechts" and "links"
+#: ../ttt_param_check.cpp:1842
+msgid "rechts"
+msgstr "derecho"
+
+#: ../ttt_param_check.cpp:1843
+msgid "links"
+msgstr "izquierdo"
+
+#: ../ttt_param_check.cpp:2000
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
 msgstr "No se ha encontrado el archivo '%s'"
+
+#~ msgid "abbrechen"
+#~ msgstr "cancelar"
 
 #~ msgid "@filenew neu"
 #~ msgstr "@filenew nuevo"

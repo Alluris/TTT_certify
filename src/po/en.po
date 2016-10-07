@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-10-06 14:52+0200\n"
-"PO-Revision-Date: 2016-10-06 14:56+0200\n"
+"POT-Creation-Date: 2016-10-07 11:07+0200\n"
+"PO-Revision-Date: 2016-10-07 11:07+0200\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -239,11 +239,9 @@ msgstr "Calibration aborted by user"
 
 #: ../ttt_gui.cpp:585
 msgid ""
-"TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"TTT_Certify V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
-"TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
-"Freiburg, software@alluris.de"
 
 #: ../ttt_gui.cpp:590
 msgid "Bearbeiter"
@@ -288,7 +286,10 @@ msgstr "id"
 
 #. Fl_Value_Input* vi_test_person_id
 #. cairo_device_box* cbox
-#: ../ttt_gui.cpp:625 ../ttt_gui.cpp:770
+#. Fl_Button* btn_search_model
+#. Fl_Button* btn_search_person_name
+#: ../ttt_gui.cpp:625 ../ttt_gui.cpp:770 ../ttt_gui.cpp:1038
+#: ../ttt_gui.cpp:1071
 msgid "@undo abbrechen"
 msgstr "@undo abort"
 
@@ -616,12 +617,6 @@ msgstr "No repetitions"
 msgid "Werkzeugsuche"
 msgstr "Tool search"
 
-#. Fl_Button* btn_search_model
-#. Fl_Button* btn_search_person_name
-#: ../ttt_gui.cpp:1038 ../ttt_gui.cpp:1071
-msgid "abbrechen"
-msgstr "Abort"
-
 #. Fl_Button* o
 #. Fl_Button* btn_test_object_cancel
 #: ../ttt_gui.cpp:1042 ../ttt_gui.cpp:1075
@@ -719,7 +714,7 @@ msgstr "6%"
 #. Fl_Button* o
 #: ../ttt_quick_check_config.cpp:246
 msgid "Auto-Stopp [s]"
-msgstr ""
+msgstr "Auto-Stop [s]"
 
 #. Fl_Group* o
 #: ../ttt_quick_check_config.cpp:257
@@ -850,10 +845,29 @@ msgstr ""
 msgid "MANOSKOP 730/4"
 msgstr ""
 
-#: ../ttt_param_check.cpp:1996
+#. give xgettext a chance to find "rechts" and "links"
+#: ../ttt_param_check.cpp:1842
+msgid "rechts"
+msgstr "right"
+
+#: ../ttt_param_check.cpp:1843
+msgid "links"
+msgstr "left"
+
+#: ../ttt_param_check.cpp:2000
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
 msgstr "The file '%s' could not been found"
+
+#~ msgid ""
+#~ "TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+#~ "Freiburg, software@alluris.de"
+#~ msgstr ""
+#~ "TTT_Certify V1.01.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+#~ "Freiburg, software@alluris.de"
+
+#~ msgid "abbrechen"
+#~ msgstr "Abort"
 
 #~ msgid "@filenew neu"
 #~ msgstr "@filenew new"
