@@ -784,14 +784,14 @@ int liballuris_get_neg_peak (libusb_device_handle *dev_handle, int* peak)
  * \param[out] state output location for the state. Only populated if the return code is 0.
  * \return 0 if successful else \ref liballuris_error
  */
-int liballuris_read_state (libusb_device_handle *dev_handle, struct liballuris_state* state)
+int liballuris_read_state (libusb_device_handle *dev_handle, struct liballuris_state* state, unsigned int timeout)
 {
   out_buf[0] = 0x46;
   out_buf[1] = 3;
   out_buf[2] = 2;
 
   // worst execution time = 0.47s
-  int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 3, DEFAULT_SEND_TIMEOUT, 6, 705);
+  int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 3, DEFAULT_SEND_TIMEOUT, 6, timeout);
   if (ret == LIBALLURIS_SUCCESS)
     {
       union __liballuris_state__ tmp;
@@ -998,8 +998,13 @@ int liballuris_start_measurement (libusb_device_handle *dev_handle)
   if (ret == LIBALLURIS_SUCCESS)
     {
       // wait until measurement processor is configured and running
-      // this may take up to 100ms if P13=1
-      usleep (150000);
+      struct liballuris_state state;
+      ret = liballuris_read_state (dev_handle, &state, 3000);
+      if (ret)
+        return ret;
+
+      if (! state.measuring)
+        return LIBALLURIS_TIMEOUT;
     }
   return ret;
 }
@@ -1018,13 +1023,17 @@ int liballuris_stop_measurement (libusb_device_handle *dev_handle)
   out_buf[2] = 0; //stop
   int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 3, DEFAULT_SEND_TIMEOUT, 3, DEFAULT_RECEIVE_TIMEOUT);
 
-  if (ret == LIBUSB_SUCCESS)
+  if (ret == LIBALLURIS_SUCCESS)
     {
       // wait until measurement processor is stopped
-      // this may take up to 1100ms if P13=1
-      usleep (1100000);
-    }
+      struct liballuris_state state;
+      ret = liballuris_read_state (dev_handle, &state, 3000);
+      if (ret)
+        return ret;
 
+      if (state.measuring)
+        return LIBALLURIS_TIMEOUT;
+    }
   return ret;
 }
 
@@ -1049,7 +1058,7 @@ int liballuris_stop_measurement (libusb_device_handle *dev_handle)
 int liballuris_set_upper_limit (libusb_device_handle *dev_handle, int limit)
 {
   struct liballuris_state state;
-  int ret = liballuris_read_state (dev_handle, &state);
+  int ret = liballuris_read_state (dev_handle, &state, 700);
   if (ret)
     return ret;
 
@@ -1087,7 +1096,7 @@ int liballuris_set_upper_limit (libusb_device_handle *dev_handle, int limit)
 int liballuris_set_lower_limit (libusb_device_handle *dev_handle, int limit)
 {
   struct liballuris_state state;
-  int ret = liballuris_read_state (dev_handle, &state);
+  int ret = liballuris_read_state (dev_handle, &state, 700);
   if (ret)
     return ret;
 
@@ -1120,7 +1129,7 @@ int liballuris_set_lower_limit (libusb_device_handle *dev_handle, int limit)
 int liballuris_get_upper_limit (libusb_device_handle *dev_handle, int* limit)
 {
   struct liballuris_state state;
-  int ret = liballuris_read_state (dev_handle, &state);
+  int ret = liballuris_read_state (dev_handle, &state, 700);
   if (ret)
     return ret;
 
@@ -1152,7 +1161,7 @@ int liballuris_get_upper_limit (libusb_device_handle *dev_handle, int* limit)
 int liballuris_get_lower_limit (libusb_device_handle *dev_handle, int* limit)
 {
   struct liballuris_state state;
-  int ret = liballuris_read_state (dev_handle, &state);
+  int ret = liballuris_read_state (dev_handle, &state, 700);
   if (ret)
     return ret;
 
