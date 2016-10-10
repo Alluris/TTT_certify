@@ -993,11 +993,14 @@ int liballuris_start_measurement (libusb_device_handle *dev_handle)
   out_buf[0] = 0x1C;
   out_buf[1] = 3;
   out_buf[2] = 1; //start
-  int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 3, DEFAULT_SEND_TIMEOUT, 3, DEFAULT_RECEIVE_TIMEOUT);
+  int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__, 3, DEFAULT_SEND_TIMEOUT, 3, 2500);
 
   if (ret == LIBALLURIS_SUCCESS)
     {
       // wait until measurement processor is configured and running
+      usleep (500000);
+
+      // check if measurement is running
       struct liballuris_state state;
       ret = liballuris_read_state (dev_handle, &state, 3000);
       if (ret)
