@@ -998,9 +998,10 @@ int liballuris_start_measurement (libusb_device_handle *dev_handle)
   if (ret == LIBALLURIS_SUCCESS)
     {
       // wait until measurement processor is configured and running
-      usleep (500000);
+      usleep (2000000);
 
       // check if measurement is running
+      /*
       struct liballuris_state state;
       ret = liballuris_read_state (dev_handle, &state, 3000);
       if (ret)
@@ -1008,6 +1009,7 @@ int liballuris_start_measurement (libusb_device_handle *dev_handle)
 
       if (! state.measuring)
         return LIBALLURIS_TIMEOUT;
+      */
     }
   return ret;
 }
