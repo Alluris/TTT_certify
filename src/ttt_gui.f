@@ -53,7 +53,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT_Certify V1.01.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
     xywh {2391 192 1275 765} type Double color 40 labelfont 1 align 20 resizable size_range {800 600 0 0} visible
   } {
     Fl_Group {} {
@@ -725,7 +725,7 @@ catch (std::runtime_error &e)
     }
   }
   Fl_Window test_person_win {
-    label Bearbeitersuche open selected
+    label Bearbeitersuche open
     xywh {3055 165 670 540} type Double resizable modal visible
   } {
     Fl_Table tp {open

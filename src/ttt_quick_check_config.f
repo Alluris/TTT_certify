@@ -32,32 +32,48 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Quick-Check V1.01.002} open
-    xywh {2747 268 375 630} type Double color 40 visible
+    label {TTT_Quick-Check V1.01.003} open selected
+    xywh {3235 305 375 630} type Double color 40 visible
   } {
     Fl_Group {} {
       label {Prüfung} open
-      xywh {6 5 363 290} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
+      xywh {6 5 363 294} box GLEAM_UP_BOX labelfont 1 labelsize 18 align 21
     } {
       Fl_Value_Input vi_nominal {
         label {Nominalwert [Nm]}
-        callback {vi_test_object_accuracy->do_callback ()}
-        xywh {196 40 55 25} align 132 minimum -50 maximum 50 step 0.1
+        callback {vi_test_object_accuracy->do_callback ();}
+        xywh {196 40 55 25} align 132 minimum -50 maximum 50 step 0.1 value 5
       }
       Fl_Value_Input vi_test_object_accuracy {
         label {Höchstzulässige Abweichung [%]}
         callback {double val = o->value ();
 
+vi_nominal->color (FL_WHITE);
+vi_nominal->redraw ();
+vi_test_object_accuracy->color (FL_WHITE);
+vi_test_object_accuracy->redraw ();
+
 vi_upper_limit->value (vi_nominal->value () * (1 + val/100.0));
-vi_lower_limit->value (vi_nominal->value () * (1 - val/100.0));}
+vi_lower_limit->value (vi_nominal->value () * (1 - val/100.0));
+//vi_upper_limit->do_callback ();
+get_peak_direction ();}
         xywh {196 75 55 25} align 132 minimum 0.1 maximum 10 step 0.1 value 6
       }
       Fl_Value_Input vi_lower_limit {
         label {Unterer Grenzwert [Nm]}
+        callback {get_peak_direction ();
+
+vi_nominal->value (0);
+vi_nominal->color (FL_BACKGROUND_COLOR);
+vi_nominal->redraw ();
+vi_test_object_accuracy->value (0);
+vi_test_object_accuracy->color (FL_BACKGROUND_COLOR);
+vi_test_object_accuracy->redraw ();}
         xywh {196 111 55 25} align 132 minimum -50 maximum 50 step 0.01
       }
       Fl_Value_Input vi_upper_limit {
         label {Oberer Grenzwert [Nm]}
+        callback {vi_lower_limit->do_callback ();}
         xywh {196 147 55 25} align 132 minimum -50 maximum 50 step 0.01
       }
       Fl_Value_Input vi_peak_level {
@@ -68,6 +84,17 @@ else
   o->color (FL_WHITE);
 o->redraw ();}
         tooltip {Peakdetektion < 50% ist nicht empfehlenswert} xywh {196 183 55 25} align 132 minimum 10 maximum 99 step 1 value 90
+      }
+      Fl_Value_Input vi_autostop {
+        label {Auto-Stopp [s]}
+        callback {if (o->value () < 2)
+  o->color (FL_RED);
+else if (o->value () < 5)
+  o->color (FL_YELLOW);
+else
+  o->color (FL_WHITE);
+o->redraw ();}
+        tooltip {Peakdetektion < 50% ist nicht empfehlenswert} xywh {195 219 55 25} align 132 minimum 1 maximum 31 step 1 value 2
       }
       Fl_Button {} {
         label {Konfiguration ins Messgerät schreiben}
@@ -121,16 +148,13 @@ vi_test_object_accuracy->do_callback ();}
 vi_test_object_accuracy->do_callback ();}
         xywh {310 75 45 25} box GLEAM_THIN_UP_BOX
       }
-      Fl_Value_Input vi_autostop {
-        label {Auto-Stopp [s]}
-        callback {if (o->value () < 2)
-  o->color (FL_RED);
-else if (o->value () < 5)
-  o->color (FL_YELLOW);
-else
-  o->color (FL_WHITE);
-o->redraw ();}
-        tooltip {Peakdetektion < 50% ist nicht empfehlenswert} xywh {195 219 55 25} align 132 minimum 1 maximum 31 step 1 value 2
+      Fl_Button btn_direction_cw {
+        label {@+82redo}
+        tooltip Drehrichtung xywh {275 105 70 70} box NO_BOX deactivate
+      }
+      Fl_Button btn_direction_ccw {
+        label {@+88undo}
+        tooltip Drehrichtung xywh {275 105 70 70} box NO_BOX hide deactivate
       }
     }
     Fl_Group {} {
@@ -215,15 +239,33 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
       } {}
       Fl_Value_Output vo_mean {
         label {Mittelwert [Nm]}
-        xywh {21 560 149 30} box DOWN_BOX color 49 selection_color 49 labeltype NORMAL_LABEL labelsize 14 labelcolor 0 align 133 when 1 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
+        xywh {21 560 149 30} type 0 box DOWN_BOX color 49 selection_color 49 labeltype NORMAL_LABEL labelfont 0 labelsize 14 labelcolor 0 align 133 when 1 minimum 0 maximum 1 step 0.001 textfont 0 textsize 14 textcolor 0
       }
       Fl_Value_Output vo_std {
-        label {Standardabweichung [Nm]} selected
-        xywh {190 560 149 30} box DOWN_BOX color 49 selection_color 49 labeltype NORMAL_LABEL labelsize 14 labelcolor 0 align 133 when 1 minimum 0 maximum 1 step 0.001 textsize 14 textcolor 0
+        label {Standardabweichung [Nm]}
+        xywh {190 560 149 30} type 0 box DOWN_BOX color 49 selection_color 49 labeltype NORMAL_LABEL labelfont 0 labelsize 14 labelcolor 0 align 133 when 1 minimum 0 maximum 1 step 0.001 textfont 0 textsize 14 textcolor 0
       }
     }
   }
   code {//quick_tbl->hide ();
 mainwin->show();
 return Fl::run();} {}
+}
+
+Function {get_peak_direction()} {open return_type bool
+} {
+  code {bool right = vi_upper_limit->value () > vi_lower_limit->value ();
+
+if (right)
+  {
+   btn_direction_cw->show ();
+   btn_direction_ccw->hide ();
+  }
+else
+  {
+   btn_direction_ccw->show ();
+   btn_direction_cw->hide ();
+  }
+  
+return right;} {}
 }

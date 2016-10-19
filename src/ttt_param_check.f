@@ -50,7 +50,7 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Parameter-Check V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT_Parameter-Check V1.01.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
     xywh {2554 271 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible
   } {
     Fl_Box cplot {
@@ -174,7 +174,7 @@ else
     btn_stop->deactivate ();
   }
 
-mainwin->cursor (FL_CURSOR_DEFAULT);} selected
+mainwin->cursor (FL_CURSOR_DEFAULT);}
         xywh {910 35 105 40} box GLEAM_UP_BOX
       }
     }
