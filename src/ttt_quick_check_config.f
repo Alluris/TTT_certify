@@ -94,7 +94,7 @@ else if (o->value () < 5)
 else
   o->color (FL_WHITE);
 o->redraw ();}
-        tooltip {Peakdetektion < 50% ist nicht empfehlenswert} xywh {195 219 55 25} align 132 minimum 1 maximum 31 step 1 value 2
+        xywh {195 219 55 25} align 132 minimum 1 maximum 30 step 1 value 2
       }
       Fl_Button {} {
         label {Konfiguration ins Messgerät schreiben}
