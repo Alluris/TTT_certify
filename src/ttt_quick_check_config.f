@@ -32,7 +32,7 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Quick-Check V1.01.003} open selected
+    label {TTT_Quick-Check V1.02.003} open selected
     xywh {131 138 375 630} type Double color 40 visible
   } {
     Fl_Group {} {

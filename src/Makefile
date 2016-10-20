@@ -41,9 +41,9 @@ ttt_param_check.cpp ttt_param_check.h: ttt_param_check.f
 ttt_param_check: ttt_param_check.o cairo_plot.o cairo_box.o ttt_peak_detector.o ttt_device.o liballuris++.o liballuris.o
 	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
-ttt_quick_check_title = 'TTT_Quick-Check V1.01.002'
-ttt_param_check_title = 'TTT_Parameter-Check V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
-ttt_gui_title = 'TTT_Certify V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
+ttt_quick_check_title = 'TTT_Quick-Check V1.02.003'
+ttt_param_check_title = 'TTT_Parameter-Check V1.02.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
+ttt_gui_title = 'TTT_Certify V1.02.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
 
 screenshots: $(TARGETS)
 	mkdir -p screenshots

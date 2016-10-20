@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-10-07 11:02+0200\n"
+"POT-Creation-Date: 2016-10-20 15:57+0200\n"
 "PO-Revision-Date: 2016-10-07 11:34+0200\n"
 "Last-Translator: Guillermo Buchholz <gbdata@ya.com>\n"
 "Language-Team: Spanish\n"
@@ -240,7 +240,7 @@ msgstr "Calibración cancelada por el usuario"
 
 #: ../ttt_gui.cpp:585
 msgid ""
-"TTT_Certify V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"TTT_Certify V1.02.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
 
@@ -368,7 +368,7 @@ msgstr ""
 
 #. Fl_Value_Input* vi_test_object_lever_length
 #. Fl_Value_Input* vi_test_object_accuracy
-#: ../ttt_gui.cpp:699 ../ttt_quick_check_config.cpp:212
+#: ../ttt_gui.cpp:699 ../ttt_quick_check_config.cpp:239
 msgid "Unterer Grenzwert [Nm]"
 msgstr "Valor límite inferior [Nm]"
 
@@ -379,7 +379,7 @@ msgstr ""
 
 #. Fl_Value_Input* vi_test_object_min_torque
 #. Fl_Value_Input* vi_lower_limit
-#: ../ttt_gui.cpp:706 ../ttt_quick_check_config.cpp:218
+#: ../ttt_gui.cpp:706 ../ttt_quick_check_config.cpp:246
 msgid "Oberer Grenzwert [Nm]"
 msgstr "Valor límite superior [Nm]"
 
@@ -459,7 +459,7 @@ msgstr "editar"
 #. Fl_Value_Input* vo_torque_tester_uncertainty
 #. Fl_Value_Input* vi_upper_limit
 #. Fl_Value_Output* vo_value
-#: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:224
+#: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:253
 #: ../ttt_param_check.cpp:1725
 msgid "Peakdetektion [%]"
 msgstr "Detección pico [%]"
@@ -523,12 +523,12 @@ msgstr "Certificado de calibración nº"
 #. Fl_Button* btn_confirm
 #. Fl_Round_Button* rb_din_6789
 #: ../ttt_gui.cpp:852 ../ttt_gui.cpp:903 ../ttt_gui.cpp:955
-#: ../ttt_quick_check_config.cpp:197 ../ttt_param_check.cpp:1776
+#: ../ttt_quick_check_config.cpp:223 ../ttt_param_check.cpp:1776
 msgid "Nominalwert [Nm]"
 msgstr "Valor nominal [Nm]"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:874 ../ttt_quick_check_config.cpp:192
+#: ../ttt_gui.cpp:874 ../ttt_quick_check_config.cpp:218
 msgid "Prüfung"
 msgstr "Ensayo"
 
@@ -542,16 +542,18 @@ msgid "Stopp"
 msgstr "Parada"
 
 #. Fl_Button* btn_stop
-#: ../ttt_gui.cpp:888
+#. Fl_Button* o
+#: ../ttt_gui.cpp:888 ../ttt_quick_check_config.cpp:283
 msgid "@+82redo"
 msgstr "@+82redo"
 
-#: ../ttt_gui.cpp:889 ../ttt_gui.cpp:894
+#: ../ttt_gui.cpp:889 ../ttt_gui.cpp:894 ../ttt_quick_check_config.cpp:284
+#: ../ttt_quick_check_config.cpp:289
 msgid "Drehrichtung"
 msgstr "Dirección de rotación"
 
 #. Fl_Button* btn_direction_cw
-#: ../ttt_gui.cpp:893
+#: ../ttt_gui.cpp:893 ../ttt_quick_check_config.cpp:288
 msgid "@+88undo"
 msgstr "@+88undo"
 
@@ -678,65 +680,65 @@ msgstr "Destornillador, regulable, sin escala"
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
 msgstr "Llave con varilla de acero doblable, regulable, con escala"
 
-#: ../ttt_quick_check_config.cpp:115
+#: ../ttt_quick_check_config.cpp:141
 msgid "Keine Werte im Gerätespeicher"
 msgstr "Sin valores guardados"
 
-#: ../ttt_quick_check_config.cpp:190
-msgid "TTT_Quick-Check V1.01.002"
+#: ../ttt_quick_check_config.cpp:216
+msgid "TTT_Quick-Check V1.02.003"
 msgstr ""
 
 #. Fl_Value_Input* vi_nominal
-#: ../ttt_quick_check_config.cpp:204
+#: ../ttt_quick_check_config.cpp:231
 msgid "Höchstzulässige Abweichung [%]"
 msgstr "Desviación máxima admisible [%]"
 
-#: ../ttt_quick_check_config.cpp:225 ../ttt_quick_check_config.cpp:247
+#: ../ttt_quick_check_config.cpp:254
 #, fuzzy, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Umbral de detección < 50% no es recomendable"
 
 #. Fl_Value_Input* vi_peak_level
-#: ../ttt_quick_check_config.cpp:233
+#: ../ttt_quick_check_config.cpp:262
+msgid "Auto-Stopp [s]"
+msgstr ""
+
+#. Fl_Value_Input* vi_autostop
+#: ../ttt_quick_check_config.cpp:270
 msgid "Konfiguration ins Messgerät schreiben"
 msgstr "Escribir configuración en el instrumento de medición"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:238
+#: ../ttt_quick_check_config.cpp:275
 msgid "3%"
 msgstr "3%"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:242
+#: ../ttt_quick_check_config.cpp:279
 msgid "6%"
 msgstr "6%"
 
-#. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:246
-msgid "Auto-Stopp [s]"
-msgstr ""
-
 #. Fl_Group* o
-#: ../ttt_quick_check_config.cpp:257
+#: ../ttt_quick_check_config.cpp:296
 msgid "Messwerte"
 msgstr "Valores de medición"
 
-#: ../ttt_quick_check_config.cpp:262
+#: ../ttt_quick_check_config.cpp:301
 msgid "Speicher auslesen"
 msgstr "Lectura de la memoria del dispositivo"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:267
+#: ../ttt_quick_check_config.cpp:306
 msgid "Speicher löschen"
 msgstr "Borrado de la memoria del dispositivo"
 
 #. quick_check_table* quick_tbl
-#: ../ttt_quick_check_config.cpp:284
+#: ../ttt_quick_check_config.cpp:323
 msgid "Mittelwert [Nm]"
 msgstr "Valor medio [Nm]"
 
 #. Fl_Value_Output* vo_mean
-#: ../ttt_quick_check_config.cpp:289
+#: ../ttt_quick_check_config.cpp:328
 msgid "Standardabweichung [Nm]"
 msgstr "Desviación estándar [Nm]"
 
@@ -779,7 +781,7 @@ msgstr "Conectar"
 
 #: ../ttt_param_check.cpp:1691
 msgid ""
-"TTT_Parameter-Check V1.01.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"TTT_Parameter-Check V1.02.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
 
