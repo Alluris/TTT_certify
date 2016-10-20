@@ -33,7 +33,7 @@ bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
     label {TTT_Quick-Check V1.01.003} open selected
-    xywh {3235 305 375 630} type Double color 40 visible
+    xywh {131 138 375 630} type Double color 40 visible
   } {
     Fl_Group {} {
       label {Prüfung} open
@@ -112,7 +112,7 @@ o->redraw ();}
 
     double scale = 1.0 / pow(10, al.get_digits ());
 
-    if (vi_nominal->value () > 0)
+    if (get_peak_direction ())
       {
         al.set_mode (LIBALLURIS_MODE_PEAK_MAX);
         al.set_upper_limit (round (vi_upper_limit->value () / scale));
@@ -239,11 +239,11 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
       } {}
       Fl_Value_Output vo_mean {
         label {Mittelwert [Nm]}
-        xywh {21 560 149 30} type 0 box DOWN_BOX color 49 selection_color 49 labeltype NORMAL_LABEL labelfont 0 labelsize 14 labelcolor 0 align 133 when 1 minimum 0 maximum 1 step 0.001 textfont 0 textsize 14 textcolor 0
+        xywh {21 560 149 30} box DOWN_BOX align 133 step 0.001
       }
       Fl_Value_Output vo_std {
         label {Standardabweichung [Nm]}
-        xywh {190 560 149 30} type 0 box DOWN_BOX color 49 selection_color 49 labeltype NORMAL_LABEL labelfont 0 labelsize 14 labelcolor 0 align 133 when 1 minimum 0 maximum 1 step 0.001 textfont 0 textsize 14 textcolor 0
+        xywh {190 560 149 30} box DOWN_BOX align 133 step 0.001
       }
     }
   }
