@@ -50,8 +50,8 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Parameter-Check V1.02.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
-    xywh {2554 271 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible
+    label {TTT_Parameter-Check V1.02.004 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    xywh {2667 345 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible
   } {
     Fl_Box cplot {
       xywh {5 3 765 701}
@@ -65,11 +65,15 @@ textdomain ("ttt");} {}
         label Start
         callback {if (dev)
   {
+    mainwin->cursor (FL_CURSOR_WAIT);
+    Fl::wait ();
     dev->start ();
+    mainwin->cursor (FL_CURSOR_DEFAULT);
     measuring = 1;
     o->deactivate ();
     btn_stop->activate ();
     values.clear ();
+    peakd_set_thresholds ();
     Fl::add_timeout(0.01, run_cb);
   }}
         xywh {785 179 85 35} box GLEAM_UP_BOX deactivate
@@ -78,7 +82,10 @@ textdomain ("ttt");} {}
         label Stop
         callback {if (dev)
   {
+    mainwin->cursor (FL_CURSOR_WAIT);
+    Fl::wait ();
     dev->stop ();
+    mainwin->cursor (FL_CURSOR_DEFAULT);
     measuring = false;
     o->deactivate ();
     btn_start->activate ();
@@ -86,12 +93,13 @@ textdomain ("ttt");} {}
         xywh {785 224 85 35} box GLEAM_UP_BOX deactivate
       }
       Fl_Value_Output vo_value {
-        label {Messwert [Nm]}
-        xywh {880 193 150 65} align 133 step 0.1 textsize 49
+        label {Messwert [Nm]} selected
+        xywh {880 193 150 65} align 133 maximum 0 step 0.1 textsize 49
       }
       Fl_Value_Slider vi_peak1_thres {
         label {Peakdetektion [%]}
         callback {// keep current view
+peakd_set_thresholds ();
 update_cplot(true);}
         tooltip {typisch 80% .. 90%} xywh {785 285 244 30} type {Horz Knob} align 1 minimum 30 maximum 99 step 1 value 90 textsize 14
       }
@@ -115,15 +123,15 @@ update_cplot(true);}
     } {
       Fl_Value_Output vo_peak1 {
         label {Peak 1 [Nm]}
-        xywh {965 404 55 30} color 2 step 0.1
+        xywh {965 404 55 30} color 2 maximum 0 step 0.1
       }
       Fl_Value_Output vo_min1 {
         label {Minimum nach Peak 1 [Nm]}
-        xywh {965 444 55 30} color 4 align 132 step 0.1 textcolor 255
+        xywh {965 444 55 30} color 4 align 132 maximum 0 step 0.1 textcolor 255
       }
       Fl_Value_Output vo_peak2 {
         label {Peak 2 [Nm]}
-        xywh {965 484 55 30} color 1 step 0.1
+        xywh {965 484 55 30} color 1 maximum 0 step 0.1
       }
     }
     Fl_Group {} {
@@ -132,7 +140,7 @@ update_cplot(true);}
     } {
       Fl_Value_Output vo_mmax {
         label {Nominalwert [Nm]}
-        xywh {955 90 60 30} step 0.1 value 50
+        xywh {955 90 60 30} maximum 0
       }
       Fl_Check_Button meas_led {
         xywh {865 35 35 40} type Normal down_box ROUND_DOWN_BOX selection_color 63 labelsize 25 when 0 deactivate
@@ -261,7 +269,7 @@ if (measuring)
             peakd.print_stats ();
             peakset last = peakd.get_last_peakset ();
 
-            //copy int0 values, 0.5s before/after start/stop
+            //copy int0 values, 0.2s before/after start/stop
             int start = last.start_x - 0.2 * FS;
             if (start < 0)
               start = 0;
@@ -272,7 +280,7 @@ if (measuring)
             vector<double>::iterator it = in_buf.begin();
             values.assign (it+start, it+stop);
 
-            update_cplot ();
+            update_cplot (false);
 
             in_buf.clear();
             peakd.clear ();
@@ -285,7 +293,8 @@ if (measuring)
 
 Function {update_cplot(bool keep_view = 0)} {open return_type void
 } {
-  code {//printf ("size of values = %i\\n", values.size());
+  code {printf ("update_cplot called with keep_view=%i\\n", keep_view);
+//printf ("size of values = %i\\n", values.size());
 
 ttt_peak_detector tmp_peakd;
 // Start and Stop threshold hard coded 2% and 1%
@@ -308,7 +317,7 @@ for (unsigned int k=0; k < values.size (); ++k)
     bool r = tmp_peakd.update (rot () * values[k]);
     if (r)
       {
-        //printf ("new peakset\\n");
+        printf ("update_cplot:: new peakset\\n");
         tmp_peakd.print_stats ();
 
         peakset last = tmp_peakd.get_last_peakset ();
@@ -320,7 +329,10 @@ for (unsigned int k=0; k < values.size (); ++k)
         // 0.2s after stop
         int stop = last.stop_x + 0.2 * FS;
         if (stop >= int(values.size ()))
-          stop = values.size () - 1;
+          {
+            printf ("update_cplot:: clamp stop from %i to %i\\n", stop, values.size () - 1);
+            stop = values.size () - 1;
+          }
 
         // feed into cplot
         cplot->clear ();
@@ -360,6 +372,7 @@ for (unsigned int k=0; k < values.size (); ++k)
         else
           vo_peak2->value (0);
 
+        printf ("cplot->redraw()\\n");
         cplot->redraw ();
         break;
       }
@@ -401,4 +414,9 @@ Function {rot()} {open return_type double
 assert (s >= 0);
 assert (s <= 1);
 return 1 - (s * 2);} {}
+}
+
+Function {peakd_set_thresholds()} {open
+} {
+  code {peakd.set_thresholds (0.02 * vo_mmax->value(), 0.01 * vo_mmax->value(), vi_peak1_thres->value () / 100.0);} {}
 }

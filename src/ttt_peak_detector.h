@@ -76,6 +76,7 @@ public:
     thres_start = start;
     thres_stop = stop;
     thres_peak1_rel = peak1;
+    printf ("set_thresholds: thres_start=%.2f thres_stop=%.2f thres_peak1_rel=%.2f\n", thres_start, thres_stop, thres_peak1_rel);
   }
 
   void clear ()
@@ -96,9 +97,10 @@ public:
   void print_stats ()
   {
     cout << "Processed " << v_cnt << " values, found " << num_peaks << " peaksets" << endl;
+    printf ("Nr.  start peak1x peak1y minPeak1x minPeak1y peak2x peak2y stop\n");
     for (unsigned int k=0; k < num_peaks; ++k)
       {
-        printf ("#%2i %6i %6i %5.1f %6i %5.1f %6i %5.1f %6i\n",
+        printf ("#%2i %6i  %6i    %5.1f %6i %5.1f %6i %5.1f %6i\n",
                 k,
                 ps[k].start_x,
                 ps[k].peak1_x, ps[k].peak1_y,

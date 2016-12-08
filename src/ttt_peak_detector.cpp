@@ -6,7 +6,7 @@ ttt_peak_detector::ttt_peak_detector ()
     thres_peak1_rel (0.9),
     stop_delay_samples (100)
 {
-  //cout << "ttt_peak_detector::ttt_peak_detector ()" << endl;
+  cout << "ttt_peak_detector::ttt_peak_detector ()" << endl;
   clear ();
 }
 
@@ -89,5 +89,14 @@ bool ttt_peak_detector::update (double v)
         }
     }
   v_cnt++;
+  
+  static int old_state = 0;
+  static int old_v_cnt = 0;
+  if ((v_cnt - old_v_cnt) > 900 || state != old_state)
+    {
+      printf ("v_cnt=%6i, thres_start=%5.2f, thres_peak1_rel=%5.2f, cummax=%5.2f, cummin=%5.2f, thres_stop=%5.2f, state=%i\n", v_cnt, thres_start, thres_peak1_rel, cummax, cummin, thres_stop, state);
+      old_v_cnt = v_cnt;
+      old_state = state;
+    }
   return retval;
 }

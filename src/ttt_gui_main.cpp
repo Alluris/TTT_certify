@@ -169,7 +169,7 @@ void run_cb(void*)
   catch (std::runtime_error &e)
     {
       fl_alert (e.what ());
-	  exit (-1);
+      exit (-1);
     }
 }
 
