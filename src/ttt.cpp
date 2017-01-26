@@ -795,7 +795,7 @@ void ttt::load_torque_tester ()
     {
       // check if this is a new TTT (using serial number),
       // or if the next calibration date has changed (because it has been calibrated)
-      int id = meas.tt.search_serial_and_next_cal_date (db, pttt->get_serial (), pttt->get_next_cal_date ());
+      int id = meas.tt.search_serial_and_next_cal_date (db, pttt->get_serial (), pttt->get_cal_date (), pttt->get_next_cal_date ());
       if (id > 0)
         {
           cout << "ttt::load_torque_tester found torque_tester with id = " << id << endl;

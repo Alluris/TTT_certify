@@ -202,7 +202,7 @@ public:
 
   torque_tester (): id(-1), max_torque(0), resolution(0), uncertainty_of_measurement(0) {}
   void load_with_id (sqlite3 *db, int search_id);
-  int search_serial_and_next_cal_date (sqlite3 *db, string serial, string cal_date);
+  int search_serial_and_next_cal_date (sqlite3 *db, string serial, string cal_date, string next_cal_date);
   void save (sqlite3 *db);
 
   double cairo_print (cairo_t *cr, double c1, double c2, double top);

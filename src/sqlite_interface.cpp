@@ -523,15 +523,16 @@ void torque_tester::load_with_id (sqlite3 *db, int search_id)
     fprintf(stderr, "SQL error from sqlite3_prepare_v2: %i = %s\n", rc, sqlite3_errmsg(db));
 }
 
-int torque_tester::search_serial_and_next_cal_date (sqlite3 *db, string serial, string next_cal_date)
+int torque_tester::search_serial_and_next_cal_date (sqlite3 *db, string serial, string cal_date, string next_cal_date)
 {
   sqlite3_stmt *pStmt;
   int tmp_id = -1;
-  int rc = sqlite3_prepare_v2 (db, "SELECT id FROM torque_tester WHERE serial_number = ?1 AND next_calibration_date = ?2", -1, &pStmt, NULL);
+  int rc = sqlite3_prepare_v2 (db, "SELECT id FROM torque_tester WHERE serial_number = ?1 AND calibration_date = ?2 AND next_calibration_date = ?3", -1, &pStmt, NULL);
   if (rc == SQLITE_OK)
     {
       sqlite3_bind_text (pStmt, 1, serial.c_str (), -1, SQLITE_STATIC);
-      sqlite3_bind_text (pStmt, 2, next_cal_date.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 2, cal_date.c_str (), -1, SQLITE_STATIC);
+      sqlite3_bind_text (pStmt, 3, next_cal_date.c_str (), -1, SQLITE_STATIC);
       rc = sqlite3_step (pStmt);
       if (rc == SQLITE_ROW)
         {
@@ -555,7 +556,7 @@ void torque_tester::save (sqlite3 *db)
   cout << *this;
 
   // check if one with same serial and calibration_date already exists
-  int tmp_id = search_serial_and_next_cal_date (db, serial_number, next_calibration_date);
+  int tmp_id = search_serial_and_next_cal_date (db, serial_number, calibration_date, next_calibration_date);
   if (tmp_id != -1)
     throw runtime_error ("torque_tester::save torque_tester with given serial and next_calibration_date already exists");
 
