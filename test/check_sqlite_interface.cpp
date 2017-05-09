@@ -339,7 +339,7 @@ int main ()
   tt.save (db);
   printf ("tt rowid = %i\n", tt.id);
 
-  int t_id = tt.search_serial_and_next_cal_date (db, "L123456", "in two years");
+  int t_id = tt.search_serial_and_next_cal_date (db, "L123456", "2017-05-02", "2019-05");
   printf ("t_id = %i\n", t_id);
   assert (tt.id == t_id);
 
