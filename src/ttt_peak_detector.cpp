@@ -89,7 +89,7 @@ bool ttt_peak_detector::update (double v)
         }
     }
   v_cnt++;
-  
+
   static int old_state = 0;
   static int old_v_cnt = 0;
   if ((v_cnt - old_v_cnt) > 900 || state != old_state)
