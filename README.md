@@ -1,6 +1,10 @@
 # TTT_certify
 Small GUI for PC communication with Alluris TTT (torque tool tester) devices. Includes user- and device administration as well as calibration in ISO-6789 norm.
 
+## Binaries
+
+[Installer for 32/64-bit MS-Windows](https://alluris.de/de/produkte/software/TTT-300)
+
 ## Dependencies
 
 * FLTK, cairo, sqlite3, libusb 1.0 (http://www.libusb.org/), libconfuse
