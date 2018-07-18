@@ -100,7 +100,7 @@ public:
     printf ("Nr.  start peak1x peak1y minPeak1x minPeak1y peak2x peak2y stop\n");
     for (unsigned int k=0; k < num_peaks; ++k)
       {
-        printf ("#%2i %6i  %6i    %5.1f %6i %5.1f %6i %5.1f %6i\n",
+        printf ("#%2u %6i  %6i    %5.1f %6i %5.1f %6i %5.1f %6i\n",
                 k,
                 ps[k].start_x,
                 ps[k].peak1_x, ps[k].peak1_y,
