@@ -4,12 +4,18 @@ TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cp
 
 ## for GNU/Linux
 ## -Wno-write-strings  is for libconfuse calls, for example "CFG_SIMPLE_INT("selected_test_person", &initial_test_person_id)"
-CPPFLAGS = -Wall -Wextra -Wno-write-strings -ggdb `fltk-config --use-cairo --cxxflags` -D USE_X11 -D FLTK_HAVE_CAIRO
+CXXFLAGS = -Wall -Wextra -Wno-write-strings -ggdb `fltk-config --use-cairo --cxxflags` -D USE_X11 -D FLTK_HAVE_CAIRO
 LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lconfuse
 
 ## for MacOSX
-#CPPFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -I/usr/local/opt/gettext/include -I/usr/local/opt/cairo-quartz/include
+#CXXFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -I/usr/local/opt/gettext/include -I/usr/local/opt/cairo-quartz/include
 #LDFLAGS = -L /usr/local/opt/gettext/lib `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lconfuse -lintl
+
+ARCH = $(shell uname -m)
+# auf ARM kein sanitize
+ifeq ($(ARCH),x86_64)
+  CXXFLAGS += -fsanitize=address
+endif
 
 all: $(TARGETS)
 
@@ -17,13 +23,13 @@ ttt_gui.cpp ttt_gui.h: ttt_gui.f
 	fluid -o .cpp -c $<
 
 %.o:%.cpp %.h
-	g++ $(CPPFLAGS) -c $<
+	g++ $(CXXFLAGS) -c $<
 
 %.o:%.c %.h
-	g++ $(CPPFLAGS) -c $<
+	g++ $(CXXFLAGS) -c $<
 
 ttt_gui: ttt_gui.o ttt_gui_main.o measurement_table.o ttt.o ttt_device.o step.o sqlite_interface.o cairo_box.o cairo_device_box.o cairo_drawing_functions.o cairo_print_devices.o liballuris++.o liballuris.o
-	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+	g++ $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_certify.db: create_database.sql fill_database_debug.sql
 	sqlite3 ttt_certify.db < $(word 1,$^)
@@ -33,13 +39,13 @@ ttt_quick_check_config.cpp ttt_quick_check_config.h: ttt_quick_check_config.f
 	fluid -o .cpp -c $<
 
 ttt_quick_check_config: ttt_quick_check_config.o quick_check_table.o liballuris++.o liballuris.o
-	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+	g++ $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_param_check.cpp ttt_param_check.h: ttt_param_check.f
 	fluid -o .cpp -c $<
 
 ttt_param_check: ttt_param_check.o cairo_plot.o cairo_box.o ttt_peak_detector.o ttt_device.o liballuris++.o liballuris.o
-	g++ $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+	g++ $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_quick_check_title = 'TTT_Quick-Check V1.02.003'
 ttt_param_check_title = 'TTT_Parameter-Check V1.02.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
