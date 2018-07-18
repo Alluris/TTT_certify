@@ -3,8 +3,7 @@
 TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cpp ttt_quick_check_config.h ttt_quick_check_config ttt_param_check
 
 ## for GNU/Linux
-## -Wno-write-strings  is for libconfuse calls, for example "CFG_SIMPLE_INT("selected_test_person", &initial_test_person_id)"
-CXXFLAGS = -Wall -Wextra -Wno-write-strings -ggdb `fltk-config --use-cairo --cxxflags` -D USE_X11 -D FLTK_HAVE_CAIRO
+CXXFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -D USE_X11 -D FLTK_HAVE_CAIRO
 LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lconfuse
 
 ## for MacOSX
