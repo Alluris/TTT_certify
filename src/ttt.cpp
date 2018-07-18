@@ -84,9 +84,7 @@ ttt::~ttt ()
   if (sequencer_is_running)
     stop_sequencer ();
 
-  // delete all steps
-  for (vector<step*>::iterator it = steps.begin() ; it != steps.end(); ++it)
-    delete (*it);
+  clear_steps ();
 
   disconnect_measurement_input ();
   disconnect_TTT ();
@@ -412,6 +410,11 @@ void ttt::add_step (step *s)
 void ttt::clear_steps()
 {
   cout << "ttt::clear_steps" << endl;
+
+  // delete all steps
+  for (vector<step*>::iterator it = steps.begin() ; it != steps.end(); ++it)
+    delete (*it);
+
   steps.clear ();
   current_step=0;
 }
