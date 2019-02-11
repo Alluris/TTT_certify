@@ -240,7 +240,7 @@ msgstr "Calibración cancelada por el usuario"
 
 #: ../ttt_gui.cpp:585
 msgid ""
-"TTT_Certify V1.02.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"TTT_Certify V1.02.007 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
 
@@ -685,7 +685,7 @@ msgid "Keine Werte im Gerätespeicher"
 msgstr "Sin valores guardados"
 
 #: ../ttt_quick_check_config.cpp:216
-msgid "TTT_Quick-Check V1.02.003"
+msgid "TTT_Quick-Check V1.02.007"
 msgstr ""
 
 #. Fl_Value_Input* vi_nominal
@@ -781,7 +781,7 @@ msgstr "Conectar"
 
 #: ../ttt_param_check.cpp:1691
 msgid ""
-"TTT_Parameter-Check V1.02.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"TTT_Parameter-Check V1.02.007 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
 
