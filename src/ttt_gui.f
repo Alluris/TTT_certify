@@ -601,7 +601,7 @@ catch (std::runtime_error &e)
       }
       Fl_Value_Output vo_nominal_value {
         label {Nominalwert [Nm]}
-        xywh {785 388 145 60} align 133 minimum -100 maximum 100 step 0.01 textsize 30
+        xywh {785 388 145 60} align 133 minimum -100 maximum 100 step 0.001 textsize 30
       }
       Fl_Output to_step {
         label {aktueller Schritt}
@@ -612,7 +612,7 @@ catch (std::runtime_error &e)
       }
       Fl_Value_Output vo_peak_torque {
         label {Messwert [Nm]}
-        xywh {1110 388 145 60} align 133 step 0.01 textsize 30
+        xywh {1110 388 145 60} align 133 step 0.001 textsize 30
       }
       Fl_Progress step_progress {
         xywh {850 715 410 25} selection_color 178
