@@ -43,17 +43,21 @@ If not, see <http://www.gnu.org/licenses/>.
 #ifndef liballuris_h
 #define liballuris_h
 
-//#define PRINT_DEBUG_MSG
-//#define DEBUG_TIMING
+/*!
+ * 0 = no debugging
+ * 1 = print called functions and timing
+ * 2 = print low level communication
+ */
+extern int liballuris_debug_level;
 
 //! Number of device which can be enumerated and simultaneously opened
-#define MAX_NUM_DEVICES 4
+#define MAX_NUM_DEVICES 8
 
 //! Default timeout in milliseconds while writing to the device
-#define DEFAULT_SEND_TIMEOUT 250
+#define DEFAULT_SEND_TIMEOUT 500
 
-//! Default timeout in milliseconds while reading from the device
-#define DEFAULT_RECEIVE_TIMEOUT 500
+//! Default timeout in milliseconds while reading from the device (>800ms)
+#define DEFAULT_RECEIVE_TIMEOUT 4000
 
 //! Default send buffer size. Should be multiple of wMaxPacketSize
 #define DEFAULT_SEND_BUF_LEN 64
@@ -75,7 +79,8 @@ enum liballuris_error
   LIBALLURIS_TIMEOUT         = 3, //!< No response or status change in given time
   //! \brief Parameter out of valid range or invalid mode/state
   //! For example set unit which isn't supported (for example 'oz' for 500N device)
-  LIBALLURIS_OUT_OF_RANGE    = 4
+  LIBALLURIS_OUT_OF_RANGE    = 4,
+  LIBALLURIS_PARSE_ERROR     = 5
 };
 
 //! measurement mode
@@ -105,6 +110,28 @@ enum liballuris_unit
   LIBALLURIS_UNIT_g   = 3, //!< g (only devices with range 5N or 10N)
   LIBALLURIS_UNIT_lb  = 4, //!< lb (only devices with range > 10N)
   LIBALLURIS_UNIT_oz  = 5, //!< oz (only devices with range 5N or 10N)
+};
+
+//! liballuris_variant
+enum liballuris_variant
+{
+  LIBALLURIS_VARIANT_S10 = 0x0000,
+  LIBALLURIS_VARIANT_S20 = 0x0001,
+  LIBALLURIS_VARIANT_S30 = 0x0002,
+  LIBALLURIS_VARIANT_W30 = 0x0003,
+  LIBALLURIS_VARIANT_W40 = 0x0004,
+  LIBALLURIS_VARIANT_S50 = 0x0005,
+  LIBALLURIS_VARIANT_W20 = 0x0006,
+  LIBALLURIS_VARIANT_W10 = 0x0007,
+  LIBALLURIS_VARIANT_B10 = 0x0010,
+  LIBALLURIS_VARIANT_B20 = 0x0011,
+  LIBALLURIS_VARIANT_B30 = 0x0012,
+  LIBALLURIS_VARIANT_B50 = 0x0015,
+  LIBALLURIS_VARIANT_FMT_315 = 0x0020,
+  LIBALLURIS_VARIANT_CTT_200 = 0x0040,
+  LIBALLURIS_VARIANT_CTT_300 = 0x0080,
+  LIBALLURIS_VARIANT_TTT_200 = 0x0100,
+  LIBALLURIS_VARIANT_TTT_300 = 0x0200
 };
 
 //! liballuris_state
@@ -182,7 +209,9 @@ enum liballuris_unit liballuris_unit_str2enum (const char *str);
 int liballuris_get_device_list (libusb_context* ctx, struct alluris_device_description* alluris_devs, size_t length, char read_serial);
 int liballuris_open_device (libusb_context* ctx, const char* serial_number, libusb_device_handle** h);
 int liballuris_open_device_with_id (libusb_context* ctx, int bus, int device, libusb_device_handle** h);
+int liballuris_open_if_not_opened (libusb_context* ctx, const char* serial_or_bus_id, libusb_device_handle** h);
 void liballuris_free_device_list (struct alluris_device_description* alluris_devs, size_t length);
+void liballuris_print_device_list (FILE *sink, libusb_context* ctx);
 
 void liballuris_clear_RX (libusb_device_handle* dev_handle, unsigned int timeout);
 
@@ -197,6 +226,7 @@ int liballuris_get_uncertainty (libusb_device_handle *dev_handle, double* v);
 int liballuris_get_digits (libusb_device_handle *dev_handle, int* v);
 int liballuris_get_resolution (libusb_device_handle *dev_handle, int* v);
 int liballuris_get_F_max (libusb_device_handle *dev_handle, int* fmax);
+int liballuris_get_variant (libusb_device_handle *dev_handle, char* buf, size_t length);
 
 int liballuris_get_value (libusb_device_handle *dev_handle, int* value);
 int liballuris_get_pos_peak (libusb_device_handle *dev_handle, int* peak);
@@ -255,6 +285,8 @@ int liballuris_set_autostop (libusb_device_handle *dev_handle, int v);
 int liballuris_get_autostop (libusb_device_handle *dev_handle, int *v);
 
 int liballuris_set_key_lock (libusb_device_handle *dev_handle, char active);
+
+int liballuris_set_motor_state (libusb_device_handle *dev_handle, char enable);
 
 #ifdef __cplusplus
 }

@@ -65,7 +65,7 @@ protected:
 
 public:
 
-  db_search_table (int X, int Y, int W, int H, const char *L=0) : Fl_Table_Row(X,Y,W,H,L), cb(0)
+  db_search_table (int X, int Y, int W, int H, const char *L=0) : Fl_Table_Row(X,Y,W,H,L), db (0), cb(0)
   {
 
   }

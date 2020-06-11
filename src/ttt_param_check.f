@@ -239,8 +239,8 @@ catch (std::runtime_error &e)
   }
 
 // give xgettext a chance to find "rechts" and "links"
-char* dummy = gettext ("rechts");
-      dummy = gettext ("links");} {}
+gettext ("rechts");
+gettext ("links");} {}
 }
 
 Function {run_cb(void*)} {open return_type void
@@ -330,7 +330,7 @@ for (unsigned int k=0; k < values.size (); ++k)
         int stop = last.stop_x + 0.2 * FS;
         if (stop >= int(values.size ()))
           {
-            printf ("update_cplot:: clamp stop from %i to %i\\n", stop, values.size () - 1);
+            printf ("update_cplot:: clamp stop from %i to %zu\\n", stop, values.size () - 1);
             stop = values.size () - 1;
           }
 
