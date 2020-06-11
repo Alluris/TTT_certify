@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2015 Alluris GmbH & Co. KG <weber@alluris.de>
+Copyright (C) 2015-2020 Alluris GmbH & Co. KG <weber@alluris.de>
 
 This file is part of liballuris.
 
@@ -54,14 +54,12 @@ extern int liballuris_debug_level;
 #define MAX_NUM_DEVICES 8
 
 //! Default timeout in milliseconds while writing to the device
-#define DEFAULT_SEND_TIMEOUT 500
+#define DEFAULT_SEND_TIMEOUT 50
 
 //! Default timeout in milliseconds while reading from the device (>800ms)
 #define DEFAULT_RECEIVE_TIMEOUT 4000
 
-//! Default send buffer size. Should be multiple of wMaxPacketSize
-#define DEFAULT_SEND_BUF_LEN 64
-//! Default receive buffer size.
+//! Default receive buffer size. Should be multiple of wMaxPacketSize
 #define DEFAULT_RECV_BUF_LEN 256
 
 //! liballuris specific errors
@@ -193,7 +191,7 @@ union __liballuris_state__
 struct alluris_device_description
 {
   libusb_device* dev;     //!< pointer to a structure representing a USB device detected on the system
-  char product[30];       //!< product identification, for example "FMI-S Force-Gauge"
+  char product[35];       //!< product identification, for example "FMI-S Force-Gauge"
   char serial_number[30]; //!< serial number of device, for example "P.25412"
 };
 
@@ -286,7 +284,19 @@ int liballuris_get_autostop (libusb_device_handle *dev_handle, int *v);
 
 int liballuris_set_key_lock (libusb_device_handle *dev_handle, char active);
 
-int liballuris_set_motor_state (libusb_device_handle *dev_handle, char enable);
+int liballuris_start_motor_reference_run (libusb_device_handle *dev_handle, char start);
+int liballuris_set_motor_disable (libusb_device_handle *dev_handle, char disable);
+int liballuris_get_motor_enable (libusb_device_handle *dev_handle, char *enable);
+
+int liballuris_set_buzzer_motor (libusb_device_handle *dev_handle, char state);
+int liballuris_get_buzzer_motor (libusb_device_handle *dev_handle, char *v);
+
+int liballuris_set_motor_start (libusb_device_handle *dev_handle, char start);
+int liballuris_set_motor_stopp (libusb_device_handle *dev_handle, char state);
+
+int liballuris_set_data_ratio (libusb_device_handle *dev_handle, int v);
+
+void liballuris_set_debug_level (int l);
 
 #ifdef __cplusplus
 }

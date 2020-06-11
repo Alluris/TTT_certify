@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2015 Alluris GmbH & Co. KG <weber@alluris.de>
+Copyright (C) 2015-2020 Alluris GmbH & Co. KG <weber@alluris.de>
 
 This file is part of liballuris.
 
@@ -171,12 +171,6 @@ static int liballuris_interrupt_transfer (libusb_device_handle* dev_handle,
   int r = 0;
   struct timeval t1, t2;
 
-  if (send_len > DEFAULT_SEND_BUF_LEN)
-    {
-      fprintf (stderr, "Error: Send len %i > receive buffer len %i. This looks like a programming error.\n", send_len, DEFAULT_SEND_BUF_LEN);
-      exit (-1);
-    }
-
   if (reply_len > DEFAULT_RECV_BUF_LEN)
     {
       fprintf (stderr, "Error: Reply len %i > receive buffer len %i. This looks like a programming error.\n", reply_len, DEFAULT_RECV_BUF_LEN);
@@ -215,54 +209,61 @@ static int liballuris_interrupt_transfer (libusb_device_handle* dev_handle,
 
   if (reply_len > 0)
     {
-
-      if (liballuris_debug_level)
-        gettimeofday (&t1, NULL);
-
-      memset (in_buf, 0, reply_len);
-      r = libusb_interrupt_transfer (dev_handle, 0x81 | LIBUSB_ENDPOINT_IN, in_buf, reply_len, &actual, receive_timeout);
-
-      if (liballuris_debug_level)
+      unsigned char tmp_in_buf[DEFAULT_RECV_BUF_LEN];
+      // ID_SAMPLE bis zu 3 mal ignorieren, falls ein anderes Kommando gesendet wurde
+      int sample_ignore_cnt = 3;
+      do
         {
-          gettimeofday (&t2, NULL);
-          double diff = (t2.tv_sec - t1.tv_sec) + (t2.tv_usec - t1.tv_usec)/1.0e6;
-          fprintf (stderr, "DEBUG-INFO: %s reply took %f s\n", funcname, diff);
-        }
+          //~ if (sample_ignore_cnt < 3)
+            //~ printf ("retry...\n");
+          if (liballuris_debug_level)
+            gettimeofday (&t1, NULL);
 
-      if (liballuris_debug_level > 1 && r == LIBUSB_SUCCESS)
-        {
-          fprintf (stderr, "DEBUG-INFO: %s recv %2i/%2i bytes: ", funcname, actual, reply_len);
-          print_buffer (in_buf, actual);
-        }
+          r = libusb_interrupt_transfer (dev_handle, 0x81 | LIBUSB_ENDPOINT_IN, tmp_in_buf, DEFAULT_RECV_BUF_LEN, &actual, receive_timeout);
 
-      if (r != LIBUSB_SUCCESS || actual != reply_len)
-        {
-          if (r == LIBUSB_ERROR_OVERFLOW)
+          if (liballuris_debug_level)
             {
-              if (liballuris_debug_level)
-                fprintf (stderr, "DEBUG-INFO: LIBUSB_ERROR_OVERFLOW in '%s': expected %i bytes but got more.\n", funcname, reply_len);
+              gettimeofday (&t2, NULL);
+              double diff = (t2.tv_sec - t1.tv_sec) + (t2.tv_usec - t1.tv_usec)/1.0e6;
+              fprintf (stderr, "DEBUG-INFO: %s reply took %f s\n", funcname, diff);
+            }
 
-              // Attention! You can't rely that data was written in in_buf
-              // See: http://libusb.sourceforge.net/api-1.0/packetoverflow.html
+          if (liballuris_debug_level > 1 && r == LIBUSB_SUCCESS)
+            {
+              fprintf (stderr, "DEBUG-INFO: %s recv %2i/%2i bytes: ", funcname, actual, DEFAULT_RECV_BUF_LEN);
+              print_buffer (in_buf, actual);
+            }
+
+          if (r != LIBUSB_SUCCESS)
+            {
+              if (r == LIBUSB_ERROR_OVERFLOW)
+                {
+                  if (liballuris_debug_level)
+                    fprintf (stderr, "DEBUG-INFO: LIBUSB_ERROR_OVERFLOW in '%s': expected max. %i bytes but got more.\n", funcname, DEFAULT_RECV_BUF_LEN);
+
+                  // Attention! You can't rely that data was written in in_buf
+                  // See: http://libusb.sourceforge.net/api-1.0/libusb_packetoverflow.html
+                }
+              else
+                fprintf(stderr, "Read error in '%s': '%s', tried to read %i, got %i bytes.\n", funcname, libusb_error_name(r), DEFAULT_RECV_BUF_LEN, actual);
+
               return r;
             }
-          else
-            fprintf(stderr, "Read error in '%s': '%s', tried to read %i, got %i bytes.\n", funcname, libusb_error_name(r), reply_len, actual);
         }
+      // ID_SAMPLE bis zu sample_ignore_cnt mal igorieren/verwerfen wenn nicht gewünscht (falls streaming aktiv ist)
+      while (sample_ignore_cnt-- > 0 && tmp_in_buf[0] == 0x02 && send_len > 0);
 
-      // check reply
-      if (!r
-          && send_len > 0
-          && in_buf[0] != 0x02
-          && (in_buf[0] != out_buf[0]
-              ||  in_buf[1] != actual))
+      if (send_len > 0              // nur dann ist out_buf[0] valide
+          && (tmp_in_buf[0] != out_buf[0] ||  tmp_in_buf[1] != reply_len))
         {
           fprintf(stderr, "Error: Malformed reply. Check physical connection and EMI.\n");
-          fprintf(stderr, "(send_cmd=0x%02X != recv_cmd=0x%02X) || (recv_len=%i != actual_recv=%i),\n", out_buf[0], in_buf[0], in_buf[1], actual);
+          fprintf(stderr, "(send_cmd=0x%02X != recv_cmd=0x%02X) || (recv_len=%i != reply_len=%i),\n", out_buf[0], tmp_in_buf[0], tmp_in_buf[1], reply_len);
 
           return LIBALLURIS_MALFORMED_REPLY;
         }
-    }
+
+      memcpy (in_buf, tmp_in_buf, reply_len);
+  }
   return r;
 }
 
@@ -627,7 +628,7 @@ int liballuris_get_serial_number (libusb_device_handle *dev_handle, char* buf, s
  *
  * Since firmware V5.05.003 the measurement processor firmware can no longer
  * been read separately and will always return V0.255.255
- * 
+ *
  * \param[in] dev_handle a handle for the device to communicate with
  * \param[in] dev 0=USB communication processor, 1=measurement processor
  * \param[out] buf output location for the firmware string. Only populated if the return code is 0.
@@ -1163,7 +1164,7 @@ int liballuris_poll_measurement (libusb_device_handle *dev_handle, int* buf, siz
   unsigned char in_buf[len];
 
   /* Increased receive timeout:
-   * The sampling frequency can be selected between 10Hz and 990Hz
+   * The sampling frequency can be selected between 10Hz and 900Hz
    * Therefore the maximum delay until one measurement completes is 1/10Hz = 100ms.
    * Since the block size can be up to 19 (see liballuris_cyclic_measurement) the typically delay
    * in 10Hz mode and blocksize 19 is >1.9s
@@ -1357,7 +1358,23 @@ int liballuris_stop_measurement (libusb_device_handle *dev_handle)
 }
 
 /*!
- * \brief Set motor state
+ * \brief MotorReferenz / ID_MOTOR_REFERENZ
+ */
+int liballuris_start_motor_reference_run (libusb_device_handle *dev_handle, char start)
+{
+  unsigned char out_buf[3];
+  unsigned char in_buf[3];
+
+  out_buf[0] = 0x62;
+  out_buf[1] = 3;
+  out_buf[2] = start;
+  return liballuris_interrupt_transfer (dev_handle, __FUNCTION__,
+                                        out_buf, sizeof (out_buf), DEFAULT_SEND_TIMEOUT,
+                                        in_buf, sizeof (in_buf), DEFAULT_RECEIVE_TIMEOUT);
+}
+
+/*!
+ * \brief Disable motor
  *
  * Disables or enables motor functionality
  * Suported devices:
@@ -1366,23 +1383,123 @@ int liballuris_stop_measurement (libusb_device_handle *dev_handle)
  *
  * Prevents any movement of integrated or external motor until
  * - power restart of device
- * - motor enable ist set again
+ * - motor enable is set again
  *
  * Other functionality of the device will not be affected.
  * A running measurement will be stopped by disabling motor.
+ * You should start a reference run after eenabling the motor.
  *
  * \param[in] dev_handle a handle for the device to communicate with
- * \param[in] enable = 0 for disabling or 1 for enabling.
+ * \param[in] disable = 1 for disabling or 0 for enabling.
  * \return 0 if successful else \ref liballuris_error
  */
-int liballuris_set_motor_state (libusb_device_handle *dev_handle, char enable)
+int liballuris_set_motor_disable (libusb_device_handle *dev_handle, char disable)
 {
   unsigned char out_buf[3];
   unsigned char in_buf[3];
 
   out_buf[0] = 0x63;
   out_buf[1] = 3;
-  out_buf[2] = (enable)? 0:1;
+  out_buf[2] = disable != 0;
+  return liballuris_interrupt_transfer (dev_handle, __FUNCTION__,
+                                        out_buf, sizeof (out_buf), DEFAULT_SEND_TIMEOUT,
+                                        in_buf, sizeof (in_buf), DEFAULT_RECEIVE_TIMEOUT);
+}
+
+/*!
+ * \brief Query ID_INFO "Motor Enable", "Motorfreigabe"
+ */
+int liballuris_get_motor_enable (libusb_device_handle *dev_handle, char *v)
+{
+  unsigned char out_buf[3];
+  unsigned char in_buf[6];
+
+  out_buf[0] = 0x08;
+  out_buf[1] = 3;
+  out_buf[2] = 15;
+  int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__,
+            out_buf, sizeof (out_buf), DEFAULT_SEND_TIMEOUT,
+            in_buf, sizeof (in_buf), DEFAULT_RECEIVE_TIMEOUT);
+  if (ret == LIBALLURIS_SUCCESS)
+    {
+      *v = char_to_int24 (in_buf + 3);
+      if (*v == -1)
+        return LIBALLURIS_DEVICE_BUSY;
+    }
+  return ret;
+}
+
+/*!
+ * \brief Set P17 (Buzzer) / P19 (Motor FMT-220M)
+ *
+ * \param[in] dev_handle a handle for the device to communicate with
+ * \return 0 if successful else \ref liballuris_error
+ */
+int liballuris_set_buzzer_motor (libusb_device_handle *dev_handle, char state)
+{
+  unsigned char out_buf[3];
+  unsigned char in_buf[3];
+
+  out_buf[0] = 0x25;
+  out_buf[1] = 3;
+  out_buf[2] = state != 0;
+  return liballuris_interrupt_transfer (dev_handle, __FUNCTION__,
+                                        out_buf, sizeof (out_buf), DEFAULT_SEND_TIMEOUT,
+                                        in_buf, sizeof (in_buf), DEFAULT_RECEIVE_TIMEOUT);
+}
+
+/*!
+ * \brief Query P17 (Buzzer) / P19 (Motor FMT-220M)
+ */
+int liballuris_get_buzzer_motor (libusb_device_handle *dev_handle, char *v)
+{
+  unsigned char out_buf[2];
+  unsigned char in_buf[3];
+
+  out_buf[0] = 0x26;
+  out_buf[1] = 2;
+  int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__,
+            out_buf, sizeof (out_buf), DEFAULT_SEND_TIMEOUT,
+            in_buf, sizeof (in_buf), DEFAULT_RECEIVE_TIMEOUT);
+  if (ret == LIBALLURIS_SUCCESS)
+    *v = in_buf[2];
+  return ret;
+}
+
+/*!
+ * \brief MotorStart / ID_MOTOR_START
+ * state
+ * 0 Start Motor per USB sperren   : Motor starten bei Messung Start
+ * 1 Start Motor per USB freigeben : Motor nicht starten bei Messung Start sondern per USB-Befehl
+ * 2 Motor starten, falls freigegeben
+ */
+int liballuris_set_motor_start (libusb_device_handle *dev_handle, char start)
+{
+  unsigned char out_buf[3];
+  unsigned char in_buf[3];
+
+  out_buf[0] = 0x66;
+  out_buf[1] = 3;
+  out_buf[2] = start;
+  return liballuris_interrupt_transfer (dev_handle, __FUNCTION__,
+                                        out_buf, sizeof (out_buf), DEFAULT_SEND_TIMEOUT,
+                                        in_buf, sizeof (in_buf), DEFAULT_RECEIVE_TIMEOUT);
+}
+
+/*!
+ * \brief MotorStopp / ID_MOTOR_STOPP
+ * state
+ * 0 : Keine Auswirkung
+ * 1 : Motor stoppen
+ */
+int liballuris_set_motor_stopp (libusb_device_handle *dev_handle, char state)
+{
+  unsigned char out_buf[3];
+  unsigned char in_buf[3];
+
+  out_buf[0] = 0x67;
+  out_buf[1] = 3;
+  out_buf[2] = state;
   return liballuris_interrupt_transfer (dev_handle, __FUNCTION__,
                                         out_buf, sizeof (out_buf), DEFAULT_SEND_TIMEOUT,
                                         in_buf, sizeof (in_buf), DEFAULT_RECEIVE_TIMEOUT);
@@ -2122,4 +2239,33 @@ int liballuris_set_key_lock (libusb_device_handle *dev_handle, char active)
     return LIBALLURIS_DEVICE_BUSY;
 
   return ret;
+}
+
+// since firmware 4.02.002/5.02.002 (06/2013)
+// Divider for 900Hz or 10Hz base frequency
+// v == 0 or 1 disables decimation
+int liballuris_set_data_ratio (libusb_device_handle *dev_handle, int v)
+{
+  if (v < 0 || v > 255)
+    return LIBALLURIS_OUT_OF_RANGE;
+
+  unsigned char out_buf[3];
+  unsigned char in_buf[3];
+
+  out_buf[0] = 0x30;
+  out_buf[1] = 3;
+  out_buf[2] = v;
+
+  int ret = liballuris_interrupt_transfer (dev_handle, __FUNCTION__,
+            out_buf, sizeof (out_buf), DEFAULT_SEND_TIMEOUT,
+            in_buf, sizeof (in_buf), DEFAULT_RECEIVE_TIMEOUT);
+  if (in_buf[2] != v)
+    return LIBALLURIS_DEVICE_BUSY;
+
+  return ret;
+}
+
+void liballuris_set_debug_level (int l)
+{
+  liballuris_debug_level = l;
 }
