@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2015 Alluris GmbH & Co. KG <weber@alluris.de>
+Copyright (C) 2020 Alluris GmbH & Co. KG <weber@alluris.de>
 
 C++ interface to liballuris.
 
@@ -52,13 +52,13 @@ liballuris::liballuris ()
   cout << "liballuris c'tor" << endl;
 
   int r = libusb_init (&usb_ctx);
-  RUNTIME_ERROR(r, "libusb_init");
+  RUNTIME_ERROR(r, "c'tor  libusb_init");
 
   r = liballuris_open_device (usb_ctx, NULL, &usb_h);
-  RUNTIME_ERROR(r, "liballuris_open_device");
+  RUNTIME_ERROR(r, "c'tor  liballuris_open_device");
 
   r = libusb_claim_interface (usb_h, 0);
-  RUNTIME_ERROR(r, "libusb_claim_interface");
+  RUNTIME_ERROR(r, "c'tor libusb_claim_interface");
 }
 
 liballuris::liballuris (string serial)
@@ -66,13 +66,13 @@ liballuris::liballuris (string serial)
   cout << "liballuris c'tor with serial = " << serial << endl;
 
   int r = libusb_init (&usb_ctx);
-  RUNTIME_ERROR(r,"c'tor usb_init");
+  RUNTIME_ERROR(r,"c'tor libusb_init");
 
   r = liballuris_open_device (usb_ctx, serial.c_str(), &usb_h);
-  RUNTIME_ERROR(r,"c'tor open_device. Couldn't connect to TTT device with given serial.");
+  RUNTIME_ERROR(r,"c'tor open_device. Couldn't connect to FMI-S/B device with given serial.");
 
   r = libusb_claim_interface (usb_h, 0);
-  RUNTIME_ERROR(r,"c'tor claim_interface");
+  RUNTIME_ERROR(r,"c'tor libusb_claim_interface");
 }
 
 liballuris::~liballuris ()
@@ -82,6 +82,11 @@ liballuris::~liballuris ()
   liballuris_clear_RX (usb_h, 500);
   libusb_release_interface (usb_h, 0);
   libusb_close (usb_h);
+}
+
+void liballuris::set_debug_level (int l)
+{
+  liballuris_set_debug_level (l);
 }
 
 string liballuris::get_serial_number ()
@@ -252,6 +257,22 @@ void liballuris::set_lower_limit (int limit)
   RUNTIME_ERROR(r,"");
 }
 
+int liballuris::get_upper_limit ()
+{
+  int limit;
+  int r = liballuris_get_upper_limit (usb_h, &limit);
+  RUNTIME_ERROR(r,"");
+  return limit;
+}
+
+int liballuris::get_lower_limit ()
+{
+  int limit;
+  int r = liballuris_get_lower_limit (usb_h, &limit);
+  RUNTIME_ERROR(r,"");
+  return limit;
+}
+
 void liballuris::set_mode (enum liballuris_measurement_mode mode)
 {
   int r = liballuris_set_mode (usb_h, mode);
@@ -330,5 +351,109 @@ vector<int> liballuris::read_memory ()
 void liballuris::clear_memory ()
 {
   int r = liballuris_delete_memory (usb_h);
-  RUNTIME_ERROR(r,"");
+  RUNTIME_ERROR(r,"clear_memory");
+}
+
+void liballuris::set_data_ratio (int decimate)
+{
+  int r = liballuris_set_data_ratio (usb_h, decimate);
+  RUNTIME_ERROR(r,"set_data_ratio");
+}
+
+int liballuris::get_pos_peak ()
+{
+  int peak;
+  int r = liballuris_get_pos_peak (usb_h, &peak);
+  RUNTIME_ERROR(r,"get_pos_peak");
+  return peak;
+}
+
+int liballuris::get_neg_peak ()
+{
+  int peak;
+  int r = liballuris_get_neg_peak (usb_h, &peak);
+  RUNTIME_ERROR(r,"get_neg_peak");
+  return peak;
+}
+
+void liballuris::clear_pos_peak ()
+{
+  int r = liballuris_clear_pos_peak (usb_h);
+  RUNTIME_ERROR(r,"clear_pos_peak");
+}
+
+void liballuris::clear_neg_peak ()
+{
+  int r = liballuris_clear_neg_peak (usb_h);
+  RUNTIME_ERROR(r,"clear_neg_peak");
+}
+
+string liballuris::get_variant ()
+{
+  char tmp_buf[VARIANT_LEN];
+  int r = liballuris_get_variant (usb_h, tmp_buf, VARIANT_LEN);
+  RUNTIME_ERROR(r,"get_variant");
+  return tmp_buf;
+}
+
+string liballuris::get_firmware ()
+{
+  char tmp_buf[SERIAL_LEN];
+  int r = liballuris_get_firmware (usb_h, 0, tmp_buf, SERIAL_LEN);
+  RUNTIME_ERROR(r,"get_firmware");
+  return tmp_buf;
+}
+
+liballuris_state liballuris::read_state ()
+{
+  struct liballuris_state state;
+  int r = liballuris_read_state (usb_h, &state, 2000);  //FIXME: in gadc habe ich 3000 als timeout
+  RUNTIME_ERROR(r,"read_state");
+  return state;
+}
+
+void liballuris::start_motor_reference_run (char start)
+{
+  int r = liballuris_start_motor_reference_run (usb_h, start);
+  RUNTIME_ERROR(r,"start_motor_reference_run");
+}
+
+void liballuris::set_motor_disable (bool state)
+{
+  int r = liballuris_set_motor_disable (usb_h, state);
+  RUNTIME_ERROR(r,"set_motor_disable");
+}
+
+bool liballuris::get_motor_enable ()
+{
+  char enabled;
+  int r = liballuris_get_motor_enable (usb_h, &enabled);
+  RUNTIME_ERROR(r,"get_motor_enable");
+  return enabled == 1;
+}
+
+void liballuris::set_buzzer_motor (bool state)
+{
+  int r = liballuris_set_buzzer_motor (usb_h, state);
+  RUNTIME_ERROR(r,"set_buzzer_motor");
+}
+
+bool liballuris::get_buzzer_motor ()
+{
+  char state;
+  int r = liballuris_get_buzzer_motor (usb_h, &state);
+  RUNTIME_ERROR(r,"get_buzzer_motor");
+  return state != 0;
+}
+
+void liballuris::set_motor_start (uint8_t start)
+{
+  int r = liballuris_set_motor_start (usb_h, start);
+  RUNTIME_ERROR(r,"set_motor_start");
+}
+
+void liballuris::set_motor_stopp (uint8_t state)
+{
+  int r = liballuris_set_motor_stopp (usb_h, state);
+  RUNTIME_ERROR(r,"set_motor_stopp");
 }

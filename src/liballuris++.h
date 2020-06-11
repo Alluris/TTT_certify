@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2015 Alluris GmbH & Co. KG <weber@alluris.de>
+Copyright (C) 2020 Alluris GmbH & Co. KG <weber@alluris.de>
 
 C++ interface to liballuris.
 
@@ -34,6 +34,8 @@ If not, see <http://www.gnu.org/licenses/>.
 #define LIBALLURIS_CPP_H
 
 #define SERIAL_LEN 30
+#define VARIANT_LEN 8
+#define FIRMWARE_LEN 10
 #define POLL_PACKET_SIZE 19
 
 using namespace std;
@@ -48,8 +50,10 @@ public:
   string err_msg (int err);
 
   liballuris ();
-  liballuris (string serial);
+  explicit liballuris (string serial);
   ~liballuris ();
+
+  void set_debug_level (int l);
 
   string get_serial_number ();
   string get_next_calibration_date ();
@@ -70,7 +74,10 @@ public:
   void stop_measurement ();
 
   void set_upper_limit (int limit);
+  int get_upper_limit ();
   void set_lower_limit (int limit);
+  int get_lower_limit ();
+
   void set_mode (enum liballuris_measurement_mode mode);
   void set_unit (enum liballuris_unit unit);
   void clear_RX (int timeout);
@@ -85,6 +92,26 @@ public:
   vector<int> read_memory ();
   void clear_memory ();
 
+  void set_data_ratio (int decimate);
+  int get_pos_peak ();
+  int get_neg_peak ();
+  void clear_pos_peak ();
+  void clear_neg_peak ();
+  string get_variant ();
+  string get_firmware ();
+
+  liballuris_state read_state ();
+
+  // Motorfunktionen
+  void start_motor_reference_run (char start);
+  void set_motor_disable(bool state);
+  bool get_motor_enable ();
+
+  void set_buzzer_motor (bool state);
+  bool get_buzzer_motor ();
+
+  void set_motor_start (uint8_t start);
+  void set_motor_stopp (uint8_t state);
 };
 
 #endif
