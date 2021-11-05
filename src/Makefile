@@ -4,7 +4,7 @@ TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cp
 
 ## for GNU/Linux
 CXXFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -D USE_X11 -D FLTK_HAVE_CAIRO
-LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lconfuse
+LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lconfuse
 
 ## for MacOSX
 #CXXFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -I/usr/local/opt/gettext/include -I/usr/local/opt/cairo-quartz/include

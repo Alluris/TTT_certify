@@ -12,7 +12,12 @@ Small GUI for PC communication with Alluris TTT (torque tool tester) devices. In
 
 ## GNU/Linux
 
-### optional: Build FLTK
+## Debian GNU/Linux bullseye
+```
+sudo apt install libfltk1.3-dev libfltk-cairo1.3
+```
+
+### optional: Build FLTK from source
 
 build FLTK from source if your distro doesn't ship FLTK with support for cairo.
 
@@ -44,43 +49,35 @@ ACTION=="add", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f25e", MODE="0660", O
 
 IMPORTANT: NEC/Renesas uPD720200/uPD720200A USB 3.0 users, please upgrade your drivers to version 2.1.16.0 or later. uPD720201/uPD720202 users should use version 3.x (3.0.23 or later preferred). Older versions of the driver have a bug that prevents libusb from accessing devices. 
 
-https://github.com/libusb/libusb/wiki/Windows#How_to_use_libusb_on_Windows
+See https://github.com/libusb/libusb/wiki/Windows#How_to_use_libusb_on_Windows
 
-### MSYS2 (recommendation)
-Download and install MSYS2 from https://msys2.github.io/ (tested with http://repo.msys2.org/distrib/x86_64/msys2-x86_64-20160205.exe)
-Follow the instructions for updating the packet manager and other packages
+### Build using MSYS2 (recommendation)
+Download and install MSYS2 from https://msys2.github.io/ (tested with https://github.com/msys2/msys2-installer/releases/download/2021-07-25/msys2-x86_64-20210725.exe
+)
 
-In a mingw32 shell (`C:\msys64\mingw32_shell.bat`):
+In a mingw32 shell (`C:\msys64\mingw32.exe`):
 
 ```
 pacman -Su
-pacman -S mingw32/mingw-w64-i686-cairo mingw32/mingw-w64-i686-gcc git tar base-devel mingw32/mingw-w64-i686-libusb mingw32/mingw-w64-i686-sqlite3 mingw32/mingw-w64-i686-confuse
+pacman -S mingw32/mingw-w64-i686-cairo mingw32/mingw-w64-i686-gcc git tar make man pkg-config mingw32/mingw-w64-i686-libusb mingw32/mingw-w64-i686-sqlite3 mingw32/mingw-w64-i686-confuse
 ```
 
 ### FLTK
 #### Download
 ```
-wget http://fltk.org/pub/fltk/1.3.3/fltk-1.3.3-source.tar.gz
+wget https://www.fltk.org/pub/fltk/1.3.7/fltk-1.3.7-source.tar.gz
 ```
 #### Verify tarball
 ```
-md5sum.exe fltk-1.3.3-source.tar.gz
-9ccdb0d19dc104b87179bd9fd10822e3 *fltk-1.3.3-source.tar.gz
+md5sum.exe fltk-1.3.7-source.tar.gz
+8483e58b2312a348c0f66101eead1409  fltk-1.3.7-source.tar.gz
 ```
 #### Build
 ```
-tar xzf fltk-1.3.3-source.tar.gz
-cd fltk-1.3.3/
-```
-
-**Patch `src/fl_dnd_win32.cxx:337`**
-
-- Before:  `STDMETHODIMP GiveFeedback( ulong) { return DRAGDROP_S_USEDEFAULTCURSORS; }`
-- After: `STDMETHODIMP GiveFeedback( DWORD ) { return DRAGDROP_S_USEDEFAULTCURSORS; }`
-
-```
+tar xzf fltk-1.3.7-source.tar.gz
+cd fltk-1.3.7/
 ./configure --enable-cairo
-make -j8
+make -j6
 make install
 ```
 
@@ -104,9 +101,9 @@ brew install cairo-quartz
 ### FLTK
 
 ```
-wget http://fltk.org/pub/fltk/1.3.3/fltk-1.3.3-source.tar.gz
-tar xzf fltk-1.3.3-source.tar.gz
-cd fltk-1.3.3-source
+wget http://fltk.org/pub/fltk/1.3.7/fltk-1.3.7-source.tar.gz
+tar xzf fltk-1.3.7-source.tar.gz
+cd fltk-1.3.7-source
 
 export PKG_CONFIG_PATH=/usr/local/Cellar/cairo-quartz/1.10.2/lib/pkgconfig
 export LDFLAGS=-L/usr/local/opt/cairo-quartz/lib
