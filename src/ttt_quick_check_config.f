@@ -8,10 +8,19 @@ code_name {.cxx}
 decl {\#include <FL/fl_ask.H>} {public global
 }
 
+decl {\#include <FL/Fl_Native_File_Chooser.H>} {public local
+}
+
+decl {\#include <fstream>} {public local
+}
+
 decl {\#include "liballuris++.h"} {public global
 }
 
 decl {\#include "quick_check_table.h"} {public global
+}
+
+decl {char *csv_export_dir = NULL;} {private local
 }
 
 Function {} {open
@@ -32,8 +41,8 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Quick-Check V1.02.004} open selected
-    xywh {131 138 375 630} type Double color 40 visible
+    label {TTT_Quick-Check V1.03.001} open selected
+    xywh {1998 94 375 630} type Double color 40 visible
   } {
     Fl_Group {} {
       label {Prüfung} open
@@ -203,6 +212,12 @@ vi_test_object_accuracy->do_callback ();}
         var /= (cnt - 1);
         vo_std->value (sqrt (var));
         quick_tbl->show ();
+
+	// ggf. CSV exportieren
+	if (csv_export_dir)
+	{
+	  export_csv (csv_export_dir, &al);
+	}
       }
   }
 catch (std::runtime_error &e)
@@ -245,6 +260,39 @@ mainwin->cursor (FL_CURSOR_DEFAULT);}
         label {Standardabweichung [Nm]}
         xywh {190 560 149 30} box DOWN_BOX align 133 step 0.001
       }
+      Fl_Check_Button {} {
+        label {automatisch als CSV speichern}
+        callback {if (csv_export_dir)
+  free (csv_export_dir);
+csv_export_dir = NULL;
+
+if (o->value())
+{
+  Fl_Native_File_Chooser native;
+  native.title("Pick a Directory");
+  native.directory(".");
+  native.type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
+  // Show native chooser
+  switch ( native.show() ) {
+    case -1: fprintf(stderr, "ERROR: %s\\n", native.errmsg()); break;	// ERROR
+    case  1: fprintf(stderr, "*** CANCEL\\n"); fl_beep(); break;		// CANCEL
+    default: 								// PICKED DIR
+      if ( native.filename() )
+      {
+        //G_filename->value(native.filename());
+	printf ("got %s\\n", native.filename());
+        csv_export_dir = strdup (native.filename());
+      }
+      else
+      {
+      	printf ("NULL returned\\n");
+	//G_filename->value("NULL");
+      }
+      break;
+  }
+}}
+        xywh {185 445 170 45} down_box DOWN_BOX align 148
+      }
     }
   }
   code {//quick_tbl->hide ();
@@ -268,4 +316,57 @@ else
   }
   
 return right;} {}
+}
+
+Function {export_csv(const char *fn, liballuris *pal)} {open return_type int
+} {
+  code {ostringstream os;
+os << fn;
+if (fl_filename_isdir (fn))
+{
+  char buf[80];
+  generate_ts_csv_fn (buf, 80);
+  os << "/" << buf;
+}
+
+std::cout << "os = " << os.str() << std::endl;
+
+std::ofstream out (os.str());
+if (out)
+  {
+    out << "\# TTT serial number: "                << pal->get_serial_number() << std::endl;
+    out << "\# TTT next calibration date: "        << pal->get_next_calibration_date() << std::endl;
+    out << "\# TTT calibration date: "             << pal->get_calibration_date() << std::endl;
+    out << "\# TTT calibration number: "           << pal->get_calibration_number() << std::endl;
+    out << "\# Nominal value [Nm]: "               << vi_nominal->value() << std::endl;
+    out << "\# Maximum admissible deviation [%]: " << vi_test_object_accuracy->value() << std::endl;
+    out << "\# Lower value [Nm]: "                 << vi_lower_limit->value() << std::endl;
+    out << "\# Upper value [Nm]: "                 << vi_upper_limit->value() << std::endl;
+    out << "\# Peak detection [%]: "               << vi_peak_level->value() << std::endl;
+    out << "\# Mean over peaks [Nm]: "             << vo_mean->value() << std::endl;
+    out << "\# Standard deviation of peaks [Nm]: " << vo_std->value() << std::endl;
+    
+    const vector<double> &peaks = quick_tbl->get_peaks ();
+    for (size_t k = 0; k < peaks.size (); ++k)
+	out << peaks[k] << std::endl;
+
+    out.close();
+  }
+else
+  {
+    fl_alert (gettext ("CSV Export nach '%s' fehlgeschlagen."), os.str().c_str());
+    return -1;
+  }
+
+return 0;} {}
+}
+
+Function {generate_ts_csv_fn(char *fn, size_t len)} {open
+} {
+  code {time_t rawtime;
+struct tm *timeinfo;
+time (&rawtime);
+timeinfo = localtime (&rawtime);
+strftime (fn, len, "%Y-%m-%dT%H:%M:%S.csv", timeinfo);
+fn[len-1] = 0;} {}
 }

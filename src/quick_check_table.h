@@ -41,7 +41,11 @@ public:
     rows (peak_values.size ());
     redraw ();
     cout << "add_measurement v=" << v << " size=" << peak_values.size () << endl;
+  }
 
+  const vector<double>& get_peaks () const
+  {
+    return peak_values;
   }
 
 };
