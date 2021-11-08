@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0304
+version 1.0305
 i18n_type 1
 i18n_include <libintl.h>
 i18n_function gettext
@@ -41,7 +41,7 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Quick-Check V1.03.001} open selected
+    label {TTT_Quick-Check V1.03.002} open
     xywh {1998 94 375 630} type Double color 40 visible
   } {
     Fl_Group {} {
@@ -174,6 +174,8 @@ vi_test_object_accuracy->do_callback ();}
         label {Speicher auslesen}
         callback {try
   {
+    // nur debugging Dateierzeugung
+    //export_csv (csv_export_dir, NULL);
     liballuris al;
     mainwin->cursor (FL_CURSOR_WAIT);
     Fl::wait (0);
@@ -224,7 +226,7 @@ catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
   }
-mainwin->cursor (FL_CURSOR_DEFAULT);}
+mainwin->cursor (FL_CURSOR_DEFAULT);} selected
         xywh {186 336 172 44} box GLEAM_THIN_UP_BOX align 128
       }
       Fl_Button {} {
@@ -320,7 +322,9 @@ return right;} {}
 
 Function {export_csv(const char *fn, liballuris *pal)} {open return_type int
 } {
-  code {ostringstream os;
+  code {if (!fn)
+  return -1;
+ostringstream os;
 os << fn;
 if (fl_filename_isdir (fn))
 {
@@ -334,10 +338,13 @@ std::cout << "os = " << os.str() << std::endl;
 std::ofstream out (os.str());
 if (out)
   {
-    out << "\# TTT serial number: "                << pal->get_serial_number() << std::endl;
-    out << "\# TTT next calibration date: "        << pal->get_next_calibration_date() << std::endl;
-    out << "\# TTT calibration date: "             << pal->get_calibration_date() << std::endl;
-    out << "\# TTT calibration number: "           << pal->get_calibration_number() << std::endl;
+    if (pal)
+      {
+        out << "\# TTT serial number: "                << pal->get_serial_number() << std::endl;
+        out << "\# TTT next calibration date: "        << pal->get_next_calibration_date() << std::endl;
+        out << "\# TTT calibration date: "             << pal->get_calibration_date() << std::endl;
+        out << "\# TTT calibration number: "           << pal->get_calibration_number() << std::endl;
+      }
     out << "\# Nominal value [Nm]: "               << vi_nominal->value() << std::endl;
     out << "\# Maximum admissible deviation [%]: " << vi_test_object_accuracy->value() << std::endl;
     out << "\# Lower value [Nm]: "                 << vi_lower_limit->value() << std::endl;
@@ -354,7 +361,7 @@ if (out)
   }
 else
   {
-    fl_alert (gettext ("CSV Export nach '%s' fehlgeschlagen."), os.str().c_str());
+    fl_alert (gettext ("CSV Export nach '%s' fehlgeschlagen.\\n%s"), os.str().c_str(), strerror (errno));
     return -1;
   }
 
@@ -367,6 +374,6 @@ Function {generate_ts_csv_fn(char *fn, size_t len)} {open
 struct tm *timeinfo;
 time (&rawtime);
 timeinfo = localtime (&rawtime);
-strftime (fn, len, "%Y-%m-%dT%H:%M:%S.csv", timeinfo);
+strftime (fn, len, "%Y-%m-%d_%Hh%Mm%Ss.csv", timeinfo);
 fn[len-1] = 0;} {}
 }
