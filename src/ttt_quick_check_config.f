@@ -226,7 +226,7 @@ catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
   }
-mainwin->cursor (FL_CURSOR_DEFAULT);} selected
+mainwin->cursor (FL_CURSOR_DEFAULT);}
         xywh {186 336 172 44} box GLEAM_THIN_UP_BOX align 128
       }
       Fl_Button {} {
@@ -292,7 +292,8 @@ if (o->value())
       }
       break;
   }
-}}
+  o->value(csv_export_dir && fl_filename_isdir (csv_export_dir));
+}} selected
         xywh {185 445 170 45} down_box DOWN_BOX align 148
       }
     }
