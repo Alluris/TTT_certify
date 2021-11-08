@@ -823,7 +823,10 @@ void ttt::load_torque_tester ()
     }
   else
     {
-      // load torque_tester with id 1 in simulation mode
+      // load torque_tester with id in simulation mode
+      // Id 1 => TTT-300C1 with 10 Nm
+      // Id 2 => TTT-300B2 with  2 Nm
+      // see fill_database_debug.sql
       meas.tt.load_with_id (db, 1);
     }
 }

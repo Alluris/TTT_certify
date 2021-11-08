@@ -300,11 +300,17 @@ int main(int argc, char **argv)
       else
         {
           myTTT->connect_TTT ();
-          int digits = myTTT->get_torque_tester_digits ();
-          double steps = pow (10, -digits);
-          vo_peak_torque->step (steps);
-          vo_nominal_value->step (steps);
         }
+
+      // Anzahl Nachkommastellen für einige value outputs einstellen
+      {
+        int digits = myTTT->get_torque_tester_digits ();
+        double steps = pow (10, -digits);
+        vo_torque_tester_max_torque->step (steps);
+        vo_torque_tester_resolution->step (steps);
+        vo_peak_torque->step (steps);
+        vo_nominal_value->step (steps);
+      }
 
       // die save buttons deaktivieren
       btn_test_person_save->hide ();

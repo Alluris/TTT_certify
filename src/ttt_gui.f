@@ -53,7 +53,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify V1.03.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    label {TTT_Certify V1.03.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2182 207 1275 765} type Double color 40 labelfont 1 align 20 resizable size_range {800 600 0 0} visible
   } {
     Fl_Group {} {
@@ -600,8 +600,8 @@ catch (std::runtime_error &e)
         xywh {1140 195 110 30} box GLEAM_THIN_UP_BOX deactivate
       }
       Fl_Value_Output vo_nominal_value {
-        label {Nominalwert [Nm]}
-        xywh {785 388 145 60} align 133 minimum -100 maximum 100 step 0.001 textsize 30
+        label {Nominalwert [Nm]} selected
+        xywh {785 388 145 60} align 133 minimum -100 maximum 100 step 0.01 textsize 30
       }
       Fl_Output to_step {
         label {aktueller Schritt}
@@ -612,7 +612,7 @@ catch (std::runtime_error &e)
       }
       Fl_Value_Output vo_peak_torque {
         label {Messwert [Nm]}
-        xywh {1110 388 145 60} align 133 step 0.001 textsize 30
+        xywh {1110 388 145 60} align 133 step 0.01 textsize 30
       }
       Fl_Progress step_progress {
         xywh {850 715 410 25} selection_color 178
@@ -667,7 +667,7 @@ catch (std::runtime_error &e)
   }
   Fl_Window test_object_win {
     label Werkzeugsuche open
-    xywh {2833 464 940 645} type Double resizable modal visible
+    xywh {2833 430 940 645} type Double resizable modal visible
   } {
     Fl_Table to {open
       xywh {9 110 920 480}

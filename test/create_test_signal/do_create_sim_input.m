@@ -218,3 +218,15 @@ data = [data1; data2];
 fn = sprintf ("test_object_id%i", to.id);
 save_sim_input (fn, data);
 clear all
+
+to.id = 24; ## (1, "A24", "FAKE24", "ACME", "dummy24", "II",  "A", 1, 0.15, 1.0, 2.0, 0.02, "xyz foo bar", 0.00, 0.6);
+tt.max_torque = 2;
+to.min_torque = 1;
+to.max_torque = 2;
+to.type = "II";
+to.class = "A";
+to.uncertainty = 0.06;
+data = create_sim_input (tt, to, 0, 0);
+fn = sprintf ("test_object_id%i", to.id);
+save_sim_input (fn, data);
+clear all

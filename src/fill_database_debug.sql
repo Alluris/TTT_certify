@@ -46,7 +46,8 @@ INSERT INTO test_object (active,
               (1, "A15", "FAKE15", "ACME", "dummy20", "II", "G", 1, 0.32, 2, 10, 0.1, "", 0.00, 0.8),
               (1, "A16", "FAKE16", "ACME", "dummy21", "II", "A", 2, 0.32, 2, 10, 0.1, "", 0.00, 0.8),  --nur links
               (1, "A17", "FAKE17", "ACME", "dummy22", "II", "A", 0, 0.32, 2, 10, 0.1, "", 0.00, 0.8),  --rechts/links
-              (1, "123", "SN15-492265", "Garant", "65 6050_6", "II", "A", 0, 0.155, 1, 6, 0.1, "", 0.00, 0.8);  --rechts/links
+              (1, "123", "SN15-492265", "Garant", "65 6050_6", "II", "A", 0, 0.155, 1, 6, 0.1, "", 0.00, 0.8),  --rechts/links
+              (1, "A24", "FAKE24", "ACME", "dummy24", "II",  "A", 1, 0.15, 1.0, 2.0, 0.02, "xyz foo bar", 0.00, 0.6);
 
 INSERT INTO torque_tester (serial_number,
                          manufacturer,
@@ -58,6 +59,17 @@ INSERT INTO torque_tester (serial_number,
                          resolution,
                          uncertainty_of_measurement)
        VALUES ("L.23451", "Alluris GmbH & Co. KG", "TTT-300C1", "2017-01", "2000-05-03", "calnumber fillme", 10, 0.01, 0.005);
+
+INSERT INTO torque_tester (serial_number,
+                         manufacturer,
+                         model,
+                         next_calibration_date,
+                         calibration_date,
+                         calibration_number,
+                         max_torque,
+                         resolution,
+                         uncertainty_of_measurement)
+       VALUES ("X.23451", "Alluris GmbH & Co. KG", "TTT-300B2", "2019-05", "2020-05-03", "foobar", 2, 0.002, 0.001);
 
 INSERT INTO measurement (norm,
                          test_person_id,
