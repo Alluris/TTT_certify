@@ -30,6 +30,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include <cmath>
 #include <string>
 #include <vector>
+#include <map>
 #include <iostream>
 #include <sstream>
 #include <algorithm>
@@ -60,6 +61,8 @@ void cairo_centered_text (cairo_t *cr, double x, double y, const char *str);
 string get_localtime ();
 
 string subst_wildcards (string in);
+
+int resolution_to_digits (double d);
 
 class test_person
 {
@@ -198,6 +201,7 @@ public:
 
   double max_torque;
   double resolution;      // Skalenteilung?
+  int digits;
   double uncertainty_of_measurement;
 
   torque_tester (): id(-1), max_torque(0), resolution(0), uncertainty_of_measurement(0) {}
@@ -277,11 +281,6 @@ public:
 
   measurement ();
   ~measurement ();
-
-  void set_digits (int d)
-  {
-    digits = d;
-  }
 
   void add_measurement_item (string ts, double nominal_value, double indicated_value, double rise_time);
   void add_measurement_item (measurement_item *p);

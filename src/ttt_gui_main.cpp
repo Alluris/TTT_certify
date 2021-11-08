@@ -298,7 +298,13 @@ int main(int argc, char **argv)
       if (argc == 3)
         myTTT->connect_measurement_input (argv[2]);
       else
-        myTTT->connect_TTT ();
+        {
+          myTTT->connect_TTT ();
+          int digits = myTTT->get_torque_tester_digits ();
+          double steps = pow (10, -digits);
+          vo_peak_torque->step (steps);
+          vo_nominal_value->step (steps);
+        }
 
       // die save buttons deaktivieren
       btn_test_person_save->hide ();

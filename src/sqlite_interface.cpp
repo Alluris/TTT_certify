@@ -162,6 +162,61 @@ string subst_wildcards (string in)
   return in;
 }
 
+int resolution_to_digits (double d)
+{
+  //printf ("d=%f\n", d);
+  static std::map<double, int> cache;
+  std::map<double, int>::iterator it = cache.find (d);
+  if (it != cache.end())
+    {
+      //printf ("return cached value d=%f, ret=%i\n", d, it->second);
+      return it->second;
+    }
+
+  //printf ("resolution_to_digits %f called\n", d);
+  //fflush (stdout);
+
+  double d_orig = d;
+
+  // Vorzeichen weg
+  if (d < 0.0)
+    d =- d;
+
+  // ganzzahliger Anteil entfernen
+  d -= floor (d);
+
+  // maximal 12 Nachkommastellen. 14 wären gerade noch so machbar aber
+  // wenn mehr, dann treten Rundungsfehler auf
+  unsigned prec = 12;
+
+  // runden, prec Nachkommastellen
+  d += 0.0000000000005;
+
+  double tmp = 0.1;
+
+  int c = 0;        // Schleifenzähler
+  int ndigits = 0;  // Rückgabewert, Anzahl benötigte Nachkommastellen
+
+  while (prec > 0)
+    {
+      char digit;
+      double fraction = d/tmp;
+      digit = (int)(fraction);		/* floor() */
+
+      d -= digit * tmp;
+      tmp /= 10.0;
+      --prec;
+
+      ++c;
+      if (digit)
+        ndigits = c;
+
+    }
+
+  cache [d_orig] = ndigits;
+  return ndigits;
+}
+
 void test_person::load_with_id (sqlite3 *db, int search_id)
 {
   sqlite3_stmt *pStmt;
@@ -508,6 +563,7 @@ void torque_tester::load_with_id (sqlite3 *db, int search_id)
               calibration_number = (const char*) sqlite3_column_text (pStmt, 6);
               max_torque = sqlite3_column_double (pStmt, 7);
               resolution = sqlite3_column_double (pStmt, 8);
+              digits = resolution_to_digits (resolution);
               uncertainty_of_measurement = sqlite3_column_double (pStmt, 9);
             }
           sqlite3_finalize(pStmt);
@@ -618,7 +674,7 @@ double torque_tester::cairo_print (cairo_t *cr, double c1, double c2, double top
 }
 
 measurement::measurement ()
-  : digits (2), id(-1), temperature(0), humidity(0)
+  : id(-1), temperature(0), humidity(0)
 {
 
 }
@@ -913,12 +969,12 @@ double measurement::cairo_print_5_meas_table (cairo_t *cr, double c1, double top
           if (nominal_value != old_nominal_value)
             {
               // erste Spalte mit nominal_value
-              snprintf (str, 40, "%.*f Nm", digits, nominal_value);
+              snprintf (str, 40, "%.*f Nm", tt.digits, nominal_value);
               cairo_centered_text (cr, c1 + col_width/2, y - col_height / 2, str);
             }
 
           // Gesamte Standardmessunsicherheit u
-          snprintf (str, 40, "%.*f Nm", digits, abs (total_uncertainty () * nominal_value));
+          snprintf (str, 40, "%.*f Nm", tt.digits, abs (total_uncertainty () * nominal_value));
           cairo_centered_text (cr, c1 + width - 1.5 * col_width, y - col_height / 2, str);
           //snprintf (str, 40, "%.2f %%", total_uncertainty () * 100);
           //cairo_centered_text (cr, c1 + width - 1.5 * col_width, y - 1 * col_height / 3, str);
@@ -957,7 +1013,7 @@ double measurement::cairo_print_5_meas_table (cairo_t *cr, double c1, double top
 
       // eigentliche Messwerte einfüllen
       char str[40];
-      snprintf (str, 40, "%.*f Nm%s", digits, measurement_items[k]->indicated_value, (rise_time_okay) ? "": "*");
+      snprintf (str, 40, "%.*f Nm%s", tt.digits, measurement_items[k]->indicated_value, (rise_time_okay) ? "": "*");
       cairo_centered_text (cr, c1 + col_width * (col + 1.5), y - 2 * col_height / 3, str);
 
       //  Abweichung
@@ -1109,11 +1165,11 @@ double measurement::cairo_print_1_meas_table (cairo_t *cr, double c1, double top
 
       // erste Spalte mit nominal_value
       char str[40];
-      snprintf (str, 40, "%.*f Nm", digits, nominal_value);
+      snprintf (str, 40, "%.*f Nm", tt.digits, nominal_value);
       cairo_centered_text (cr, c1 + col_width/2, y - col_height / 2, str);
 
       // Gesamte Standardmessunsicherheit
-      snprintf (str, 40, "%.*f Nm", digits, abs (total_uncertainty () * nominal_value));
+      snprintf (str, 40, "%.*f Nm", tt.digits, abs (total_uncertainty () * nominal_value));
       // snprintf (str, 40, "%.2f %%", total_uncertainty () * 100);
       cairo_centered_text (cr, c1 + 3.5 * col_width, y - col_height / 2, str);
 
@@ -1140,7 +1196,7 @@ double measurement::cairo_print_1_meas_table (cairo_t *cr, double c1, double top
       //cout << "min_rise_time=" << min_rise_time << " max_rise_time=" << max_rise_time << " rise_time=" << rise_time << endl;
 
       // eigentliche Messwerte einfüllen
-      snprintf (str, 40, "%.*f Nm%s", digits, measurement_items[k]->indicated_value, (rise_time_okay) ? "": "*");
+      snprintf (str, 40, "%.*f Nm%s", tt.digits, measurement_items[k]->indicated_value, (rise_time_okay) ? "": "*");
       cairo_centered_text (cr, c1 + col_width * 1.5, y - col_height / 2, str);
 
       //  Abweichung

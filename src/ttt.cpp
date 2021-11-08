@@ -816,6 +816,7 @@ void ttt::load_torque_tester ()
           meas.tt.max_torque            = pttt->get_max_torque ();
           meas.tt.uncertainty_of_measurement = pttt->get_uncertainty ();
           meas.tt.resolution            = pttt->get_resolution ();
+          meas.tt.digits                = pttt->get_digits ();
           meas.tt.save (db);
           cout << "ttt::load_torque_tester created new torque_tester with id = " << meas.tt.id << endl;
         }

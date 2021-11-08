@@ -464,6 +464,11 @@ public:
     return meas.tt.resolution;
   }
 
+  double get_torque_tester_digits ()
+  {
+    return meas.tt.digits;
+  }
+
   double get_torque_tester_uncertainty_of_measurement ()
   {
     return meas.tt.uncertainty_of_measurement;
