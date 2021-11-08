@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0304
+version 1.0305
 i18n_type 1
 i18n_include <libintl.h>
 i18n_function gettext
@@ -50,7 +50,7 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Parameter-Check V1.02.004 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT_Parameter-Check V1.03.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
     xywh {2667 345 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible
   } {
     Fl_Box cplot {
@@ -93,7 +93,7 @@ textdomain ("ttt");} {}
         xywh {785 224 85 35} box GLEAM_UP_BOX deactivate
       }
       Fl_Value_Output vo_value {
-        label {Messwert [Nm]} selected
+        label {Messwert [Nm]}
         xywh {880 193 150 65} align 133 maximum 0 step 0.1 textsize 49
       }
       Fl_Value_Slider vi_peak1_thres {
