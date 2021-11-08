@@ -15,6 +15,8 @@ private:
   vector <Fl_Color> colors;
   bool next_measurement_replaces_last;
 
+  int digits;
+
   void DrawHeader(const char *s, int X, int Y, int W, int H);
   void DrawData(const char *s, int X, int Y, int W, int H, Fl_Color bgcolor);
   void draw_cell(TableContext context, int ROW=0, int COL=0, int X=0, int Y=0, int W=0, int H=0);
@@ -23,6 +25,11 @@ public:
 
   measurement_table(int X, int Y, int W, int H, const char *L=0);
   ~measurement_table();
+
+  void set_digits (int d)
+  {
+    digits = d;
+  }
 
   void clear ()
   {
@@ -50,8 +57,6 @@ public:
     next_measurement_replaces_last = overwrite;
     redraw ();
   }
-
-
 
 };
 

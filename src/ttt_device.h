@@ -48,6 +48,7 @@ private:
 
   // settings
   double scale;
+  int digits;
   double resolution;
   double max_M;
   string serial;
@@ -120,6 +121,11 @@ public:
   double get_resolution ()
   {
     return resolution;
+  }
+
+  int get_digits ()
+  {
+    return digits;
   }
 
   void start ();

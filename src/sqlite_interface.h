@@ -278,6 +278,11 @@ public:
   measurement ();
   ~measurement ();
 
+  void set_digits (int d)
+  {
+    digits = d;
+  }
+
   void add_measurement_item (string ts, double nominal_value, double indicated_value, double rise_time);
   void add_measurement_item (measurement_item *p);
   void clear_measurement_items ();
@@ -302,6 +307,7 @@ public:
   friend ostream& operator<<(ostream& os, const measurement&);
 
   bool quick_check_okay ();
+
 };
 
 enum test_object_search_field

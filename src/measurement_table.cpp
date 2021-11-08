@@ -46,14 +46,14 @@ void measurement_table::draw_cell(TableContext context, int ROW, int COL, int X,
       //sprintf(s,"%03d:", vto[ROW].id);
       if (ROW < int(nominal_values.size ()))
         {
-          sprintf(s,"%.3f Nm", nominal_values[ROW]);
+          sprintf(s,"%.*f Nm", digits, nominal_values[ROW]);
           DrawHeader(s,X,Y,W,H);
         }
       return;
     case CONTEXT_CELL:                        // Draw data in cells
       j = ROW * cols () + COL;
       if (j < peak_values.size ())
-        snprintf (s, 40, "%.3f", peak_values[j]);
+        snprintf (s, 40, "%.*f", digits, peak_values[j]);
       else
         snprintf (s, 40, "---");
 
@@ -67,7 +67,9 @@ void measurement_table::draw_cell(TableContext context, int ROW, int COL, int X,
 }
 
 measurement_table::measurement_table(int X, int Y, int W, int H, const char *L)
-  : Fl_Table(X,Y,W,H,L), next_measurement_replaces_last (false)
+  : Fl_Table(X,Y,W,H,L),
+    next_measurement_replaces_last (false),
+    digits (2)
 {
   // Rows
   rows(1);             // how many rows

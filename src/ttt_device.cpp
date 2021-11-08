@@ -25,7 +25,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include "ttt_device.h"
 
 ttt_device::ttt_device ()
-  : scale(-1), uncertainty(-1), peak_level(-1), measuring(false), streaming(false),
+  : scale(-1), digits (-1), uncertainty(-1), peak_level(-1), measuring(false), streaming(false),
     old_autostop(-1)
 {
   cout << "ttt_device c'tor" << endl;
@@ -67,7 +67,8 @@ void ttt_device::init ()
   al.set_lower_limit (0);
 
   serial = al.get_serial_number ();
-  scale = 1.0 / pow(10, al.get_digits ());
+  digits = al.get_digits ();
+  scale = 1.0 / pow(10, digits);
 
   next_cal_date = al.get_next_calibration_date ();
   cal_date = al.get_calibration_date ();
@@ -76,7 +77,7 @@ void ttt_device::init ()
   max_M = al.get_F_max ();
   uncertainty = al.get_uncertainty ();
   peak_level = al.get_peak_level ();
-  resolution = pow(10, -al.get_digits ()) * al.get_resolution ();
+  resolution = pow(10, -digits) * al.get_resolution ();
 
   cout << "ttt_device::init" << endl;
   cout << "  serial            = " << serial << endl;
