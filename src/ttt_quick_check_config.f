@@ -41,7 +41,7 @@ setlocale (LC_ALL, "");
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Quick-Check V1.03.002} open
+    label {TTT_Quick-Check V1.03.003} open
     xywh {1998 94 375 630} type Double color 40 visible
   } {
     Fl_Group {} {

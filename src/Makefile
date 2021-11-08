@@ -1,6 +1,6 @@
 .PHONY:clean screenshots
 
-TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cpp ttt_quick_check_config.h ttt_quick_check_config ttt_param_check
+TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cpp ttt_quick_check_config.h ttt_quick_check_config ttt_param_check.cpp ttt_param_check.h ttt_param_check
 
 ## for GNU/Linux
 CXXFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -D USE_X11 -D FLTK_HAVE_CAIRO
@@ -46,9 +46,9 @@ ttt_param_check.cpp ttt_param_check.h: ttt_param_check.f
 ttt_param_check: ttt_param_check.o cairo_plot.o cairo_box.o ttt_peak_detector.o ttt_device.o liballuris++.o liballuris.o
 	g++ $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
-ttt_quick_check_title = 'TTT_Quick-Check V1.03.002'
-ttt_param_check_title = 'TTT_Parameter-Check V1.03.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
-ttt_gui_title = 'TTT_Certify V1.03.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
+ttt_quick_check_title = 'TTT_Quick-Check V1.03.003'
+ttt_param_check_title = 'TTT_Parameter-Check V1.03.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
+ttt_gui_title = 'TTT_Certify V1.03.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'
 
 screenshots: $(TARGETS)
 	mkdir -p screenshots
