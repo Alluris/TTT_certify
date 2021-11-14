@@ -466,7 +466,7 @@ public:
 
   double get_torque_tester_digits ()
   {
-    return meas.tt.digits;
+    return meas.tt.digits ();
   }
 
   double get_torque_tester_uncertainty_of_measurement ()
