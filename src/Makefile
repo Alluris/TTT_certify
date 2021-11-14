@@ -11,7 +11,7 @@ LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lconfuse
 #LDFLAGS = -L /usr/local/opt/gettext/lib `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lconfuse -lintl
 
 ARCH = $(shell uname -m)
-# auf ARM kein sanitize
+# sanitize explizit nur auf x86 und damit NICHT auf ARM (z.B. RPi)
 ifeq ($(ARCH),x86_64)
   CXXFLAGS += -fsanitize=address
 endif
@@ -22,13 +22,13 @@ ttt_gui.cpp ttt_gui.h: ttt_gui.f
 	fluid -o .cpp -c $<
 
 %.o:%.cpp %.h
-	g++ $(CXXFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $<
 
 %.o:%.c %.h
-	g++ $(CXXFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $<
 
 ttt_gui: ttt_gui.o ttt_gui_main.o measurement_table.o ttt.o ttt_device.o step.o sqlite_interface.o cairo_box.o cairo_device_box.o cairo_drawing_functions.o cairo_print_devices.o liballuris++.o liballuris.o
-	g++ $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_certify.db: create_database.sql fill_database_debug.sql
 	sqlite3 ttt_certify.db < $(word 1,$^)
@@ -38,13 +38,13 @@ ttt_quick_check_config.cpp ttt_quick_check_config.h: ttt_quick_check_config.f
 	fluid -o .cpp -c $<
 
 ttt_quick_check_config: ttt_quick_check_config.o quick_check_table.o liballuris++.o liballuris.o
-	g++ $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_param_check.cpp ttt_param_check.h: ttt_param_check.f
 	fluid -o .cpp -c $<
 
 ttt_param_check: ttt_param_check.o cairo_plot.o cairo_box.o ttt_peak_detector.o ttt_device.o liballuris++.o liballuris.o
-	g++ $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_quick_check_title = 'TTT_Quick-Check V1.03.003'
 ttt_param_check_title = 'TTT_Parameter-Check V1.03.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de'

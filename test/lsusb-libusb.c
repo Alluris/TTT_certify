@@ -14,8 +14,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-// gcc -g -o lsusb-libusb lsusb-libusb.c -lm -lusb-1.0
-
 #include <stdio.h>
 #include <libusb-1.0/libusb.h>
 #include <stdlib.h>
