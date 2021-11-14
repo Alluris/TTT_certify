@@ -27,6 +27,9 @@ using namespace std;
 
 int main()
 {
+  setlocale (LC_ALL, "");
+  std::locale::global(std::locale(""));
+
   sqlite3 *db;
   int rc;
 

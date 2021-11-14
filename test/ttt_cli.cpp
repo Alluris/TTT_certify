@@ -64,13 +64,8 @@ void print_result (string s)
 
 int main ()
 {
-  /*
   setlocale (LC_ALL, "");
-  bindtextdomain (PACKAGE, LOCALEDIR);
-  textdomain (PACKAGE);
-  */
-
-  setlocale (LC_ALL, "");
+  std::locale::global(std::locale(""));
   //bindtextdomain("ttt","/usr/share/locale");
   bindtextdomain("ttt","./po");
   textdomain ("ttt");

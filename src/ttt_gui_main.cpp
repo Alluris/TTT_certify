@@ -252,6 +252,7 @@ int main(int argc, char **argv)
 
   int ret;
   setlocale (LC_ALL, "");
+  std::locale::global(std::locale(""));
   //bindtextdomain("ttt","/usr/share/locale");
   bindtextdomain("ttt","./po");
   textdomain ("ttt");
@@ -354,6 +355,7 @@ int main(int argc, char **argv)
 
   // save settings
   setlocale (LC_ALL, "C");
+  std::locale::global(std::locale("C"));
   if (! ret)
     {
       initial_test_person_id = vi_test_person_id->value ();

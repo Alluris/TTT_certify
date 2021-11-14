@@ -111,6 +111,7 @@ int main (int argc, char **argv)
   printf("stop_peak_torque_factor: %f\n", stop_peak_torque_factor);
 
   setlocale (LC_ALL, "");
+  std::locale::global(std::locale(""));
   //bindtextdomain("ttt","/usr/share/locale");
   bindtextdomain("ttt","./po");
   textdomain ("ttt");

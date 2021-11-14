@@ -38,10 +38,11 @@ Function {} {open
 \#endif
 
 setlocale (LC_ALL, "");
+std::locale::global(std::locale(""));
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Quick-Check V1.03.003} open
+    label {TTT_Quick-Check V1.04.001} open
     xywh {1998 94 375 630} type Double color 40 visible
   } {
     Fl_Group {} {
@@ -175,6 +176,8 @@ vi_test_object_accuracy->do_callback ();}
         callback {try
   {
     // nur debugging Dateierzeugung
+    //for (int k = 0; k < 4; k++)
+    //  quick_tbl->add_measurement (0.5 + k * 1.23);
     //export_csv (csv_export_dir, NULL);
     liballuris al;
     mainwin->cursor (FL_CURSOR_WAIT);

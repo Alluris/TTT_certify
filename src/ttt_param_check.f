@@ -47,10 +47,11 @@ Function {} {open
 \#endif
 
 setlocale (LC_ALL, "");
+std::locale::global(std::locale(""));
 bindtextdomain("ttt","./po");
 textdomain ("ttt");} {}
   Fl_Window mainwin {
-    label {TTT_Parameter-Check V1.03.003 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    label {TTT_Parameter-Check V1.04.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
     xywh {2667 345 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible
   } {
     Fl_Box cplot {
