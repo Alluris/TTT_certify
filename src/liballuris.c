@@ -351,7 +351,7 @@ int liballuris_get_device_list (libusb_context* ctx, struct alluris_device_descr
                       libusb_release_interface (h, 0);
                       libusb_close (h);
                     }
-                  else if (LIBUSB_ERROR_BUSY)
+                  else if (r == LIBUSB_ERROR_BUSY)
                     {
                       // On GNU/Linux this is raised if the device is already in use
                       // for example from another application
