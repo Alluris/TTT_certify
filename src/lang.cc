@@ -23,3 +23,34 @@ std::string FloatToStr (double val, const char *unit, int digits)
 
   return buf;
 }
+
+/*
+  Deutsch:     ""
+  Englisch:    "en_US.utf8"
+  Spanisch:    "es_ES.utf8"
+  Französisch: "fr_FT.utf8"
+  Italienisch: "it_IT.utf8"
+
+  gettext uses the environment var "LANG" to select the translation
+
+*/
+void init_lang (const char* l)
+{
+#ifdef _WIN32
+  if (l)
+    {
+      // create string on heap (putenv doesn't copy the string)
+      // never free it! (this sounds like a memory leak, I know)
+      char *lang_buf = (char *) malloc (50);
+      snprintf (lang_buf, 50, "LANG=%s", l);
+      putenv(lang_buf);
+      std::cout << "DEBUG: putenv(" << lang_buf << ")" << std::endl;
+    }
+#endif
+
+  setlocale (LC_ALL, "");
+  bindtextdomain("ttt","./po");
+  textdomain ("ttt");
+
+  printf ("DEBUG: Anbauteile = %s\n", gettext ("Anbauteile"));
+}

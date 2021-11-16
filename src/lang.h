@@ -23,6 +23,7 @@ If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <string>
+#include <libintl.h>
 
 #ifndef LANG_H
 #define LANG_H
@@ -30,5 +31,6 @@ If not, see <http://www.gnu.org/licenses/>.
 
 std::string FloatToStr (double val, const char *unit = NULL, int digits = -1);
 
+void init_lang (const char* l);
 
 #endif

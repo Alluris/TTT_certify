@@ -208,17 +208,10 @@ int main(int argc, char **argv)
       return -1;
     }
 
-#ifdef _WIN32
   if (argc == 2)
-    {
-      // create string on heap (putenv doesn't copy the string)
-      // never free it! (this sound like a memory leak, I know)
-      char *lang_buf = (char *) malloc (50);
-      snprintf (lang_buf, 50, "LANG=%s", argv[1]);
-      putenv(lang_buf);
-      std::cout << "putenv(" << lang_buf << ")" << std::endl;
-    }
-#endif
+    init_lang (argv[1]);
+  else
+    init_lang (NULL);
 
   // read setting with libconfuse
   static char *database = NULL;
@@ -251,12 +244,6 @@ int main(int argc, char **argv)
   printf("initial_test_object_id: %li\n", initial_test_object_id);
 
   int ret;
-  setlocale (LC_ALL, "");
-  std::locale::global(std::locale(""));
-  //bindtextdomain("ttt","/usr/share/locale");
-  bindtextdomain("ttt","./po");
-  textdomain ("ttt");
-
   create_widgets ();
 
 #ifdef _WIN32
@@ -355,7 +342,6 @@ int main(int argc, char **argv)
 
   // save settings
   setlocale (LC_ALL, "C");
-  std::locale::global(std::locale("C"));
   if (! ret)
     {
       initial_test_person_id = vi_test_person_id->value ();

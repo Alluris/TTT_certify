@@ -17,6 +17,9 @@ decl {\#include "ttt_device.h"} {public local
 decl {\#include "ttt_peak_detector.h"} {public local
 }
 
+decl {\#include "lang.h"} {public global
+}
+
 decl {ttt_device *dev = 0;} {private local
 }
 
@@ -34,22 +37,11 @@ decl {\#define FS 900.0} {private local
 
 Function {} {open
 } {
-  code {\#ifdef _WIN32
-  if (argc == 2)
-    {
-      // create string on heap (putenv doesn't copy the string)
-      // never free it! (this sound like a memory leak, I know)
-      char *lang_buf = (char *) malloc (50);
-      snprintf (lang_buf, 50, "LANG=%s", argv[1]);
-      putenv(lang_buf);
-      std::cout << "putenv(" << lang_buf << ")" << std::endl;
-    }
-\#endif
-
-setlocale (LC_ALL, "");
-std::locale::global(std::locale(""));
-bindtextdomain("ttt","./po");
-textdomain ("ttt");} {}
+  code {
+if (argc == 2)
+  init_lang (argv[1]);
+else
+  init_lang (NULL);} {}
   Fl_Window mainwin {
     label {TTT_Parameter-Check V1.04.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
     xywh {2667 345 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible

@@ -17,6 +17,9 @@ decl {\#include <fstream>} {public local
 decl {\#include "liballuris++.h"} {public global
 }
 
+decl {\#include "lang.h"} {public global
+}
+
 decl {\#include "quick_check_table.h"} {public global
 }
 
@@ -25,22 +28,13 @@ decl {char *csv_export_dir = NULL;} {private local
 
 Function {} {open
 } {
-  code {\#ifdef _WIN32
-  if (argc == 2)
-    {
-      // create string on heap (putenv doesn't copy the string)
-      // never free it! (this sound like a memory leak, I know)
-      char *lang_buf = (char *) malloc (50);
-      snprintf (lang_buf, 50, "LANG=%s", argv[1]);
-      putenv(lang_buf);
-      std::cout << "putenv(" << lang_buf << ")" << std::endl;
-    }
-\#endif
+  code {
 
-setlocale (LC_ALL, "");
-std::locale::global(std::locale(""));
-bindtextdomain("ttt","./po");
-textdomain ("ttt");} {}
+if (argc == 2)
+  init_lang (argv[1]);
+else
+  init_lang (NULL);
+} {}
   Fl_Window mainwin {
     label {TTT_Quick-Check V1.04.001} open
     xywh {1998 94 375 630} type Double color 40 visible
