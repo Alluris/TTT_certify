@@ -33,7 +33,7 @@ Function {} {open
 else
   init_lang (NULL);} {}
   Fl_Window mainwin {
-    label {TTT_Quick-Check V1.04.001} open
+    label {TTT_Quick-Check V1.04.002} open
     xywh {1307 60 375 630} type Double color 40 visible
   } {
     Fl_Group {} {

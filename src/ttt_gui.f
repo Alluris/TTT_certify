@@ -53,7 +53,7 @@ decl {bool test_object_edit_flag;} {private local
 Function {create_widgets()} {open return_type void
 } {
   Fl_Window mainwin {
-    label {TTT_Certify V1.04.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
+    label {TTT_Certify V1.04.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open
     xywh {2182 207 1275 765} type Double color 40 labelfont 1 align 20 resizable size_range {800 600 0 0} visible
   } {
     Fl_Group {} {

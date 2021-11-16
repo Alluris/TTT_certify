@@ -43,7 +43,7 @@ if (argc == 2)
 else
   init_lang (NULL);} {}
   Fl_Window mainwin {
-    label {TTT_Parameter-Check V1.04.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
+    label {TTT_Parameter-Check V1.04.002 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 Freiburg, software@alluris.de} open selected
     xywh {2667 345 1045 710} type Double color 40 resizable size_range {894 544 0 0} visible
   } {
     Fl_Box cplot {
