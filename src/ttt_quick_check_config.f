@@ -28,16 +28,13 @@ decl {char *csv_export_dir = NULL;} {private local
 
 Function {} {open
 } {
-  code {
-
-if (argc == 2)
+  code {if (argc == 2)
   init_lang (argv[1]);
 else
-  init_lang (NULL);
-} {}
+  init_lang (NULL);} {}
   Fl_Window mainwin {
     label {TTT_Quick-Check V1.04.001} open
-    xywh {1998 94 375 630} type Double color 40 visible
+    xywh {1307 60 375 630} type Double color 40 visible
   } {
     Fl_Group {} {
       label {Prüfung} open
@@ -212,18 +209,18 @@ vi_test_object_accuracy->do_callback ();}
         vo_std->value (sqrt (var));
         quick_tbl->show ();
 
-	// ggf. CSV exportieren
-	if (csv_export_dir)
-	{
-	  export_csv (csv_export_dir, &al);
-	}
+  // ggf. CSV exportieren
+  if (csv_export_dir)
+  {
+    export_csv (csv_export_dir, &al);
+  }
       }
   }
 catch (std::runtime_error &e)
   {
     fl_alert (e.what ());
   }
-mainwin->cursor (FL_CURSOR_DEFAULT);}
+mainwin->cursor (FL_CURSOR_DEFAULT);} selected
         xywh {186 336 172 44} box GLEAM_THIN_UP_BOX align 128
       }
       Fl_Button {} {
@@ -273,30 +270,29 @@ if (o->value())
   native.type(Fl_Native_File_Chooser::BROWSE_DIRECTORY);
   // Show native chooser
   switch ( native.show() ) {
-    case -1: fprintf(stderr, "ERROR: %s\\n", native.errmsg()); break;	// ERROR
-    case  1: fprintf(stderr, "*** CANCEL\\n"); fl_beep(); break;		// CANCEL
-    default: 								// PICKED DIR
+    case -1: fprintf(stderr, "ERROR: %s\\n", native.errmsg()); break; // ERROR
+    case  1: fprintf(stderr, "*** CANCEL\\n"); fl_beep(); break;    // CANCEL
+    default:                // PICKED DIR
       if ( native.filename() )
       {
         //G_filename->value(native.filename());
-	printf ("got %s\\n", native.filename());
+  printf ("got %s\\n", native.filename());
         csv_export_dir = strdup (native.filename());
       }
       else
       {
-      	printf ("NULL returned\\n");
-	//G_filename->value("NULL");
+        printf ("NULL returned\\n");
+  //G_filename->value("NULL");
       }
       break;
   }
   o->value(csv_export_dir && fl_filename_isdir (csv_export_dir));
-}} selected
+}}
         xywh {185 445 170 45} down_box DOWN_BOX align 148
       }
     }
   }
-  code {//quick_tbl->hide ();
-mainwin->show();
+  code {mainwin->show();
 return Fl::run();} {}
 }
 
@@ -322,44 +318,55 @@ Function {export_csv(const char *fn, liballuris *pal)} {open return_type int
 } {
   code {if (!fn)
   return -1;
-ostringstream os;
-os << fn;
+//ostringstream os;
+//os << fn;
+
+\#define FN_BUFLEN 256
+char out_fn[FN_BUFLEN];
+
 if (fl_filename_isdir (fn))
 {
-  char buf[80];
-  generate_ts_csv_fn (buf, 80);
-  os << "/" << buf;
+  char buf[FN_BUFLEN];
+  generate_ts_csv_fn (buf, FN_BUFLEN);
+  snprintf (out_fn, FN_BUFLEN, "%s/%s", fn, buf);
+}
+else
+{
+  strncpy (out_fn, fn, FN_BUFLEN);
 }
 
-std::cout << "os = " << os.str() << std::endl;
+out_fn[FN_BUFLEN - 1] = 0;
 
-std::ofstream out (os.str());
-if (out)
+printf ("DEBUG: out_fn = '%s'\\n", out_fn);
+
+FILE *fid = fopen (out_fn, "w");
+
+if (fid)
   {
     if (pal)
       {
-        out << "\# TTT serial number: "                << pal->get_serial_number() << std::endl;
-        out << "\# TTT next calibration date: "        << pal->get_next_calibration_date() << std::endl;
-        out << "\# TTT calibration date: "             << pal->get_calibration_date() << std::endl;
-        out << "\# TTT calibration number: "           << pal->get_calibration_number() << std::endl;
+        fprintf (fid, "\# TTT serial number: %s\\n", pal->get_serial_number().c_str ());
+        fprintf (fid, "\# TTT next calibration date: %s\\n", pal->get_next_calibration_date().c_str ());
+        fprintf (fid, "\# TTT calibration date: %s\\n", pal->get_calibration_date().c_str ());
+        fprintf (fid, "\# TTT calibration number: %s\\n", pal->get_calibration_number().c_str ());;
       }
-    out << "\# Nominal value [Nm]: "               << vi_nominal->value() << std::endl;
-    out << "\# Maximum admissible deviation [%]: " << vi_test_object_accuracy->value() << std::endl;
-    out << "\# Lower value [Nm]: "                 << vi_lower_limit->value() << std::endl;
-    out << "\# Upper value [Nm]: "                 << vi_upper_limit->value() << std::endl;
-    out << "\# Peak detection [%]: "               << vi_peak_level->value() << std::endl;
-    out << "\# Mean over peaks [Nm]: "             << vo_mean->value() << std::endl;
-    out << "\# Standard deviation of peaks [Nm]: " << vo_std->value() << std::endl;
+    fprintf (fid, "\# Nominal value [Nm]: %g\\n", vi_nominal->value());
+    fprintf (fid, "\# Maximum admissible deviation [%%]: %g\\n", vi_test_object_accuracy->value());
+    fprintf (fid, "\# Lower value [Nm]: %g\\n", vi_lower_limit->value());
+    fprintf (fid, "\# Upper value [Nm]: %g\\n", vi_upper_limit->value());
+    fprintf (fid, "\# Peak detection [%%]: %g\\n", vi_peak_level->value());
+    fprintf (fid, "\# Mean over peaks [Nm]: %g\\n", vo_mean->value());
+    fprintf (fid, "\# Standard deviation of peaks [Nm]: %g\\n", vo_std->value());;
     
     const vector<double> &peaks = quick_tbl->get_peaks ();
     for (size_t k = 0; k < peaks.size (); ++k)
-	out << peaks[k] << std::endl;
+  fprintf (fid, "%g\\n", peaks[k]);
 
-    out.close();
+    fclose (fid);
   }
 else
   {
-    fl_alert (gettext ("CSV Export nach '%s' fehlgeschlagen.\\n%s"), os.str().c_str(), strerror (errno));
+    fl_alert (gettext ("CSV Export nach '%s' fehlgeschlagen.\\n%s"), out_fn, strerror (errno));
     return -1;
   }
 
