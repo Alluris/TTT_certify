@@ -27,7 +27,7 @@ ttt_gui.cpp ttt_gui.h: ttt_gui.f
 %.o:%.c %.h
 	$(CXX) $(CXXFLAGS) -c $<
 
-ttt_gui: ttt_gui.o ttt_gui_main.o measurement_table.o ttt.o ttt_device.o step.o sqlite_interface.o cairo_box.o cairo_device_box.o cairo_drawing_functions.o cairo_print_devices.o liballuris++.o liballuris.o
+ttt_gui: ttt_gui.o ttt_gui_main.o measurement_table.o ttt.o ttt_device.o step.o lang.o sqlite_interface.o cairo_box.o cairo_device_box.o cairo_drawing_functions.o cairo_print_devices.o liballuris++.o liballuris.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_certify.db: create_database.sql fill_database_debug.sql
@@ -37,13 +37,13 @@ ttt_certify.db: create_database.sql fill_database_debug.sql
 ttt_quick_check_config.cpp ttt_quick_check_config.h: ttt_quick_check_config.f
 	fluid -o .cpp -c $<
 
-ttt_quick_check_config: ttt_quick_check_config.o quick_check_table.o liballuris++.o liballuris.o
+ttt_quick_check_config: ttt_quick_check_config.o quick_check_table.o lang.o liballuris++.o liballuris.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_param_check.cpp ttt_param_check.h: ttt_param_check.f
 	fluid -o .cpp -c $<
 
-ttt_param_check: ttt_param_check.o cairo_plot.o cairo_box.o ttt_peak_detector.o ttt_device.o liballuris++.o liballuris.o
+ttt_param_check: ttt_param_check.o cairo_plot.o cairo_box.o ttt_peak_detector.o ttt_device.o lang.o liballuris++.o liballuris.o
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 ttt_quick_check_title = 'TTT_Quick-Check V1.04.001'

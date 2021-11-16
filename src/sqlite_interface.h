@@ -38,6 +38,7 @@ If not, see <http://www.gnu.org/licenses/>.
 #include <stdexcept>
 #include <cairo/cairo.h>
 #include <cairo/cairo-pdf.h>
+#include "lang.h"
 
 #ifndef SQLITE_INTERFACE_H
 #define SQLITE_INTERFACE_H

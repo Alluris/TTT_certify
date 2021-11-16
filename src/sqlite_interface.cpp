@@ -287,10 +287,8 @@ double test_person::cairo_print (cairo_t *cr, double c1, double c2, double top)
   top = cairo_print_two_columns (cr, c1, c2, top, "Prüfer", "Name", name);
   top = cairo_print_two_columns (cr, c1, c2, top, "Verantwortlicher", "Supervisor", supervisor);
 
-  ostringstream os_uncertainty;
-  os_uncertainty << uncertainty * 100 << " % (k=2)";
-
-  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheit Bediener", "Uncertainty by operator", os_uncertainty.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheit Bediener", "Uncertainty by operator",
+                                 FloatToStr (uncertainty * 100, "% (k=2)"));
   return top;
 }
 
@@ -421,29 +419,25 @@ double test_object::cairo_print (cairo_t *cr, double c1, double c2, double top)
   // Don't print lever length for screwdrivers
   if (! is_screwdriver ())
     {
-      ostringstream os_lever_length;
-      os_lever_length << lever_length << " m";
-      top = cairo_print_two_columns (cr, c1, c2, top, "Abstand Kraftangriffspunkt", "Lever length", os_lever_length.str ());
+      top = cairo_print_two_columns (cr, c1, c2, top, "Abstand Kraftangriffspunkt", "Lever length",
+                                     FloatToStr (lever_length, "m"));
     }
 
   // Don't print min torque if it has a fixed trigger
   if (! has_fixed_trigger ())
     {
-      ostringstream os_min;
-      os_min << min_torque << " Nm";
-      top = cairo_print_two_columns (cr, c1, c2, top, "Unterer Grenzwert", "Min. torque", os_min.str ());
+      top = cairo_print_two_columns (cr, c1, c2, top, "Unterer Grenzwert", "Min. torque",
+                                     FloatToStr (min_torque, "Nm"));
     }
 
-  ostringstream os_max;
-  os_max << max_torque << " Nm";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Oberer Grenzwert", "Max. torque", os_max.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Oberer Grenzwert", "Max. torque",
+                                 FloatToStr (max_torque, "Nm"));
 
   // Print resolution if device has a scale
   if (! has_no_scale ())
     {
-      ostringstream os_resolution;
-      os_resolution << resolution << " Nm";
-      top = cairo_print_two_columns (cr, c1, c2, top, "Auflösung", "Resolution", os_resolution.str ());
+      top = cairo_print_two_columns (cr, c1, c2, top, "Auflösung", "Resolution",
+                                     FloatToStr (resolution, "Nm"));
     }
 
   ostringstream os_accuracy;
@@ -657,17 +651,9 @@ double torque_tester::cairo_print (cairo_t *cr, double c1, double c2, double top
   top = cairo_print_two_columns (cr, c1, c2, top, "Kalibrierdatum", "Calibration date", calibration_date);
   top = cairo_print_two_columns (cr, c1, c2, top, "Kalibriernummer", "Calibration number", calibration_number);
 
-  ostringstream os_max;
-  os_max << max_torque << " Nm";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Oberer Grenzwert", "Max. torque", os_max.str ());
-
-  ostringstream os_resolution;
-  os_resolution << resolution << " Nm";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Skalenteilung", "Resolution", os_resolution.str ());
-
-  ostringstream os_uncertainty_of_measurement;
-  os_uncertainty_of_measurement << uncertainty_of_measurement * 100 << " % (k=2)";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheitsintervall", "Uncertainty of measurement", os_uncertainty_of_measurement.str ());
+  top = cairo_print_two_columns (cr, c1, c2, top, "Oberer Grenzwert", "Max. torque", FloatToStr (max_torque, "Nm"));
+  top = cairo_print_two_columns (cr, c1, c2, top, "Skalenteilung", "Resolution", FloatToStr (resolution, "Nm"));
+  top = cairo_print_two_columns (cr, c1, c2, top, "Messunsicherheitsintervall", "Uncertainty of measurement", FloatToStr (uncertainty_of_measurement * 100, "% (k=2)"));
 
   return top;
 }
@@ -964,20 +950,17 @@ double measurement::cairo_print_5_meas_table (cairo_t *cr, double c1, double top
           cairo_line_to (cr, c1 + width, y);
           cairo_stroke (cr);
 
-          char str[40];
           if (nominal_value != old_nominal_value)
             {
               // erste Spalte mit nominal_value
-              snprintf (str, 40, "%.*f Nm", tt.digits (), nominal_value);
-              cairo_centered_text (cr, c1 + col_width/2, y - col_height / 2, str);
+              cairo_centered_text (cr, c1 + col_width/2, y - col_height / 2,
+                                   FloatToStr (nominal_value, "Nm", tt.digits ()).c_str ());
             }
 
           // Gesamte Standardmessunsicherheit u
-          snprintf (str, 40, "%.*f Nm", tt.digits (), abs (total_uncertainty () * nominal_value));
-          cairo_centered_text (cr, c1 + width - 1.5 * col_width, y - col_height / 2, str);
-          //snprintf (str, 40, "%.2f %%", total_uncertainty () * 100);
-          //cairo_centered_text (cr, c1 + width - 1.5 * col_width, y - 1 * col_height / 3, str);
-
+          double u = abs (total_uncertainty () * nominal_value);
+          cairo_centered_text (cr, c1 + width - 1.5 * col_width, y - col_height / 2,
+                               FloatToStr (u, "Nm", tt.digits ()).c_str ());
           new_row = 0;
         }
 
@@ -1011,11 +994,12 @@ double measurement::cairo_print_5_meas_table (cairo_t *cr, double c1, double top
         }
 
       // eigentliche Messwerte einfüllen
-      char str[40];
-      snprintf (str, 40, "%.*f Nm%s", tt.digits (), measurement_items[k]->indicated_value, (rise_time_okay) ? "": "*");
-      cairo_centered_text (cr, c1 + col_width * (col + 1.5), y - 2 * col_height / 3, str);
+      double val = measurement_items[k]->indicated_value;
+      cairo_centered_text (cr, c1 + col_width * (col + 1.5), y - 2 * col_height / 3,
+                           FloatToStr (val, (rise_time_okay) ? "Nm": "Nm*", tt.digits ()).c_str ());
 
       //  Abweichung
+      char str[40];
       snprintf (str, 40, "(%.2f %%)", measurement_items[k]->rel_deviation (nominal_value) * 100);
       cairo_centered_text (cr, c1 + col_width * (col + 1.5), y - col_height / 3, str);
 
@@ -1163,14 +1147,13 @@ double measurement::cairo_print_1_meas_table (cairo_t *cr, double c1, double top
       cairo_stroke (cr);
 
       // erste Spalte mit nominal_value
-      char str[40];
-      snprintf (str, 40, "%.*f Nm", tt.digits (), nominal_value);
-      cairo_centered_text (cr, c1 + col_width/2, y - col_height / 2, str);
+      cairo_centered_text (cr, c1 + col_width/2, y - col_height / 2,
+                           FloatToStr (nominal_value, "Nm", tt.digits ()).c_str ());
 
       // Gesamte Standardmessunsicherheit
-      snprintf (str, 40, "%.*f Nm", tt.digits (), abs (total_uncertainty () * nominal_value));
-      // snprintf (str, 40, "%.2f %%", total_uncertainty () * 100);
-      cairo_centered_text (cr, c1 + 3.5 * col_width, y - col_height / 2, str);
+      double u = abs (total_uncertainty () * nominal_value);
+      cairo_centered_text (cr, c1 + 3.5 * col_width, y - col_height / 2,
+                           FloatToStr (u, "Nm", tt.digits ()).c_str ());
 
       // Bewertung generieren
       double accuracy = to.get_accuracy ();
@@ -1195,16 +1178,17 @@ double measurement::cairo_print_1_meas_table (cairo_t *cr, double c1, double top
       //cout << "min_rise_time=" << min_rise_time << " max_rise_time=" << max_rise_time << " rise_time=" << rise_time << endl;
 
       // eigentliche Messwerte einfüllen
-      snprintf (str, 40, "%.*f Nm%s", tt.digits (), measurement_items[k]->indicated_value, (rise_time_okay) ? "": "*");
-      cairo_centered_text (cr, c1 + col_width * 1.5, y - col_height / 2, str);
+      double val = measurement_items[k]->indicated_value;
+      cairo_centered_text (cr, c1 + col_width * 1.5, y - col_height / 2,
+                           FloatToStr (val, (rise_time_okay) ? "Nm": "Nm*", tt.digits ()).c_str ());
 
       //  Abweichung
-      snprintf (str, 40, "%.2f %%", measurement_items[k]->rel_deviation (nominal_value) * 100);
-      cairo_centered_text (cr, c1 + col_width * 2.5, y - col_height / 2, str);
+      double d = measurement_items[k]->rel_deviation (nominal_value) * 100;
+      cairo_centered_text (cr, c1 + col_width * 2.5, y - col_height / 2,
+                           FloatToStr (d, "%", 2).c_str ());
 
       // Bewertung
-      strncpy (str, (okay)? "pass" : "fail", 40);
-      cairo_centered_text (cr, c1 + col_width * 4.5, y - col_height / 2, str);
+      cairo_centered_text (cr, c1 + col_width * 4.5, y - col_height / 2, (okay)? "pass" : "fail");
       cairo_set_source_rgb (cr, 0, 0, 0);
     }
 
@@ -1237,13 +1221,9 @@ double measurement::cairo_print_header (cairo_t *cr, double c1, double c2, doubl
   top = cairo_print_two_columns (cr, c1, c2, top, "Start der Kalibrierung", "Start of calibration", start_time);
   top = cairo_print_two_columns (cr, c1, c2, top, "Ende der Kalibrierung", "End of calibration", end_time);
 
-  ostringstream os_temp;
-  os_temp << temperature << " °C";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Temperatur", "Temperature", os_temp.str ());
-
-  ostringstream os_humidity;
-  os_humidity << humidity << " %rH";
-  top = cairo_print_two_columns (cr, c1, c2, top, "Feuchtigkeit", "Humidity", os_humidity.str ());
+  // only 1 digit for temperature and humidity
+  top = cairo_print_two_columns (cr, c1, c2, top, "Temperatur", "Temperature", FloatToStr (temperature, "°C", 1));
+  top = cairo_print_two_columns (cr, c1, c2, top, "Feuchtigkeit", "Humidity", FloatToStr (humidity, "%rH", 1));
 
   // Legende
   top = cairo_print_two_columns (cr, c1, c2, top + 0.2, "Verwendete Formelzeichen", "Used formular symbols", "");
@@ -1299,12 +1279,13 @@ double measurement::cairo_print (cairo_t *cr, double c1, double c2, double top, 
                               "(see DIN EN ISO 6789 chapter 6.3.2).");
     }
 
+  string tmp_uncert = FloatToStr (100 * 2 * total_uncertainty (), "%", 2);
   {
     cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
     ostringstream uncertainty_str;
-    uncertainty_str.precision (3);
+    
     uncertainty_str << "Das Intervall der maximalen relativen erweiterten Messunsicherheit aus Messgerät\n"
-                    "und Anwender von " << 100 * 2 * total_uncertainty () << "% ist kleiner als ein Viertel der höchstzulässigen Abweichung des\n"
+                    "und Anwender von " << tmp_uncert << " ist kleiner als ein Viertel der höchstzulässigen Abweichung des\n"
                     "Drehmoment-Schraubwerkzeugs.";
     top = cairo_print_text (cr, c1, top + 0.5, uncertainty_str.str ());
   }
@@ -1312,8 +1293,7 @@ double measurement::cairo_print (cairo_t *cr, double c1, double c2, double top, 
   {
     cairo_select_font_face (cr, "Georgia", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
     ostringstream uncertainty_str;
-    uncertainty_str.precision (3);
-    uncertainty_str << "The interval " << 100 * 2 * total_uncertainty () << "% of maximum relative expanded uncertainty of measurement\n"
+    uncertainty_str << "The interval " << tmp_uncert << " of maximum relative expanded uncertainty of measurement\n"
                     "of device and operator is lower than 25% of maximum error of calibration object.";
     top = cairo_print_text (cr, c1, top + 0.2, uncertainty_str.str ());
   }
