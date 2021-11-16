@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TTT\n"
 "Report-Msgid-Bugs-To: software@alluris.de\n"
-"POT-Creation-Date: 2016-10-20 15:57+0200\n"
-"PO-Revision-Date: 2016-10-07 11:32+0200\n"
+"POT-Creation-Date: 2021-11-16 12:27+0100\n"
+"PO-Revision-Date: 2021-11-16 12:31+0100\n"
 "Last-Translator: Sabine Lübke <luebke@alluris.de>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: ../step.cpp:136
 msgid "+Messgerät mit Nominalwert vorbelasten"
@@ -116,25 +116,25 @@ msgstr ""
 msgid "Peakmessung Typ II"
 msgstr "Misurazione Peak Tipo II"
 
-#: ../ttt.cpp:205
+#: ../ttt.cpp:203
 msgid "Kalibrierung innerhalb Toleranz"
 msgstr "Calibratura entro la tolleranza"
 
-#: ../ttt.cpp:207
+#: ../ttt.cpp:205
 msgid "#Kalibrierung innerhalb Toleranz jedoch Mindestzeit nicht eingehalten"
 msgstr ""
 "#Calibratura entro la tolleranza, tuttavia non è stato rispettato il tempo "
 "minimo"
 
-#: ../ttt.cpp:209
+#: ../ttt.cpp:207
 msgid "*Kalibrierung außerhalb Toleranz"
 msgstr "*Calibratura oltre la tolleranza"
 
-#: ../ttt.cpp:235
+#: ../ttt.cpp:233
 msgid "Schnellkalibrierung innerhalb Toleranz"
 msgstr "*Calibratura rapida entro la tolleranza"
 
-#: ../ttt.cpp:237
+#: ../ttt.cpp:235
 msgid "*Schnellkalibrierung außerhalb Toleranz"
 msgstr "*Calibratura rapida oltre la tolleranza"
 
@@ -249,7 +249,7 @@ msgstr "Calibratura interrotta dall'utente"
 
 #: ../ttt_gui.cpp:585
 msgid ""
-"TTT_Certify V1.02.007 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"TTT_Certify V1.04.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
 
@@ -356,7 +356,7 @@ msgstr "DIN EN ISO 6789 Tipo"
 
 #. Fl_Choice* choice_test_object_type
 #. Fl_Value_Slider* vi_peak1_thres
-#: ../ttt_gui.cpp:677 ../ttt_param_check.cpp:1736
+#: ../ttt_gui.cpp:677 ../ttt_param_check.cpp:1734
 msgid "Funktionsrichtung"
 msgstr "Direzione di funzionamento"
 
@@ -377,7 +377,7 @@ msgstr ""
 
 #. Fl_Value_Input* vi_test_object_lever_length
 #. Fl_Value_Input* vi_test_object_accuracy
-#: ../ttt_gui.cpp:699 ../ttt_quick_check_config.cpp:239
+#: ../ttt_gui.cpp:699 ../ttt_quick_check_config.cpp:272
 msgid "Unterer Grenzwert [Nm]"
 msgstr "Valore limite inferiore [Nm]"
 
@@ -387,7 +387,7 @@ msgstr "Valore limite inferiore del campo di misura TA indicato dal produttore"
 
 #. Fl_Value_Input* vi_test_object_min_torque
 #. Fl_Value_Input* vi_lower_limit
-#: ../ttt_gui.cpp:706 ../ttt_quick_check_config.cpp:246
+#: ../ttt_gui.cpp:706 ../ttt_quick_check_config.cpp:279
 msgid "Oberer Grenzwert [Nm]"
 msgstr "Valore limite superiore [Nm]"
 
@@ -466,8 +466,8 @@ msgstr "Edita"
 #. Fl_Value_Input* vo_torque_tester_uncertainty
 #. Fl_Value_Input* vi_upper_limit
 #. Fl_Value_Output* vo_value
-#: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:253
-#: ../ttt_param_check.cpp:1725
+#: ../ttt_gui.cpp:790 ../ttt_gui.cpp:867 ../ttt_quick_check_config.cpp:286
+#: ../ttt_param_check.cpp:1723
 msgid "Peakdetektion [%]"
 msgstr "Rilevamento Peak  [%]"
 
@@ -503,7 +503,7 @@ msgid "Erlaubter Bereich laut DIN EN ISO 6789:2003-10 6.2 max. 90%"
 msgstr "Campo consentito in base alla DIN EN ISO 6789:2003-10 6.2 max. 90%"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:820 ../ttt_param_check.cpp:1771
+#: ../ttt_gui.cpp:820 ../ttt_param_check.cpp:1772
 msgid "Messgerät"
 msgstr "Apparecchio di misura"
 
@@ -531,16 +531,16 @@ msgstr "Certificato di calibratura N."
 #. Fl_Button* btn_confirm
 #. Fl_Round_Button* rb_din_6789
 #: ../ttt_gui.cpp:852 ../ttt_gui.cpp:903 ../ttt_gui.cpp:955
-#: ../ttt_quick_check_config.cpp:223 ../ttt_param_check.cpp:1776
+#: ../ttt_quick_check_config.cpp:256 ../ttt_param_check.cpp:1777
 msgid "Nominalwert [Nm]"
 msgstr "Valore nominale [Nm]"
 
 #. Fl_Group* o
-#: ../ttt_gui.cpp:874 ../ttt_quick_check_config.cpp:218
+#: ../ttt_gui.cpp:874 ../ttt_quick_check_config.cpp:251
 msgid "Prüfung"
 msgstr "Prova"
 
-#: ../ttt_gui.cpp:879 ../ttt_param_check.cpp:1710
+#: ../ttt_gui.cpp:879 ../ttt_param_check.cpp:1707
 msgid "Start"
 msgstr "Start"
 
@@ -551,17 +551,17 @@ msgstr "Stop"
 
 #. Fl_Button* btn_stop
 #. Fl_Button* o
-#: ../ttt_gui.cpp:888 ../ttt_quick_check_config.cpp:283
+#: ../ttt_gui.cpp:888 ../ttt_quick_check_config.cpp:316
 msgid "@+82redo"
 msgstr "@+82redo"
 
-#: ../ttt_gui.cpp:889 ../ttt_gui.cpp:894 ../ttt_quick_check_config.cpp:284
-#: ../ttt_quick_check_config.cpp:289
+#: ../ttt_gui.cpp:889 ../ttt_gui.cpp:894 ../ttt_quick_check_config.cpp:317
+#: ../ttt_quick_check_config.cpp:322
 msgid "Drehrichtung"
 msgstr "Direzione di rotazione"
 
 #. Fl_Button* btn_direction_cw
-#: ../ttt_gui.cpp:893 ../ttt_quick_check_config.cpp:288
+#: ../ttt_gui.cpp:893 ../ttt_quick_check_config.cpp:321
 msgid "@+88undo"
 msgstr "@+88undo"
 
@@ -577,7 +577,7 @@ msgstr "Passo attuale"
 
 #. Fl_Dial* dial_torque
 #. Fl_Button* btn_stop
-#: ../ttt_gui.cpp:918 ../ttt_param_check.cpp:1720
+#: ../ttt_gui.cpp:918 ../ttt_param_check.cpp:1717
 msgid "Messwert [Nm]"
 msgstr "Valore di misura [Nm]"
 
@@ -689,67 +689,79 @@ msgstr "Avvitatrice regolabile senza scala"
 msgid "Schlüssel mit Biegestabhebel, verstellbar, mit Skale"
 msgstr "Chiave con leva di flessione, regolabile, con scala"
 
-#: ../ttt_quick_check_config.cpp:141
+#: ../ttt_quick_check_config.cpp:146
 msgid "Keine Werte im Gerätespeicher"
 msgstr "Nessuni valori memorizzati"
 
-#: ../ttt_quick_check_config.cpp:216
-msgid "TTT_Quick-Check V1.02.007"
+#: ../ttt_quick_check_config.cpp:249
+msgid "TTT_Quick-Check V1.04.001"
 msgstr ""
 
 #. Fl_Value_Input* vi_nominal
-#: ../ttt_quick_check_config.cpp:231
+#: ../ttt_quick_check_config.cpp:264
 msgid "Höchstzulässige Abweichung [%]"
 msgstr "Massima deviazione ammessa [%]"
 
-#: ../ttt_quick_check_config.cpp:254
+#: ../ttt_quick_check_config.cpp:287
 #, fuzzy, c-format
 msgid "Peakdetektion < 50% ist nicht empfehlenswert"
 msgstr "Una soglia di rilevamento < 50% non è consigliabile"
 
 #. Fl_Value_Input* vi_peak_level
-#: ../ttt_quick_check_config.cpp:262
+#: ../ttt_quick_check_config.cpp:295
 msgid "Auto-Stopp [s]"
 msgstr ""
 
 #. Fl_Value_Input* vi_autostop
-#: ../ttt_quick_check_config.cpp:270
+#: ../ttt_quick_check_config.cpp:303
 msgid "Konfiguration ins Messgerät schreiben"
 msgstr "Scrivere la configurazione nell'apparecchio di misura"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:275
+#: ../ttt_quick_check_config.cpp:308
 msgid "3%"
 msgstr "3%"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:279
+#: ../ttt_quick_check_config.cpp:312
 msgid "6%"
 msgstr "6%"
 
 #. Fl_Group* o
-#: ../ttt_quick_check_config.cpp:296
+#: ../ttt_quick_check_config.cpp:329
 msgid "Messwerte"
 msgstr "Valori di misura"
 
-#: ../ttt_quick_check_config.cpp:301
+#: ../ttt_quick_check_config.cpp:334
 msgid "Speicher auslesen"
 msgstr "Leggere la memoria dell'apparecchio"
 
 #. Fl_Button* o
-#: ../ttt_quick_check_config.cpp:306
+#: ../ttt_quick_check_config.cpp:339
 msgid "Speicher löschen"
 msgstr "Cancellare la memoria dell'apparecchio"
 
 #. quick_check_table* quick_tbl
-#: ../ttt_quick_check_config.cpp:323
+#: ../ttt_quick_check_config.cpp:356
 msgid "Mittelwert [Nm]"
 msgstr "Valore medio [Nm]"
 
 #. Fl_Value_Output* vo_mean
-#: ../ttt_quick_check_config.cpp:328
+#: ../ttt_quick_check_config.cpp:361
 msgid "Standardabweichung [Nm]"
 msgstr "Deviazione standard [Nm]"
+
+#. Fl_Value_Output* vo_std
+#: ../ttt_quick_check_config.cpp:366
+msgid "automatisch als CSV speichern"
+msgstr "salva automaticamente come CSV"
+
+#: ../ttt_quick_check_config.cpp:449
+#, c-format
+msgid ""
+"CSV Export nach '%s' fehlgeschlagen.\n"
+"%s"
+msgstr ""
 
 #: ../test_object_table.h:50
 msgid "Prüfmittelnr."
@@ -779,46 +791,46 @@ msgstr ""
 "il TTT sia attivato. Se il collegamento USB è stato inserito solo dopo\n"
 "l'inizializzazione, premere il tasto Start/Stop nel TTT."
 
-#: ../ttt_param_check.cpp:81
+#: ../ttt_param_check.cpp:89
 msgid "trennen"
 msgstr "Disconnettere"
 
 #. Fl_Check_Button* meas_led
-#: ../ttt_param_check.cpp:101 ../ttt_param_check.cpp:1788
+#: ../ttt_param_check.cpp:109 ../ttt_param_check.cpp:1788
 msgid "verbinden"
 msgstr "Collegare"
 
-#: ../ttt_param_check.cpp:1691
+#: ../ttt_param_check.cpp:1688
 msgid ""
-"TTT_Parameter-Check V1.02.007 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
+"TTT_Parameter-Check V1.04.001 Alluris GmbH & Co. KG, Basler Str. 65 , 79100 "
 "Freiburg, software@alluris.de"
 msgstr ""
 
 #. cairo_plot* cplot
-#: ../ttt_param_check.cpp:1705
+#: ../ttt_param_check.cpp:1702
 msgid "Messung"
 msgstr "Misurazione"
 
 #. Fl_Button* btn_start
-#: ../ttt_param_check.cpp:1715
+#: ../ttt_param_check.cpp:1712
 msgid "Stop"
 msgstr "Stop"
 
-#: ../ttt_param_check.cpp:1726
+#: ../ttt_param_check.cpp:1724
 msgid "typisch 80% .. 90%"
 msgstr "tipicamente entro 80% .. 90%"
 
 #. Fl_Group* o
-#: ../ttt_param_check.cpp:1750
+#: ../ttt_param_check.cpp:1748
 msgid "Ergebnis"
 msgstr "Risultato"
 
-#: ../ttt_param_check.cpp:1755
+#: ../ttt_param_check.cpp:1753
 msgid "Peak 1 [Nm]"
 msgstr "Peak 1 [Nm]"
 
 #. Fl_Value_Output* vo_peak1
-#: ../ttt_param_check.cpp:1759
+#: ../ttt_param_check.cpp:1758
 msgid "Minimum nach Peak 1 [Nm]"
 msgstr "Minimum dopo Peak 1 [Nm]"
 
@@ -861,7 +873,7 @@ msgstr "a destra"
 msgid "links"
 msgstr "a sinistra"
 
-#: ../ttt_param_check.cpp:2000
+#: ../ttt_param_check.cpp:2005
 #, c-format
 msgid "Die Datei '%s' konnte nicht gefunden werden"
 msgstr "Non è stato trovato il file '%s'"
