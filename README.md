@@ -43,7 +43,7 @@ $ cat /etc/udev/rules.d/90-alluris-usb.rules
 ACTION=="add", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f25e", MODE="0660", OWNER="root", GROUP="plugdev"
 ```
 
-## Windows 7 and newer
+## Windows 10 and newer
 
 ### Caveat
 
@@ -51,37 +51,31 @@ IMPORTANT: NEC/Renesas uPD720200/uPD720200A USB 3.0 users, please upgrade your d
 
 See https://github.com/libusb/libusb/wiki/Windows#How_to_use_libusb_on_Windows
 
-### Build using MSYS2 (recommendation)
-Download and install MSYS2 from https://msys2.github.io/ (tested with https://github.com/msys2/msys2-installer/releases/download/2021-07-25/msys2-x86_64-20210725.exe
-)
+### Build using MSYS2/UCRT (recommendation)
 
-In a mingw32 shell (`C:\msys64\mingw32.exe`):
+Download and install MSYS2 from https://msys2.github.io/
+
+Open MSYS2 UCRT:
 
 ```
-pacman -Su
-pacman -S mingw32/mingw-w64-i686-cairo mingw32/mingw-w64-i686-gcc git tar make man pkg-config mingw32/mingw-w64-i686-libusb mingw32/mingw-w64-i686-sqlite3 mingw32/mingw-w64-i686-confuse
+pacman -S ucrt64/mingw-w64-ucrt-x86_64-gcc ucrt64/mingw-w64-ucrt-x86_64-cairo ucrt64/mingw-w64-ucrt-x86_64-libusb ucrt64/mingw-w64-ucrt-x86_64-sqlite3 ucrt64/mingw-w64-ucrt-x86_64-confuse
+pacman -S git tar make man pkg-config autoconf
 ```
 
 ### FLTK
-#### Download
+#### Clone from github, configure, build
+
 ```
-wget https://www.fltk.org/pub/fltk/1.3.7/fltk-1.3.7-source.tar.gz
-```
-#### Verify tarball
-```
-md5sum.exe fltk-1.3.7-source.tar.gz
-8483e58b2312a348c0f66101eead1409  fltk-1.3.7-source.tar.gz
-```
-#### Build
-```
-tar xzf fltk-1.3.7-source.tar.gz
-cd fltk-1.3.7/
+git clone https://github.com/fltk/fltk.git
+cd fltk
+git checkout branch-1.3
+./autogen.sh
 ./configure --enable-cairo
-make -j6
+make -j4
 make install
 ```
 
-### TTT_certify
+### Clone and build TTT_certify
 ```
 git clone https://github.com/Alluris/TTT_certify.git
 cd TTT_certify/src
