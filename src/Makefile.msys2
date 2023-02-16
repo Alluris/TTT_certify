@@ -1,7 +1,7 @@
 .PHONY:clean
 .PHONY:TTT_certify_mingw64_i686_build
 
-TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cpp ttt_quick_check_config.h ttt_quick_check_config ttt_param_check TTT_certify_mingw64_i686_build ttt_certify.res
+TARGETS = ttt_gui.cpp ttt_gui.h ttt_gui ttt_certify.db ttt_quick_check_config.cpp ttt_quick_check_config.h ttt_quick_check_config ttt_param_check TTT_certify_mingw-w64-ucrt-x86_64_build ttt_certify.res
 CPPFLAGS = -Wall -Wextra -ggdb `fltk-config --use-cairo --cxxflags` -D FLTK_HAVE_CAIRO
 LDFLAGS = `fltk-config --use-cairo --ldflags` -lusb-1.0 -lsqlite3 -lcairo -lconfuse -lintl
 
@@ -41,7 +41,7 @@ ttt_param_check: ttt_param_check.o cairo_plot.o cairo_box.o ttt_peak_detector.o 
 ttt_certify.res: ttt_certify.rc
 	windres $^ -O coff -o $@
 
-TTT_certify_mingw64_i686_build:
+TTT_certify_mingw-w64-ucrt-x86_64_build:
 	mkdir -p $@
 	$(MAKE) -C po
 	cp ttt_certify.db ttt_gui.exe ttt_quick_check_config.exe ttt_param_check.exe $@
@@ -67,7 +67,6 @@ TTT_certify_mingw64_i686_build:
 	cp /mingw32/bin/libwinpthread-1.dll $@
 	cp /mingw32/bin/zlib1.dll $@
 	cp /mingw32/bin/libgraphite2.dll $@
-	cp /mingw32/bin/libpcre-1.dll $@
 	cp ../LICENSE.txt $@
 	cp ../THIRD_PARTY_LICENSES.txt $@
 	cp -r examples $@

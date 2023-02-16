@@ -25,9 +25,6 @@ build FLTK from source if your distro doesn't ship FLTK with support for cairo.
 ./configure --enable-cairo --enable-shared
 ```
 
-fltk1.3.3 has a bug: http://www.fltk.org/str.php?L3156
-You might try the snapshot where it's fixed if you ran into this problem or patch it yourself.
-
 ### TTT_certify
 
 This project doesn't use autotools yet. Just "cd src && make".
@@ -47,7 +44,7 @@ ACTION=="add", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f25e", MODE="0660", O
 
 ### Caveat
 
-IMPORTANT: NEC/Renesas uPD720200/uPD720200A USB 3.0 users, please upgrade your drivers to version 2.1.16.0 or later. uPD720201/uPD720202 users should use version 3.x (3.0.23 or later preferred). Older versions of the driver have a bug that prevents libusb from accessing devices. 
+IMPORTANT: NEC/Renesas uPD720200/uPD720200A USB 3.0 users, please upgrade your drivers to version 2.1.16.0 or later. uPD720201/uPD720202 users should use version 3.x (3.0.23 or later preferred). Older versions of the driver have a bug that prevents libusb from accessing devices.
 
 See https://github.com/libusb/libusb/wiki/Windows#How_to_use_libusb_on_Windows
 
@@ -66,11 +63,10 @@ pacman -S git tar make man pkg-config autoconf
 #### Clone from github, configure, build
 
 ```
-git clone https://github.com/fltk/fltk.git
-cd fltk
-git checkout branch-1.3
-./autogen.sh
-./configure --enable-cairo
+wget https://www.fltk.org/pub/fltk/1.3.8/fltk-1.3.8-source.tar.gz
+tar xzf fltk-1.3.8-source.tar.gz
+cd fltk-1.3.8
+CXXFLAGS=-Wno-narrowing ./configure --enable-cairo
 make -j4
 make install
 ```
@@ -95,9 +91,9 @@ brew install cairo-quartz
 ### FLTK
 
 ```
-wget http://fltk.org/pub/fltk/1.3.7/fltk-1.3.7-source.tar.gz
-tar xzf fltk-1.3.7-source.tar.gz
-cd fltk-1.3.7-source
+wget http://fltk.org/pub/fltk/1.3.8/fltk-1.3.8-source.tar.gz
+tar xzf fltk-1.3.8-source.tar.gz
+cd fltk-1.3.8-source
 
 export PKG_CONFIG_PATH=/usr/local/Cellar/cairo-quartz/1.10.2/lib/pkgconfig
 export LDFLAGS=-L/usr/local/opt/cairo-quartz/lib
