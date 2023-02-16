@@ -27,6 +27,9 @@ function data = create_sim_input (tt, to, bad_deviation, bad_rise_time)
   FS = 900;
   data = zeros ([], 2);
 
+  ## 5s Pause "Drehmoment-Schraubwerkzeug entfernen und Messgerät für Tara nicht bewegen"
+  data = [data; delay(5.5,FS)];
+
   ## 3 Vorbelastungen mit dem Höchstwert des Messgeräts
   if (to.min_torque < 0 && tt.max_torque > 0)
     tt.max_torque *= -1;
